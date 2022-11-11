@@ -32,6 +32,6 @@ jobs:
           # This will be used for authentication. You can find it in your heroku homepage account settings
           heroku_api_key: ${{ secrets.HEROKU_DEPLOY_KEY }}
           # Email that you use with heroku
-          heroku_email: mintaek22225@gmail.com
+          heroku_email: mintaek2222@gmail.com
           # The appname to use for deploying/updating
           heroku_app_name: main-project01
