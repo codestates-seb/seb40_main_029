@@ -23,7 +23,7 @@ public class MailController {
     private final MailMapper mapper;
 
 
-    //TODO : 편지 전송
+    //TODO : 편지 전송..
     @PostMapping
     public ResponseEntity<MailResponseDto> sendMail(@RequestBody MailPostDto postDto){
         MailResponseDto response = mapper.mailToMailResponseDto(mailService.write(postDto));
