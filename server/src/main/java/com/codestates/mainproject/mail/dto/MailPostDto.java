@@ -9,7 +9,6 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class MailPostDto {
     private String body;
     private String senderName;

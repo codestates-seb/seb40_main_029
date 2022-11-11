@@ -18,10 +18,13 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long memberId;
 
+    @Column(nullable = false, length = 50)
     private String displayName;
 
+    @Column(nullable = false)
     private long point;
 
+    @Column(nullable = false)
     private Role role;
 
     public Member(String displayName) {
