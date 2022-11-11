@@ -22,6 +22,8 @@ public class MailController {
     private final MemberRepository memberRepository;
     private final MailMapper mapper;
 
+
+    //TODO : 편지 보내기
     @PostMapping
     public ResponseEntity<MailResponseDto> sendMail(@RequestBody MailPostDto postDto){
         MailResponseDto response = mapper.mailToMailResponseDto(mailService.write(postDto));
