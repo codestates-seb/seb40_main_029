@@ -17,7 +17,7 @@ public class MailService {
     private final MailRepository mailRepository;
     private final MemberRepository memberRepository;
 
-    //메일 전송 기.
+    //메일 전송 기능.
     public Mail write(MailPostDto postDto){
         long mailPoint = 50;
         Member receiver = verifyMember(postDto.getRaceiverName());
