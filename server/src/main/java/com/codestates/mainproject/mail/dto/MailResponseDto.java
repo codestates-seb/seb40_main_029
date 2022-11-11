@@ -1,5 +1,6 @@
 package com.codestates.mainproject.mail.dto;
 
+import com.codestates.mainproject.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,15 +11,12 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class MailResponseDto {
     private Long mailId;
-    private Long senderId;
-    private Long RaceiverId;
 
     private String body;
-    private String senderName;
-    private String raceiverName;
+    private Member sender;
+    private Member receiver;
 
     private LocalDateTime createdAt;
 }

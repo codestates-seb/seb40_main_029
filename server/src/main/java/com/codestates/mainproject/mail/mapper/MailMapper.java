@@ -13,9 +13,9 @@ import java.util.List;
 
 public interface MailMapper {
 
-    Mail MailPostDtoToMail(MailPostDto MailPostDto);
+    Mail mailPostDtoToMail(MailPostDto mailPostDto);
 
-    MailResponseDto memberToMemberResponseDto(Member member);
+    MailResponseDto mailToMailResponseDto(Mail mail);
 
-    List<MemberResponseDto> membersToMemberResponseDtos(List<Member> members);
+    List<MailResponseDto> mailsToMailResponseDtos(List<Mail> mails);
 }

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface mailRepository extends JpaRepository <Mail,Long> {
+public interface MailRepository extends JpaRepository <Mail,Long> {
 
-    List<Mail> findAllByReaciver(Member member);
+    List<Mail> findAllByReceiver(Member member);
 }

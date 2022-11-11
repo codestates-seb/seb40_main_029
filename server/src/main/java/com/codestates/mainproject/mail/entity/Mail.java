@@ -1,5 +1,6 @@
 package com.codestates.mainproject.mail.entity;
 
+import com.codestates.mainproject.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,10 +20,19 @@ public class Mail {
     private Long mailId;
 
     @Column(nullable = false, length = 600)
-    private String content;
+    private String body;
 
 //    private long mailCost; <필요 없음>
 
     private boolean verify;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender_id")
+    private Member sender;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "receiver_id")
+    private Member receiver;
 
 }
