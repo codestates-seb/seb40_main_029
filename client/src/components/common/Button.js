@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 const SIZES = {
   circle: css`
-    --button-padding: 8px 12px;
+    --button-padding: 8px 10px;
     --button-radius: 50%;
   `,
   long: css`
