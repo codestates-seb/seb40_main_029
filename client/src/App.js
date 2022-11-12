@@ -1,5 +1,4 @@
 import logo from './logo.svg';
-// import './App.css';
 
 const App = () => {
   return (
@@ -15,7 +14,7 @@ const App = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Learn React 폰트테스트
         </a>
       </header>
     </div>
