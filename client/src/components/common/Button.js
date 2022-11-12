@@ -6,7 +6,7 @@ const SIZES = {
     --button-radius: 50%;
   `,
   long: css`
-    --button-padding: 12px 16px;
+    --button-padding: 8px 16px;
     --button-radius: 30px;
   `
 };
