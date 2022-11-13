@@ -36,7 +36,8 @@ public class MemberService {
     }
 
     public Member updateMember(Member member){
-        Member updateMember = verifyMember(member.getMemberId());
+        Member updateMember = verifyMember(member.getMemberId())
+                .orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
         updateMember.setDisplayName(member.getDisplayName());
         return updateMember;
     }
@@ -59,9 +60,8 @@ public class MemberService {
         memberRepository.deleteAll();
     }
 
-    public Member verifyMember(Long memberId){
-       return memberRepository.findById(memberId)
-               .orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
+    public Optional<Member> verifyMember(Long memberId){
+       return memberRepository.findById(memberId);
     }
 
     private Optional<Member> verifyDisplayName(String displayName){
