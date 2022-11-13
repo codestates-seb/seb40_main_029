@@ -22,7 +22,7 @@ const HeaderTitle = styled.h1`
   margin-left: 16px;
 `;
 const User = styled.span`
-margin: 0 16px;
+margin: 0 30px; /* nav가 오픈되었을때 여부와 상관없이 위치고정 */
   svg {
     margin-right: 8px;
   }
@@ -39,6 +39,7 @@ function Header() {
         <HeaderTitle>오늘은
           <br/>어떤가요?
         </HeaderTitle>
+        <div>
           <Button size="long">
             북마크
           </Button>
@@ -48,6 +49,7 @@ function Header() {
           <Button size="circle">
             <FontAwesomeIcon icon={faMinus} size="lg" />
           </Button>
+        </div>
       </div>
       <div>
         <User onClick={onClick}>
