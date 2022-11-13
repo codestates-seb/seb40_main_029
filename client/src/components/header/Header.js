@@ -7,6 +7,8 @@ import {
   faMinus,
   faCertificate
 } from '@fortawesome/free-solid-svg-icons';
+import Nav from "../nav/nav";
+import { useState } from "react";
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -27,13 +29,17 @@ margin: 0 16px;
 `;
 
 function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const onClick = () => {
+    setIsOpen(!isOpen);
+  }
   return (
     <HeaderWrapper>
       <div>
         <HeaderTitle>오늘은
           <br/>어떤가요?
         </HeaderTitle>
-          <Button size="long" disabled>
+          <Button size="long">
             북마크
           </Button>
           <Button size="circle">
@@ -44,10 +50,13 @@ function Header() {
           </Button>
       </div>
       <div>
-        <User>
+        <User onClick={onClick}>
           <FontAwesomeIcon icon={faCertificate} />
           USERNAME
         </User>
+        {
+          isOpen ? <Nav /> : null
+        }
       </div>
     </HeaderWrapper>
   );
