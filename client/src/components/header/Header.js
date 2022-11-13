@@ -7,18 +7,26 @@ import {
   faMinus
 } from '@fortawesome/free-solid-svg-icons';
 
+const HeaderTitle = styled.h1`
+  line-height: 1.2;
+  font-size: 48px;
+  margin-bottom: 8px;
+  margin-left: 16px;
+`;
+
 function Header() {
   return (
     <>
-      <h1>오늘은
-        <br/>어떤가요?</h1>
+      <HeaderTitle>오늘은
+        <br/>어떤가요?
+      </HeaderTitle>
         <Button size="long" disabled>
           북마크
         </Button>
-        <Button className="iconBtn" size="circle">
+        <Button size="circle">
           <FontAwesomeIcon icon={faStar} />
         </Button>
-        <Button className="iconBtn" size="circle">
+        <Button size="circle">
           <FontAwesomeIcon icon={faMinus} size="lg" />
         </Button>
     </>
