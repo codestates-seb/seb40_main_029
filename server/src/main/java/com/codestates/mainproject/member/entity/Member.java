@@ -3,6 +3,7 @@ package com.codestates.mainproject.member.entity;
 import com.codestates.mainproject.member.role.Role;
 import com.codestates.mainproject.palette.entity.MemberPalette;
 import com.codestates.mainproject.palette.entity.MoodPalette;
+import com.codestates.mainproject.todo.entity.Todo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ import java.util.Set;
 public class Member {
 
     @Id
+    @Column(name = "memberId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long memberId;
 
@@ -37,6 +39,9 @@ public class Member {
 
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<MemberPalette> palettes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+    private List<Todo> todoList = new ArrayList<>();
 
 
     public Member(String displayName) {
