@@ -27,7 +27,9 @@ public class MemberController {
     public ResponseEntity<MemberResponseDto> postMember(@RequestBody MemberPostDto postDto){
         Member member = mapper.memberPostDtoToMember(postDto);
         Member saveMember = memberService.createMember(member);
+        log.info(saveMember.getPalette());
         MemberResponseDto respponse = mapper.memberToMemberResponseDto(saveMember);
+        log.info(respponse.getPalette());
 
         return new ResponseEntity<>(respponse, HttpStatus.OK);
     }
@@ -49,6 +51,8 @@ public class MemberController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+//    @GetMapping("/")
 
     @GetMapping
     public ResponseEntity<List<MemberResponseDto>> getMembers(){
