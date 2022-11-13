@@ -4,6 +4,8 @@ const SIZES = {
   circle: css`
     --button-padding: 10px;
     --button-radius: 50%;
+    --button-width: 38px;
+    --button-height: 38.39px;
   `,
   long: css`
     --button-padding: 10px 16px;
@@ -30,6 +32,8 @@ const Btn = styled.button`
   border-radius: var(--button-radius, 8px);
   background-color: #F6F6F6;
   box-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25), -2px -2px 5px #FAF8FF;
+  width: var(--button-width);
+  /* height: var(--button-height); */
   border: none;
   margin-right: 10px;
   font-weight: 700;
