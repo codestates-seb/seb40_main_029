@@ -4,11 +4,38 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faEnvelope
 } from '@fortawesome/free-regular-svg-icons';
+import {
+  faStore, faHighlighter, faUserGroup, faCalendarDays, faRightFromBracket
+} from '@fortawesome/free-solid-svg-icons';
 import './nav.css';
+
+const Bubble = styled.nav`
+  background-color: #F6F6F6;
+  padding: 16px 8px;
+  margin: 8px;
+  margin-top: 24px;
+  border-radius: 20px;
+  position: relative;
+  filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.25));
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    translate: calc(50%);
+    width: 2px;
+    background-color: transparent;
+    border-bottom: 30px solid #F6F6F6;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 10px solid transparent;
+    border-radius: 5px;
+  }
+`;
 
 const Nav = () => {
   return (
-    <nav>
+    <Bubble>
       <ul>
         <li>
           <Button size="circle">
@@ -16,13 +43,33 @@ const Nav = () => {
           </Button>
           편지함
         </li>
-        <li>오늘할일</li>
-        <li>색상테마</li>
-        <li>친구</li>
-        <li>기록</li>
-        <li>로그아웃</li>
+        <li>
+          <Button size="circle">
+            <FontAwesomeIcon icon={faHighlighter} />
+          </Button>
+          오늘할일</li>
+        <li>
+          <Button size="circle">
+            <FontAwesomeIcon icon={faStore} />
+          </Button>
+          색상테마</li>
+        <li>
+          <Button size="circle">
+            <FontAwesomeIcon icon={faUserGroup} />
+          </Button>
+          친구</li>
+        <li>
+          <Button size="circle">
+            <FontAwesomeIcon icon={faCalendarDays} />
+          </Button>
+          기록</li>
+        <li>
+          <Button size="circle">
+            <FontAwesomeIcon icon={faRightFromBracket} />
+          </Button>
+          로그아웃</li>
       </ul>
-    </nav>
+    </Bubble>
   )
 }
 
