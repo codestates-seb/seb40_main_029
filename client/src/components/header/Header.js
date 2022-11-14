@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCertificate } from '@fortawesome/free-solid-svg-icons';
 import Nav from '../nav/nav';
 import { useState } from 'react';
-import BookMark from './Bookmark';
+import Bookmark from './Bookmark';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -44,7 +44,7 @@ function Header() {
           어떤가요?
         </HeaderTitle>
         <BookmarkWrapper>
-          <BookMark />
+          <Bookmark />
         </BookmarkWrapper>
       </div>
       <div>
