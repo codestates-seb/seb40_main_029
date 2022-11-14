@@ -13,10 +13,14 @@ const SIZES = {
   `,
 };
 
-function Button({ size, children }) {
+function Button({ size, children, onClick }) {
   const sizeStyle = SIZES[size];
 
-  return <Btn sizeStyle={sizeStyle}>{children}</Btn>;
+  return (
+    <Btn sizeStyle={sizeStyle} onClick={onClick}>
+      {children}
+    </Btn>
+  );
 }
 
 const Btn = styled.button`
