@@ -28,6 +28,10 @@ margin: 0 30px; /* nav가 오픈되었을때 여부와 상관없이 위치고정
     margin-right: 8px;
   }
 `;
+const BookmarkWrapper = styled.div`
+  margin-top: 8px;
+  margin-left: 8px;
+`;
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +44,7 @@ function Header() {
         <HeaderTitle>오늘은
           <br/>어떤가요?
         </HeaderTitle>
-        <div>
+        <BookmarkWrapper>
           <Button size="long">
             북마크
           </Button>
@@ -50,7 +54,7 @@ function Header() {
           <Button size="circle">
             <FontAwesomeIcon icon={faMinus} size="lg" />
           </Button>
-        </div>
+        </BookmarkWrapper>
       </div>
       <div>
         <User onClick={onClick}>
