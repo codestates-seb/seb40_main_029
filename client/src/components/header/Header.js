@@ -17,6 +17,7 @@ const HeaderWrapper = styled.div`
 `;
 const HeaderTitle = styled.h1`
   line-height: 1.2;
+  letter-spacing: 2px;
   font-size: 48px;
   margin: 0;
   margin-left: 16px;
