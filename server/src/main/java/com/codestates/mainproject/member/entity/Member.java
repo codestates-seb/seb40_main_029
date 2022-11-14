@@ -35,6 +35,7 @@ public class Member {
     @Column(nullable = false)
     private long point;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
@@ -50,11 +51,7 @@ public class Member {
         this.displayName = displayName;
     }
 
-    public static Member of(String displayName, long point){
-        Member dtoMember = new Member();
-        dtoMember.setDisplayName(displayName);
-        dtoMember.setPoint(point);
-
-        return dtoMember;
+    public String getRoleKey() {
+        return this.role.getKey();
     }
 }
