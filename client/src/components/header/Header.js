@@ -24,6 +24,7 @@ const HeaderTitle = styled.h1`
 `;
 const User = styled.span`
 margin: 0 30px; /* nav가 오픈되었을때 여부와 상관없이 위치고정 */
+font-size: 14px;
   svg {
     margin-right: 8px;
   }
