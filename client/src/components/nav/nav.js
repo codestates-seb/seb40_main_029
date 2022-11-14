@@ -17,7 +17,6 @@ const Bubble = styled.nav`
   border-radius: 20px;
   position: relative;
   filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.25));
-
   &:before {
     content: '';
     position: absolute;
@@ -30,25 +29,25 @@ const Bubble = styled.nav`
     border-right: 15px solid transparent;
     border-top: 10px solid transparent;
   }
-
+`;
+const NavItem = styled.li`
+  list-style: none;
+  padding: 4px 8px;
+  padding-left: 16px;
+  margin: 2px 0;
+  &:hover {
+    background-color: #fff;
+  }
+`;
+const FontSize14 = styled.span`
+  font-size: 14px;
+`;
+const DarkIcon = styled.span`
   svg {
     width: 30px;
     padding-right: 10px;
     path {
       color: #656565;
-    }
-  }
-
-  li {
-    list-style: none;
-    padding: 4px 8px;
-    padding-left: 16px;
-    margin: 2px 0;
-    span {
-      font-size: 14px;
-    }
-    &:hover {
-      background-color: #fff;
     }
   }
 `;
@@ -58,30 +57,42 @@ const Nav = () => {
     <>
       <Bubble>
         <ul>
-          <li>
-            <FontAwesomeIcon icon={faEnvelope} size="lg" />
-            <span>편지함</span>
-          </li>
-          <li>
-            <FontAwesomeIcon icon={faHighlighter} size="lg" />
-            <span>오늘할일</span>
-          </li>
-          <li>
-            <FontAwesomeIcon icon={faStore} size="lg" />
-            <span>색상테마</span>
-          </li>
-          <li>
-            <FontAwesomeIcon icon={faUserGroup} size="lg" />
-            <span>친구</span>
-          </li>
-          <li>
-            <FontAwesomeIcon icon={faCalendarDays} size="lg" />
-            <span>기록</span>
-          </li>
-          <li>
-            <FontAwesomeIcon icon={faRightFromBracket} size="lg" />
-            <span>로그아웃</span>
-          </li>
+          <NavItem>
+            <DarkIcon>
+              <FontAwesomeIcon icon={faEnvelope} size="lg" />
+            </DarkIcon>
+            <FontSize14>편지함</FontSize14>
+          </NavItem>
+          <NavItem>
+            <DarkIcon>
+              <FontAwesomeIcon icon={faHighlighter} size="lg" />
+            </DarkIcon>
+            <FontSize14>오늘할일</FontSize14>
+          </NavItem>
+          <NavItem>
+            <DarkIcon>
+              <FontAwesomeIcon icon={faStore} size="lg" />
+            </DarkIcon>
+            <FontSize14>색상테마</FontSize14>
+          </NavItem>
+          <NavItem>
+            <DarkIcon>
+              <FontAwesomeIcon icon={faUserGroup} size="lg" />
+            </DarkIcon>
+            <FontSize14>친구</FontSize14>
+          </NavItem>
+          <NavItem>
+            <DarkIcon>
+              <FontAwesomeIcon icon={faCalendarDays} size="lg" />
+            </DarkIcon>
+            <FontSize14>기록</FontSize14>
+          </NavItem>
+          <NavItem>
+            <DarkIcon>
+              <FontAwesomeIcon icon={faRightFromBracket} size="lg" />
+            </DarkIcon>
+            <FontSize14>로그아웃</FontSize14>
+          </NavItem>
         </ul>
       </Bubble>
     </>
