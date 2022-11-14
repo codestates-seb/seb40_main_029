@@ -1,15 +1,17 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import {
-  faEnvelope
-} from '@fortawesome/free-regular-svg-icons';
-import {
-  faStore, faHighlighter, faUserGroup, faCalendarDays, faRightFromBracket
+  faStore,
+  faHighlighter,
+  faUserGroup,
+  faCalendarDays,
+  faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 
 const Bubble = styled.nav`
   list-style: none;
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
   padding: 16px 8px;
   margin: 8px;
   margin-top: 24px;
@@ -24,7 +26,7 @@ const Bubble = styled.nav`
     left: 10%;
     width: 2px;
     background-color: transparent;
-    border-bottom: 30px solid #F6F6F6;
+    border-bottom: 30px solid #f6f6f6;
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
     border-top: 10px solid transparent;
@@ -54,7 +56,7 @@ const Bubble = styled.nav`
 `;
 
 const Bubble2 = styled.nav`
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
   padding: 16px 0;
   margin: 8px;
   margin-top: 24px;
@@ -69,7 +71,7 @@ const Bubble2 = styled.nav`
     left: 10%;
     width: 2px;
     background-color: transparent;
-    border-bottom: 30px solid #F6F6F6;
+    border-bottom: 30px solid #f6f6f6;
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
     border-top: 10px solid transparent;
@@ -103,27 +105,27 @@ const Nav = () => {
       <Bubble>
         <ul>
           <li>
-            <FontAwesomeIcon icon={faEnvelope} size='lg' />
+            <FontAwesomeIcon icon={faEnvelope} size="lg" />
             <span>편지함</span>
           </li>
           <li>
-            <FontAwesomeIcon icon={faHighlighter} size='lg' />
+            <FontAwesomeIcon icon={faHighlighter} size="lg" />
             <span>오늘할일</span>
           </li>
           <li>
-            <FontAwesomeIcon icon={faStore} size='lg' />
+            <FontAwesomeIcon icon={faStore} size="lg" />
             <span>색상테마</span>
           </li>
           <li>
-              <FontAwesomeIcon icon={faUserGroup} size='lg' />
-              <span>친구</span>
+            <FontAwesomeIcon icon={faUserGroup} size="lg" />
+            <span>친구</span>
           </li>
           <li>
-            <FontAwesomeIcon icon={faCalendarDays} size='lg' />
+            <FontAwesomeIcon icon={faCalendarDays} size="lg" />
             <span>기록</span>
           </li>
           <li>
-            <FontAwesomeIcon icon={faRightFromBracket} size='lg' />
+            <FontAwesomeIcon icon={faRightFromBracket} size="lg" />
             <span>로그아웃</span>
           </li>
         </ul>
@@ -158,7 +160,7 @@ const Nav = () => {
         </ul>
       </Bubble2> */}
     </>
-  )
-}
+  );
+};
 
 export default Nav;
