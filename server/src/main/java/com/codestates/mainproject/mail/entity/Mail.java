@@ -1,5 +1,6 @@
 package com.codestates.mainproject.mail.entity;
 
+import com.codestates.mainproject.audit.Auditable;
 import com.codestates.mainproject.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import javax.print.attribute.standard.DateTimeAtCreation;
 @Table
 @NoArgsConstructor
 
-public class Mail {
+public class Mail extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mailId;

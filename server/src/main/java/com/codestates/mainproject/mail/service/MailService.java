@@ -20,7 +20,7 @@ public class MailService {
     //메일 전송 기능.
     public Mail write(MailPostDto postDto){
         long mailPoint = 50;
-        Member receiver = verifyMember(postDto.getRaceiverName());
+        Member receiver = verifyMember(postDto.getReceiverName());
 
         Member sender = verifyMember(postDto.getSenderName());
 
