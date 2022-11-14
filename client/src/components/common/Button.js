@@ -27,7 +27,7 @@ const Btn = styled.button`
   background-color: #f6f6f6;
   box-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25), -2px -2px 5px #faf8ff;
   width: var(--button-width);
-  /* height: var(--button-height); */
+  height: var(--button-height);
   border: none;
   margin-right: 10px;
   font-weight: 700;
