@@ -1,3 +1,4 @@
+import { Routes, Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
@@ -58,42 +59,57 @@ const Nav = () => {
       <Bubble>
         <ul>
           <NavItem>
-            <DarkIcon>
-              <FontAwesomeIcon icon={faEnvelope} size="lg" />
-            </DarkIcon>
-            <FontSize14>편지함</FontSize14>
+            <Link to="#">
+              <DarkIcon>
+                <FontAwesomeIcon icon={faEnvelope} size="lg" />
+              </DarkIcon>
+              <FontSize14>편지함</FontSize14>
+            </Link>
           </NavItem>
           <NavItem>
-            <DarkIcon>
-              <FontAwesomeIcon icon={faHighlighter} size="lg" />
-            </DarkIcon>
-            <FontSize14>오늘할일</FontSize14>
+            <Link to="#">
+              <DarkIcon>
+                <FontAwesomeIcon icon={faHighlighter} size="lg" />
+              </DarkIcon>
+              <FontSize14>오늘할일</FontSize14>
+            </Link>
           </NavItem>
           <NavItem>
-            <DarkIcon>
-              <FontAwesomeIcon icon={faStore} size="lg" />
-            </DarkIcon>
-            <FontSize14>색상테마</FontSize14>
+            <Link>
+              <DarkIcon>
+                <FontAwesomeIcon icon={faStore} size="lg" />
+              </DarkIcon>
+              <FontSize14>색상테마</FontSize14>
+            </Link>
           </NavItem>
           <NavItem>
-            <DarkIcon>
-              <FontAwesomeIcon icon={faUserGroup} size="lg" />
-            </DarkIcon>
-            <FontSize14>친구</FontSize14>
+            <Link>
+              <DarkIcon>
+                <FontAwesomeIcon icon={faUserGroup} size="lg" />
+              </DarkIcon>
+              <FontSize14>친구</FontSize14>
+            </Link>
           </NavItem>
           <NavItem>
-            <DarkIcon>
-              <FontAwesomeIcon icon={faCalendarDays} size="lg" />
-            </DarkIcon>
-            <FontSize14>기록</FontSize14>
+            <Link>
+              <DarkIcon>
+                <FontAwesomeIcon icon={faCalendarDays} size="lg" />
+              </DarkIcon>
+              <FontSize14>기록</FontSize14>
+            </Link>
           </NavItem>
           <NavItem>
-            <DarkIcon>
-              <FontAwesomeIcon icon={faRightFromBracket} size="lg" />
-            </DarkIcon>
-            <FontSize14>로그아웃</FontSize14>
+            <Link>
+              <DarkIcon>
+                <FontAwesomeIcon icon={faRightFromBracket} size="lg" />
+              </DarkIcon>
+              <FontSize14>로그아웃</FontSize14>
+            </Link>
           </NavItem>
         </ul>
+        <Routes>
+          <Route path="#" />
+        </Routes>
       </Bubble>
     </>
   );
