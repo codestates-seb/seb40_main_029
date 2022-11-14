@@ -13,10 +13,11 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     /* border-radius: ; */
     line-height: 1.5;
+    color: #333435;
 
   }
   body {
-    background-color: #F1F2F3;
+    background-color: #F6F6F6;
   }
   a, button {
     cursor: pointer;
