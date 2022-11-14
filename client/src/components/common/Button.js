@@ -31,6 +31,7 @@ const Btn = styled.button`
   border: none;
   margin-right: 10px;
   font-weight: 700;
+  line-height: 1;
 
   &:active,
   &:hover,
