@@ -11,17 +11,38 @@ const LightIcon = styled.span`
     color: #cbcccd;
   }
 `;
+const Anchor = styled.a`
+  line-height: 1;
+`;
 
-const BookMark = () => {
+const Bookmark = () => {
+  const dummyBookmark = [
+    { name: 'naver', url: 'https://www.naver.com' },
+    { name: 'google', url: 'https://www.google.com' },
+  ];
+  const handleBookmarkAdd = e => {
+    console.log(e.target.value);
+  };
+  const handleBookmarkDelete = e => {
+    console.log(e.target.value);
+  };
   return (
     <>
-      <Button size="long">북마크</Button>
-      <Button size="circle">
+      {dummyBookmark.length !== 0
+        ? dummyBookmark.map((book, i) => {
+            return (
+              <Button key={i} size="long">
+                <Anchor href={book.url}>{book.name}</Anchor>
+              </Button>
+            );
+          })
+        : null}
+      <Button size="circle" onClick={handleBookmarkAdd}>
         <LightIcon>
           <FontAwesomeIcon icon={faStar} />
         </LightIcon>
       </Button>
-      <Button size="circle">
+      <Button size="circle" onClick={handleBookmarkDelete}>
         <LightIcon>
           <FontAwesomeIcon icon={faMinus} size="lg" />
         </LightIcon>
@@ -30,4 +51,4 @@ const BookMark = () => {
   );
 };
 
-export default BookMark;
+export default Bookmark;
