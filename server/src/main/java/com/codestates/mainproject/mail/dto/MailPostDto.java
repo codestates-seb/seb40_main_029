@@ -12,6 +12,6 @@ import lombok.Setter;
 public class MailPostDto {
     private String body;
     private String senderName;
-    private String raceiverName;
+    private String receiverName;
 
 }

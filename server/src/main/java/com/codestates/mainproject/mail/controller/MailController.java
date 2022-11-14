@@ -6,6 +6,7 @@ import com.codestates.mainproject.mail.dto.MailResponseDto;
 import com.codestates.mainproject.mail.entity.Mail;
 import com.codestates.mainproject.mail.mapper.MailMapper;
 import com.codestates.mainproject.mail.service.MailService;
+import com.codestates.mainproject.member.entity.Member;
 import com.codestates.mainproject.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,8 @@ public class MailController {
     //TODO : 편지 전송
     @PostMapping
     public ResponseEntity<MailResponseDto> sendMail(@RequestBody MailPostDto postDto){
-        MailResponseDto response = mapper.mailToMailResponseDto(mailService.write(postDto));
+        Mail write = mailService.write(postDto);
+        MailResponseDto response = mapper.mailToMailResponseDto(write);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
