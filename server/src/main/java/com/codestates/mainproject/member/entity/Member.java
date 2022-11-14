@@ -4,6 +4,7 @@ import com.codestates.mainproject.member.role.Role;
 import com.codestates.mainproject.palette.entity.MemberPalette;
 import com.codestates.mainproject.palette.entity.MoodPalette;
 import com.codestates.mainproject.todo.entity.Todo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,6 +41,7 @@ public class Member {
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<MemberPalette> palettes = new ArrayList<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private List<Todo> todoList = new ArrayList<>();
 
@@ -48,4 +50,11 @@ public class Member {
         this.displayName = displayName;
     }
 
+    public static Member of(String displayName, long point){
+        Member dtoMember = new Member();
+        dtoMember.setDisplayName(displayName);
+        dtoMember.setPoint(point);
+
+        return dtoMember;
+    }
 }

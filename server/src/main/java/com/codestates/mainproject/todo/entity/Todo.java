@@ -2,6 +2,8 @@ package com.codestates.mainproject.todo.entity;
 
 import com.codestates.mainproject.audit.Auditable;
 import com.codestates.mainproject.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +26,7 @@ public class Todo extends Auditable {
     @Column(nullable = false)
     private boolean selected;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;

@@ -1,5 +1,6 @@
 package com.codestates.mainproject.mail.dto;
 
+import com.codestates.mainproject.member.dto.MemberResponseDto;
 import com.codestates.mainproject.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
