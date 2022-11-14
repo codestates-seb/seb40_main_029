@@ -1,14 +1,9 @@
 import styled from 'styled-components';
-import './header.css';
-import Button from '../common/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faStar,
-  faMinus,
-  faCertificate,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCertificate } from '@fortawesome/free-solid-svg-icons';
 import Nav from '../nav/nav';
 import { useState } from 'react';
+import BookMark from './Bookmark';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -32,6 +27,7 @@ const User = styled.span`
 const BookmarkWrapper = styled.div`
   margin-top: 8px;
   margin-left: 8px;
+  display: flex;
 `;
 
 function Header() {
@@ -48,13 +44,7 @@ function Header() {
           어떤가요?
         </HeaderTitle>
         <BookmarkWrapper>
-          <Button size="long">북마크</Button>
-          <Button size="circle">
-            <FontAwesomeIcon icon={faStar} />
-          </Button>
-          <Button size="circle">
-            <FontAwesomeIcon icon={faMinus} size="lg" />
-          </Button>
+          <BookMark />
         </BookmarkWrapper>
       </div>
       <div>
