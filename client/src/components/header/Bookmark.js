@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Button from '../common/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
 const LightIcon = styled.span`
   svg {
@@ -16,15 +17,16 @@ const Anchor = styled.a`
 `;
 
 const Bookmark = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const dummyBookmark = [
     { name: 'naver', url: 'https://www.naver.com' },
     { name: 'google', url: 'https://www.google.com' },
   ];
-  const handleBookmarkAdd = e => {
-    console.log(e.target.value);
+  const onClick = () => {
+    setIsOpen(!isOpen);
   };
-  const handleBookmarkDelete = e => {
-    console.log(e.target.value);
+  const handleBookmarkDelete = () => {
+    console.log('delete');
   };
   return (
     <>
@@ -37,7 +39,7 @@ const Bookmark = () => {
             );
           })
         : null}
-      <Button size="circle" onClick={handleBookmarkAdd}>
+      <Button size="circle" onClick={onClick}>
         <LightIcon>
           <FontAwesomeIcon icon={faStar} />
         </LightIcon>
@@ -47,6 +49,7 @@ const Bookmark = () => {
           <FontAwesomeIcon icon={faMinus} size="lg" />
         </LightIcon>
       </Button>
+      {isOpen ? <div>open modal</div> : null}
     </>
   );
 };
