@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Letters from '../module/Letters';
 import MoodCard from '../module/MoodCard';
+import { useState } from 'react';
+import LetterCreate from '../module/LetterCreate';
 
 const ContentLayout = styled.div`
   display: flex;
@@ -10,10 +12,16 @@ const ContentLayout = styled.div`
 `;
 
 const Letter = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <ContentLayout>
       <MoodCard />
-      <Letters />
+      {isOpen ? (
+        <LetterCreate />
+      ) : (
+        <Letters setIsOpen={setIsOpen} isOpen={isOpen} />
+      )}
     </ContentLayout>
   );
 };
