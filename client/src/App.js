@@ -6,8 +6,6 @@ import MoodCard from './components/cards/MoodCard';
 
 const App = () => {
   return (
-    <div className="App">
-      (
     <>
       <TodoModal />
       <>--------</>
@@ -16,10 +14,9 @@ const App = () => {
       <StoreModal />
       <>--------</>
       <MoodCard />
+      --------
       <Header />
-    --------</>
-    </div>
-  )
+    </>
   );
 };
 
