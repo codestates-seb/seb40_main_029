@@ -14,6 +14,12 @@ const InputLayout = styled.form`
   padding: 16px 0;
 `;
 
+const Textarea = styled.textarea`
+  border: none;
+  height: 200px;
+  padding: 8px 0;
+`;
+
 const LetterCreate = () => {
   const [setFriend, bindFriend] = useInput();
   const [setLetterBody, bindLetterBody] = useInput();
@@ -30,8 +36,8 @@ const LetterCreate = () => {
               <label htmlFor="friend">To. </label>
               <Input name="friend" border="transparent" />
             </div>
-            <label htmlFor="body">내용</label>
-            <Input border="transparent" size="long" name="body" />
+            <label htmlFor="body">내용 : </label>
+            <Textarea border="transparent" size="long" name="body" />
           </InputLayout>
         </ShadowBox>
         <ButtonLayout>
