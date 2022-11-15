@@ -55,9 +55,9 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .csrf().disable()
                 .authorizeRequests()
-//                .antMatchers("/members", "/members/login", "/docs/*").permitAll()
-//                .antMatchers(HttpMethod.GET, "/questions/**", "/questions", "/answers/**", "/comments/**").permitAll()
-//                .anyRequest().authenticated()
+                .antMatchers("/members", "/members/login", "/docs/*", "/", "/todo/**", "/mails/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/questions/**", "/questions", "/answers/**", "/comments/**", "/").permitAll()
+                .anyRequest().authenticated()
                 .and()
 
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider, memberDetailsService), UsernamePasswordAuthenticationFilter.class);
