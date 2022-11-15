@@ -27,7 +27,7 @@ public class GoogleOauth {
     }
 
     public ResponseEntity<String> requestUserInfo(GoogleOAuthToken oAuthToken) {
-        String GOOGLE_USERINFO_REQUEST_URL="https://www.googleapis.com/oauth2/userinfo";
+        String GOOGLE_USERINFO_REQUEST_URL="https://accounts.google.com/gsi/client";
 
         //header에 accessToken을 담는다.
         HttpHeaders headers = new HttpHeaders();
