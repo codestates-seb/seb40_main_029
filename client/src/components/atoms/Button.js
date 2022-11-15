@@ -28,7 +28,7 @@ const Btn = styled.button`
 
   padding: var(--button-padding);
   border-radius: var(--button-radius, 8px);
-  background-color: #f6f6f6;
+  background-color: inherit;
   box-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25), -2px -2px 5px #faf8ff;
   width: var(--button-width);
   height: var(--button-height);
