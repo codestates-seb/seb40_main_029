@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import Button from '../common/Button';
+import Button from '../atoms/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import Input from '../atoms/Input';
 
 const LightIcon = styled.span`
   svg {
@@ -49,7 +50,11 @@ const Bookmark = () => {
           <FontAwesomeIcon icon={faMinus} size="lg" />
         </LightIcon>
       </Button>
-      {isOpen ? <div>open modal</div> : null}
+      {isOpen ? (
+        <div>
+          <Input />
+        </div>
+      ) : null}
     </>
   );
 };
