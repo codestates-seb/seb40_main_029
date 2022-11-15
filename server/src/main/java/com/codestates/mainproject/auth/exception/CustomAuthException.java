@@ -1,5 +1,6 @@
 package com.codestates.mainproject.auth.exception;
 
+import com.codestates.mainproject.auth.common.CommonCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -9,6 +10,6 @@ import javax.security.auth.message.AuthException;
 public class CustomAuthException extends AuthException {
 
     @Getter
-    private final ExceptionCode exceptionCode;
+    private final CommonCode commonCode;
 
 }

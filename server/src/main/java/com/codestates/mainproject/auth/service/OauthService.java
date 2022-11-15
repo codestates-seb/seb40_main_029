@@ -1,11 +1,11 @@
 package com.codestates.mainproject.auth.service;
 
 import com.codestates.mainproject.auth.GoogleOauth;
+import com.codestates.mainproject.auth.common.CommonCode;
 import com.codestates.mainproject.auth.dto.GetSocialOAuthRes;
 import com.codestates.mainproject.auth.dto.GoogleOAuthToken;
 import com.codestates.mainproject.auth.dto.GoogleUser;
 import com.codestates.mainproject.auth.exception.CustomAuthException;
-import com.codestates.mainproject.auth.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -37,11 +37,11 @@ public class OauthService {
                     break;
                 } catch (Exception e) {
                     log.error(">>>" + e.getMessage());
-                    throw new CustomAuthException(ExceptionCode.OAUTH_LOGIN_FAILED);
+                    throw new CustomAuthException(CommonCode.OAUTH_LOGIN_FAILED);
                 }
             }
             default: {
-                throw new CustomAuthException(ExceptionCode.INVALID_SOCIAL_LOGIN_TYPE);
+                throw new CustomAuthException(CommonCode.INVALID_SOCIAL_LOGIN_TYPE);
             }
         }
         return result;
