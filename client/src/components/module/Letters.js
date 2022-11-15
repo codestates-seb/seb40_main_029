@@ -4,14 +4,18 @@ import ShadowBox from '../atoms/ShadowBox';
 import LetterItem from './LetterItem';
 import { MailModal } from './modal/Modal';
 
-const ButtonLayout = styled.div`
+// layout요소 atom으로 뺄지 고민해볼것
+export const ButtonLayout = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
   margin: 8px;
 `;
 
-const Letters = () => {
+const Letters = ({ setIsOpen, isOpen }) => {
+  const handleLetterCreate = () => {
+    setIsOpen(!isOpen);
+  };
   const dummyLetter = [
     {
       username: '은서',
@@ -35,7 +39,9 @@ const Letters = () => {
           <ShadowBox>받은 편지가 없습니다.</ShadowBox>
         )}
         <ButtonLayout>
-          <Button size="circle">+</Button>
+          <Button size="circle" onClick={handleLetterCreate}>
+            +
+          </Button>
         </ButtonLayout>
       </MailModal>
     </>
