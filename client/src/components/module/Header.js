@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCertificate } from '@fortawesome/free-solid-svg-icons';
 import Nav from './Nav';
 import { useState } from 'react';
 import Bookmark from './Bookmark';
+import User from '../atoms/User';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -17,17 +16,14 @@ const HeaderTitle = styled.h1`
   margin: 0;
   margin-left: 16px;
 `;
-const User = styled.span`
-  margin: 0 30px; /* nav가 오픈되었을때 여부와 상관없이 위치고정 */
-  font-size: 14px;
-  svg {
-    margin-right: 8px;
-  }
-`;
 const BookmarkWrapper = styled.div`
   margin-top: 8px;
   margin-left: 8px;
   display: flex;
+`;
+const GnbLayout = styled.div`
+  position: absolute;
+  right: 0;
 `;
 
 function Header() {
@@ -47,13 +43,10 @@ function Header() {
           <Bookmark />
         </BookmarkWrapper>
       </div>
-      <div>
-        <User onClick={onClick}>
-          <FontAwesomeIcon icon={faCertificate} />
-          USERNAME
-        </User>
+      <GnbLayout>
+        <User onClick={onClick} />
         {isOpen ? <Nav /> : null}
-      </div>
+      </GnbLayout>
     </HeaderWrapper>
   );
 }
