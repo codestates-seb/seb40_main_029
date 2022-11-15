@@ -34,7 +34,6 @@ const Bubble = styled.nav`
 const NavItem = styled.li`
   list-style: none;
   padding: 4px 8px;
-  padding-left: 16px;
   margin: 2px 0;
   &:hover {
     background-color: #fff;
