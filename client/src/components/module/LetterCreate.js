@@ -11,10 +11,7 @@ import ShadowBox from '../atoms/ShadowBox';
 const InputLayout = styled.form`
   display: flex;
   flex-direction: column;
-  padding: 16px;
-`;
-const Label = styled.label`
-  margin: 8px;
+  padding: 16px 0;
 `;
 
 const LetterCreate = () => {
@@ -30,18 +27,18 @@ const LetterCreate = () => {
           <InputLayout onSubmit={handleSendLetter}>
             {/* 추후에 친구리스트에따라 input -> selector로 바꿔주어야 할 듯? */}
             <div>
-              <Label htmlFor="friend">To.</Label>
+              <label htmlFor="friend">To. </label>
               <Input name="friend" border="transparent" />
             </div>
             <label htmlFor="body">내용</label>
             <Input border="transparent" size="long" name="body" />
           </InputLayout>
-          <ButtonLayout>
-            <Button size="circle">
-              <FontAwesomeIcon icon={faPaperPlane} />
-            </Button>
-          </ButtonLayout>
         </ShadowBox>
+        <ButtonLayout>
+          <Button size="circle">
+            <FontAwesomeIcon icon={faPaperPlane} />
+          </Button>
+        </ButtonLayout>
       </MailModal>
     </>
   );
