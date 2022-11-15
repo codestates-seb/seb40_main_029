@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const Container = styled.div`
+const CardContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -51,7 +51,17 @@ const Contents = styled.div`
 
 const MoodCard = () => {
   const hexcode = '#6868AC';
-  const contents = '머리가 아프다 ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ';
+  const contents = `단지 피곤한 건지
+  고민거리라도 있는지
+  일이 힘들었는지
+  그런 거라면 예쁘게
+  기다릴 수 있는데
+  깊은 맘 꺼내어 얘기하고 싶지만
+  
+  아닐 거야 내가 아는 너라면
+  절대 이런 식은 아냐
+  착각일 거야 오늘을 보내고
+  기다리면 언제나처럼 넌`;
 
   const [viewDetails, setViewDetails] = useState(false);
   const handleViewDetails = () => {
@@ -62,7 +72,7 @@ const MoodCard = () => {
   };
 
   return (
-    <Container>
+    <CardContainer>
       <Mood />
       <Info>
         <Type>예민</Type>
@@ -71,7 +81,7 @@ const MoodCard = () => {
           {contents}
         </Contents>
       </Info>
-    </Container>
+    </CardContainer>
   );
 };
 

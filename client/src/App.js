@@ -1,5 +1,5 @@
-import { TodoModal, MailModal, StoreModal } from './components/modal/Modal';
-import MoodCard from './components/card/MoodCard';
+import { TodoModal, MailModal, StoreModal } from './components/modals/Modal';
+import MoodCard from './components/cards/MoodCard';
 
 const App = () => {
   return (
