@@ -44,7 +44,7 @@ function Header() {
         </BookmarkWrapper>
       </div>
       <GnbLayout>
-        <User onClick={onClick} />
+        <User onClick={onClick}>USERNAME</User>
         {isOpen ? <Nav /> : null}
       </GnbLayout>
     </HeaderWrapper>
