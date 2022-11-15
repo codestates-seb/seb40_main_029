@@ -13,7 +13,7 @@ import {
 const Bubble = styled.nav`
   background-color: #f6f6f6;
   padding: 16px 0;
-  margin: 8px;
+  margin-right: 8px;
   margin-top: 24px;
   border-radius: 20px;
   position: relative;
