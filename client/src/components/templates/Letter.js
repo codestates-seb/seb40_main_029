@@ -1,10 +1,21 @@
-import { MailModal } from '../module/modal/Modal';
+import styled from 'styled-components';
+import Letters from '../module/Letters';
+// import { MailModal } from '../module/modal/Modal';
+import MoodCard from '../module/MoodCard';
+
+const ContentLayout = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Letter = () => {
   return (
-    <>
-      <MailModal />
-    </>
+    <ContentLayout>
+      <MoodCard />
+      <Letters />
+    </ContentLayout>
   );
 };
 
