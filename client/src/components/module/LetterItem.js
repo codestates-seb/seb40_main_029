@@ -3,13 +3,12 @@ import styled from 'styled-components';
 import ShadowBox from '../atoms/ShadowBox';
 import User from '../atoms/User';
 
-const LetterBody = styled.div`
-  min-height: 100px;
-  margin: 8px 16px;
-`;
 const LetterHeader = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+const LetterBody = styled.div`
+  margin: 16px 0;
 `;
 
 const LetterItem = ({ data }) => {
