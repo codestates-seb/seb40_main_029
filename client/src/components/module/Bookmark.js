@@ -34,7 +34,7 @@ const Bookmark = () => {
       {dummyBookmark.length !== 0
         ? dummyBookmark.map((book, i) => {
             return (
-              <Button key={i} size="long">
+              <Button key={i} size="long" fontsize="middle">
                 <Anchor href={book.url}>{book.name}</Anchor>
               </Button>
             );
