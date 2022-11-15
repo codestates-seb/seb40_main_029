@@ -54,6 +54,7 @@ const Button = styled.div`
 
 const Utility = styled.div`
   height: 100%;
+  width: 100%;
 `;
 
 const TodoModal = ({ children }) => {
