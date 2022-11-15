@@ -16,8 +16,9 @@ const Todo = styled(Blueprint)`
 `;
 
 const Mail = styled(Blueprint)`
-  width: 720px;
+  width: 650px;
   height: 500px;
+  margin-left: 20px;
 `;
 
 const Store = styled(Blueprint)`
