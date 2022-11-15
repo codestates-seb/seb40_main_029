@@ -1,5 +1,5 @@
 import Header from './components/module/Header';
-import MoodCard from './components/card/MoodCard';
+import MoodCard from './components/module/MoodCard';
 
 const App = () => {
   return (
