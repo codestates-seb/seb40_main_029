@@ -12,14 +12,15 @@ const HeaderWrapper = styled.div`
 const HeaderTitle = styled.h1`
   line-height: 1.2;
   letter-spacing: 2px;
-  font-size: 48px;
+  font-size: 40px;
   margin: 0;
   margin-left: 16px;
 `;
 const BookmarkWrapper = styled.div`
-  margin-top: 8px;
-  margin-left: 8px;
+  margin-top: 4px;
+  margin-left: 16px;
   display: flex;
+  /* display: none; */
 `;
 const GnbLayout = styled.div`
   position: absolute;
