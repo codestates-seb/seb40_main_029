@@ -31,27 +31,25 @@ const Bookmark = () => {
   };
   return (
     <>
-      <div>
-        {dummyBookmark.length !== 0
-          ? dummyBookmark.map((book, i) => {
-              return (
-                <Button key={i} size="long">
-                  <Anchor href={book.url}>{book.name}</Anchor>
-                </Button>
-              );
-            })
-          : null}
-        <Button size="circle" onClick={onClick}>
-          <LightIcon>
-            <FontAwesomeIcon icon={faStar} />
-          </LightIcon>
-        </Button>
-        <Button size="circle" onClick={handleBookmarkDelete}>
-          <LightIcon>
-            <FontAwesomeIcon icon={faMinus} size="lg" />
-          </LightIcon>
-        </Button>
-      </div>
+      {dummyBookmark.length !== 0
+        ? dummyBookmark.map((book, i) => {
+            return (
+              <Button key={i} size="long">
+                <Anchor href={book.url}>{book.name}</Anchor>
+              </Button>
+            );
+          })
+        : null}
+      <Button size="circle" onClick={onClick}>
+        <LightIcon>
+          <FontAwesomeIcon icon={faStar} />
+        </LightIcon>
+      </Button>
+      <Button size="circle" onClick={handleBookmarkDelete}>
+        <LightIcon>
+          <FontAwesomeIcon icon={faMinus} size="lg" />
+        </LightIcon>
+      </Button>
       {isOpen ? (
         <div>
           <BookmarkInput setIsOpen={setIsOpen} dummyBookmark={dummyBookmark} />
