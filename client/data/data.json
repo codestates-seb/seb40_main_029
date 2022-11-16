@@ -1,0 +1,18 @@
+{
+  "mails": [
+    {
+      "mailId": 2,
+      "memberId": 2,
+      "friend": "은서", 
+      "createdAt": "2022-11-16T20:12:47.809521", 
+      "body": "뭐하세요?"
+    },
+    {
+      "mailId": 1,
+      "memberId": 1,
+      "friend": "예륜", 
+      "createdAt": "2022-11-10T15:23:23.614035", 
+      "body": "안녕하세요?"
+    }
+  ]
+}
