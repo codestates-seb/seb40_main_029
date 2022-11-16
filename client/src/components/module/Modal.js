@@ -6,7 +6,6 @@ import {
   faStore,
 } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
-import { CloseIcon, TodoIcon, MailIcon, StoreIcon } from './Icon';
 
 const Blueprint = styled.div`
   display: flex;

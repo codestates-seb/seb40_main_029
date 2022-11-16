@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Button from '../atoms/Button';
 import ShadowBox from '../atoms/ShadowBox';
 import LetterItem from './LetterItem';
-import { MailModal } from './modal/Modal';
+import { MailModal } from './Modal';
 import { useEffect, useState } from 'react';
 import { getAllMails } from '../../api/MailDataApi';
 

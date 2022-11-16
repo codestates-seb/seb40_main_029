@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Input from '../atoms/Input';
-import { MailModal } from './modal/Modal';
+import { MailModal } from './Modal';
 import useInput from '../../utils/useInput';
 import Button from '../atoms/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
