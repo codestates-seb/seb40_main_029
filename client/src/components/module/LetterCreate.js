@@ -21,11 +21,14 @@ const Textarea = styled.textarea`
 `;
 
 const LetterCreate = () => {
-  const [setFriend, bindFriend] = useInput();
-  const [setLetterBody, bindLetterBody] = useInput();
-  const [letter, setLetter] = useInput();
+  const [friend, setFriend, bindFriend] = useInput('');
+  const [letterBody, setLetterBody, bindLetterBody] = useInput('');
+  const [letter, setLetter] = useInput({});
 
-  const handleSendLetter = () => {};
+  const handleSendLetter = e => {
+    e.preventDefault();
+    setLetter({ userName: `${friend}`, body: `${letterBody}` });
+  };
   return (
     <>
       <MailModal>
@@ -39,12 +42,12 @@ const LetterCreate = () => {
             <label htmlFor="body">내용 : </label>
             <Textarea border="transparent" size="long" name="body" />
           </InputLayout>
+          <RightBottomLayout>
+            <Button size="circle">
+              <FontAwesomeIcon icon={faPaperPlane} />
+            </Button>
+          </RightBottomLayout>
         </ShadowBox>
-        <RightBottomLayout>
-          <Button size="circle">
-            <FontAwesomeIcon icon={faPaperPlane} />
-          </Button>
-        </RightBottomLayout>
       </MailModal>
     </>
   );
