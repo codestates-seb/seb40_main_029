@@ -1,17 +1,15 @@
 import axios from 'axios';
 
 export const postLoginToken = async idToken => {
-  const API_URL = process.env.REACT_APP_SERVER_API_URL;
-  const path = '/oauth/google';
+  // const API_URL = process.env.REACT_APP_SERVER_API_URL;
+  const path = '/auth/oauth/google';
 
   try {
-    return await axios.post(`${API_URL}${path}`, {
-      credentials: 'include', // include, *same-origin, omit
+    return await axios.post(`/api${path}`, {
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify(idToken), // body의 데이터 유형은 반드시 "Content-Type" 헤더와 일치
+      body: { code: idToken }, // body의 데이터 유형은 반드시 "Content-Type" 헤더와 일치
     });
     // if (!response.ok) throw new Error('bad server condition');
   } catch (e) {
@@ -19,3 +17,7 @@ export const postLoginToken = async idToken => {
     return false;
   }
 };
+
+// withCredentials: true, // include, *same-origin, omit
+// Accept: 'application/json',
+// 'Content-Type': 'application/json',

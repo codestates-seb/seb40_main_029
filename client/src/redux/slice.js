@@ -4,7 +4,8 @@ const initialState = {
   isLoggedIn: false,
   email: '',
   displayName: '',
-  today: { color: '', reason: '' },
+  moodId: '',
+  today: { mood: '', reason: '' },
 };
 
 const slice = createSlice({
@@ -20,7 +21,10 @@ const slice = createSlice({
     setDisplayName: (state, action) => {
       state.displayName = action.payload;
     },
-    setColor: (state, action) => {
+    setMoodId: (state, action) => {
+      state.moodId = action.payload;
+    },
+    setMood: (state, action) => {
       state.today.color = action.payload.color;
     },
     setReason: (state, action) => {
@@ -29,6 +33,12 @@ const slice = createSlice({
   },
 });
 
-export const { setIsLoggedIn, setEmail, setDisplayName, setColor, setReason } =
-  slice.actions;
+export const {
+  setIsLoggedIn,
+  setEmail,
+  setDisplayName,
+  setMoodId,
+  setMood,
+  setReason,
+} = slice.actions;
 export default slice.reducer;
