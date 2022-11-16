@@ -1,9 +1,11 @@
 package com.codestates.mainproject.member.entity;
 
 import com.codestates.mainproject.member.role.Role;
+import com.codestates.mainproject.mood.entity.Mood;
 import com.codestates.mainproject.palette.entity.MemberPalette;
 import com.codestates.mainproject.palette.entity.MoodPalette;
 import com.codestates.mainproject.todo.entity.Todo;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,6 +49,10 @@ public class Member {
     @JsonManagedReference
     @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private List<Todo> todoList = new ArrayList<>();
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+    private List<Mood> moodList = new ArrayList<>();
 
 
     public Member(String displayName) {

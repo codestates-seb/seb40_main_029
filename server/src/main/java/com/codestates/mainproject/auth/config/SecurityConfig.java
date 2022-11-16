@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/members", "/members/login", "/docs/*", "/", "/todo/**", "/mails/**").permitAll()
+                .antMatchers("/members", "/members/login", "/docs/*", "/", "/todo/**", "/mails/**", "/mood/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/questions/**", "/questions", "/answers/**", "/comments/**", "/").permitAll()
                 .anyRequest().authenticated()
                 .and()

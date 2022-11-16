@@ -29,9 +29,10 @@ public class MemberService {
         String basicCode = "P001";
         MoodPalette basicPalette = moodPaletteRepository.findById("P001").orElseThrow(() -> new RuntimeException("팔레트 정보를 찾을 수 없습니다."));
         member.setPalette(basicPalette.getPaletteName());
+        member.getPalettes();
         member.setRole(Role.USER);
         member.setPoint(0);
-//        member.getPalettes().add(new MemberPalette(basicPalette));
+        member.getPalettes().add(new MemberPalette(basicPalette));
         return memberRepository.save(member);
     }
 
