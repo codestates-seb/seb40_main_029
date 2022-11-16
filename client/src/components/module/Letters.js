@@ -4,7 +4,7 @@ import ShadowBox from '../atoms/ShadowBox';
 import LetterItem from './LetterItem';
 import { MailModal } from './modal/Modal';
 import { useEffect, useState } from 'react';
-import getAllMails from '../../api/MailDataApi';
+import { getAllMails } from '../../api/MailDataApi';
 
 // layout요소 atom으로 뺄지 고민해볼것
 export const ButtonLayout = styled.div`
