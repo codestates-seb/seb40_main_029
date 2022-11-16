@@ -3,8 +3,8 @@ import Button from '../atoms/Button';
 import ShadowBox from '../atoms/ShadowBox';
 import LetterItem from './LetterItem';
 import { MailModal } from './modal/Modal';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import getAllMails from '../../api/MailDataApi';
 
 // layout요소 atom으로 뺄지 고민해볼것
 export const ButtonLayout = styled.div`
@@ -13,12 +13,6 @@ export const ButtonLayout = styled.div`
   align-items: flex-end;
   margin: 8px;
 `;
-// 모든메일 가져오기 api
-const url = 'http://localhost:3001';
-const getAllMails = async () => {
-  const res = await axios.get(url + '/mails');
-  return res.data;
-};
 
 const Letters = ({ setIsOpen, isOpen }) => {
   const [mails, setMails] = useState();
