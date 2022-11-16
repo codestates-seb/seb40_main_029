@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import ShadowBox from '../atoms/ShadowBox';
 import User from '../atoms/User';
+import { deleteMail } from '../../api/MailDataApi';
 
 const LetterHeader = styled.div`
   display: flex;
@@ -15,6 +16,9 @@ const LetterItem = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleOpenLetter = () => {
     setIsOpen(!isOpen);
+  };
+  const handleMailDelete = () => {
+    // deleteMail({ mailId });
   };
   return (
     <>
