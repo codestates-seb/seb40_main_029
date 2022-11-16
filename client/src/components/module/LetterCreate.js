@@ -5,7 +5,7 @@ import useInput from '../../utils/useInput';
 import Button from '../atoms/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import { ButtonLayout } from './Letters';
+import { RightBottomLayout } from './Letters';
 import ShadowBox from '../atoms/ShadowBox';
 
 const InputLayout = styled.form`
@@ -40,11 +40,11 @@ const LetterCreate = () => {
             <Textarea border="transparent" size="long" name="body" />
           </InputLayout>
         </ShadowBox>
-        <ButtonLayout>
+        <RightBottomLayout>
           <Button size="circle">
             <FontAwesomeIcon icon={faPaperPlane} />
           </Button>
-        </ButtonLayout>
+        </RightBottomLayout>
       </MailModal>
     </>
   );
