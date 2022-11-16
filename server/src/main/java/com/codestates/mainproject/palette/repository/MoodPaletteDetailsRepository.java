@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface MoodPaletteDetailsRepository extends JpaRepository<MoodPaletteDetails, String> {
     Optional<MoodPaletteDetails> findByMoodCodeAndPaletteCode(String moodCode, String paletteCode);
+
+    Optional<List<MoodPaletteDetails>> findAllByPaletteCode(String paletteCode);
 }
