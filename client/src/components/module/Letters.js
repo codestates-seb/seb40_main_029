@@ -3,6 +3,8 @@ import Button from '../atoms/Button';
 import ShadowBox from '../atoms/ShadowBox';
 import LetterItem from './LetterItem';
 import { MailModal } from './modal/Modal';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 // layout요소 atom으로 뺄지 고민해볼것
 export const ButtonLayout = styled.div`
@@ -11,29 +13,31 @@ export const ButtonLayout = styled.div`
   align-items: flex-end;
   margin: 8px;
 `;
+// 모든메일 가져오기 api
+const url = 'http://localhost:3001';
+const getAllMails = async () => {
+  const res = await axios.get(url + '/mails');
+  return res.data;
+};
 
 const Letters = ({ setIsOpen, isOpen }) => {
+  const [mails, setMails] = useState();
   const handleLetterCreate = () => {
     setIsOpen(!isOpen);
   };
-  const dummyLetter = [
-    {
-      username: '은서',
-      createdAt: 'Tue Nov 15 2022 17:52:09 GMT+0900',
-      body: '뭐하세요?',
-    },
-    {
-      username: '예륜',
-      createdAt: 'Tue Nov 15 2022 17:52:09 GMT+0900',
-      body: '낙낙INVU우우우우우우우우INVU열이올라낙낙INVU우우우우우우우우INVU열이올라요노동요낙낙INVU우우우우우우우우INVU열이올라요노동요낙낙INVU우우우우우우우우INVU열이올라요노동요낙낙INVU우우우우우우우우INVU열이올라요노동요요노동요낙낙INVU우우우우우우우우INVU열이올라요노동요낙낙INVU우우우우우우우우INVU열이올라요노동요',
-    },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAllMails();
+      setMails(data);
+    };
+    fetchData();
+  }, []);
   return (
     <>
       <MailModal>
-        {dummyLetter ? (
-          dummyLetter.map((letter, i) => {
-            return <LetterItem key={i} data={letter} />;
+        {mails ? (
+          mails.map((mail, i) => {
+            return <LetterItem key={i} data={mail} />;
           })
         ) : (
           <ShadowBox>받은 편지가 없습니다.</ShadowBox>
