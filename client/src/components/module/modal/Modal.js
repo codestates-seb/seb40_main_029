@@ -1,4 +1,11 @@
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faXmark,
+  faHighlighter,
+  faStore,
+} from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { CloseIcon, TodoIcon, MailIcon, StoreIcon } from './Icon';
 
 const Blueprint = styled.div`
@@ -37,19 +44,20 @@ const Header = styled.div`
 const Title = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: rgb(51, 52, 53);
   line-height: 40px;
-  font-size: 40px;
-  font-weight: 800;
+  font-size: 28px;
+  font-weight: 600;
   margin: 5px;
 `;
 
 const Button = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: transparent;
-  border: 1px solid transparent;
-  margin: 5px;
+  padding: 0 8px;
 `;
 
 const Utility = styled.div`
@@ -63,10 +71,10 @@ const TodoModal = ({ children }) => {
       <Header>
         <Title>
           오늘 할 일 &nbsp;
-          <TodoIcon />
+          <FontAwesomeIcon icon={faHighlighter} />
         </Title>
         <Button onClick={() => {}}>
-          <CloseIcon />
+          <FontAwesomeIcon icon={faXmark} size="lg" />
         </Button>
       </Header>
       <Utility>{children}</Utility>
@@ -80,10 +88,10 @@ const MailModal = ({ children }) => {
       <Header>
         <Title>
           편지함 &nbsp;
-          <MailIcon />
+          <FontAwesomeIcon icon={faEnvelope} />
         </Title>
         <Button onClick={() => {}}>
-          <CloseIcon />
+          <FontAwesomeIcon icon={faXmark} size="lg" />
         </Button>
       </Header>
       <Utility>{children}</Utility>
@@ -97,10 +105,10 @@ const StoreModal = ({ children }) => {
       <Header>
         <Title>
           색상 테마 &nbsp;
-          <StoreIcon />
+          <FontAwesomeIcon icon={faStore} />
         </Title>
         <Button onClick={() => {}}>
-          <CloseIcon />
+          <FontAwesomeIcon icon={faXmark} size="lg" />
         </Button>
       </Header>
       <Utility>{children}</Utility>
