@@ -12,6 +12,7 @@ const Box = styled.div`
   box-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25), -2px -2px 5px #faf8ff;
   padding: 16px 30px;
   height: var(--shadowBox-height);
+  background-color: #ffffff;
 `;
 
 const ShadowBox = ({ children, onClick, size }) => {
