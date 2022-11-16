@@ -16,6 +16,11 @@ const LightIcon = styled.span`
 const Anchor = styled.a`
   line-height: 1;
 `;
+const BookCreateLayout = styled.div`
+  position: absolute;
+  left: 25%;
+  top: 60%;
+`;
 
 const Bookmark = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,9 +56,9 @@ const Bookmark = () => {
         </LightIcon>
       </Button>
       {isOpen ? (
-        <div>
+        <BookCreateLayout>
           <BookmarkInput setIsOpen={setIsOpen} dummyBookmark={dummyBookmark} />
-        </div>
+        </BookCreateLayout>
       ) : null}
     </>
   );

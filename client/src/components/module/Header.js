@@ -8,6 +8,7 @@ const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding-top: 16px;
+  position: relative;
 `;
 const HeaderTitle = styled.h1`
   line-height: 1.2;

@@ -3,11 +3,8 @@ import Input from '../atoms/Input';
 import Button from '../atoms/Button';
 import { useState } from 'react';
 import useInput from '../../utils/useInput';
-const BookmarkModal = styled.div`
-  position: absolute;
-  right: 0;
-  padding: 8px;
-`;
+import ShadowBox from '../atoms/ShadowBox';
+
 const InputWraper = styled.form`
   display: flex;
   flex-direction: column;
@@ -30,12 +27,12 @@ const BookmarkInput = ({ setIsOpen, dummyBookmark }) => {
   };
 
   return (
-    <BookmarkModal>
+    <ShadowBox>
       <InputWraper>
         <label htmlFor="name">이름</label>
-        <Input name="name" value={bookNameBind} />
+        <Input name="name" value={bookNameBind} border="shadow" />
         <label htmlFor="url">URL</label>
-        <Input name="url" value={bookUrlBind} />
+        <Input name="url" value={bookUrlBind} border="shadow" />
         <div>
           <Button size="long" onClick={handleBookmarkSubmit}>
             저장
@@ -45,7 +42,7 @@ const BookmarkInput = ({ setIsOpen, dummyBookmark }) => {
           </Button>
         </div>
       </InputWraper>
-    </BookmarkModal>
+    </ShadowBox>
   );
 };
 
