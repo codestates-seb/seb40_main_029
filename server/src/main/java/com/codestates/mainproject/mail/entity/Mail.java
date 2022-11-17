@@ -2,6 +2,8 @@ package com.codestates.mainproject.mail.entity;
 
 import com.codestates.mainproject.audit.Auditable;
 import com.codestates.mainproject.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,17 +25,19 @@ public class Mail extends Auditable {
     @Column(nullable = false, length = 600)
     private String body;
 
-//    private long mailCost; <필요 없음>
+    @Column(nullable = false)
+    private boolean verifyMail;
 
-    private boolean verify;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sender_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "sender")
     private Member sender;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "receiver_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "receiver")
     private Member receiver;
+
+
+
+
 
 }

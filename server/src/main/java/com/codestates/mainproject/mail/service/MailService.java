@@ -6,9 +6,13 @@ import com.codestates.mainproject.mail.repository.MailRepository;
 import com.codestates.mainproject.member.entity.Member;
 import com.codestates.mainproject.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -29,11 +33,37 @@ public class MailService {
         message.setSender(sender);
 
         message.setBody(postDto.getBody());
-        message.setVerify(false);
+        message.setVerifyMail(false);
+        System.out.println(message.isVerifyMail());
 
         sender.setPoint(sender.getPoint() - mailPoint);
 
         return mailRepository.save(message);
+    }
+
+    public Mail findMessage(Long mailId){
+        return mailRepository.findById(mailId)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 메일입니다"));
+    }
+
+    public List<Mail> findMessages(Long memberId){
+        return mailRepository.findAllByReceiverMemberId(memberId);
+    }
+
+    public Mail verifyMessage(Long mailId){
+        Mail mail = mailRepository.findById(mailId)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 메일입니다."));
+
+        mail.setVerifyMail(true);
+        return mailRepository.save(mail);
+    }
+
+    public void deleteMessage(Long mailId){
+        mailRepository.deleteById(mailId);
+    }
+
+    public void deleteMessages(Long memberId){
+        mailRepository.deleteAllByReceiver_MemberId(memberId);
     }
 
 
