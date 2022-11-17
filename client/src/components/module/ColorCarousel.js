@@ -13,26 +13,28 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const TitleContainer = styled.div`
-  margin-top: 20px;
+  margin: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const Point = styled.div`
-  margin: 5px;
+  margin-top: 20px;
   font-size: 17px;
   font-weight: 500;
   color: #fcc403;
 `;
 
 const PaletteName = styled.div`
+  margin: 10px;
   font-weight: 700;
   font-size: 20px;
-  margin: 5px;
+  letter-spacing: 3px;
 `;
 
 const BtnContainer = styled.div`
+  margin: 5px;
   display: flex;
   justify-content: space-between;
 `;
@@ -40,19 +42,26 @@ const BtnContainer = styled.div`
 const ArrowContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  padding-left: 45px;
+  padding-right: 45px;
 `;
 
 const CarouselContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 59%;
   display: block;
   overflow: hidden;
 `;
 
+const CarouselBtnContainer = styled.div`
+  padding-top: 70px;
+  padding-left: 50px;
+`;
+
 const Carousel = styled.div`
   position: absolute;
-  bottom: -50px;
+  bottom: -200px;
   left: 170px;
   width: 364px;
   height: 364px;
@@ -238,16 +247,22 @@ export const ColorCarousel = () => {
         </BtnContainer>
       </TitleContainer>
       <ArrowContainer>
-        <FontAwesomeIcon icon={faChevronLeft} onClick={() => toLeft()} />
-        <FontAwesomeIcon icon={faChevronRight} onClick={() => toRight()} />
+        <FontAwesomeIcon icon={faChevronLeft} size="2x" />
+        <FontAwesomeIcon
+          icon={faChevronRight}
+          size="2x"
+          onClick={() => toRight()}
+        />
       </ArrowContainer>
       <CarouselContainer>
-        <Button size="long" fontsize="little" onClick={next}>
-          Next
-        </Button>
-        <Button size="long" fontsize="little" onClick={prev}>
-          prev
-        </Button>
+        <CarouselBtnContainer>
+          <Button size="long" fontsize="little" onClick={next}>
+            Next
+          </Button>
+          <Button size="long" fontsize="little" onClick={prev}>
+            prev
+          </Button>
+        </CarouselBtnContainer>
         <Carousel style={{ transform: `rotate(${state.carouselDeg}deg)` }}>
           {state.carousel.map((item, index) => (
             <ItemCarousel
