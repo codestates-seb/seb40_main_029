@@ -26,8 +26,7 @@ public class MemberPalette {
     @ManyToOne
     private MoodPalette moodPalette;
 
-    public MemberPalette(Member member, MoodPalette moodPalette) {
+    public MemberPalette(MoodPalette moodPalette) {
         this.moodPalette = moodPalette;
-        this.member = member;
     }
 }

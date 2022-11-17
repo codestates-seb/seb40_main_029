@@ -27,7 +27,13 @@ public class MoodService {
                 .orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
         MoodPaletteDetails moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(mood.getMoodCode(), mood.getPaletteCode())
                 .orElseThrow(() -> new RuntimeException("다시 입력해주세요"));
-        member.setPoint(member.getPoint() + 50);
+
+        if(mood.getBody() != null) {
+            member.setPoint(member.getPoint() + 80);
+        }
+        else {
+            member.setPoint(member.getPoint() + 50);
+        }
         mood.setMember(member);
         mood.setMoodPaletteDetails(moodPaletteDetails);
 

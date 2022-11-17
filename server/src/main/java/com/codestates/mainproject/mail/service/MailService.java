@@ -23,10 +23,13 @@ public class MailService {
 
     //메일 전송 기능.
     public Mail write(MailPostDto postDto){
-        long mailPoint = 50;
         Member receiver = verifyMember(postDto.getReceiverName());
 
         Member sender = verifyMember(postDto.getSenderName());
+
+        if (sender.getPoint() -60 < 0){
+            throw new RuntimeException("포인트가 부족합니다.");
+        }
 
         Mail message = new Mail();
         message.setReceiver(receiver);
@@ -36,7 +39,7 @@ public class MailService {
         message.setVerifyMail(false);
         System.out.println(message.isVerifyMail());
 
-        sender.setPoint(sender.getPoint() - mailPoint);
+        sender.setPoint(sender.getPoint() - 60);
 
         return mailRepository.save(message);
     }

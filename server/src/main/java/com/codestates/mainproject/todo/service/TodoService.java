@@ -38,7 +38,7 @@ public class TodoService {
         return todoRepository.save(findTodo);
     }
 
-    public Todo seletedTodo(Todo todo, Long todoId, Long memberId){
+    public Todo seletedTodo(Long todoId, Long memberId){
 
         Member member = memberService.verifyMember(memberId)
                 .orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));

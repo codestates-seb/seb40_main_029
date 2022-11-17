@@ -33,7 +33,8 @@ public class MemberService {
         member.setPalette(basicPalette.getPaletteName());
         member.setRole(Role.USER);
         member.setPoint(0);
-        member.getPalettes().add(new MemberPalette(member, basicPalette));
+        member.getPalettes().add(new MemberPalette(basicPalette));
+        log.info("{}", basicPalette);
         return memberRepository.save(member);
     }
 
@@ -45,15 +46,44 @@ public class MemberService {
     }
 
     public Member buyMoodPalete(Long memberId, String paletteCode){
+
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
 
         MoodPalette newPalette = moodPaletteRepository.findById(paletteCode).orElseThrow(() -> new RuntimeException("팔레트 정보를 찾을 수 없습니다."));
         log.info(newPalette.getPaletteName());
         log.info(newPalette.getPaletteCode());
-        member.setPoint(member.getPoint() - 200);
-        member.setPalette(newPalette.getPaletteName());
-        member.getPalettes().add(new MemberPalette(member, newPalette));
+        log.info("{}", newPalette);
+
+        switch (paletteCode){
+            case "P002" : if (member.getPoint() - 1000 < 0){
+                throw new RuntimeException("포인트가 부족합니다.");
+            }
+            else member.setPoint(member.getPoint() - 1000);
+            break;
+
+            case "P003" : if (member.getPoint() - 500 < 0){
+                throw new RuntimeException("포인트가 부족합니다.");
+            }
+            else member.setPoint(member.getPoint() - 500);
+            break;
+
+            case "P004" : if (member.getPoint() - 1500 < 0){
+                throw new RuntimeException("포인트가 부족합니다.");
+            }
+            else member.setPoint(member.getPoint() - 1500);
+            break;
+
+            case "P005" : if (member.getPoint() - 500 < 0){
+                throw new RuntimeException("포인트가 부족합니다.");
+            }
+            else member.setPoint(member.getPoint() - 500);
+            break;
+
+            default: throw new RuntimeException("팔레트 정보를 찾을 수 없습니다.");
+        }
+
+        member.getPalettes().add(new MemberPalette(newPalette));
 
         return memberRepository.save(member);
     }
