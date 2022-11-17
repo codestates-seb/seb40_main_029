@@ -15,6 +15,7 @@ import java.util.List;
 @Builder
 public class MemberResponseDto {
     private Long memberId;
+    private String email;
     private String displayName;
     private String palette;
     private Long point;
