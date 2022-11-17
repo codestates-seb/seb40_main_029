@@ -2,13 +2,61 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { StoreModal } from './Modal';
 import Button from '../atoms/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faCaretLeft,
+  faCaretRight,
+  faCircleHalfStroke,
+  faPaperPlane,
+  faChevronRight,
+  faChevronLeft,
+} from '@fortawesome/free-solid-svg-icons';
+
+const TitleContainer = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Point = styled.div`
+  margin: 5px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #fcc403;
+`;
+
+const PaletteName = styled.div`
+  font-weight: 700;
+  font-size: 20px;
+  margin: 5px;
+`;
+
+const BtnContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ArrowContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const CarouselContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+`;
 
 const Carousel = styled.div`
   position: absolute;
-  bottom: 10px;
+  bottom: -50px;
+  left: 170px;
   width: 364px;
   height: 364px;
-  background-color: #edeaea;
+  background-color: black;
   border-radius: 50%;
   transition: 0.5s;
   /* transform: rotate(15deg); */
@@ -54,7 +102,8 @@ const ItemCarousel = styled.div`
   &:nth-child(1) {
     // 기쁨
     right: -9px;
-    top: 131px;
+    top: 157px;
+    left: 310px;
   }
   &:nth-child(2) {
     // 분노
@@ -63,33 +112,35 @@ const ItemCarousel = styled.div`
   }
   &:nth-child(3) {
     // 설렘
-    right: 155px;
-    top: 293px;
+    right: 165px;
+    top: 308px;
   }
   &:nth-child(4) {
     // 걱정
-    right: 265px;
-    top: 215px;
+    right: 285px;
+    top: 245px;
   }
   &:nth-child(5) {
     // 평온
-    right: 45px;
-    top: 9px;
+    right: 15px;
+    top: 13px;
   }
   &:nth-child(6) {
     // 예민
     right: 150px;
-    top: -25px;
+    top: -45px;
+    left: 158px;
   }
   &:nth-child(7) {
     // 슬픔
-    right: 263px;
-    top: 7px;
+    right: 250px;
+    top: 10px;
+    right: 280px;
   }
   &:nth-child(8) {
     // 희망
-    right: 290px;
-    top: 80px;
+    right: 325px;
+    top: 100px;
   }
 `;
 
@@ -174,24 +225,42 @@ export const ColorCarousel = () => {
 
   return (
     <StoreModal>
-      <Button size="long" fontsize="little" onClick={next}>
-        Next
-      </Button>
-      <Button size="long" fontsize="little" onClick={prev}>
-        prev
-      </Button>
-      <Carousel style={{ transform: `rotate(${state.carouselDeg}deg)` }}>
-        {state.carousel.map((item, index) => (
-          <ItemCarousel
-            key={item.id}
-            id={item.id}
-            color={item.color}
-            style={{ transform: `rotate(${state.itemDeg}deg)` }}
-          >
-            {item.name}
-          </ItemCarousel>
-        ))}
-      </Carousel>
+      <TitleContainer>
+        <Point>1000P</Point>
+        <PaletteName>테라코타</PaletteName>
+        <BtnContainer>
+          <Button size="long" fontsize="middle">
+            구매
+          </Button>
+          <Button size="long" fontsize="middle">
+            적용
+          </Button>
+        </BtnContainer>
+      </TitleContainer>
+      <ArrowContainer>
+        <FontAwesomeIcon icon={faChevronLeft} onClick={() => toLeft()} />
+        <FontAwesomeIcon icon={faChevronRight} onClick={() => toRight()} />
+      </ArrowContainer>
+      <CarouselContainer>
+        <Button size="long" fontsize="little" onClick={next}>
+          Next
+        </Button>
+        <Button size="long" fontsize="little" onClick={prev}>
+          prev
+        </Button>
+        <Carousel style={{ transform: `rotate(${state.carouselDeg}deg)` }}>
+          {state.carousel.map((item, index) => (
+            <ItemCarousel
+              key={item.id}
+              id={item.id}
+              color={item.color}
+              style={{ transform: `rotate(${state.itemDeg}deg)` }}
+            >
+              {item.name}
+            </ItemCarousel>
+          ))}
+        </Carousel>
+      </CarouselContainer>
     </StoreModal>
   );
 };

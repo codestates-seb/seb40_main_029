@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { getAllMails } from '../../api/MailDataApi';
 
 // layout요소 atom으로 뺄지 고민해볼것
-export const ButtonLayout = styled.div`
+export const RightBottomLayout = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
@@ -36,11 +36,11 @@ const Letters = ({ setIsOpen, isOpen }) => {
         ) : (
           <ShadowBox>받은 편지가 없습니다.</ShadowBox>
         )}
-        <ButtonLayout>
+        <RightBottomLayout>
           <Button size="circle" onClick={handleLetterCreate}>
             +
           </Button>
-        </ButtonLayout>
+        </RightBottomLayout>
       </MailModal>
     </>
   );

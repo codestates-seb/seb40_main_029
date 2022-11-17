@@ -1,6 +1,7 @@
 package com.codestates.mainproject.palette.entity;
 
 import com.codestates.mainproject.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class MemberPalette {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberPaletteId;
 
+    @JsonBackReference
     @ManyToOne
     private Member member;
 

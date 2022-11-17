@@ -9,6 +9,7 @@ import {
   faCalendarDays,
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
+import Letter from '../templates/Letter';
 
 const Bubble = styled.nav`
   background-color: #f6f6f6;
@@ -58,7 +59,7 @@ const Nav = () => {
       <Bubble>
         <ul>
           <NavItem>
-            <Link to="#">
+            <Link to="/letter">
               <DarkIcon>
                 <FontAwesomeIcon icon={faEnvelope} size="lg" />
               </DarkIcon>
@@ -106,9 +107,6 @@ const Nav = () => {
             </Link>
           </NavItem>
         </ul>
-        <Routes>
-          <Route path="#" />
-        </Routes>
       </Bubble>
     </>
   );

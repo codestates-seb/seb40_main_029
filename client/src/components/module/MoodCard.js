@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const Container = styled.div`
+const CardContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -9,6 +9,8 @@ const Container = styled.div`
   width: 340px;
   height: 460px;
   background-color: white;
+  opacity: ${({ fade }) => (fade ? 1 : 0)};
+  transition: opacity 0.3s;
 `;
 
 const Mood = styled.div`
@@ -38,9 +40,11 @@ const Hexcode = styled.div`
   font-weight: 300;
 `;
 const Contents = styled.div`
-  height: ${props => (props.viewDetails ? '354px' : '32px')}; //460 - 94 - 10
-  font-size: 24px;
+  height: ${({ viewDetails }) =>
+    viewDetails ? '354px' : '44px'}; //460 - 94 - 10
+  font-size: 16px;
   font-weight: 300;
+  white-space: pre-line;
   overflow-y: scroll;
   transition: height 1s;
   animation-timing-function: ease-in-out;
@@ -49,9 +53,10 @@ const Contents = styled.div`
   }
 `;
 
-const MoodCard = () => {
+const MoodCard = ({ fade }) => {
   const hexcode = '#6868AC';
-  const contents = '머리가 아프다 ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ';
+  const contents =
+    'black coffee 뇌가 저릿 위험한 향기 black coffee 한 잔 손에 쥔 도시의 좀비 쓰고 검은 커피는 이리 부드럽게 넘어가는데 쓰고 검은 내 밤은 오늘도 좀처럼 넘어가질 않고 버티네';
 
   const [viewDetails, setViewDetails] = useState(false);
   const handleViewDetails = () => {
@@ -62,7 +67,7 @@ const MoodCard = () => {
   };
 
   return (
-    <Container>
+    <CardContainer fade={fade}>
       <Mood />
       <Info>
         <Type>예민</Type>
@@ -71,7 +76,7 @@ const MoodCard = () => {
           {contents}
         </Contents>
       </Info>
-    </Container>
+    </CardContainer>
   );
 };
 

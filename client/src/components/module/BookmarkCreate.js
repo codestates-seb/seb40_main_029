@@ -1,29 +1,38 @@
 import styled from 'styled-components';
 import Input from '../atoms/Input';
 import Button from '../atoms/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useInput from '../../utils/useInput';
 import ShadowBox from '../atoms/ShadowBox';
 
 const InputWraper = styled.form`
   display: flex;
   flex-direction: column;
-  margin-bottom: 8px;
+  margin: 8px 0;
 `;
 
-const BookmarkInput = ({ setIsOpen, dummyBookmark }) => {
+const ButtonLayout = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+  > button:last-of-type {
+    margin: 0;
+  }
+`;
+
+const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
   const [bookName, bookNameBind] = useInput('');
   const [bookUrl, bookUrlBind] = useInput('');
-  const [booksArr, setBookmarkArr] = useInput(dummyBookmark);
 
   const handleBookmarkClose = () => {
-    setIsOpen(false);
+    setAddBtnIsOpen(false);
   };
+  useEffect(() => {}, []);
   const handleBookmarkSubmit = e => {
     e.preventDefault();
-    localStorage.setItem('bookmark', `name: ${bookName}, url: ${bookUrl}`);
-    let test = JSON.stringify(localStorage.getItem('bookmark'));
-    console.log(test);
+    setBookmarkArr([...booksArr, { name: `${bookName}`, url: `${bookUrl}` }]);
+    localStorage.setItem('bookmark', JSON.stringify(booksArr));
+    console.log(booksArr);
   };
 
   return (
@@ -33,17 +42,17 @@ const BookmarkInput = ({ setIsOpen, dummyBookmark }) => {
         <Input name="name" value={bookNameBind} border="shadow" />
         <label htmlFor="url">URL</label>
         <Input name="url" value={bookUrlBind} border="shadow" />
-        <div>
+        <ButtonLayout>
           <Button size="long" onClick={handleBookmarkSubmit}>
             저장
           </Button>
           <Button size="long" onClick={handleBookmarkClose}>
             취소
           </Button>
-        </div>
+        </ButtonLayout>
       </InputWraper>
     </ShadowBox>
   );
 };
 
-export default BookmarkInput;
+export default BookmarkCreate;

@@ -5,7 +5,7 @@ import useInput from '../../utils/useInput';
 import Button from '../atoms/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import { ButtonLayout } from './Letters';
+import { RightBottomLayout } from './Letters';
 import ShadowBox from '../atoms/ShadowBox';
 
 const InputLayout = styled.form`
@@ -21,11 +21,14 @@ const Textarea = styled.textarea`
 `;
 
 const LetterCreate = () => {
-  const [setFriend, bindFriend] = useInput();
-  const [setLetterBody, bindLetterBody] = useInput();
-  const [letter, setLetter] = useInput();
+  const [friend, setFriend, bindFriend] = useInput('');
+  const [letterBody, setLetterBody, bindLetterBody] = useInput('');
+  const [letter, setLetter] = useInput({});
 
-  const handleSendLetter = () => {};
+  const handleSendLetter = e => {
+    e.preventDefault();
+    setLetter({ userName: `${friend}`, body: `${letterBody}` });
+  };
   return (
     <>
       <MailModal>
@@ -39,12 +42,12 @@ const LetterCreate = () => {
             <label htmlFor="body">내용 : </label>
             <Textarea border="transparent" size="long" name="body" />
           </InputLayout>
+          <RightBottomLayout>
+            <Button size="circle">
+              <FontAwesomeIcon icon={faPaperPlane} />
+            </Button>
+          </RightBottomLayout>
         </ShadowBox>
-        <ButtonLayout>
-          <Button size="circle">
-            <FontAwesomeIcon icon={faPaperPlane} />
-          </Button>
-        </ButtonLayout>
       </MailModal>
     </>
   );
