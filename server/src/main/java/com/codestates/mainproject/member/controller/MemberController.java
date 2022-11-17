@@ -44,6 +44,15 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PatchMapping("/{member-id}/{palette-code}")
+    public ResponseEntity<MemberResponseDto> buyPalette(@PathVariable("member-id") Long memberId,
+                                                        @PathVariable("palette-code") String paletteCode){
+        Member saveMember = memberService.buyMoodPalete(memberId, paletteCode);
+        MemberResponseDto response = mapper.memberToMemberResponseDto(saveMember);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @GetMapping("/{member-id}")
     public ResponseEntity<MemberResponseDto> getMember(@PathVariable("member-id") long memberId){
         Member member = memberService.findMember(memberId);

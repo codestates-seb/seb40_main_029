@@ -44,6 +44,7 @@ public class Member {
     private Role role;
 
     @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "MEMBER_ID")
     private List<MemberPalette> palettes = new ArrayList<>();
 
     @JsonManagedReference
