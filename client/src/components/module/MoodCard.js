@@ -9,6 +9,8 @@ const CardContainer = styled.div`
   width: 340px;
   height: 460px;
   background-color: white;
+  opacity: ${({ fade }) => (fade ? 1 : 0)};
+  transition: opacity 0.3s;
 `;
 
 const Mood = styled.div`
@@ -38,9 +40,11 @@ const Hexcode = styled.div`
   font-weight: 300;
 `;
 const Contents = styled.div`
-  height: ${props => (props.viewDetails ? '354px' : '32px')}; //460 - 94 - 10
-  font-size: 24px;
+  height: ${({ viewDetails }) =>
+    viewDetails ? '354px' : '44px'}; //460 - 94 - 10
+  font-size: 16px;
   font-weight: 300;
+  white-space: pre-line;
   overflow-y: scroll;
   transition: height 1s;
   animation-timing-function: ease-in-out;
@@ -49,19 +53,10 @@ const Contents = styled.div`
   }
 `;
 
-const MoodCard = () => {
+const MoodCard = ({ fade }) => {
   const hexcode = '#6868AC';
-  const contents = `단지 피곤한 건지
-  고민거리라도 있는지
-  일이 힘들었는지
-  그런 거라면 예쁘게
-  기다릴 수 있는데
-  깊은 맘 꺼내어 얘기하고 싶지만
-  
-  아닐 거야 내가 아는 너라면
-  절대 이런 식은 아냐
-  착각일 거야 오늘을 보내고
-  기다리면 언제나처럼 넌`;
+  const contents =
+    'black coffee 뇌가 저릿 위험한 향기 black coffee 한 잔 손에 쥔 도시의 좀비 쓰고 검은 커피는 이리 부드럽게 넘어가는데 쓰고 검은 내 밤은 오늘도 좀처럼 넘어가질 않고 버티네';
 
   const [viewDetails, setViewDetails] = useState(false);
   const handleViewDetails = () => {
@@ -72,7 +67,7 @@ const MoodCard = () => {
   };
 
   return (
-    <CardContainer>
+    <CardContainer fade={fade}>
       <Mood />
       <Info>
         <Type>예민</Type>
