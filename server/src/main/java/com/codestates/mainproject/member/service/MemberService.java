@@ -7,12 +7,14 @@ import com.codestates.mainproject.palette.entity.MemberPalette;
 import com.codestates.mainproject.palette.entity.MoodPalette;
 import com.codestates.mainproject.palette.repository.MoodPaletteRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -29,10 +31,9 @@ public class MemberService {
         String basicCode = "P001";
         MoodPalette basicPalette = moodPaletteRepository.findById("P001").orElseThrow(() -> new RuntimeException("팔레트 정보를 찾을 수 없습니다."));
         member.setPalette(basicPalette.getPaletteName());
-        member.getPalettes();
         member.setRole(Role.USER);
         member.setPoint(0);
-        member.getPalettes().add(new MemberPalette(basicPalette));
+        member.getPalettes().add(new MemberPalette(member, basicPalette));
         return memberRepository.save(member);
     }
 
@@ -41,6 +42,20 @@ public class MemberService {
                 .orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
         updateMember.setDisplayName(member.getDisplayName());
         return updateMember;
+    }
+
+    public Member buyMoodPalete(Long memberId, String paletteCode){
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
+
+        MoodPalette newPalette = moodPaletteRepository.findById(paletteCode).orElseThrow(() -> new RuntimeException("팔레트 정보를 찾을 수 없습니다."));
+        log.info(newPalette.getPaletteName());
+        log.info(newPalette.getPaletteCode());
+        member.setPoint(member.getPoint() - 200);
+        member.setPalette(newPalette.getPaletteName());
+        member.getPalettes().add(new MemberPalette(member, newPalette));
+
+        return memberRepository.save(member);
     }
 
     public Member findMember(Long memberId){
