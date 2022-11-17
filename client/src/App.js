@@ -1,48 +1,17 @@
-// import logo from './logo.svg';
-import { useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 import Header from './components/module/Header';
-import {
-  TodoModal,
-  MailModal,
-  StoreModal,
-} from './components/module/modals/Modal';
 import MoodCard from './components/module/MoodCard';
-import MoodSelector from './components/module/MoodSelector';
-import styled from 'styled-components';
-
-const Holder = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  /* background-color: '#f6f6f6'; */
-`;
+import Letter from './components/templates/Letter';
 
 const App = () => {
-  const [fade, setFade] = useState(false);
-
   return (
-    <Holder>
+    <div className="App">
       <Header />
-      <>--------</>
-      <TodoModal />
-      <>--------</>
-      --------
-      <MoodSelector fade={fade}></MoodSelector>
-      --------
-      {/* <MoodCard /> */}
-      --------
-      <button onClick={() => setFade(!fade)}> close selector </button>
-      --------
-      <br />
-      --------
-      <br />
-      --------
-      <br />
-      --------
-      <br />
-    </Holder>
+
+      <Routes>
+        <Route path="/letter" element={<Letter />} />
+      </Routes>
+    </div>
   );
 };
-
 export default App;

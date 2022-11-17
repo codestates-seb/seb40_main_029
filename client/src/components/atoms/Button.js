@@ -13,11 +13,24 @@ const SIZES = {
   `,
 };
 
-function Button({ size, children, onClick }) {
+const FONTSIZES = {
+  little: css`
+    --button-font-size: 11px;
+  `,
+  middle: css`
+    --button-font-size: 14px;
+  `,
+  large: css`
+    --button-font-size: 18px;
+  `,
+};
+
+function Button({ size, fontsize, children, onClick }) {
   const sizeStyle = SIZES[size];
+  const fontSizeStyle = FONTSIZES[fontsize];
 
   return (
-    <Btn sizeStyle={sizeStyle} onClick={onClick}>
+    <Btn sizeStyle={sizeStyle} fontSizeStyle={fontSizeStyle} onClick={onClick}>
       {children}
     </Btn>
   );
@@ -25,16 +38,18 @@ function Button({ size, children, onClick }) {
 
 const Btn = styled.button`
   ${props => props.sizeStyle}
+  ${props => props.fontSizeStyle}
 
   padding: var(--button-padding);
   border-radius: var(--button-radius, 8px);
-  background-color: #f6f6f6;
+  background-color: inherit;
   box-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25), -2px -2px 5px #faf8ff;
   width: var(--button-width);
   height: var(--button-height);
   border: none;
   margin-right: 10px;
-  font-weight: 700;
+  /* font-weight: 700; */
+  font-size: var(--button-font-size);
 
   &:active,
   &:hover,
