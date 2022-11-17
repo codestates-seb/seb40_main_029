@@ -4,6 +4,8 @@ export const emailSelector = state => state.userInfo.email;
 
 export const displayNameSelector = state => state.userInfo.displayName;
 
-export const colorSelector = state => state.userInfo.today.color;
+export const moodIdSelector = state => state.userInfo.moodId;
+
+export const moodSelector = state => state.userInfo.today.mood;
 
 export const reasonSelector = state => state.userInfo.today.reason;

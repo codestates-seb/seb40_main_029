@@ -1,20 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {
-  isLoggedInSelector,
-  emailSelector,
-  displayNameSelector,
-  colorSelector,
-  reasonSelector,
-} from '../../redux/hooks';
-import {
-  setIsLoggedIn,
-  setEmail,
-  setDisplayName,
-  setColor,
-  setReason,
-} from '../../redux/slice';
+import { isLoggedInSelector, emailSelector } from '../../redux/hooks';
+import { setIsLoggedIn } from '../../redux/slice';
 import { postLoginToken } from '../../api/postLoginToken';
 
 export default function GoogleLogin() {
