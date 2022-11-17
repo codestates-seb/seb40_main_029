@@ -7,7 +7,10 @@ const EditList = styled.div`
   border: none;
 `;
 
-const BookmarkEdit = ({ dummyBookmark }) => {
+const BookmarkEdit = () => {
+  const bookmarkDelete = () => {
+    localStorage.removeItem();
+  };
   return (
     <>
       <EditList>✄</EditList>
