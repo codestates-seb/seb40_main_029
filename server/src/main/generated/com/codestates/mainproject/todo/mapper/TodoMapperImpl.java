@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-16T15:33:32+0900",
+    date = "2022-11-17T22:00:29+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 11.0.16.1 (Azul Systems, Inc.)"
 )
 @Component
@@ -38,7 +38,6 @@ public class TodoMapperImpl implements TodoMapper {
 
         Todo todo = new Todo();
 
-        todo.setTodoId( todoPatchDto.getTodoId() );
         todo.setTitle( todoPatchDto.getTitle() );
 
         return todo;

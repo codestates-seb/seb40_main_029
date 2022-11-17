@@ -32,14 +32,14 @@ public class MemberService {
         MoodPalette basicPalette = moodPaletteRepository.findById("P001").orElseThrow(() -> new RuntimeException("팔레트 정보를 찾을 수 없습니다."));
         member.setPalette(basicPalette.getPaletteName());
         member.setRole(Role.USER);
-        member.setPoint(0);
+        member.setPoint(500);
         member.getPalettes().add(new MemberPalette(basicPalette));
         log.info("{}", basicPalette);
         return memberRepository.save(member);
     }
 
-    public Member updateMember(Member member){
-        Member updateMember = verifyMember(member.getMemberId())
+    public Member updateMember(Member member, Long memberId){
+        Member updateMember = verifyMember(memberId)
                 .orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
         updateMember.setDisplayName(member.getDisplayName());
         return updateMember;

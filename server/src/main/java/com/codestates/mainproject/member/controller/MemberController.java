@@ -36,9 +36,9 @@ public class MemberController {
 
     @PatchMapping("/{member-id}")
     public ResponseEntity<MemberResponseDto> patchMember(@RequestBody MemberPatchDto patchDto,
-                                                         @PathVariable("member-id") long memberId){
+                                                         @PathVariable("member-id") Long memberId){
         Member member = mapper.memberPatchDtoToMember(patchDto);
-        Member updateMember = memberService.updateMember(member);
+        Member updateMember = memberService.updateMember(member, memberId);
         MemberResponseDto response = mapper.memberToMemberResponseDto(updateMember);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -54,7 +54,7 @@ public class MemberController {
     }
 
     @GetMapping("/{member-id}")
-    public ResponseEntity<MemberResponseDto> getMember(@PathVariable("member-id") long memberId){
+    public ResponseEntity<MemberResponseDto> getMember(@PathVariable("member-id") Long memberId){
         Member member = memberService.findMember(memberId);
         MemberResponseDto response = mapper.memberToMemberResponseDto(member);
 
