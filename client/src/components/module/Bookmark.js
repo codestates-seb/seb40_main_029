@@ -1,39 +1,24 @@
 import styled from 'styled-components';
 import Button from '../atoms/Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
-import BookmarkInput from './BookmarkInput';
+import { useEffect, useState } from 'react';
+import BookmarkHandle from './BookmarkHandle';
 
-const LightIcon = styled.span`
-  svg {
-    vertical-align: 0 !important; /* fontawsome icon 가운데정렬 */
-  }
-  path {
-    color: #cbcccd;
-  }
-`;
 const Anchor = styled.a`
   line-height: 1;
 `;
-const BookCreateLayout = styled.div`
-  position: absolute;
-  left: 25%;
-  top: 60%;
-`;
 
+let dummyBookmark = [
+  { name: 'naver', url: 'https://www.naver.com' },
+  { name: 'google', url: 'https://www.google.com' },
+];
 const Bookmark = () => {
+  const [booksArr, setBookmarkArr] = useState(dummyBookmark);
   const [isOpen, setIsOpen] = useState(false);
-  const dummyBookmark = [
-    { name: 'naver', url: 'https://www.naver.com' },
-    { name: 'google', url: 'https://www.google.com' },
-  ];
-  const onClick = () => {
-    setIsOpen(!isOpen);
-  };
-  const handleBookmarkDelete = () => {
-    console.log('delete');
-  };
+  //로컬스토리지에서 가져옴
+  useEffect(() => {
+    let test = JSON.parse(localStorage.getItem('bookmark'));
+    console.log(test);
+  }, []);
   return (
     <>
       {dummyBookmark.length !== 0
@@ -45,21 +30,7 @@ const Bookmark = () => {
             );
           })
         : null}
-      <Button size="circle" onClick={onClick}>
-        <LightIcon>
-          <FontAwesomeIcon icon={faStar} />
-        </LightIcon>
-      </Button>
-      <Button size="circle" onClick={handleBookmarkDelete}>
-        <LightIcon>
-          <FontAwesomeIcon icon={faMinus} size="lg" />
-        </LightIcon>
-      </Button>
-      {isOpen ? (
-        <BookCreateLayout>
-          <BookmarkInput setIsOpen={setIsOpen} dummyBookmark={dummyBookmark} />
-        </BookCreateLayout>
-      ) : null}
+      <BookmarkHandle setBookmarkArr={setBookmarkArr} booksArr={booksArr} />
     </>
   );
 };
