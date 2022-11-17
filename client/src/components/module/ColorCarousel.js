@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { StoreModal } from './Modal';
+import Button from '../atoms/Button';
 
 const Carousel = styled.div`
-  position: relative;
+  position: absolute;
+  bottom: 10px;
   width: 364px;
   height: 364px;
   background-color: #edeaea;
@@ -170,20 +173,15 @@ export const ColorCarousel = () => {
   // };
 
   return (
-    <div className="App">
-      <button onClick={next}>Next</button>
-      <button onClick={prev}>Prev</button>
-      <div className="test" />
+    <StoreModal>
+      <Button size="long" fontsize="little" onClick={next}>
+        Next
+      </Button>
+      <Button size="long" fontsize="little" onClick={prev}>
+        prev
+      </Button>
       <Carousel style={{ transform: `rotate(${state.carouselDeg}deg)` }}>
         {state.carousel.map((item, index) => (
-          // <div
-          //   className={`item-carousel ${getCssClass(index)}`}
-          //   key={item.id}
-          //   id={item.id}
-          //   style={{ transform: `rotate(${state.itemDeg}deg)` }}
-          // >
-          //   {item.name}
-          // </div>
           <ItemCarousel
             key={item.id}
             id={item.id}
@@ -194,7 +192,7 @@ export const ColorCarousel = () => {
           </ItemCarousel>
         ))}
       </Carousel>
-    </div>
+    </StoreModal>
   );
 };
 
