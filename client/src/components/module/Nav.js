@@ -9,11 +9,12 @@ import {
   faCalendarDays,
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
+import Letter from '../templates/Letter';
 
 const Bubble = styled.nav`
   background-color: #f6f6f6;
   padding: 16px 0;
-  margin: 8px;
+  margin-right: 8px;
   margin-top: 24px;
   border-radius: 20px;
   position: relative;
@@ -34,7 +35,6 @@ const Bubble = styled.nav`
 const NavItem = styled.li`
   list-style: none;
   padding: 4px 8px;
-  padding-left: 16px;
   margin: 2px 0;
   &:hover {
     background-color: #fff;
@@ -59,7 +59,7 @@ const Nav = () => {
       <Bubble>
         <ul>
           <NavItem>
-            <Link to="#">
+            <Link to="/letter">
               <DarkIcon>
                 <FontAwesomeIcon icon={faEnvelope} size="lg" />
               </DarkIcon>
@@ -107,9 +107,6 @@ const Nav = () => {
             </Link>
           </NavItem>
         </ul>
-        <Routes>
-          <Route path="#" />
-        </Routes>
       </Bubble>
     </>
   );
