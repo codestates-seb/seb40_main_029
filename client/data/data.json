@@ -2,22 +2,22 @@
   "data": [
     {
       "todoId": "c6a48d-a2c-a851-502-ac21e2b06a",
-      "todo": "번역 과제 마무리하기",
+      "title": "번역 과제 마무리하기",
       "selected": true
     },
     {
       "todoId": "23a6c70-aad3-52a7-504-bb4036a84b6c",
-      "todo": "블로그 작성하기",
+      "title": "블로그 작성하기",
       "selected": false
     },
     {
       "todoId": "5fcde8-bbf2-b761-db4b-d4ce01552dd",
-      "todo": "asdd",
+      "title": "asdd",
       "selected": false
     },
     {
       "todoId": "daaff85-b0db-eb4d-4b3-8d1a2ded3eb",
-      "todo": "asdsadd",
+      "title": "asdsadd",
       "selected": false
     }
   ]
