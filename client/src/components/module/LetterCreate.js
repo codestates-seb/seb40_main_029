@@ -5,7 +5,7 @@ import useInput from '../../utils/useInput';
 import Button from '../atoms/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import { RightBottomLayout } from './Letters';
+import { RightBottomLayout } from '../atoms/Layouts';
 import ShadowBox from '../atoms/ShadowBox';
 
 const InputLayout = styled.form`

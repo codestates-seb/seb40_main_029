@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import BookmarkCreate from './BookmarkCreate';
+import { CenterLayout } from '../atoms/Layouts';
 
 const LightIcon = styled.span`
   svg {
@@ -12,12 +13,6 @@ const LightIcon = styled.span`
   path {
     color: #cbcccd;
   }
-`;
-export const CenterLayout = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 `;
 
 const BookmarkHandle = ({ booksArr, setBookmarkArr }) => {

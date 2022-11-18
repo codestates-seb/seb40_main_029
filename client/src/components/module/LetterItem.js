@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ShadowBox from '../atoms/ShadowBox';
 import User from '../atoms/User';
 import { deleteMail } from '../../api/MailDataApi';
-import { RightBottomLayout } from './Letters';
+import { RightBottomLayout } from '../atoms/Layouts';
 
 const LetterHeader = styled.div`
   display: flex;
