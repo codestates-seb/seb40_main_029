@@ -44,11 +44,20 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PatchMapping("/{member-id}/{palette-code}")
+    @PatchMapping("/buy/{member-id}/{palette-code}")
     public ResponseEntity<MemberResponseDto> buyPalette(@PathVariable("member-id") Long memberId,
                                                         @PathVariable("palette-code") String paletteCode){
         Member saveMember = memberService.buyMoodPalete(memberId, paletteCode);
         MemberResponseDto response = mapper.memberToMemberResponseDto(saveMember);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PatchMapping("/choice/{member-id}/{palette-code}")
+    public ResponseEntity<MemberResponseDto> choicePalette(@PathVariable("member-id") Long memberId,
+                                                           @PathVariable("palette-code") String paletteCode){
+        Member member = memberService.selectPalette(memberId, paletteCode);
+        MemberResponseDto response = mapper.memberToMemberResponseDto(member);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

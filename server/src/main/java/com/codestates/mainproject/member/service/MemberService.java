@@ -30,10 +30,12 @@ public class MemberService {
         }
         String basicCode = "P001";
         MoodPalette basicPalette = moodPaletteRepository.findById("P001").orElseThrow(() -> new RuntimeException("팔레트 정보를 찾을 수 없습니다."));
+        MoodPalette teracota = moodPaletteRepository.findById("P002").orElseThrow(() -> new RuntimeException("팔레트 정보를 찾을 수 없습니다."));
         member.setPalette(basicPalette.getPaletteName());
         member.setRole(Role.USER);
         member.setPoint(500);
         member.getPalettes().add(new MemberPalette(basicPalette));
+        member.getPalettes().add(new MemberPalette(teracota));
         log.info("{}", basicPalette);
         return memberRepository.save(member);
     }
@@ -86,6 +88,19 @@ public class MemberService {
         member.getPalettes().add(new MemberPalette(newPalette));
 
         return memberRepository.save(member);
+    }
+
+    public Member selectPalette(Long memberId, String paletteCode){
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
+        MoodPalette palette = moodPaletteRepository.findById(paletteCode).orElseThrow(() -> new RuntimeException("팔레트 정보를 찾을 수 없습니다."));
+
+        for(int i=0; i < member.getPalettes().size(); i++){
+            if(member.getPalettes().get(i).getMoodPalette().getPaletteCode().equals(paletteCode)){
+                member.setPalette(palette.getPaletteName());
+                return memberRepository.save(member);
+            } else continue;
+        }
+        throw new RuntimeException("팔레트가 존재하지 않습니다.");
     }
 
     public Member findMember(Long memberId){
