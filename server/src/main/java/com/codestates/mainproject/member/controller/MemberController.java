@@ -27,9 +27,7 @@ public class MemberController {
     public ResponseEntity<MemberResponseDto> postMember(@RequestBody MemberPostDto postDto){
         Member member = mapper.memberPostDtoToMember(postDto);
         Member saveMember = memberService.createMember(member);
-        log.info(saveMember.getPalette());
         MemberResponseDto respponse = mapper.memberToMemberResponseDto(saveMember);
-        log.info(respponse.getPalette());
 
         return new ResponseEntity<>(respponse, HttpStatus.OK);
     }
@@ -49,6 +47,7 @@ public class MemberController {
                                                         @PathVariable("palette-code") String paletteCode){
         Member saveMember = memberService.buyMoodPalete(memberId, paletteCode);
         MemberResponseDto response = mapper.memberToMemberResponseDto(saveMember);
+
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

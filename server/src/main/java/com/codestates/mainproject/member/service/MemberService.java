@@ -30,13 +30,12 @@ public class MemberService {
         }
         String basicCode = "P001";
         MoodPalette basicPalette = moodPaletteRepository.findById("P001").orElseThrow(() -> new RuntimeException("팔레트 정보를 찾을 수 없습니다."));
-        MoodPalette teracota = moodPaletteRepository.findById("P002").orElseThrow(() -> new RuntimeException("팔레트 정보를 찾을 수 없습니다."));
+
         member.setPalette(basicPalette.getPaletteName());
         member.setRole(Role.USER);
         member.setPoint(500);
         member.getPalettes().add(new MemberPalette(basicPalette));
-        member.getPalettes().add(new MemberPalette(teracota));
-        log.info("{}", basicPalette);
+
         return memberRepository.save(member);
     }
 
@@ -53,9 +52,7 @@ public class MemberService {
                 .orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
 
         MoodPalette newPalette = moodPaletteRepository.findById(paletteCode).orElseThrow(() -> new RuntimeException("팔레트 정보를 찾을 수 없습니다."));
-        log.info(newPalette.getPaletteName());
-        log.info(newPalette.getPaletteCode());
-        log.info("{}", newPalette);
+
 
         switch (paletteCode){
             case "P002" : if (member.getPoint() - 1000 < 0){

@@ -43,7 +43,7 @@ public class Member {
     @Column(nullable = false)
     private Role role;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "MEMBER_ID")
     private List<MemberPalette> palettes = new ArrayList<>();
 
