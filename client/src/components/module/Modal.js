@@ -115,4 +115,21 @@ const StoreModal = ({ children }) => {
   );
 };
 
-export { TodoModal, MailModal, StoreModal };
+const FriendModal = ({ children }) => {
+  return (
+    <Mail>
+      <Header>
+        <Title>
+          친구 &nbsp;
+          <FontAwesomeIcon icon={faEnvelope} />
+        </Title>
+        <Button onClick={() => {}}>
+          <FontAwesomeIcon icon={faXmark} size="lg" />
+        </Button>
+      </Header>
+      <Utility>{children}</Utility>
+    </Mail>
+  );
+};
+
+export { TodoModal, MailModal, StoreModal, FriendModal };
