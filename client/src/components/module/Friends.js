@@ -1,9 +1,12 @@
+import { ContentLayout } from '../atoms/Layouts';
 import { FriendModal } from './Modal';
 
 const Friends = () => {
   return (
     <>
-      <FriendModal>친구들</FriendModal>
+      <ContentLayout>
+        <FriendModal>친구들</FriendModal>
+      </ContentLayout>
     </>
   );
 };
