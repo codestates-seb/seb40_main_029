@@ -4,6 +4,7 @@ import {
   faXmark,
   faHighlighter,
   faStore,
+  faUserGroup,
 } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
@@ -121,7 +122,7 @@ const FriendModal = ({ children }) => {
       <Header>
         <Title>
           친구 &nbsp;
-          <FontAwesomeIcon icon={faEnvelope} />
+          <FontAwesomeIcon icon={faUserGroup} />
         </Title>
         <Button onClick={() => {}}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
