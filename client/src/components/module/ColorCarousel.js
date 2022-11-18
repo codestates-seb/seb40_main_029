@@ -55,8 +55,8 @@ const CarouselContainer = styled.div`
 `;
 
 const CarouselBtnContainer = styled.div`
-  padding-top: 70px;
-  padding-left: 50px;
+  padding-top: 50px;
+  padding-left: 40px;
 `;
 
 const Carousel = styled.div`
@@ -65,7 +65,8 @@ const Carousel = styled.div`
   left: 170px;
   width: 364px;
   height: 364px;
-  background-color: black;
+  background-color: #ffffff;
+  box-shadow: 2px 0px 4px 4px rgba(22, 27, 29, 0.1);
   border-radius: 50%;
   transition: 0.5s;
   /* transform: rotate(15deg); */
@@ -81,17 +82,20 @@ const Carousel = styled.div`
 `;
 
 const ItemCarousel = styled.div`
-  position: absolute;
+  position: fixed;
   border-radius: 10%;
+  transform-origin: 260px;
+  top: 135px;
+  left: -80px;
+  right: -80px;
   background-color: ${props => props.color || '#fff'};
-  width: 70px;
-  height: 100px;
+  width: 120px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
   margin: 2px;
-  bottom: 0;
   transition: 0.5s;
 
   /* &.next {
@@ -108,7 +112,7 @@ const ItemCarousel = styled.div`
     color: white;
   } */
 
-  &:nth-child(1) {
+  /* &:nth-child(1) {
     // 기쁨
     right: -9px;
     top: 157px;
@@ -150,7 +154,7 @@ const ItemCarousel = styled.div`
     // 희망
     right: 325px;
     top: 100px;
-  }
+  } */
 `;
 
 export const ColorCarousel = () => {
@@ -269,7 +273,7 @@ export const ColorCarousel = () => {
               key={item.id}
               id={item.id}
               color={item.color}
-              style={{ transform: `rotate(${state.itemDeg}deg)` }}
+              style={{ transform: `rotate(calc(360deg / 8 * ${item.id}))` }}
             >
               {item.name}
             </ItemCarousel>
