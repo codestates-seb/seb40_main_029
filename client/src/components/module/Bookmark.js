@@ -14,24 +14,20 @@ const Anchor = styled.a`
   line-height: 1;
 `;
 const Bookmark = () => {
-  const dummyBookmark = [
-    { name: 'naver', url: 'https://www.naver.com' },
-    { name: 'google', url: 'https://www.google.com' },
-  ];
-  const [booksArr, setBookmarkArr] = useState(dummyBookmark);
-  // ------------- 여기서 에러남 ----------------
-  //   const [booksArr, setBookmarkArr] = useState(
-  //   JSON.parse(localStorage.getItem('bookmark') || dummyBookmark)
-  // );
-  // --------------왜일까 ----------------------
+  // const dummyBookmark = [
+  //   { name: 'naver', url: 'https://www.naver.com' },
+  //   { name: 'google', url: 'https://www.google.com' },
+  // ];
+  const [booksArr, setBookmarkArr] = useState(
+    JSON.parse(localStorage.getItem('bookmark')) || []
+  );
 
-  const renderBookmark = JSON.parse(localStorage.getItem('bookmark'));
   const bookmarkDelete = e => {
     // alert('북마크를 삭제하시겠습니까?');
-    booksArr.filter(book => {
-      return e.target.value !== book;
-    });
-    console.log(e.target.value);
+    // booksArr.filter(book => {
+    //   return e.target.value !== book;
+    // });
+    console.log(e.target);
     // localStorage.removeItem();
   };
   return (
