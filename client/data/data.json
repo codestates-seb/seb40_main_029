@@ -12,8 +12,7 @@
     {
       "id": 1,
       "memberId": 2,
-      "username": "은서",
-      "mood": "happy"
+      "username": "은서"
     },
     {
       "id": 2,
@@ -32,7 +31,7 @@
     {
         "paletteCode": "P001",
         "moodCode": "m001",
-        "colorCode": "f7bObe",
+        "colorCode": "f7b0be",
         "mood": "happy"
     },
     {
@@ -110,7 +109,7 @@
     {
         "paletteCode": "P002",
         "moodCode": "m006",
-        "colorCode": "D6DCD8",
+        "colorCode": "D2D0AC",
         "mood": "calm"
     },
     {
