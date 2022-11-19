@@ -13,7 +13,7 @@ const MoodPic = styled.div`
   width: 100px;
   height: 90px;
   border: 4px solid white;
-  background-color: #ee8242;
+  background-color: ${props => (props.color ? `#${props.color}` : '#faf8ff')};
 `;
 const FriendName = styled.span`
   margin-left: 4px;
@@ -22,7 +22,6 @@ const FriendName = styled.span`
 
 const FriendCard = ({ friend }) => {
   const [palette, setPalette] = useState([]);
-  const url = 'http://localhost:3001/palette';
   const paletteCode = 'P001';
 
   useEffect(() => {
@@ -34,14 +33,12 @@ const FriendCard = ({ friend }) => {
   }, []);
 
   const friendsColor = palette.find(mycolor => {
-    mycolor.mood === friend.mood;
-    console.log(mycolor.mood === friend.mood ? mycolor : 'nope');
+    return mycolor.mood === friend.mood;
   });
-  //console.log(friendsColor); //undefined가 나오는 이유가??
 
   return (
     <Card>
-      <MoodPic></MoodPic>
+      <MoodPic color={friendsColor?.colorCode}></MoodPic>
       <FriendName>{friend.username}</FriendName>
       <FriendName>{friend.mood}</FriendName>
     </Card>
