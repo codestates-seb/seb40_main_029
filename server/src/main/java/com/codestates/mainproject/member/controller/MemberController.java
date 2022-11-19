@@ -104,4 +104,11 @@ public class MemberController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping("/friend/{friend-id}")
+    public ResponseEntity<?> deleteFriend(@PathVariable("friend-id") Long friendId){
+        memberService.deleteFriend(friendId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

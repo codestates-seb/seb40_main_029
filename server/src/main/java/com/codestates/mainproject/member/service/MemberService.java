@@ -141,6 +141,9 @@ public class MemberService {
         memberRepository.deleteAll();
     }
 
+    public void deleteFriend(Long respondentId){
+        friendRepository.deleteByRespondent_MemberId(respondentId);
+    }
     public Optional<Member> verifyMember(Long memberId){
        return memberRepository.findById(memberId);
     }
