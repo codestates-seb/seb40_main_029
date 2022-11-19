@@ -12,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,13 +58,17 @@ public class TodoService {
     }
 
     public Todo findTodo(Long memberId, Long todoId){
+
         return verifyTodo(todoId, memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.TODO_NOT_FOUND));
     }
 
     public List<Todo> findTodoList(Long memberId){
-        return verifyTodoList(memberId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(3, 59, 59));
+
+        List<Todo> todoList = todoRepository.findAllByMember_MemberIdAndCreatedAtBetween(memberId, startDateTime, endDateTime);
+        return todoList;
     }
 
     public void deleteTodo(Long todoId, Long memberId){
