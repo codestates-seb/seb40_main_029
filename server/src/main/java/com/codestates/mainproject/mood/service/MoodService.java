@@ -12,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,8 +28,15 @@ public class MoodService {
     private final MoodPaletteDetailsRepository moodPaletteDetailsRepository;
 
     public Mood createdMood(Mood mood, String displayName){
+        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59));
+
         Member member = memberRepository.findByDisplayName(displayName)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        if (moodRepository.findByMember_MemberIdAndCreatedAtBetween(member.getMemberId(), startDateTime, endDateTime).isPresent()) {
+            throw new BusinessLogicException(ExceptionCode.MOOD_EXISTS);
+        }
         MoodPaletteDetails moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(mood.getMoodCode(), mood.getPaletteCode())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
 
@@ -54,10 +64,13 @@ public class MoodService {
         return moodRepository.save(findMood);
     }
 
-    public Mood findMood(String displayName, Long moodId){
+    public Mood findMood(String displayName){
+        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59));
+
         Member member = memberRepository.findByDisplayName(displayName)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        Mood findMood = moodRepository.findByMoodIdAndMember_MemberId(moodId, member.getMemberId())
+        Mood findMood = moodRepository.findByMember_MemberIdAndCreatedAtBetween(member.getMemberId(), startDateTime, endDateTime)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MOOD_EXISTS));
         MoodPaletteDetails moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(findMood.getMoodCode(), findMood.getPaletteCode())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
@@ -82,6 +95,66 @@ public class MoodService {
                 .collect(Collectors.toList());
 
         return moodList;
+    }
+
+    public List<Mood> findMoodsWeek(String displayName){
+        Member member = memberRepository.findByDisplayName(displayName)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now().minusDays(7), LocalTime.of(0, 0, 0));
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59));
+
+        List<Mood> moodsWeek = moodRepository.findAllByMember_MemberIdAndCreatedAtBetween(member.getMemberId(), startDateTime, endDateTime);
+
+        MoodPaletteDetails moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(moodsWeek.get(moodsWeek.size()-1).getMoodCode(), moodsWeek.get(moodsWeek.size()-1).getPaletteCode())
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
+
+        List<Mood> moodListWeek = moodsWeek.stream()
+                .map(mood -> {
+                    mood.setMoodPaletteDetails(moodPaletteDetails);
+                    return mood;
+                }).collect(Collectors.toList());
+
+        return moodListWeek;
+    }
+
+    public List<Mood> findMoodsMonth(String displayName){
+        Member member = memberRepository.findByDisplayName(displayName)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now().minusDays(30), LocalTime.of(0, 0, 0));
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59));
+
+        List<Mood> moodsWeek = moodRepository.findAllByMember_MemberIdAndCreatedAtBetween(member.getMemberId(), startDateTime, endDateTime);
+
+        MoodPaletteDetails moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(moodsWeek.get(moodsWeek.size()-1).getMoodCode(), moodsWeek.get(moodsWeek.size()-1).getPaletteCode())
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
+
+        List<Mood> moodListWeek = moodsWeek.stream()
+                .map(mood -> {
+                    mood.setMoodPaletteDetails(moodPaletteDetails);
+                    return mood;
+                }).collect(Collectors.toList());
+
+        return moodListWeek;
+    }
+
+    public List<Mood> findMoodsYear(String displayName){
+        Member member = memberRepository.findByDisplayName(displayName)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now().minusDays(365), LocalTime.of(0, 0, 0));
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59));
+
+        List<Mood> moodsWeek = moodRepository.findAllByMember_MemberIdAndCreatedAtBetween(member.getMemberId(), startDateTime, endDateTime);
+
+        MoodPaletteDetails moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(moodsWeek.get(moodsWeek.size()-1).getMoodCode(), moodsWeek.get(moodsWeek.size()-1).getPaletteCode())
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
+
+        List<Mood> moodListWeek = moodsWeek.stream()
+                .map(mood -> {
+                    mood.setMoodPaletteDetails(moodPaletteDetails);
+                    return mood;
+                }).collect(Collectors.toList());
+
+        return moodListWeek;
     }
 
     public void deleteMood(Long memberId, Long moodId){
