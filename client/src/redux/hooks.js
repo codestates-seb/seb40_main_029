@@ -1,5 +1,7 @@
 export const isLoggedInSelector = state => state.userInfo.isLoggedIn;
 
+export const memberIdSelector = state => state.userInfo.memberId;
+
 export const emailSelector = state => state.userInfo.email;
 
 export const displayNameSelector = state => state.userInfo.displayName;

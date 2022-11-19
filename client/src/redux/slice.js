@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isLoggedIn: false,
+  mamberId: -1,
   email: -1,
   displayName: -1,
   moodId: -1,
@@ -14,6 +15,9 @@ const slice = createSlice({
   reducers: {
     setIsLoggedIn: (state, action) => {
       state.isLoggedIn = !state.isLoggedIn;
+    },
+    setMemberId: (state, action) => {
+      state.mamberId = action.payload;
     },
     setEmail: (state, action) => {
       state.email = action.payload;
@@ -35,6 +39,7 @@ const slice = createSlice({
 
 export const {
   setIsLoggedIn,
+  setMemberId,
   setEmail,
   setDisplayName,
   setMoodId,
