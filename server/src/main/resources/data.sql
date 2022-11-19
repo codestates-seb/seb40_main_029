@@ -3,7 +3,7 @@ INSERT INTO mood_palette(palette_code, palette_name)
 values ('P001', 'basic'), ('P002', 'teracota'), ('P003', 'vintage'), ('P004', 'christmas'), ('P005', 'mono');
 
 INSERT INTO mood_palette_details(palette_code, mood_code, color_code, mood)
-values ('P001', 'm001', 'f7bObe', 'happy'),
+values ('P001', 'm001', 'f7b0be', 'happy'),
        ('P001', 'm002', 'ed8e83', 'sad'),
        ('P001', 'm003', 'ef3c23', 'anger'),
        ('P001', 'm004', 'f15a42', 'flutter'),

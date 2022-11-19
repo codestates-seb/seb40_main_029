@@ -3,7 +3,6 @@ package com.codestates.mainproject.member.entity;
 import com.codestates.mainproject.member.role.Role;
 import com.codestates.mainproject.mood.entity.Mood;
 import com.codestates.mainproject.palette.entity.MemberPalette;
-import com.codestates.mainproject.palette.entity.MoodPalette;
 import com.codestates.mainproject.todo.entity.Todo;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -14,7 +13,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Setter
 @Getter
@@ -47,13 +45,17 @@ public class Member {
     @JoinColumn(name = "MEMBER_ID")
     private List<MemberPalette> palettes = new ArrayList<>();
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Todo> todoList = new ArrayList<>();
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "member", cascade = CascadeType. PERSIST)
     private List<Mood> moodList = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "requester", cascade = CascadeType.ALL)
+    private List<Friend> friends = new ArrayList<>();
 
 
     public Member(String displayName) {

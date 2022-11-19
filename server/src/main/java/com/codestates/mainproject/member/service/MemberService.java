@@ -1,6 +1,9 @@
 package com.codestates.mainproject.member.service;
 
+import com.codestates.mainproject.member.dto.FriendPostDto;
+import com.codestates.mainproject.member.entity.Friend;
 import com.codestates.mainproject.member.entity.Member;
+import com.codestates.mainproject.member.repository.FriendRepository;
 import com.codestates.mainproject.member.repository.MemberRepository;
 import com.codestates.mainproject.member.role.Role;
 import com.codestates.mainproject.palette.entity.MemberPalette;
@@ -9,6 +12,7 @@ import com.codestates.mainproject.palette.repository.MoodPaletteRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +26,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final MoodPaletteRepository moodPaletteRepository;
+    private final FriendRepository friendRepository;
 
 
     public Member createMember(Member member){
@@ -37,6 +42,19 @@ public class MemberService {
         member.getPalettes().add(new MemberPalette(basicPalette));
 
         return memberRepository.save(member);
+    }
+
+    public Friend addFriend(FriendPostDto friend){
+        if(friendRepository.findByRequester_DisplayName(friend.getRespondentDisplayName()).isPresent()){
+            throw new RuntimeException("이미 친구추가한 회원입니다.");
+        }
+        Member requester = verifyDisplayName(friend.getRequesterDisplayName()).orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
+        Member respondent = verifyDisplayName(friend.getRespondentDisplayName()).orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
+        Friend saveFriend = new Friend(requester, respondent);
+        friendRepository.save(saveFriend);
+        respondent.getFriends().add(saveFriend);
+        memberRepository.save(respondent);
+        return saveFriend;
     }
 
     public Member updateMember(Member member, Long memberId){
@@ -110,6 +128,11 @@ public class MemberService {
         return members;
     }
 
+    public List<Friend> findFriends(Long memberId){
+        List<Friend> friends = friendRepository.findAllByRequester_MemberId(memberId);
+        return friends;
+    }
+
     public void deleteMember(Long memberId){
         memberRepository.deleteById(memberId);
     }
@@ -118,6 +141,9 @@ public class MemberService {
         memberRepository.deleteAll();
     }
 
+    public void deleteFriend(Long respondentId){
+        friendRepository.deleteByRespondent_MemberId(respondentId);
+    }
     public Optional<Member> verifyMember(Long memberId){
        return memberRepository.findById(memberId);
     }

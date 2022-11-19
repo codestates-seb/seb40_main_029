@@ -5,21 +5,24 @@ import com.codestates.mainproject.mood.dto.MoodPostDto;
 import com.codestates.mainproject.mood.dto.MoodResponseDto;
 import com.codestates.mainproject.mood.entity.Mood;
 import com.codestates.mainproject.mood.mapper.MoodMapper;
+import com.codestates.mainproject.mood.mapper.MoodMapperImp;
 import com.codestates.mainproject.mood.service.MoodService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/mood")
 @RequiredArgsConstructor
 public class MoodController {
 
     private final MoodService moodService;
-    private final MoodMapper mapper;
+    private final MoodMapperImp mapper;
 
     @PostMapping("/{member-displayName}")
     public ResponseEntity<MoodResponseDto> postMood(@PathVariable("member-displayName") String memberDisplayName,
@@ -54,6 +57,7 @@ public class MoodController {
     @GetMapping("/{member-displayName}")
     public ResponseEntity<List<MoodResponseDto>> patchMood(@PathVariable("member-displayName") String memberDisplayName){
         List<Mood> moods = moodService.findMoods(memberDisplayName);
+        System.out.println(moods.size());
         List<MoodResponseDto> response = mapper.moodsToMoodResponseDtos(moods);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
