@@ -25,7 +25,7 @@ public class MemberController {
     private final FriendMapper friendMapper;
     private final MemberMapperImp mapper;
 
-    
+
     @PostMapping("/addMember")
     public ResponseEntity<MemberResponseDto> postMember(@RequestBody MemberPostDto postDto){
         Member member = mapper.memberPostDtoToMember(postDto);
@@ -33,7 +33,7 @@ public class MemberController {
         log.info(saveMember.getDisplayName() + "님이 가입 하였습니다.");
         MemberResponseDto respponse = mapper.memberToMemberResponseDto(saveMember);
 
-        return new ResponseEntity<>(respponse, HttpStatus.OK);
+        return new ResponseEntity<>(respponse, HttpStatus.CREATED);
     }
     @PostMapping("/addFriend")
     public ResponseEntity<FriendResponseDto> postFriend(@RequestBody FriendPostDto postDto){
@@ -107,18 +107,14 @@ public class MemberController {
 
 
     @DeleteMapping("/{member-id}")
-    public ResponseEntity<?> deleteMember(@PathVariable("member-id") Long memberId){
+    public void deleteMember(@PathVariable("member-id") Long memberId){
         memberService.deleteMember(memberId);
         log.info("회원 탈퇴되었습니다.");
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/friend/{friend-id}")
-    public ResponseEntity<?> deleteFriend(@PathVariable("friend-id") Long friendId){
+    public void deleteFriend(@PathVariable("friend-id") Long friendId){
         memberService.deleteFriend(friendId);
         log.info("팔로우를 취소하였습니다.");
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

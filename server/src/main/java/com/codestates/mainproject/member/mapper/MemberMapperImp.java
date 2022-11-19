@@ -51,7 +51,7 @@ public class MemberMapperImp {
         for(int i=0; i < members.size(); i++) {
 
             List<String> friends = new ArrayList<>();
-            for (int j = 0; j < members.get(j).getFriends().size(); j++) {
+            for (int j = 0; j < members.get(i).getFriends().size(); j++) {
                 friends.add(members.get(i).getFriends().get(j).getRespondent().getDisplayName());
             }
 

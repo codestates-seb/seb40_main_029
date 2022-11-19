@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FriendRepository extends JpaRepository<Friend, Long> {
-    Optional<Friend> findByRequester_DisplayName(String displayName);
+    Optional<Friend> findByRespondent_DisplayNameAndRequester_DisplayName(String Respondent, String requester);
     List<Friend> findAllByRequester_MemberId(Long requesterId);
 
     void deleteByRespondent_MemberId(Long respondentId);

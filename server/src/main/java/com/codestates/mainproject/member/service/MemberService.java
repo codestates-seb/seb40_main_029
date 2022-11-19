@@ -47,7 +47,9 @@ public class MemberService {
     }
 
     public Friend addFriend(FriendPostDto friend){
-        if(friendRepository.findByRequester_DisplayName(friend.getRespondentDisplayName()).isPresent()){
+        if(friendRepository.findByRespondent_DisplayNameAndRequester_DisplayName(
+                                                    friend.getRespondentDisplayName(),
+                                                    friend.getRequesterDisplayName()).isPresent()){
             throw new BusinessLogicException(ExceptionCode.FRIEND_EXISTS);
         }
         Member requester = verifyDisplayName(friend.getRequesterDisplayName()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
