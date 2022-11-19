@@ -19,7 +19,7 @@ public class MemberPalette {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberPaletteId;
 
-    @JsonBackReference
+
     @ManyToOne
     private Member member;
 

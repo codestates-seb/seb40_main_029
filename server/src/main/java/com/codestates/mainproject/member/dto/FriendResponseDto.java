@@ -1,4 +1,4 @@
-package com.codestates.mainproject.mood.dto;
+package com.codestates.mainproject.member.dto;
 
 import com.codestates.mainproject.member.entity.Member;
 import com.codestates.mainproject.palette.entity.MoodPaletteDetails;
@@ -11,10 +11,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MoodResponseDto {
+public class FriendResponseDto {
 
-    private Long moodId;
-    private String body;
-    private Long memberId;
-    private MoodPaletteDetails moodPaletteDetails;
+    private Long respondentId;
+
+    private String respondentDisplayName;
+
+    private MoodPaletteDetails respondentMoodPaletteDetails;
 }
