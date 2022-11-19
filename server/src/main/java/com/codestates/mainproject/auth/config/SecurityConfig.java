@@ -1,13 +1,12 @@
 package com.codestates.mainproject.auth.config;
 
-import com.codestates.mainproject.auth.exception.CustomAuthenticationEntryPoint;
+import com.codestates.mainproject.auth.authexception.CustomAuthenticationEntryPoint;
 import com.codestates.mainproject.auth.filter.JwtAuthenticationFilter;
 import com.codestates.mainproject.auth.jwt.JwtProvider;
 import com.codestates.mainproject.auth.jwt.MemberDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;

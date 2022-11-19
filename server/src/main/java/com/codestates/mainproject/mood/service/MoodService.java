@@ -1,5 +1,7 @@
 package com.codestates.mainproject.mood.service;
 
+import com.codestates.mainproject.exception.BusinessLogicException;
+import com.codestates.mainproject.exception.ExceptionCode;
 import com.codestates.mainproject.member.entity.Member;
 import com.codestates.mainproject.member.repository.MemberRepository;
 import com.codestates.mainproject.mood.entity.Mood;
@@ -24,9 +26,9 @@ public class MoodService {
 
     public Mood createdMood(Mood mood, String displayName){
         Member member = memberRepository.findByDisplayName(displayName)
-                .orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         MoodPaletteDetails moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(mood.getMoodCode(), mood.getPaletteCode())
-                .orElseThrow(() -> new RuntimeException("다시 입력해주세요"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
 
         if(mood.getBody() != null) {
             member.setPoint(member.getPoint() + 80);
@@ -42,9 +44,9 @@ public class MoodService {
 
     public Mood updateMood(Mood mood, String displayName, Long moodId){
         Member member = memberRepository.findByDisplayName(displayName)
-                .orElseThrow(() -> new RuntimeException("MEMBER_NOT_FOUND"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         Mood findMood = moodRepository.findByMoodIdAndMember_MemberId(moodId, member.getMemberId())
-                .orElseThrow(() -> new RuntimeException("다시 입력해주세요"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MOOD_EXISTS));
         findMood.setMoodCode(mood.getMoodCode());
         findMood.setPaletteCode(mood.getPaletteCode());
         findMood.setBody(mood.getBody());
@@ -54,11 +56,11 @@ public class MoodService {
 
     public Mood findMood(String displayName, Long moodId){
         Member member = memberRepository.findByDisplayName(displayName)
-                .orElseThrow(() -> new RuntimeException("MEMBER_NOT_FOUND"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         Mood findMood = moodRepository.findByMoodIdAndMember_MemberId(moodId, member.getMemberId())
-                .orElseThrow(() -> new RuntimeException("다시 입력해주세요"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MOOD_EXISTS));
         MoodPaletteDetails moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(findMood.getMoodCode(), findMood.getPaletteCode())
-                .orElseThrow(() -> new RuntimeException("다시 입력해주세요"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
         findMood.setMoodPaletteDetails(moodPaletteDetails);
 
         return findMood;
@@ -66,11 +68,11 @@ public class MoodService {
 
     public List<Mood> findMoods(String displayName){
         Member member = memberRepository.findByDisplayName(displayName)
-                .orElseThrow(() -> new RuntimeException("MEMBER_NOT_FOUND"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         List<Mood> moods = moodRepository.findAllByMember_MemberId(member.getMemberId())
-                .orElseThrow(() -> new RuntimeException("등록된 데이터가 없습니다."));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MOOD_EXISTS));
         MoodPaletteDetails moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(moods.get(moods.size()-1).getMoodCode(), moods.get(moods.size()-1).getPaletteCode())
-                .orElseThrow(() -> new RuntimeException("다시 입력해주세요"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
 
         List<Mood> moodList = moods.stream()
                 .map(mood -> {

@@ -1,5 +1,7 @@
 package com.codestates.mainproject.member.service;
 
+import com.codestates.mainproject.exception.BusinessLogicException;
+import com.codestates.mainproject.exception.ExceptionCode;
 import com.codestates.mainproject.member.dto.FriendPostDto;
 import com.codestates.mainproject.member.entity.Friend;
 import com.codestates.mainproject.member.entity.Member;
@@ -31,10 +33,10 @@ public class MemberService {
 
     public Member createMember(Member member){
         if(verifyDisplayName(member.getDisplayName()).isPresent()){
-            throw new RuntimeException("이미 존재하는 회원입니다.");
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
         }
         String basicCode = "P001";
-        MoodPalette basicPalette = moodPaletteRepository.findById("P001").orElseThrow(() -> new RuntimeException("팔레트 정보를 찾을 수 없습니다."));
+        MoodPalette basicPalette = moodPaletteRepository.findById("P001").orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
 
         member.setPalette(basicPalette.getPaletteName());
         member.setRole(Role.USER);
@@ -46,10 +48,10 @@ public class MemberService {
 
     public Friend addFriend(FriendPostDto friend){
         if(friendRepository.findByRequester_DisplayName(friend.getRespondentDisplayName()).isPresent()){
-            throw new RuntimeException("이미 친구추가한 회원입니다.");
+            throw new BusinessLogicException(ExceptionCode.FRIEND_EXISTS);
         }
-        Member requester = verifyDisplayName(friend.getRequesterDisplayName()).orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
-        Member respondent = verifyDisplayName(friend.getRespondentDisplayName()).orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
+        Member requester = verifyDisplayName(friend.getRequesterDisplayName()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Member respondent = verifyDisplayName(friend.getRespondentDisplayName()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         Friend saveFriend = new Friend(requester, respondent);
         friendRepository.save(saveFriend);
         respondent.getFriends().add(saveFriend);
@@ -59,7 +61,7 @@ public class MemberService {
 
     public Member updateMember(Member member, Long memberId){
         Member updateMember = verifyMember(memberId)
-                .orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         updateMember.setDisplayName(member.getDisplayName());
         return updateMember;
     }
@@ -67,26 +69,26 @@ public class MemberService {
     public Member buyMoodPalete(Long memberId, String paletteCode){
 
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
-        MoodPalette newPalette = moodPaletteRepository.findById(paletteCode).orElseThrow(() -> new RuntimeException("팔레트 정보를 찾을 수 없습니다."));
+        MoodPalette newPalette = moodPaletteRepository.findById(paletteCode).orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
 
 
         switch (paletteCode){
             case "P002" : if (member.getPoint() - 1000 < 0){
-                throw new RuntimeException("포인트가 부족합니다.");
+                throw new BusinessLogicException(ExceptionCode.NOT_ENOUGH_POINT);
             }
             else member.setPoint(member.getPoint() - 1000);
             break;
 
             case "P003" : if (member.getPoint() - 500 < 0){
-                throw new RuntimeException("포인트가 부족합니다.");
+                throw new BusinessLogicException(ExceptionCode.NOT_ENOUGH_POINT);
             }
             else member.setPoint(member.getPoint() - 500);
             break;
 
             case "P004" : if (member.getPoint() - 1500 < 0){
-                throw new RuntimeException("포인트가 부족합니다.");
+                throw new BusinessLogicException(ExceptionCode.NOT_ENOUGH_POINT);
             }
             else member.setPoint(member.getPoint() - 1500);
             break;

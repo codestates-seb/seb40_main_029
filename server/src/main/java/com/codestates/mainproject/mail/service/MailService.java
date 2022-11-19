@@ -1,5 +1,7 @@
 package com.codestates.mainproject.mail.service;
 
+import com.codestates.mainproject.exception.BusinessLogicException;
+import com.codestates.mainproject.exception.ExceptionCode;
 import com.codestates.mainproject.mail.dto.MailPostDto;
 import com.codestates.mainproject.mail.entity.Mail;
 import com.codestates.mainproject.mail.repository.MailRepository;
@@ -28,7 +30,7 @@ public class MailService {
         Member sender = verifyMember(postDto.getSenderName());
 
         if (sender.getPoint() -60 < 0){
-            throw new RuntimeException("포인트가 부족합니다.");
+            throw new BusinessLogicException(ExceptionCode.NOT_ENOUGH_POINT);
         }
 
         Mail message = new Mail();
@@ -46,7 +48,7 @@ public class MailService {
 
     public Mail findMessage(Long mailId){
         return mailRepository.findById(mailId)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 메일입니다"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MAIL_EXISTS));
     }
 
     public List<Mail> findMessages(Long memberId){
@@ -55,7 +57,7 @@ public class MailService {
 
     public Mail verifyMessage(Long mailId){
         Mail mail = mailRepository.findById(mailId)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 메일입니다."));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MAIL_EXISTS));
 
         mail.setVerifyMail(true);
         return mailRepository.save(mail);
@@ -72,6 +74,6 @@ public class MailService {
 
     public Member verifyMember(String displayName){
         return memberRepository.findByDisplayName(displayName)
-                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 }
