@@ -79,6 +79,14 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/friend/{member-id}")
+    public ResponseEntity<List<FriendResponseDto>> getFriend(@PathVariable("member-id") Long memberId){
+        List<Friend> friends = memberService.findFriends(memberId);
+        List<FriendResponseDto> response = friendMapper.friendsToFridndResponseDtos(friends);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 //    @GetMapping("/")
 
     @GetMapping

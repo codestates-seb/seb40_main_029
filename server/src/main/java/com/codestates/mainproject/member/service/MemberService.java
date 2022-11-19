@@ -45,7 +45,7 @@ public class MemberService {
     }
 
     public Friend addFriend(FriendPostDto friend){
-        if(friendRepository.findByRespondentDisplayName(friend.getRespondentDisplayName()).isPresent()){
+        if(friendRepository.findByRequester_DisplayName(friend.getRespondentDisplayName()).isPresent()){
             throw new RuntimeException("이미 친구추가한 회원입니다.");
         }
         Member requester = verifyDisplayName(friend.getRequesterDisplayName()).orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
@@ -126,6 +126,11 @@ public class MemberService {
     public List<Member> findMembers(){
         List<Member> members = memberRepository.findAll();
         return members;
+    }
+
+    public List<Friend> findFriends(Long memberId){
+        List<Friend> friends = friendRepository.findAllByRequester_MemberId(memberId);
+        return friends;
     }
 
     public void deleteMember(Long memberId){
