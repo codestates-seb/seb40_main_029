@@ -32,7 +32,7 @@ public class Member {
     private String displayName;
 
     @Column(nullable = false)
-    private String palette;
+    private String palette; // 지금 사용하고 있는 팔레트
 
     @Column(nullable = false)
     private long point;
@@ -43,7 +43,7 @@ public class Member {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "MEMBER_ID")
-    private List<MemberPalette> palettes = new ArrayList<>();
+    private List<MemberPalette> palettes = new ArrayList<>(); //사용자가 가지고 있는 팔레트 목록
 
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)

@@ -64,8 +64,8 @@ public class TodoService {
     }
 
     public List<Todo> findTodoList(Long memberId){
-        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
-        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(3, 59, 59));
+        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0)); //오늘 날짜 기준 0시 0분 0초
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(3, 59, 59)); // 오늘 날짜 기준 +1일 오전 3시 59분 59초
 
         List<Todo> todoList = todoRepository.findAllByMember_MemberIdAndCreatedAtBetween(memberId, startDateTime, endDateTime);
         return todoList;

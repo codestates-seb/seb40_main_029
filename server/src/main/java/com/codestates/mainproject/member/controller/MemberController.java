@@ -25,16 +25,19 @@ public class MemberController {
     private final FriendMapper friendMapper;
     private final MemberMapperImp mapper;
 
-
+    // 1. 클라이언트로부터 MemberPostDto 타입으로 데이터를 받는다.
+    // 2. Service에서 사용할 파라미터 타입이 Member 타입이기 때문에 mapper로 MemberPostDto -> Member 타입으로 바꾼다.
+    // 3. Service 클래스에 createdMember 메서드를 사용해서 member 객체를 DB에 저장한다.
     @PostMapping("/addMember")
     public ResponseEntity<MemberResponseDto> postMember(@RequestBody MemberPostDto postDto){
-        Member member = mapper.memberPostDtoToMember(postDto);
+        Member member = mapper.memberPostDtoToMember(postDto); // postDto는 클라이언트로부터 가입할 유저의 정보를 받는 클래스
         Member saveMember = memberService.createMember(member);
         log.info(saveMember.getDisplayName() + "님이 가입 하였습니다.");
         MemberResponseDto respponse = mapper.memberToMemberResponseDto(saveMember);
 
         return new ResponseEntity<>(respponse, HttpStatus.CREATED);
     }
+
     @PostMapping("/addFriend")
     public ResponseEntity<FriendResponseDto> postFriend(@RequestBody FriendPostDto postDto){
 

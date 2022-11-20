@@ -24,6 +24,7 @@ public class MemberMapperImp {
     }
 
 
+
     public MemberResponseDto memberToMemberResponseDto(Member member) {
 
         // DTO 생성할때 친구의 회원 닉네임만 가져오기 위해 List<String> friends를 생성하여 responseDto에 추가
