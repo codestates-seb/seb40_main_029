@@ -60,6 +60,8 @@ const CarouselBtnContainer = styled.div`
 `;
 
 export const ThemeStore = () => {
+  const toRight = () => {};
+
   return (
     <StoreModal>
       <TitleContainer>

@@ -6,7 +6,7 @@ import {
   faChevronRight,
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
-// import { PaletteList } from '../../api/PaletteShop';
+import { PaletteList } from '../../api/PaletteShop';
 
 const CarouselContainer = styled.div`
   position: relative;
@@ -69,22 +69,24 @@ const CircleCarousel = () => {
     prevItem: 7,
     lastItem: 7,
     nextItem: 1,
-    carousel: [
-      { name: '기쁨', id: 0, position: 1, color: '#EE8242' },
-      { name: '분노', id: 1, position: 2, color: '#EE8686' },
-      { name: '설렘', id: 2, position: 3, color: '#E6AACB' },
-      { name: '걱정', id: 3, position: 4, color: '#D2CCC2' },
-      { name: '평온', id: 4, position: 5, color: '#FFE27A' },
-      { name: '예민', id: 5, position: 6, color: '#6868AC' },
-      { name: '슬픔', id: 6, position: 7, color: '#9FC1EE' },
-      { name: '희망', id: 7, position: 8, color: '#A7CF99' },
-    ],
+    // carousel: [
+    //   { name: '기쁨', id: 0, position: 1, color: '#EE8242' },
+    //   { name: '분노', id: 1, position: 2, color: '#EE8686' },
+    //   { name: '설렘', id: 2, position: 3, color: '#E6AACB' },
+    //   { name: '걱정', id: 3, position: 4, color: '#D2CCC2' },
+    //   { name: '평온', id: 4, position: 5, color: '#FFE27A' },
+    //   { name: '예민', id: 5, position: 6, color: '#6868AC' },
+    //   { name: '슬픔', id: 6, position: 7, color: '#9FC1EE' },
+    //   { name: '희망', id: 7, position: 8, color: '#A7CF99' },
+    // ],
   });
 
-  // useEffect(() => {
-  //   const theme = PaletteList();
-  //   setpalette(...palette, theme)
-  // }, []);
+  useEffect(() => {
+    const palette = PaletteList();
+    const paletteSet = {};
+    paletteSet.carousel = palette;
+    setPalette(...palette, paletteSet);
+  }, []);
 
   const getIdItems = side => {
     // true = next, false = prev
