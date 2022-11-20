@@ -60,8 +60,26 @@ const CarouselBtnContainer = styled.div`
 `;
 
 export const ThemeStore = () => {
-  const toRight = () => {};
+  const [carouselIndex, setIndex] = useState(0);
+  const lastIndex = 4;
 
+  const toRight = () => {
+    if (carouselIndex < lastIndex) {
+      setIndex(carouselIndex + 1);
+    } else {
+      setIndex(0);
+    }
+  };
+
+  const toLeft = () => {
+    if (carouselIndex > 0) {
+      setIndex(carouselIndex - 1);
+    } else {
+      setIndex(lastIndex);
+    }
+  };
+
+  console.log(carouselIndex);
   return (
     <StoreModal>
       <TitleContainer>
@@ -77,14 +95,18 @@ export const ThemeStore = () => {
         </BtnContainer>
       </TitleContainer>
       <ArrowContainer>
-        <FontAwesomeIcon icon={faChevronLeft} size="2x" />
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          size="2x"
+          onClick={() => toLeft()}
+        />
         <FontAwesomeIcon
           icon={faChevronRight}
           size="2x"
           onClick={() => toRight()}
         />
       </ArrowContainer>
-      <CircleCarousel />
+      <CircleCarousel carouselIndex={carouselIndex} />
     </StoreModal>
   );
 };
