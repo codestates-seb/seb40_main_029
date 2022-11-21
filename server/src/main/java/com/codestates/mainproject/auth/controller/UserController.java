@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public class UserController {
 
     private static final String ENDPOINT = "https://accounts.google.com/o/oauth2/v2/auth";
-    private static final String CLIENT_ID = "840805606859-39e9r3frr8317aebpc8ld7comhnkgoli.apps.googleusercontent.com";
+    private static final String CLIENT_ID = "";
     private static final String REDIRECT_URI = "http://localhost:3000/";
     private static final String RESPONSE_TYPE = "code";
     private static final String SCOPE = "https://www,googleapis.com/auth/userinfo.email https://www,googleapis.com/auth/userinfo.profile";

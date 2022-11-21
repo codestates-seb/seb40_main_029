@@ -22,8 +22,8 @@ public class OAuthService {
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
 
-    private static final String CLIENT_ID = "840805606859-39e9r3frr8317aebpc8ld7comhnkgoli.apps.googleusercontent.com";
-    private static final String CLIENT_SECRET = "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";
+    private static final String CLIENT_ID = "";
+    private static final String CLIENT_SECRET = "";
     private static final String REDIRECT_URI = "http://localhost:3000";
     private static final String GRANT_TYPE = "authorization_code";
 
