@@ -9,10 +9,10 @@ const Box = styled.div`
   ${props => props.sizeStyle};
   margin: 16px;
   border-radius: 10px;
-  box-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25), -2px -2px 5px #faf8ff;
   padding: 16px 30px;
   height: var(--shadowBox-height);
   background-color: #ffffff;
+  filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.25));
 `;
 
 const ShadowBox = ({ children, onClick, size }) => {
