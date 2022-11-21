@@ -2,31 +2,45 @@ import styled from 'styled-components';
 import Button from '../atoms/Button';
 import { useEffect, useState } from 'react';
 import BookmarkHandle from './BookmarkHandle';
+import BookmarkDelete from '../module/BookmarkDelete';
+const BookItem = styled.div`
+  position: relative;
 
+  &:hover > span {
+    display: inline-block;
+  }
+`;
 const Anchor = styled.a`
   line-height: 1;
 `;
-
-let dummyBookmark = [
-  { name: 'naver', url: 'https://www.naver.com' },
-  { name: 'google', url: 'https://www.google.com' },
-];
 const Bookmark = () => {
-  const [booksArr, setBookmarkArr] = useState(dummyBookmark);
-  const [isOpen, setIsOpen] = useState(false);
-  //로컬스토리지에서 가져옴
-  useEffect(() => {
-    let test = JSON.parse(localStorage.getItem('bookmark'));
-    console.log(test);
-  }, []);
+  // const dummyBookmark = [
+  //   { name: 'naver', url: 'https://www.naver.com' },
+  //   { name: 'google', url: 'https://www.google.com' },
+  // ];
+  const [booksArr, setBookmarkArr] = useState(
+    JSON.parse(localStorage.getItem('bookmark')) || []
+  );
+
+  const bookmarkDelete = e => {
+    // alert('북마크를 삭제하시겠습니까?');
+    // booksArr.filter(book => {
+    //   return e.target.value !== book;
+    // });
+    console.log(e.target);
+    // localStorage.removeItem();
+  };
   return (
     <>
-      {dummyBookmark.length !== 0
-        ? dummyBookmark.map((book, i) => {
+      {booksArr.length
+        ? booksArr.map((book, i) => {
             return (
-              <Button key={i} size="long" fontsize="middle">
-                <Anchor href={book.url}>{book.name}</Anchor>
-              </Button>
+              <BookItem key={i}>
+                <Button size="long" fontsize="middle">
+                  <Anchor href={book.url}>{book.name}</Anchor>
+                </Button>
+                <BookmarkDelete onClick={bookmarkDelete} />
+              </BookItem>
             );
           })
         : null}

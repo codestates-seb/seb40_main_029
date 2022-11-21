@@ -9,6 +9,7 @@ const InputWraper = styled.form`
   display: flex;
   flex-direction: column;
   margin: 8px 0;
+  width: 300px;
 `;
 
 const ButtonLayout = styled.div`
@@ -27,13 +28,17 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
   const handleBookmarkClose = () => {
     setAddBtnIsOpen(false);
   };
-  useEffect(() => {}, []);
   const handleBookmarkSubmit = e => {
     e.preventDefault();
-    setBookmarkArr([...booksArr, { name: `${bookName}`, url: `${bookUrl}` }]);
-    localStorage.setItem('bookmark', JSON.stringify(booksArr));
+    setBookmarkArr([
+      ...booksArr,
+      { name: `${bookName}`, url: `https://${bookUrl}` },
+    ]);
     console.log(booksArr);
   };
+  useEffect(() => {
+    localStorage.setItem('bookmark', JSON.stringify(booksArr));
+  }, [booksArr]);
 
   return (
     <ShadowBox>
