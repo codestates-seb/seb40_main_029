@@ -54,7 +54,7 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/members/**",  "/docs/*", "/", "/todo/**", "/mails/**", "/mood/**", "/palette/**", "/friend/**", "/auth/**").permitAll()
+                .antMatchers("/login/**", "/oauth/**", "/members/**",  "/docs/*", "/",  "/mails/**", "/mood/**", "/palette/**", "/friend/**", "/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
 
@@ -70,7 +70,7 @@ public class SecurityConfig {
         configuration.setAllowCredentials(true);
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Refresh"));
         configuration.setAllowedHeaders(Arrays.asList("*")); // 모든 출처에 대해 HTTP 통신을 허용
-        configuration.setAllowedOrigins(Arrays.asList("*")); // 모든 출처에 대해 HTTP 통신을 허용
+        configuration.setAllowedOriginPatterns(Arrays.asList("*")); // 모든 출처에 대해 HTTP 통신을 허용
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS")); //파라미터로 지정한 HTTP Method에 대한 HTTP 통신을 허용
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

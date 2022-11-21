@@ -117,11 +117,11 @@ public class MoodService {
         return moodListWeek;
     }
 
-    public List<Mood> findMoodsMonth(String displayName){
+    public List<Mood> findMoodsMonth(String displayName, int month){
         Member member = memberRepository.findByDisplayName(displayName)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now().minusDays(30), LocalTime.of(0, 0, 0));
-        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59));
+        LocalDateTime startDateTime = startMonth(month);
+        LocalDateTime endDateTime = endMonth(month);
 
         List<Mood> moodsWeek = moodRepository.findAllByMember_MemberIdAndCreatedAtBetween(member.getMemberId(), startDateTime, endDateTime);
 
@@ -137,11 +137,11 @@ public class MoodService {
         return moodListWeek;
     }
 
-    public List<Mood> findMoodsYear(String displayName){
+    public List<Mood> findMoodsYear(String displayName, int year){
         Member member = memberRepository.findByDisplayName(displayName)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now().minusDays(365), LocalTime.of(0, 0, 0));
-        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59));
+        LocalDateTime startDateTime = startYear(year);
+        LocalDateTime endDateTime = endYear(year);
 
         List<Mood> moodsWeek = moodRepository.findAllByMember_MemberIdAndCreatedAtBetween(member.getMemberId(), startDateTime, endDateTime);
 
@@ -159,5 +159,47 @@ public class MoodService {
 
     public void deleteMood(Long memberId, Long moodId){
         moodRepository.deleteByMember_MemberIdAndMoodId(memberId, moodId);
+    }
+
+    public static LocalDateTime startMonth(int month){
+        LocalDateTime localDateTime = LocalDateTime.now();
+        return localDateTime.withMonth(month).
+                withDayOfMonth(1).
+                withHour(0).
+                withMinute(0);
+    }
+
+    public static LocalDateTime endMonth(int month){
+        LocalDateTime localDateTime = LocalDateTime.now();
+        int day=0;
+        switch (month){
+            case 2 : day = 28;
+                break;
+            case 4 : day = 30;
+                break;
+            case 6 : day = 30;
+                break;
+            case 9 : day = 30;
+                break;
+            case 11 : day = 30;
+                break;
+            default: day = 31;
+                break;
+        }
+
+        return localDateTime.withMonth(month).
+                withDayOfMonth(day).
+                withHour(23).
+                withMinute(59);
+    }
+
+    public static LocalDateTime startYear(int year) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        return localDateTime.withYear(2021).withMonth(1).withDayOfMonth(1).withHour(0).withMinute(0);
+    }
+
+    public static LocalDateTime endYear(int year) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        return localDateTime.withYear(2021).withMonth(12).withDayOfMonth(31).withHour(23).minusMinutes(59);
     }
 }

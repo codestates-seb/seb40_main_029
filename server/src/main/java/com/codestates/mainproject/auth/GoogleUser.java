@@ -1,12 +1,15 @@
-package com.codestates.mainproject.auth.dto;
+package com.codestates.mainproject.auth;
 
+import com.codestates.mainproject.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
-@Getter
+@NoArgsConstructor
 @Setter
+@Getter
 public class GoogleUser {
     public String id;
     public String email;
@@ -16,4 +19,10 @@ public class GoogleUser {
     public String familyName;
     public String picture;
     public String locale;
+
+    public Member toUser(String email) {
+        return new Member(email);
+    }
+
 }
+
