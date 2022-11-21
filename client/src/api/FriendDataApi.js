@@ -16,4 +16,9 @@ export const getSpecificPalette = async ({ paletteCode }) => {
   return res.data;
 };
 
+export const getAllMembers = async () => {
+  const res = await axios.get(url + '/members');
+  return res.data;
+};
+
 //POST /members/{memberId};
