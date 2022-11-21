@@ -8,6 +8,7 @@ import FriendItem from './FriendItem';
 import Button from '../atoms/Button';
 import { useEffect, useState } from 'react';
 import { getAllMembers } from '../../api/FriendDataApi';
+import useInput from '../../utils/useInput';
 
 const PopUp = styled.div`
   z-index: 2;
@@ -24,12 +25,17 @@ const Title = styled.h3`
 const FilterBox = styled.div`
   display: flex;
   align-items: center;
-  margin: 8px auto;
-  min-width: 320px;
+  margin: 16px auto 24px;
+  min-width: 360px;
   justify-content: space-around;
 `;
 const InputBox = styled.div`
   position: relative;
+  input {
+    padding: 8px;
+    border-radius: 20px;
+    width: 240px;
+  }
   svg {
     position: absolute;
     transform: translate(-50%, -50%);
@@ -49,6 +55,7 @@ const FriendListBox = styled.div`
 
 const AddFriend = ({ setIsOpen }) => {
   const [friendsList, setFriendsList] = useState([]);
+  const [keyword, bindKeyword] = useInput('');
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllMembers();
@@ -62,6 +69,9 @@ const AddFriend = ({ setIsOpen }) => {
   const CloseModal = () => {
     setIsOpen(false);
   };
+  const filteredMember = friendsList?.filter(member => {
+    return member.displayName.includes(keyword);
+  });
 
   return (
     <PopUp>
@@ -74,13 +84,19 @@ const AddFriend = ({ setIsOpen }) => {
           <FilterBox>
             <label htmlFor="nickname">닉네임</label>
             <InputBox>
-              <Input id="nickname" border="shadow" color="#f6f6f6" />
+              <Input
+                id="nickname"
+                border="shadow"
+                color="#f6f6f6"
+                placeHolder="친구를 팔로잉해보세요!"
+                value={bindKeyword}
+              />
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </InputBox>
           </FilterBox>
           <FriendListBox label="followFriend">
-            {friendsList
-              ? friendsList.map((member, i) => {
+            {filteredMember
+              ? filteredMember.map((member, i) => {
                   return (
                     <FriendItem
                       key={i}
