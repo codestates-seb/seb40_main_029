@@ -83,7 +83,7 @@ const Nav = () => {
             </Link>
           </NavItem>
           <NavItem>
-            <Link>
+            <Link to="/friends">
               <DarkIcon>
                 <FontAwesomeIcon icon={faUserGroup} size="lg" />
               </DarkIcon>

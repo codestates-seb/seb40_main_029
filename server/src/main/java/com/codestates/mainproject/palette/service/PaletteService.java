@@ -1,5 +1,7 @@
 package com.codestates.mainproject.palette.service;
 
+import com.codestates.mainproject.exception.BusinessLogicException;
+import com.codestates.mainproject.exception.ExceptionCode;
 import com.codestates.mainproject.palette.entity.MoodPaletteDetails;
 import com.codestates.mainproject.palette.repository.MoodPaletteDetailsRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,7 @@ public class PaletteService {
 
     public List<MoodPaletteDetails> findPalette(String paletteCode){
         return moodPaletteDetailsRepository.findAllByPaletteCode(paletteCode)
-                .orElseThrow(() -> new RuntimeException("다시 입력해주세요"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
     }
 
     public List<MoodPaletteDetails> findAllPalette(){

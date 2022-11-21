@@ -5,7 +5,7 @@ import com.codestates.mainproject.auth.common.CommonCode;
 import com.codestates.mainproject.auth.dto.GetSocialOAuthRes;
 import com.codestates.mainproject.auth.dto.GoogleOAuthToken;
 import com.codestates.mainproject.auth.dto.GoogleUser;
-import com.codestates.mainproject.auth.exception.CustomAuthException;
+import com.codestates.mainproject.auth.authexception.CustomAuthException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

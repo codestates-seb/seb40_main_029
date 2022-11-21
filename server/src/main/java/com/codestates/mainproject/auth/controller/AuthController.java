@@ -3,7 +3,7 @@ package com.codestates.mainproject.auth.controller;
 import com.codestates.mainproject.auth.common.CommonCode;
 import com.codestates.mainproject.auth.common.CommonResponse;
 import com.codestates.mainproject.auth.dto.GetSocialOAuthRes;
-import com.codestates.mainproject.auth.exception.CustomAuthException;
+import com.codestates.mainproject.auth.authexception.CustomAuthException;
 import com.codestates.mainproject.auth.service.OauthService;
 import com.codestates.mainproject.member.entity.Member;
 import com.codestates.mainproject.member.repository.MemberRepository;

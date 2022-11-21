@@ -1,4 +1,4 @@
-package com.codestates.mainproject.auth.exception;
+package com.codestates.mainproject.auth.authexception;
 
 import com.codestates.mainproject.auth.common.CommonCode;
 import lombok.Getter;

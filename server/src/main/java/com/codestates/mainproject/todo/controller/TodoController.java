@@ -23,6 +23,7 @@ public class TodoController {
     private final TodoService todoService;
     private final TodoMapper mapper;
 
+
     @PostMapping("/{member-id}")
     public ResponseEntity<TodoResponseDto> postTodo(@RequestBody TodoPostDto postDto,
                                                        @PathVariable("member-id") Long memberId){
@@ -45,12 +46,10 @@ public class TodoController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PatchMapping("/seleted/{member-id}/{todo-id}")
-    public ResponseEntity<TodoResponseDto> seletedTodo(@RequestBody TodoPatchDto patchDto,
-                                                     @PathVariable("member-id") Long memberId,
+    @PatchMapping("/selected/{member-id}/{todo-id}")
+    public ResponseEntity<TodoResponseDto> seletedTodo(@PathVariable("member-id") Long memberId,
                                                      @PathVariable("todo-id") Long todoId){
-        Todo todo = mapper.todoPatchDtoToTodo(patchDto);
-        Todo updateTodo = todoService.seletedTodo(todo, todoId, memberId);
+        Todo updateTodo = todoService.seletedTodo(todoId, memberId);
         TodoResponseDto response = mapper.todoToTodoResponseDto(updateTodo);
 
         return new ResponseEntity<>(response, HttpStatus.OK);

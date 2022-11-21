@@ -28,6 +28,7 @@ public class Mood extends Auditable {
     @Column(length = 200)
     private String body;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;

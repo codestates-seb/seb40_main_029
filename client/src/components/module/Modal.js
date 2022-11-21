@@ -4,6 +4,7 @@ import {
   faXmark,
   faHighlighter,
   faStore,
+  faUserGroup,
 } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
@@ -115,4 +116,21 @@ const StoreModal = ({ children }) => {
   );
 };
 
-export { TodoModal, MailModal, StoreModal };
+const FriendModal = ({ children }) => {
+  return (
+    <Mail>
+      <Header>
+        <Title>
+          친구 &nbsp;
+          <FontAwesomeIcon icon={faUserGroup} />
+        </Title>
+        <Button onClick={() => {}}>
+          <FontAwesomeIcon icon={faXmark} size="lg" />
+        </Button>
+      </Header>
+      <Utility>{children}</Utility>
+    </Mail>
+  );
+};
+
+export { TodoModal, MailModal, StoreModal, FriendModal };

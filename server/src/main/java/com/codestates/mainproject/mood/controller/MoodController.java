@@ -5,21 +5,24 @@ import com.codestates.mainproject.mood.dto.MoodPostDto;
 import com.codestates.mainproject.mood.dto.MoodResponseDto;
 import com.codestates.mainproject.mood.entity.Mood;
 import com.codestates.mainproject.mood.mapper.MoodMapper;
+import com.codestates.mainproject.mood.mapper.MoodMapperImp;
 import com.codestates.mainproject.mood.service.MoodService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/mood")
 @RequiredArgsConstructor
 public class MoodController {
 
     private final MoodService moodService;
-    private final MoodMapper mapper;
+    private final MoodMapperImp mapper;
 
     @PostMapping("/{member-displayName}")
     public ResponseEntity<MoodResponseDto> postMood(@PathVariable("member-displayName") String memberDisplayName,
@@ -42,19 +45,44 @@ public class MoodController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/{member-displayName}/{mood-id}")
-    public ResponseEntity<MoodResponseDto> patchMood(@PathVariable("member-displayName") String memberDisplayName,
-                                                     @PathVariable("mood-id") Long moodId) {
-        Mood mood = moodService.findMood(memberDisplayName, moodId);
+
+    @GetMapping("/{member-displayName}")
+    public ResponseEntity<List<MoodResponseDto>> getMoods(@PathVariable("member-displayName") String memberDisplayName){
+        List<Mood> moods = moodService.findMoods(memberDisplayName);
+        System.out.println(moods.size());
+        List<MoodResponseDto> response = mapper.moodsToMoodResponseDtos(moods);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/day/{member-displayName}")
+    public ResponseEntity<MoodResponseDto> getMood(@PathVariable("member-displayName") String memberDisplayName) {
+        Mood mood = moodService.findMood(memberDisplayName);
         MoodResponseDto response = mapper.moodToMoodResponseDto(mood);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/{member-displayName}")
-    public ResponseEntity<List<MoodResponseDto>> patchMood(@PathVariable("member-displayName") String memberDisplayName){
-        List<Mood> moods = moodService.findMoods(memberDisplayName);
-        List<MoodResponseDto> response = mapper.moodsToMoodResponseDtos(moods);
+    @GetMapping("/week/{member-displayName}")
+    public ResponseEntity<List<MoodResponseDto>> getMoodWeek(@PathVariable("member-displayName") String memberDisplayName){
+        List<Mood> moodsWeek = moodService.findMoodsWeek(memberDisplayName);
+        List<MoodResponseDto> response = mapper.moodsToMoodResponseDtos(moodsWeek);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/month/{member-displayName}")
+    public ResponseEntity<List<MoodResponseDto>> getMoodMonth(@PathVariable("member-displayName") String memberDisplayName){
+        List<Mood> moodsMonth = moodService.findMoodsMonth(memberDisplayName);
+        List<MoodResponseDto> response = mapper.moodsToMoodResponseDtos(moodsMonth);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/year/{member-displayName}")
+    public ResponseEntity<List<MoodResponseDto>> getMoodYear(@PathVariable("member-displayName") String memberDisplayName){
+        List<Mood> moodsYear = moodService.findMoodsYear(memberDisplayName);
+        List<MoodResponseDto> response = mapper.moodsToMoodResponseDtos(moodsYear);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
