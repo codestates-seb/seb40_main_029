@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -5,22 +6,95 @@ import { isLoggedInSelector, emailSelector } from '../../redux/hooks';
 import { setIsLoggedIn } from '../../redux/slice';
 import { postLoginToken } from '../../api/postLoginToken';
 
+axios.defaults.withCredentials = true;
+
 export default function GoogleLogin() {
-  const isLoggedIn = useSelector(isLoggedInSelector);
-  const userEmail = useSelector(emailSelector);
-  console.log('로그인' + isLoggedIn);
-  console.log('이메일' + userEmail);
+  //   const isLoggedIn = useSelector(isLoggedInSelector);
+  //   const userEmail = useSelector(emailSelector);
+  //   console.log('로그인' + isLoggedIn);
+  //   console.log('이메일' + userEmail);
 
-  const oAuthURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&
-  redirect_uri=${process.env.REACT_APP_REDIRECT_URL}&
-  response_type=code&
-  scope=https://www.googleapis.com/auth/userinfo.email`;
+  // const oAuthURL = `https://accounts.google.com/o/oauth2/v2/auth
+  //   ?response_type=code
+  //   &client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}
+  //   &redirect_uri=http://localhost:3000
+  //   &scope=https://www.googleapis.com/auth/userinfo.email
+  //   &include_granted_scopes=true
+  //   &state=google`;
 
-  console.log(oAuthURL);
+  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=http://localhost:3000/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
 
-  const oAuthHandler = () => {
-    window.location.assign(oAuthURL);
+  // console.log(GOOGLE_LOGIN_URL);
+
+  const getAccessToken = async authorizationCode => {
+    // const getURL = `${process.env.REACT_APP_BASIC_URL}?code=${authorizationCode}`;
+    const getURL = process.env.REACT_APP_BASIC_URL;
+    // const params = { code: authorizationCode };
+    let config = {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
+      params: {
+        code: authorizationCode,
+      },
+    };
+    console.log(getURL);
+    await axios.get(getURL, config).then(res => console.log(res));
   };
+
+  function oAuthHandler() {
+    window.location.assign(GOOGLE_LOGIN_URL);
+    // const url = new URL(window.location);
+    // console.log(url);
+    // const authorizationCode = url.searchParams.get('code');
+    // console.log(authorizationCode);
+    // console.log('코드');
+  }
+
+  useEffect(() => {
+    const urlParams = new URL(location.href).searchParams;
+    console.log('코드');
+    const authorizationCode = urlParams.get('code');
+    console.log(authorizationCode);
+    if (authorizationCode) getAccessToken(authorizationCode);
+    // if (hash) {
+    //   const accessToken = hash.split('=')[1].split('&')[0];
+    //   await axios
+    //     .get(
+    //       'https://www.googleapis.com/oauth2/v2/userinfo?access_token=' +
+    //         accessToken,
+    //       {
+    //         headers: {
+    //           authorization: `token ${accessToken}`,
+    //           accept: 'application/json',
+    //         },
+    //       }
+    //     )
+    //     .then(data => {
+    //       console.log(data);
+    //       setData(data);
+    //     })
+    //     .catch(e => console.log('oAuth token expired'));
+    // }
+  }, []);
+
+  // const handleLogin = async () => {
+  //   await axios
+  //     .get(GOOGLE_LOGIN_URL)
+  //     .then(res => {
+  //       const url = new URL(window.location);
+  //       const authorizationCode = url.searchParams.get('code');
+  //     })
+  //     .then(res => {
+  //       console.log(authorizationCode);
+  //     });
+  // const url = new URL(window.location);
+  // console.log(url);
+  // const authorizationCode = url.searchParams.get('code');
+  // console.log(authorizationCode);
+  // getAccessToken(authorizationCode);
+  // };
 
   // async function handleCallbackResponse() {
   // oAuthHandler();
@@ -68,14 +142,14 @@ export default function GoogleLogin() {
   //   }
   // }, []);
 
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    console.log(url);
-  }, []);
+  // useEffect(() => {
+  //   const url = new URL(window.location.href);
+  //   console.log(url);
+  // });
 
   // return <div id="signInDiv"></div>;
   return (
-    <button id="oAuthBtn" onClick={() => oAuthHandler()}>
+    <button id="oAuthBtn" onClick={oAuthHandler}>
       google
     </button>
   );
