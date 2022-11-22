@@ -8,7 +8,7 @@ import {
   faChevronRight,
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
-import { BuyPalette } from '../../api/PaletteShop';
+import { BuyPalette, SetPalette } from '../../api/PaletteShop';
 
 const TitleContainer = styled.div`
   margin: 5px;
@@ -62,6 +62,8 @@ const CarouselBtnContainer = styled.div`
 
 export const ThemeStore = () => {
   const [carouselIndex, setIndex] = useState(0);
+  const paletteCode = 'P00' + (carouselIndex + 1);
+  console.log(paletteCode);
   const lastIndex = 4;
   const paletteName = ['기본', '테라코타', '빈티지', '크리스마스', '모노'];
   const palettePoint = ['', '1000P', '500P', '1500P', '500P'];
@@ -89,10 +91,18 @@ export const ThemeStore = () => {
         <Point>{palettePoint[carouselIndex]}</Point>
         <PaletteName>{paletteName[carouselIndex]}</PaletteName>
         <BtnContainer>
-          <Button size="long" fontsize="middle" onClick={BuyPalette}>
+          <Button
+            size="long"
+            fontsize="middle"
+            onClick={() => BuyPalette(paletteCode)}
+          >
             구매
           </Button>
-          <Button size="long" fontsize="middle">
+          <Button
+            size="long"
+            fontsize="middle"
+            onClick={() => SetPalette(paletteCode)}
+          >
             적용
           </Button>
         </BtnContainer>

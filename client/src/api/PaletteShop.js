@@ -1,6 +1,11 @@
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { memberIdSelector, paletteCodeSelector } from '../redux/hooks';
+import {
+  memberIdSelector,
+  paletteCodeSelector,
+  myPaletteSelector,
+} from '../redux/hooks';
+import { setMyPalette, setPaletteCode } from '../redux/slice';
 
 axios.defaults.withCredentials = true;
 
@@ -30,13 +35,15 @@ export const PaletteList = async () => {
 export const BuyPalette = async ({ paletteCode }) => {
   const dispatch = useDispatch();
   const memberId = useSelector(memberIdSelector);
-  // const paletteCode = useSelector(paletteCodeSelector);
+  const myPalette = useSelector(myPaletteSelector);
   const path = `/members/${memberId}/${paletteCode}`;
 
   try {
     const result = await axios.patch(
       process.env.REACT_APP_SERVER_API_URL + path
     );
+    dispatch(setMyPalette(paletteCode));
+    console.log(result);
   } catch (err) {
     throw err;
   }
@@ -52,6 +59,8 @@ export const SetPalette = async () => {
     const result = await axios.patch(
       process.env.REACT_APP_SERVER_API_URL + path
     );
+    dispatch(setPaletteCode(paletteCode));
+    console.log(result);
   } catch (err) {
     throw err;
   }
