@@ -28,13 +28,13 @@ export default function GoogleLogin() {
 
   const getAccessToken = async authorizationCode => {
     // const getURL = `${process.env.REACT_APP_BASIC_URL}?code=${authorizationCode}`;
-    const getURL = process.env.REACT_APP_BASIC_URL;
+    const getURL = process.env.REACT_APP_REDIRECT_URL;
     // const params = { code: authorizationCode };
     let config = {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true,
-      },
+      // headers: {
+      //   'Access-Control-Allow-Origin': '*',
+      //   'Access-Control-Allow-Credentials': true,
+      // },
       params: {
         code: authorizationCode,
       },
