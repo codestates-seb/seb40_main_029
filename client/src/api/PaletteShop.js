@@ -9,19 +9,28 @@ export const PaletteList = async () => {
   const path = '/palette';
   try {
     // 팔레트가 담긴 배열
-    await axios.get(API_URL + path).then(res => console.log(res.data));
-    // const paletteSet = [];
-    // for (let i = 0; i < result.length; i += 8)
-    //   paletteSet.push(result.slice(i, i + 8));
+    await axios.get(API_URL + path).then(res => {
+      console.log(res.data);
+      const paletteSet = [];
+      for (let i = 0; i < res.data.length; i += 8)
+        paletteSet.push(res.data.slice(i, i + 8));
+      // const paletteSet = {};
+      // paletteSet.carousel = res;
+      console.log(paletteSet);
+      const temp = {};
+      temp.carousel = paletteSet;
+      console.log(temp);
+      return temp;
+    });
   } catch (err) {
     throw err;
   }
 };
 
-export const BuyPalette = async () => {
+export const BuyPalette = async ({ paletteCode }) => {
   const dispatch = useDispatch();
   const memberId = useSelector(memberIdSelector);
-  const paletteCode = useSelector(paletteCodeSelector);
+  // const paletteCode = useSelector(paletteCodeSelector);
   const path = `/members/${memberId}/${paletteCode}`;
 
   try {

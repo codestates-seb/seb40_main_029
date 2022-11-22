@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Button from '../atoms/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -69,36 +70,52 @@ const CircleCarousel = ({ carouselIndex }) => {
     prevItem: 7,
     lastItem: 7,
     nextItem: 1,
-    carousel: [
-      [
-        { name: '기쁨', id: 0, position: 1, color: '#EE8242' },
-        { name: '분노', id: 1, position: 2, color: '#EE8686' },
-        { name: '설렘', id: 2, position: 3, color: '#E6AACB' },
-        { name: '걱정', id: 3, position: 4, color: '#D2CCC2' },
-        { name: '평온', id: 4, position: 5, color: '#FFE27A' },
-        { name: '예민', id: 5, position: 6, color: '#6868AC' },
-        { name: '슬픔', id: 6, position: 7, color: '#9FC1EE' },
-        { name: '희망', id: 7, position: 8, color: '#A7CF99' },
-      ],
-      [
-        { name: '기쁨', id: 0, position: 1, color: '#EEEEEE' },
-        { name: '분노', id: 1, position: 2, color: '#EEEEEE' },
-        { name: '설렘', id: 2, position: 3, color: '#EEEEEE' },
-        { name: '걱정', id: 3, position: 4, color: '#EEEEEE' },
-        { name: '평온', id: 4, position: 5, color: '#EEEEEE' },
-        { name: '예민', id: 5, position: 6, color: '#EEEEEE' },
-        { name: '슬픔', id: 6, position: 7, color: '#EEEEEE' },
-        { name: '희망', id: 7, position: 8, color: '#EEEEEE' },
-      ],
-    ],
   });
 
   useEffect(() => {
-    const palette = PaletteList();
-    console.log(palette);
-    // const paletteSet = {};
-    // paletteSet.carousel = palette;
+    const loadData = async () => {
+      const API_URL = process.env.REACT_APP_SERVER_API_URL;
+      const path = '/palette';
+      try {
+        // 팔레트가 담긴 배열
+        await axios.get(API_URL + path).then(res => {
+          // console.log(res.data);
+          const paletteSet = [];
+          for (let i = 0; i < res.data.length; i += 8)
+            paletteSet.push(res.data.slice(i, i + 8));
+          setPalette({ ...palette, carousel: paletteSet });
+          console.log(palette.carousel);
+        });
+      } catch (err) {
+        throw err;
+      }
+    };
+    loadData();
+    // const loadData = async () => {
+    //   const result = await PaletteList();
+    //   console.log('결과');
+    //   console.log(result);
+    //   if (isCancelled) {
+    //     return;
+    //   }
+
+    //   setPalette({ ...palette, result });
+    // };
+    // loadData();
+
+    // PaletteList().then(res => {
+    //   let temp = {};
+    //   temp.carousel = res;
+    //   console.log(temp);
+    // });
+    // .then(res => {
+    //   console.log('객체');
+    //   console.log(res);
+    // let temp = {};
+    // temp.carousel = res.data;
+
     // setPalette(...palette, paletteSet);
+    // console.log(palette);
   }, []);
 
   // const getIdItems = side => {
@@ -145,7 +162,7 @@ const CircleCarousel = ({ carouselIndex }) => {
   };
 
   const prev = () => {
-    getIdItems(false);
+    // getIdItems(false);
     setPalette({
       ...palette,
       carouselDeg: palette.carouselDeg + 45,
@@ -163,21 +180,23 @@ const CircleCarousel = ({ carouselIndex }) => {
           prev
         </Button>
       </CarouselBtnContainer>
-      <Carousel style={{ transform: `rotate(${palette.carouselDeg}deg)` }}>
-        {palette.carousel[carouselIndex] &&
-          palette.carousel[carouselIndex].map((item, index) => (
-            <ItemCarousel
-              key={item.id}
-              id={item.id}
-              color={item.color}
-              style={{
-                transform: `rotate(calc(360deg / 8 * ${item.id}))`,
-              }}
-            >
-              {item.name}
-            </ItemCarousel>
-          ))}
-      </Carousel>
+      {palette.carousel && (
+        <Carousel style={{ transform: `rotate(${palette.carouselDeg}deg)` }}>
+          {palette.carousel[carouselIndex] &&
+            palette.carousel[carouselIndex].map((item, index) => (
+              <ItemCarousel
+                key={index}
+                id={index}
+                color={`#${item.colorCode}`}
+                style={{
+                  transform: `rotate(calc(360deg / 8 * ${index}))`,
+                }}
+              >
+                {item.mood}
+              </ItemCarousel>
+            ))}
+        </Carousel>
+      )}
     </CarouselContainer>
   );
 };

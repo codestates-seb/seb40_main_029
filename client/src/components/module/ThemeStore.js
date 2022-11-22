@@ -8,6 +8,7 @@ import {
   faChevronRight,
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
+import { BuyPalette } from '../../api/PaletteShop';
 
 const TitleContainer = styled.div`
   margin: 5px;
@@ -62,6 +63,8 @@ const CarouselBtnContainer = styled.div`
 export const ThemeStore = () => {
   const [carouselIndex, setIndex] = useState(0);
   const lastIndex = 4;
+  const paletteName = ['기본', '테라코타', '빈티지', '크리스마스', '모노'];
+  const palettePoint = ['', '1000P', '500P', '1500P', '500P'];
 
   const toRight = () => {
     if (carouselIndex < lastIndex) {
@@ -83,10 +86,10 @@ export const ThemeStore = () => {
   return (
     <StoreModal>
       <TitleContainer>
-        <Point>1000P</Point>
-        <PaletteName>테라코타</PaletteName>
+        <Point>{palettePoint[carouselIndex]}</Point>
+        <PaletteName>{paletteName[carouselIndex]}</PaletteName>
         <BtnContainer>
-          <Button size="long" fontsize="middle">
+          <Button size="long" fontsize="middle" onClick={BuyPalette}>
             구매
           </Button>
           <Button size="long" fontsize="middle">
@@ -99,11 +102,13 @@ export const ThemeStore = () => {
           icon={faChevronLeft}
           size="2x"
           onClick={() => toLeft()}
+          style={{ cursor: 'pointer' }}
         />
         <FontAwesomeIcon
           icon={faChevronRight}
           size="2x"
           onClick={() => toRight()}
+          style={{ cursor: 'pointer' }}
         />
       </ArrowContainer>
       <CircleCarousel carouselIndex={carouselIndex} />
