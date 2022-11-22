@@ -15,7 +15,6 @@ const Bookmark = () => {
   const [minBooks, setMinbooks] = useState(true);
   let sliceNum = minBooks ? 3 : 10;
   const minBooksList = booksArr.slice(0, sliceNum);
-  console.log(sliceNum, minBooksList);
 
   return (
     <BookmarkBox>
