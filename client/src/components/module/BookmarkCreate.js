@@ -4,20 +4,38 @@ import Button from '../atoms/Button';
 import { useEffect, useState } from 'react';
 import useInput from '../../utils/useInput';
 import ShadowBox from '../atoms/ShadowBox';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { RightBottomLayout } from '../atoms/Layouts';
 
+const Title = styled.h3`
+  border-bottom: 1px solid #d4d4d4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+`;
 const InputWraper = styled.form`
   display: flex;
   flex-direction: column;
-  margin: 8px 0;
   width: 300px;
-`;
-
-const ButtonLayout = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 16px;
-  > button:last-of-type {
-    margin: 0;
+  label {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  span {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  input {
+    padding: 8px;
+    width: 200px;
+    border-radius: 20px;
+  }
+  button {
+    width: 100px;
   }
 `;
 
@@ -42,19 +60,34 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
 
   return (
     <ShadowBox>
+      <Title>
+        북마크 추가
+        <FontAwesomeIcon icon={faXmark} onClick={handleBookmarkClose} />
+      </Title>
       <InputWraper>
-        <label htmlFor="name">이름</label>
-        <Input name="name" value={bookNameBind} border="shadow" />
-        <label htmlFor="url">URL</label>
-        <Input name="url" value={bookUrlBind} border="shadow" />
-        <ButtonLayout>
+        <label htmlFor="name">
+          <span>이름</span>
+          <Input
+            name="name"
+            value={bookNameBind}
+            border="shadow"
+            color="#f6f6f6"
+          />
+        </label>
+        <label htmlFor="url">
+          <span>URL</span>
+          <Input
+            name="url"
+            value={bookUrlBind}
+            border="shadow"
+            color="#f6f6f6"
+          />
+        </label>
+        <RightBottomLayout>
           <Button size="long" onClick={handleBookmarkSubmit}>
             저장
           </Button>
-          <Button size="long" onClick={handleBookmarkClose}>
-            취소
-          </Button>
-        </ButtonLayout>
+        </RightBottomLayout>
       </InputWraper>
     </ShadowBox>
   );
