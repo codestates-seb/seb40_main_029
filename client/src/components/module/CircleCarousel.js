@@ -93,12 +93,13 @@ const CircleCarousel = ({ carouselIndex }) => {
     ],
   });
 
-  // useEffect(() => {
-  //   const palette = PaletteList();
-  //   const paletteSet = {};
-  //   paletteSet.carousel = palette;
-  //   setPalette(...palette, paletteSet);
-  // }, []);
+  useEffect(() => {
+    const palette = PaletteList();
+    console.log(palette);
+    // const paletteSet = {};
+    // paletteSet.carousel = palette;
+    // setPalette(...palette, paletteSet);
+  }, []);
 
   // const getIdItems = side => {
   //   // true = next, false = prev

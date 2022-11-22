@@ -2,15 +2,17 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { memberIdSelector, paletteCodeSelector } from '../redux/hooks';
 
+axios.defaults.withCredentials = true;
+
 export const PaletteList = async () => {
+  // const API_URL = process.env.REACT_APP_SERVER_API_URL;
   const path = '/palette';
   try {
     // 팔레트가 담긴 배열
-    const result = await axios.get(process.env.REACT_APP_SERVER_API_URL + path);
-    const paletteSet = [];
-    for (let i = 0; i < result.length; i += 8)
-      paletteSet.push(result.slice(i, i + 8));
-    return paletteSet;
+    await axios.get('/api' + path).then(res => console.log(res));
+    // const paletteSet = [];
+    // for (let i = 0; i < result.length; i += 8)
+    //   paletteSet.push(result.slice(i, i + 8));
   } catch (err) {
     throw err;
   }
