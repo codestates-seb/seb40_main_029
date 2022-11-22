@@ -52,7 +52,7 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
       ...booksArr,
       { name: `${bookName}`, url: `https://${bookUrl}` },
     ]);
-    console.log(booksArr);
+    //여기서 북마크 추가팝업을 닫아버리면 북마크가 로컬에 저장이 안됨! 왜일까;
   };
   useEffect(() => {
     localStorage.setItem('bookmark', JSON.stringify(booksArr));
