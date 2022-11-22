@@ -1,5 +1,6 @@
 import axios from 'axios';
 const url = 'http://localhost:3001';
+// const url = `${process.env.REACT_APP_BASIC_URL}`;
 
 export const getFriends = async () => {
   const res = await axios.get(url + '/friends');
@@ -18,6 +19,12 @@ export const getSpecificPalette = async ({ paletteCode }) => {
 
 export const getAllMembers = async () => {
   const res = await axios.get(url + '/members');
+  return res.data;
+};
+
+//추가할 친구 id는?
+export const addFriend = async () => {
+  const res = await axios.post(url + '/members/addFriend');
   return res.data;
 };
 

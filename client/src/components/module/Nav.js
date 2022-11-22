@@ -12,6 +12,7 @@ import {
 import Letter from '../templates/Letter';
 
 const Bubble = styled.nav`
+  z-index: 2;
   background-color: #f6f6f6;
   padding: 16px 0;
   margin-right: 8px;

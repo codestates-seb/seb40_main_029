@@ -27,7 +27,6 @@ const Friends = () => {
     };
     fetchData();
   }, []);
-  // console.log(friends);
   const handleFindFriend = () => {
     setIsOpen(!isOpen);
   };

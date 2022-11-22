@@ -3,12 +3,13 @@ import Friends from './components/templates/Friends';
 import Header from './components/module/Header';
 import MoodCard from './components/module/MoodCard';
 import Letter from './components/templates/Letter';
+import Gradi from './components/templates/gradi';
 
 const App = () => {
   return (
     <div className="App">
       <Header />
-
+      {/* <Gradi /> */}
       <Routes>
         <Route path="/letter" element={<Letter />} />
         <Route path="/friends" element={<Friends />} />
