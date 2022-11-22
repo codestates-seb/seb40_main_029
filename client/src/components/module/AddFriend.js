@@ -106,7 +106,6 @@ const AddFriend = ({ setIsOpen }) => {
                   );
                 })
               : null}
-            <FriendItem />
           </FriendListBox>
           <RightBottomLayout>
             <Button size="long">친구추가</Button>
