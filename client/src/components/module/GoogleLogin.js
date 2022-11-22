@@ -14,14 +14,6 @@ export default function GoogleLogin() {
   //   console.log('로그인' + isLoggedIn);
   //   console.log('이메일' + userEmail);
 
-  // const oAuthURL = `https://accounts.google.com/o/oauth2/v2/auth
-  //   ?response_type=code
-  //   &client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}
-  //   &redirect_uri=http://localhost:3000
-  //   &scope=https://www.googleapis.com/auth/userinfo.email
-  //   &include_granted_scopes=true
-  //   &state=google`;
-
   const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=http://localhost:3000/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
 
   // console.log(GOOGLE_LOGIN_URL);
@@ -45,11 +37,6 @@ export default function GoogleLogin() {
 
   function oAuthHandler() {
     window.location.assign(GOOGLE_LOGIN_URL);
-    // const url = new URL(window.location);
-    // console.log(url);
-    // const authorizationCode = url.searchParams.get('code');
-    // console.log(authorizationCode);
-    // console.log('코드');
   }
 
   useEffect(() => {
@@ -58,25 +45,6 @@ export default function GoogleLogin() {
     const authorizationCode = urlParams.get('code');
     console.log(authorizationCode);
     if (authorizationCode) getAccessToken(authorizationCode);
-    // if (hash) {
-    //   const accessToken = hash.split('=')[1].split('&')[0];
-    //   await axios
-    //     .get(
-    //       'https://www.googleapis.com/oauth2/v2/userinfo?access_token=' +
-    //         accessToken,
-    //       {
-    //         headers: {
-    //           authorization: `token ${accessToken}`,
-    //           accept: 'application/json',
-    //         },
-    //       }
-    //     )
-    //     .then(data => {
-    //       console.log(data);
-    //       setData(data);
-    //     })
-    //     .catch(e => console.log('oAuth token expired'));
-    // }
   }, []);
 
   // const handleLogin = async () => {
@@ -121,6 +89,7 @@ export default function GoogleLogin() {
   //   !isLoggedIn ? navigate('/displayname') : navigate('/home');
   // }, isLoggedIn);
 
+  // 신규 구글 로그인 라이브러리 사용
   // useEffect(() => {
   //   if (window) {
   //     google.accounts.id.initialize({
@@ -142,12 +111,8 @@ export default function GoogleLogin() {
   //   }
   // }, []);
 
-  // useEffect(() => {
-  //   const url = new URL(window.location.href);
-  //   console.log(url);
-  // });
-
   // return <div id="signInDiv"></div>;
+
   return (
     <button id="oAuthBtn" onClick={oAuthHandler}>
       google
@@ -155,17 +120,7 @@ export default function GoogleLogin() {
   );
 }
 
-// testParseOAuthRequestServerSide() {
-//   const endpoint = 'https://accounts.google.com/o/oauth2/auth';
-//   const parameters = {
-//     redirect_uri: ['https://developers.google.com/oauthplayground'],
-//     response_type: ['token'],
-//     client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-//     scope: ['https://www.googleapis.com/auth/userinfo.email'],
-//     approval_prompt: ['force'],
-//     access_type: ['offline'],
-//   };
-
+// 참고용
 // let assetCnt = async () => {
 //   //const { klaytn } = window;
 //   //const accounts = await klaytn.enable();
