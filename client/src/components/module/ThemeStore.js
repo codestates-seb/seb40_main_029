@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { StoreModal } from './Modal';
 import Button from '../atoms/Button';
 import CircleCarousel from './CircleCarousel';
@@ -9,6 +10,7 @@ import {
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { BuyPalette, SetPalette } from '../../api/PaletteShop';
+import { myPaletteSelector } from '../../redux/hooks';
 
 const TitleContainer = styled.div`
   margin: 5px;
@@ -62,11 +64,18 @@ const CarouselBtnContainer = styled.div`
 
 export const ThemeStore = () => {
   const [carouselIndex, setIndex] = useState(0);
+  const [disable, setDisable] = useState(false);
   const paletteCode = 'P00' + (carouselIndex + 1);
   console.log(paletteCode);
   const lastIndex = 4;
   const paletteName = ['기본', '테라코타', '빈티지', '크리스마스', '모노'];
   const palettePoint = ['', '1000P', '500P', '1500P', '500P'];
+  const myPalette = useSelector(myPaletteSelector);
+
+  const isMine = () => {
+    if (myPalette.includes(paletteCode)) setDisable(true);
+    setDisable(false);
+  };
 
   const toRight = () => {
     if (carouselIndex < lastIndex) {
@@ -74,6 +83,7 @@ export const ThemeStore = () => {
     } else {
       setIndex(0);
     }
+    isMine();
   };
 
   const toLeft = () => {
@@ -82,6 +92,7 @@ export const ThemeStore = () => {
     } else {
       setIndex(lastIndex);
     }
+    isMine();
   };
 
   console.log(carouselIndex);
@@ -102,6 +113,7 @@ export const ThemeStore = () => {
             size="long"
             fontsize="middle"
             onClick={() => SetPalette(paletteCode)}
+            disable={disable}
           >
             적용
           </Button>
