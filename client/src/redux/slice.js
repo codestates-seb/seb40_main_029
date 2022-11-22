@@ -7,6 +7,7 @@ const initialState = {
   displayName: -1,
   moodId: -1,
   paletteCode: -1,
+  myPalette: [],
   today: { mood: -1, reason: -1 },
 };
 
@@ -32,6 +33,9 @@ const slice = createSlice({
     setPaletteCode: (state, action) => {
       state.paletteCode = action.payload;
     },
+    setMyPalette: (state, action) => {
+      state.myPalette = [...state.myPalette, action.payload];
+    },
     setMood: (state, action) => {
       state.today.color = action.payload.color;
     },
@@ -48,6 +52,7 @@ export const {
   setDisplayName,
   setMoodId,
   setPaletteCode,
+  setMyPalette,
   setMood,
   setReason,
 } = slice.actions;
