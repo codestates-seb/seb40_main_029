@@ -28,4 +28,9 @@ export const addFriend = async () => {
   return res.data;
 };
 
+export const deleteFriend = async ({ friendId }) => {
+  const res = await axios.delete(url + `/friends/${friendId}`);
+  return res.data;
+};
+
 //POST /members/{memberId};
