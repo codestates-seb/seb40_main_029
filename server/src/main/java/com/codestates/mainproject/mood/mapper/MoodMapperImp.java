@@ -38,6 +38,7 @@ public class MoodMapperImp implements MoodMapper{
         moodResponseDto.setMemberId(mood.getMember().getMemberId());
         moodResponseDto.setBody(mood.getBody());
         moodResponseDto.setMoodPaletteDetails(mood.getMoodPaletteDetails());
+        moodResponseDto.setCreatedAt(mood.getCreatedAt());
 
         return  moodResponseDto;
     }
@@ -51,6 +52,7 @@ public class MoodMapperImp implements MoodMapper{
             moodResponseDtos.get(i).setMemberId(moods.get(i).getMember().getMemberId());
             moodResponseDtos.get(i).setBody(moods.get(i).getBody());
             moodResponseDtos.get(i).setMoodPaletteDetails(moods.get(i).getMoodPaletteDetails());
+            moodResponseDtos.get(i).setCreatedAt(moods.get(i).getCreatedAt());
         }
         return moodResponseDtos;
     }

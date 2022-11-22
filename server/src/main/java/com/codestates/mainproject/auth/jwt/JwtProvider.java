@@ -35,7 +35,7 @@ public class JwtProvider {
     private int refreshTokenExpirationMinutes;
 
     public String encodeBase64SecretKey(String secretKey) {
-        return Base64.getEncoder().encodeToString(secretKey.getBytes());
+        return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
     public Date getTokenExpiration(int expirationMinutes) {
@@ -49,13 +49,12 @@ public class JwtProvider {
     private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
         Key key = Keys.hmacShaKeyFor(keyBytes);
-
         return key;
     }
 
     public TokenResponse createTokensByLogin(Member member) throws JsonProcessingException {
 
-        String atk = delegateAccessToken(member);
+        String atk = "Bearer " + delegateAccessToken(member);
         String rtk = delegateRefreshToken(member);
         redisDao.setValues(member.getEmail(), rtk, Duration.ofMinutes((long) refreshTokenExpirationMinutes));
         return new TokenResponse(atk, rtk, "bearer");
@@ -87,13 +86,14 @@ public class JwtProvider {
                                       Date expiration,
                                       String base64EncodedSecretKey) {
 
+        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(expiration)
-                .signWith(SignatureAlgorithm.HS256, base64EncodedSecretKey)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 
@@ -107,7 +107,7 @@ public class JwtProvider {
                 .setSubject(subject)
                 .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(expiration)
-                .signWith(SignatureAlgorithm.HS256, base64EncodedSecretKey)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 

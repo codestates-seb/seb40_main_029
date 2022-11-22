@@ -55,6 +55,9 @@ public class TodoController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+//    @GetMapping("/renewal/{member-id}")
+//    public ResponseEntity<TodoResponseDto> TodoRenewal()
+
     @GetMapping("/{member-id}/{todo-id}")
     public ResponseEntity<TodoResponseDto> getTodo(@PathVariable("member-id") Long memberId,
                                                     @PathVariable("todo-id") Long todoId){
