@@ -19,7 +19,10 @@ const Item = styled.label`
       inset 3px 3px 5px rgba(0, 0, 0, 0.25);
   }
 `;
-const FriendItem = ({ member, onClick }) => {
+const FriendItem = ({ member, setRespondentDisplayName }) => {
+  const onClick = async () => {
+    await setRespondentDisplayName(member.displayName);
+  };
   return (
     <Item htmlFor={member?.memberId}>
       <input

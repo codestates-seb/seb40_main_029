@@ -48,13 +48,13 @@ const FriendCard = ({ friend }) => {
   }, []);
 
   const friendsColor = palette?.find(mycolor => {
-    return mycolor.mood === friend.mood;
+    return mycolor.mood === friend.respondentMoodPaletteDetails.mood;
   });
 
   const handleDeleteFriend = () => {
-    const friendId = friend.id;
+    const friendId = friend.respondentId;
     const fetchData = async () => {
-      await deleteFriend({ friendId });
+      await deleteFriend(friendId);
       window.location.reload();
     };
     fetchData();
@@ -63,8 +63,8 @@ const FriendCard = ({ friend }) => {
   return (
     <Card>
       <MoodPic color={friendsColor?.colorCode}></MoodPic>
-      <FriendName>{friend.username}</FriendName>
-      <FriendName>{friend.mood}</FriendName>
+      <FriendName>{friend.respondentDisplayName}</FriendName>
+      <FriendName>{friend.respondentMoodPaletteDetails.mood}</FriendName>
       <EditBtn onClick={handleDeleteFriend}>
         <FontAwesomeIcon icon={faDeleteLeft} />
       </EditBtn>

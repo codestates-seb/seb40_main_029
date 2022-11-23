@@ -21,8 +21,9 @@ const Friends = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [friends, setFriends] = useState([]);
   useEffect(() => {
+    const memberId = 1;
     const fetchData = async () => {
-      const data = await getFriends();
+      const data = await getFriends(memberId);
       setFriends(data);
     };
     fetchData();
@@ -38,7 +39,9 @@ const Friends = () => {
           <CardLayout>
             {friends
               ? friends.map(friend => {
-                  return <FriendCard key={friend.id} friend={friend} />;
+                  return (
+                    <FriendCard key={friend.respondentId} friend={friend} />
+                  );
                 })
               : null}
           </CardLayout>

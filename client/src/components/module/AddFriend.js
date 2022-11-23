@@ -7,7 +7,7 @@ import Input from '../atoms/Input';
 import FriendItem from './FriendItem';
 import Button from '../atoms/Button';
 import { useEffect, useState } from 'react';
-import { getAllMembers } from '../../api/FriendDataApi';
+import { addFriend, getAllMembers } from '../../api/FriendDataApi';
 import useInput from '../../utils/useInput';
 
 const PopUp = styled.div`
@@ -56,6 +56,7 @@ const FriendListBox = styled.div`
 const AddFriend = ({ setIsOpen }) => {
   const [friendsList, setFriendsList] = useState([]);
   const [keyword, bindKeyword] = useInput('');
+  const [respondentDisplayName, setRespondentDisplayName] = useState('');
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllMembers();
@@ -63,15 +64,17 @@ const AddFriend = ({ setIsOpen }) => {
     };
     fetchData();
   }, []);
-  const handleCheckFriend = e => {
-    console.log(e.target.value);
-  };
   const CloseModal = () => {
     setIsOpen(false);
   };
   const filteredMember = friendsList?.filter(member => {
     return member.displayName.includes(keyword);
   });
+  // 유저 ID 1로 가정
+  const requesterDisplayName = '회원1';
+  const handleAddFriend = () => {
+    addFriend({ requesterDisplayName, respondentDisplayName });
+  };
 
   return (
     <PopUp>
@@ -101,14 +104,17 @@ const AddFriend = ({ setIsOpen }) => {
                     <FriendItem
                       key={i}
                       member={member}
-                      onClick={handleCheckFriend}
+                      setRespondentDisplayName={setRespondentDisplayName}
+                      // onClick={handleCheckFriend}
                     />
                   );
                 })
               : null}
           </FriendListBox>
           <RightBottomLayout>
-            <Button size="long">친구추가</Button>
+            <Button size="long" onClick={handleAddFriend}>
+              친구추가
+            </Button>
           </RightBottomLayout>
         </ShadowBox>
       </CenterLayout>
