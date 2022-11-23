@@ -6,8 +6,8 @@ const initialState = {
   email: -1,
   displayName: -1,
   moodId: -1,
-  paletteCode: -1,
-  myPalette: [],
+  paletteCode: 'P001',
+  myPalette: ['P001'],
   today: { mood: -1, reason: -1 },
 };
 
@@ -33,9 +33,10 @@ const slice = createSlice({
     setPaletteCode: (state, action) => {
       state.paletteCode = action.payload;
     },
-    setMyPalette: (state, action) => {
-      state.myPalette = [...state.myPalette, action.payload];
-    },
+    setMyPalette: (state, action) => ({
+      ...state,
+      myPalette: [...state.myPalette, action.payload],
+    }),
     setMood: (state, action) => {
       state.today.color = action.payload.color;
     },

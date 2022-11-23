@@ -1,11 +1,4 @@
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  memberIdSelector,
-  paletteCodeSelector,
-  myPaletteSelector,
-} from '../redux/hooks';
-import { setMyPalette, setPaletteCode } from '../redux/slice';
 
 axios.defaults.withCredentials = true;
 
@@ -19,8 +12,6 @@ export const PaletteList = async () => {
       const paletteSet = [];
       for (let i = 0; i < res.data.length; i += 8)
         paletteSet.push(res.data.slice(i, i + 8));
-      // const paletteSet = {};
-      // paletteSet.carousel = res;
       console.log(paletteSet);
       const temp = {};
       temp.carousel = paletteSet;
@@ -32,34 +23,29 @@ export const PaletteList = async () => {
   }
 };
 
-export const BuyPalette = async ({ paletteCode }) => {
-  const dispatch = useDispatch();
-  const memberId = useSelector(memberIdSelector);
-  const myPalette = useSelector(myPaletteSelector);
-  const path = `/members/${memberId}/${paletteCode}`;
+export const BuyPalette = async paletteCode => {
+  // const memberId = useSelector(memberIdSelector);
+  const memberId = 4; // 임시 멤버아이디
+  const path = `/members/buy/${memberId}/${paletteCode}`;
 
   try {
     const result = await axios.patch(
       process.env.REACT_APP_SERVER_API_URL + path
     );
-    dispatch(setMyPalette(paletteCode));
     console.log(result);
   } catch (err) {
     throw err;
   }
 };
 
-export const SetPalette = async () => {
-  const dispatch = useDispatch();
-  const memberId = useSelector(memberIdSelector);
-  const paletteCode = useSelector(paletteCodeSelector);
+export const SetPalette = async paletteCode => {
+  const memberId = 4;
   const path = `/members/choice/${memberId}/${paletteCode}`;
 
   try {
     const result = await axios.patch(
       process.env.REACT_APP_SERVER_API_URL + path
     );
-    dispatch(setPaletteCode(paletteCode));
     console.log(result);
   } catch (err) {
     throw err;

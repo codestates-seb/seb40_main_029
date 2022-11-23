@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { StoreModal } from './Modal';
 import Button from '../atoms/Button';
 import CircleCarousel from './CircleCarousel';
@@ -10,7 +10,12 @@ import {
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { BuyPalette, SetPalette } from '../../api/PaletteShop';
-import { myPaletteSelector } from '../../redux/hooks';
+import {
+  memberIdSelector,
+  paletteCodeSelector,
+  myPaletteSelector,
+} from '../../redux/hooks';
+import { setMyPalette, setPaletteCode } from '../../redux/slice';
 
 const TitleContainer = styled.div`
   margin: 5px;
@@ -63,6 +68,7 @@ const CarouselBtnContainer = styled.div`
 `;
 
 export const ThemeStore = () => {
+  const dispatch = useDispatch();
   const [carouselIndex, setIndex] = useState(0);
   const [disable, setDisable] = useState(false);
   const paletteCode = 'P00' + (carouselIndex + 1);
@@ -70,7 +76,19 @@ export const ThemeStore = () => {
   const lastIndex = 4;
   const paletteName = ['기본', '테라코타', '빈티지', '크리스마스', '모노'];
   const palettePoint = ['', '1000P', '500P', '1500P', '500P'];
+  const memberId = useSelector(memberIdSelector);
+  const paletteCodeSelec = useSelector(paletteCodeSelector);
   const myPalette = useSelector(myPaletteSelector);
+
+  const handleBuy = paletteCode => {
+    BuyPalette(paletteCode);
+    dispatch(setMyPalette(paletteCode));
+  };
+
+  const handleSet = paletteCode => {
+    SetPalette(paletteCode);
+    dispatch(setPaletteCode(paletteCode));
+  };
 
   const isMine = () => {
     if (myPalette.includes(paletteCode)) setDisable(true);
@@ -105,14 +123,14 @@ export const ThemeStore = () => {
           <Button
             size="long"
             fontsize="middle"
-            onClick={() => BuyPalette(paletteCode)}
+            onClick={() => handleBuy(paletteCode)}
           >
             구매
           </Button>
           <Button
             size="long"
             fontsize="middle"
-            onClick={() => SetPalette(paletteCode)}
+            onClick={() => handleSet(paletteCode)}
             disable={disable}
           >
             적용
