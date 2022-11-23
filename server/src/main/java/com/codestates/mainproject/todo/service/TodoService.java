@@ -8,6 +8,7 @@ import com.codestates.mainproject.member.service.MemberService;
 import com.codestates.mainproject.todo.entity.Todo;
 import com.codestates.mainproject.todo.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +18,12 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class TodoService {
 
     private final TodoRepository todoRepository;
@@ -63,11 +66,42 @@ public class TodoService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.TODO_NOT_FOUND));
     }
 
+    public List<Todo> renewalTodo(Long memberId){
+        LocalDateTime YesStartDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(0, 0, 0)); //어제 날짜 기준 0시 0분 0초
+        LocalDateTime YesEndDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(23, 59, 59)); // 어제 날짜 기준 23시 59분 59초
+
+//        LocalDateTime YesStartDateTime = LocalDateTime.now().minusMinutes(1); //어제 날짜 기준 0시 0분 0초
+//        LocalDateTime YesEndDateTime = LocalDateTime.now();
+
+        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
+//        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59));
+
+        List<Todo> todoList = todoRepository.findAllByMember_MemberIdAndCreatedAtBetween(memberId, YesStartDateTime, YesEndDateTime);
+        List<Todo> falseTodo = todoList.stream()
+                .filter(todo -> !todo.isSelected())
+                .collect(Collectors.toList());
+
+        for (Todo todo : todoList) {
+            if (!todo.isSelected()) {
+                todo.setCreatedAt(LocalDateTime.now());
+                todoRepository.save(todo);
+            }
+        }
+        return falseTodo;
+    }
+
     public List<Todo> findTodoList(Long memberId){
         LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0)); //오늘 날짜 기준 0시 0분 0초
-        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59)); // 오늘 날짜 기준 +1일 오전 3시 59분 59초
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59)); // 오늘 날짜 기준 23시 59분 59초
 
         List<Todo> todoList = todoRepository.findAllByMember_MemberIdAndCreatedAtBetween(memberId, startDateTime, endDateTime);
+        return todoList;
+    }
+
+    public List<Todo> findAllTodoList(Long memberId){
+
+        List<Todo> todoList = todoRepository.findAllByMember_MemberId(memberId);
         return todoList;
     }
 
@@ -83,7 +117,7 @@ public class TodoService {
         return todoRepository.findByTodoIdAndMember_MemberId(todoId, memberId);
     }
 
-    public Optional<List<Todo>> verifyTodoList(Long memberId){
+    public List<Todo> verifyTodoList(Long memberId){
         return todoRepository.findAllByMember_MemberId(memberId);
     }
 }
