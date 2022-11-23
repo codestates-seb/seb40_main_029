@@ -72,7 +72,7 @@ export const ThemeStore = () => {
   const [carouselIndex, setIndex] = useState(0);
   const [disable, setDisable] = useState(false);
   const paletteCode = 'P00' + (carouselIndex + 1);
-  console.log(paletteCode);
+  console.log('팔레트 코드' + paletteCode);
   const lastIndex = 4;
   const paletteName = ['기본', '테라코타', '빈티지', '크리스마스', '모노'];
   const palettePoint = ['', '1000P', '500P', '1500P', '500P'];
@@ -90,9 +90,16 @@ export const ThemeStore = () => {
     dispatch(setPaletteCode(paletteCode));
   };
 
+  console.log('적용된 팔레트' + typeof paletteCodeSelec);
+  console.log(myPalette);
+
+  // 보유하고 있으면 disable을 true로 변경
   const isMine = () => {
-    if (myPalette.includes(paletteCode)) setDisable(true);
-    setDisable(false);
+    if (myPalette.includes(paletteCode)) {
+      setDisable(true);
+    } else if (!myPalette.includes(paletteCode)) {
+      setDisable(false);
+    }
   };
 
   const toRight = () => {
@@ -102,6 +109,7 @@ export const ThemeStore = () => {
       setIndex(0);
     }
     isMine();
+    console.log(disable);
   };
 
   const toLeft = () => {
@@ -111,6 +119,7 @@ export const ThemeStore = () => {
       setIndex(lastIndex);
     }
     isMine();
+    console.log(disable);
   };
 
   console.log(carouselIndex);
