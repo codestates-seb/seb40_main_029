@@ -1,13 +1,13 @@
 // 먼저 한달 기록만 조회
-// 그 색을 5개씩 묶어서 통계
+// 그 색을 5개씩 묶어서 통계 or 색 영역을 퍼센트로
 // 리스트 만들어놓고 적용
-
 import axios from 'axios';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { displayNameSelector } from '../redux/hooks';
 
-const Gradient = styled.div`
+const GradientScreen = styled.div`
+  width: 100vw;
+  height: 100vh;
   background: linear-gradient(
       217deg,
       rgba(255, 0, 0, 0.8),
@@ -17,7 +17,17 @@ const Gradient = styled.div`
     linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
 `;
 
-export const GetMonth = async () => {
+// background: `linear-gradient(to right, ${blue[200]}, ${blue[700])}`,
+
+const MonthlyColor = styled.h1`
+  padding: 0;
+  margin: 0;
+  opacity: 0.2;
+  font-size: 30px;
+  letter-spacing: 0.7rem;
+`;
+
+const GetMonth = async () => {
   const displayName = useSelector(displayNameSelector);
   const path = `/mood/month/${displayName}`;
 
@@ -38,6 +48,15 @@ export const GetMonth = async () => {
   }
 };
 
+const Gradient = () => {
+  return (
+    <GradientScreen>
+      <MonthlyColor>당신의 10월</MonthlyColor>
+    </GradientScreen>
+  );
+};
+
+export default Gradient;
 // [
 //   {
 //       "moodId": 1,
@@ -52,12 +71,3 @@ export const GetMonth = async () => {
 //       }
 //   }
 // ]
-
-// .stacked-linear {
-//   background:
-//       linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
-//       linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
-//       linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
-// }
-
-// ㅅㅐㄱ ㅇㅕㅇ여ㄱ을 퍼퍼센센트트로
