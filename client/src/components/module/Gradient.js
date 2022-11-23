@@ -10,10 +10,14 @@ const GradientScreen = styled.div`
   height: 100vh;
   background: linear-gradient(
       217deg,
-      rgba(255, 0, 0, 0.8),
+      /* 우측 위 빨강 */ rgba(255, 0, 0, 0.8),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(
+      127deg,
+      /* 좌측 위 초록 */ rgba(0, 255, 0, 0.8),
+      rgba(0, 255, 0, 0) 70.71%
+    ),
     linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
 `;
 
@@ -43,6 +47,9 @@ const GetMonth = async () => {
     colors.forEach(x => {
       summary[x] = (summary[x] || 0) + 1;
     });
+    const number = Object.keys(colors);
+    const total = 0;
+    number.forEach(x => (total += x));
   } catch (err) {
     throw err;
   }
