@@ -3,62 +3,83 @@ import styled from 'styled-components';
 import useInput from '../../utils/useInput';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import uuid from 'react-uuid';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-const url = 'http://localhost:3001/data/';
+import Todos from './Todos';
+
+const URL = 'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/';
+const URL2 = 'https://521a-211-58-204-152.jp.ngrok.io:8080/';
+const path = 'todo/';
+const selected = 'selected/';
+const member_id = '1/';
+const today = 'today/';
 
 const TodoList = () => {
   const [todoList, setTodoList] = useState([]);
   const [todoValue, todoBind, todoReset] = useInput('');
 
   useEffect(() => {
-    const fetchData = () => {
-      axios.get(url).then(res => setTodoList(res.data));
-    };
-    fetchData();
+    axios.get(URL + path + member_id).then(res => {
+      const newTodoList = res.data.filter(each => each.selected === false);
+      const doneList = res.data.filter(each => each.selected === true);
+      setTodoList([...newTodoList, ...doneList]);
+    });
   }, []);
 
   const addTodo = () => {
     if (todoValue === '') {
       return;
     }
-    const newTodoList = [...todoList];
-    const newTodo = {
-      // todoId: uuid(),
-      title: todoValue,
-      selected: false,
-    };
-    newTodoList.push(newTodo);
-    axios.post(url, newTodo);
-    setTodoList(newTodoList);
-    todoReset();
+    axios.post(URL + path + member_id, { title: todoValue }).then(res => {
+      const newTodoList = todoList.filter(each => each.selected === false);
+      const doneList = todoList.filter(each => each.selected === true);
+      newTodoList.push({
+        todoId: res.data.todoId,
+        title: res.data.title,
+        selected: res.data.selected,
+      });
+      setTodoList([...newTodoList, ...doneList]);
+      todoReset();
+    });
   };
 
-  const deleteTodo = id => {
-    axios.delete(url + id);
-    setTodoList(todoList.filter(e => e.id !== id));
+  const completeTodo = todoId => {
+    axios.patch(URL + path + selected + member_id + todoId).then(res => {
+      const newTodoList = todoList.filter(
+        each => each.todoId !== res.data.todoId
+      );
+      newTodoList.push({
+        todoId: res.data.todoId,
+        title: res.data.title,
+        selected: res.data.selected,
+      });
+
+      setTodoList(newTodoList);
+    });
+  };
+
+  const deleteTodo = todoId => {
+    axios.delete(URL + path + member_id + todoId);
+    setTodoList(todoList.filter(each => each.todoId !== todoId));
     // setTodoList(todoList.filter(e => e.id !== id));
   };
 
+  const lookBack = () => {
+    axios
+      .patch(URL + path + 'update/' + member_id)
+      .then(res => setTodoList([...res.data, ...todoList]));
+  };
+
   return (
-    <TodoModal>
+    <TodoModal lookBack={lookBack}>
       <Wrapper>
         <TodoContainer>
           {todoList.map(each => {
             return (
-              <Todo key={each.todoId} checked={each.selected}>
-                <div>
-                  <CheckButton checked={each.selected}>
-                    <FontAwesomeIcon icon={faCircleCheck} />
-                  </CheckButton>
-                  {each.title}
-                </div>
-
-                <DeleteButton onClick={() => deleteTodo(each.todoId)}>
-                  <FontAwesomeIcon icon={faTrashCan} />
-                </DeleteButton>
-              </Todo>
+              <Todos
+                key={each.todoId}
+                each={each}
+                completeTodo={completeTodo}
+                deleteTodo={deleteTodo}
+              />
             );
           })}
         </TodoContainer>
@@ -95,28 +116,10 @@ const TodoContainer = styled.div`
   }
 `;
 
-const Todo = styled.div`
-  /* box-sizing: border-box; */
-  display: flex;
-  justify-content: space-between;
-  /* width: 650px; */
-  margin: 16px;
-  border-radius: 10px;
-  box-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25), -2px -2px 5px #faf8ff;
-  padding: 10px;
-  text-decoration: ${checked => (checked ? 'line-through' : 'none')};
-  background-color: #ffffff;
-`;
-
 const InputContainer = styled.form`
   display: flex;
   width: 100%;
   border-top: 0.5px solid gray;
-`;
-
-const DeleteButton = styled.button`
-  border: none;
-  background: transparent;
 `;
 
 const Input = styled.input`
@@ -134,13 +137,4 @@ const Input = styled.input`
 const InvisibleButton = styled.button`
   border: none;
   background: transparent;
-`;
-const CheckButton = styled.button`
-  margin-right: 5px;
-  border: none;
-  background: transparent;
-
-  path {
-    color: ${selected => (selected ? 'green' : 'lightgray')};
-  }
 `;

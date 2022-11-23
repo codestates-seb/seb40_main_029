@@ -4,12 +4,14 @@ import Header from './components/module/Header';
 import MoodCard from './components/module/MoodCard';
 import Letter from './components/templates/Letter';
 import TodoList from './components/module/TodoList';
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 const App = () => {
   return (
     <div className="App">
       <Header />
-
       <TodoList />
       <Routes>
         <Route path="/letter" element={<Letter />} />

@@ -7,6 +7,7 @@ import {
   faUserGroup,
 } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import ReactTooltip from 'react-tooltip';
 
 const Blueprint = styled.div`
   display: flex;
@@ -60,18 +61,29 @@ const Button = styled.div`
   padding: 0 8px;
 `;
 
+const RealButton = styled.button`
+  background-color: transparent;
+  border: none;
+`;
+
 const Utility = styled.div`
   height: 100%;
   width: 100%;
 `;
 
-const TodoModal = ({ children }) => {
+const TodoModal = ({ children, lookBack }) => {
   return (
     <Todo>
       <Header>
         <Title>
           오늘 할 일 &nbsp;
-          <FontAwesomeIcon icon={faHighlighter} />
+          <RealButton
+            onClick={() => lookBack()}
+            data-tip="어제 완료하지 못한 일을 한 번 불러올 수 있어요"
+          >
+            <FontAwesomeIcon icon={faHighlighter} />
+          </RealButton>
+          <ReactTooltip />
         </Title>
         <Button onClick={() => {}}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
