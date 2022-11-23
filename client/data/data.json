@@ -18,13 +18,13 @@
       "id": 2,
       "memberId": 3,
       "username": "민택",
-      "mood": "sad"
+      "mood": "슬픔"
     },
     {
       "id": 3,
       "memberId": 4,
       "username": "우철",
-      "mood": "anger"
+      "mood": "분노"
     }
   ],
   "palette": [
