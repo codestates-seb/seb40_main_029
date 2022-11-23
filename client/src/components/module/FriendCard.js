@@ -41,13 +41,13 @@ const FriendCard = ({ friend }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getSpecificPalette({ paletteCode });
+      const data = await getSpecificPalette(paletteCode);
       setPalette(data);
     };
     fetchData();
   }, []);
 
-  const friendsColor = palette.find(mycolor => {
+  const friendsColor = palette?.find(mycolor => {
     return mycolor.mood === friend.mood;
   });
 
