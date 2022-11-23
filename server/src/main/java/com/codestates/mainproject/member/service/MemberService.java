@@ -35,6 +35,7 @@ public class MemberService {
         if(verifyDisplayName(member.getDisplayName()).isPresent()){
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
         }
+        log.info(member.getDisplayName());
         String basicCode = "P001";
         MoodPalette basicPalette = moodPaletteRepository.findById("P001").orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
 

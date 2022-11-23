@@ -71,17 +71,20 @@ public class MoodController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/month/{member-displayName}")
-    public ResponseEntity<List<MoodResponseDto>> getMoodMonth(@PathVariable("member-displayName") String memberDisplayName){
-        List<Mood> moodsMonth = moodService.findMoodsMonth(memberDisplayName);
+    @GetMapping("/month/{member-displayName}/{month}")
+    public ResponseEntity<List<MoodResponseDto>> getMoodMonth(@PathVariable("member-displayName") String memberDisplayName,
+                                                              @PathVariable("month") int month) {
+
+        List<Mood> moodsMonth = moodService.findMoodsMonth(memberDisplayName, month);
         List<MoodResponseDto> response = mapper.moodsToMoodResponseDtos(moodsMonth);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/year/{member-displayName}")
-    public ResponseEntity<List<MoodResponseDto>> getMoodYear(@PathVariable("member-displayName") String memberDisplayName){
-        List<Mood> moodsYear = moodService.findMoodsYear(memberDisplayName);
+    @GetMapping("/year/{member-displayName}/{year}")
+    public ResponseEntity<List<MoodResponseDto>> getMoodYear(@PathVariable("member-displayName") String memberDisplayName,
+                                                             @PathVariable("year") int year){
+        List<Mood> moodsYear = moodService.findMoodsYear(memberDisplayName, year);
         List<MoodResponseDto> response = mapper.moodsToMoodResponseDtos(moodsYear);
 
         return new ResponseEntity<>(response, HttpStatus.OK);

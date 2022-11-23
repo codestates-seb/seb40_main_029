@@ -1,8 +1,9 @@
 package com.codestates.mainproject.auth.jwt;
 
-import com.codestates.mainproject.auth.dto.TokenResponseDto;
+import com.codestates.mainproject.auth.TokenResponse;
 import com.codestates.mainproject.auth.redis.RedisDao;
 import com.codestates.mainproject.member.dto.MemberResponseDto;
+import com.codestates.mainproject.member.entity.Member;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -48,33 +49,32 @@ public class JwtProvider {
     private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
         Key key = Keys.hmacShaKeyFor(keyBytes);
-
         return key;
     }
 
-    public TokenResponseDto createTokensByLogin(MemberResponseDto memberResponseDto) throws JsonProcessingException {
+    public TokenResponse createTokensByLogin(Member member) throws JsonProcessingException {
 
-        String atk = delegateAccessToken(memberResponseDto);
-        String rtk = delegateRefreshToken(memberResponseDto);
-        redisDao.setValues(memberResponseDto.getEmail(), rtk, Duration.ofMinutes((long) refreshTokenExpirationMinutes));
-        return new TokenResponseDto(atk, rtk);
+        String atk = "Bearer " + delegateAccessToken(member);
+        String rtk = delegateRefreshToken(member);
+        redisDao.setValues(member.getEmail(), rtk, Duration.ofMinutes((long) refreshTokenExpirationMinutes));
+        return new TokenResponse(atk, rtk, "bearer");
     }
 
 
-    private String delegateAccessToken(MemberResponseDto memberResponseDto) {
+    public String delegateAccessToken(Member member) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("displayName", memberResponseDto.getDisplayName());
-        claims.put("memberId", memberResponseDto.getMemberId());
+        claims.put("email", member.getEmail());
+        claims.put("memberId", member.getMemberId());
 
-        String subject = memberResponseDto.getEmail();
+        String subject = member.getEmail();
         Date expiration = getTokenExpiration(accessTokenExpirationMinutes);
         String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
 
         return generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
     }
 
-    private String delegateRefreshToken(MemberResponseDto memberResponseDto) {
-        String subject = memberResponseDto.getEmail();
+    public String delegateRefreshToken(Member member) {
+        String subject = member.getEmail();
         Date expiration = getTokenExpiration(refreshTokenExpirationMinutes);
         String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
 
@@ -93,7 +93,7 @@ public class JwtProvider {
                 .setSubject(subject)
                 .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(expiration)
-                .signWith(key)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 
@@ -107,7 +107,7 @@ public class JwtProvider {
                 .setSubject(subject)
                 .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(expiration)
-                .signWith(key)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 
@@ -134,15 +134,15 @@ public class JwtProvider {
         return claims;
     }
 
-    public TokenResponseDto reissueAtk(MemberResponseDto memberResponseDto) throws JwtException {
-        String rtkInRedis = redisDao.getValues(memberResponseDto.getEmail());
-        if (Objects.isNull(rtkInRedis)) {
-            throw new JwtException("인증 정보가 만료되었습니다.");
-        }
-
-        String atk = delegateAccessToken(memberResponseDto);
-        return new TokenResponseDto(atk, null);
-    }
+//    public TokenResponseDto reissueAtk(MemberResponseDto memberResponseDto) throws JwtException {
+//        String rtkInRedis = redisDao.getValues(memberResponseDto.getEmail());
+//        if (Objects.isNull(rtkInRedis)) {
+//            throw new JwtException("인증 정보가 만료되었습니다.");
+//        }
+//
+//        String atk = delegateAccessToken(memberResponseDto);
+//        return new TokenResponseDto(atk, null);
+//    }
 
     public void deleteRtk(MemberResponseDto memberResponseDto) throws JwtException {
         redisDao.deleteValues(memberResponseDto.getEmail());

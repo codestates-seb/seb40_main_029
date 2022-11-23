@@ -30,8 +30,10 @@ public class MemberController {
     // 3. Service 클래스에 createdMember 메서드를 사용해서 member 객체를 DB에 저장한다.
     @PostMapping("/addMember")
     public ResponseEntity<MemberResponseDto> postMember(@RequestBody MemberPostDto postDto){
-        Member member = mapper.memberPostDtoToMember(postDto); // postDto는 클라이언트로부터 가입할 유저의 정보를 받는 클래스
+        Member member = mapper.memberPostDtoToMember(postDto);// postDto는 클라이언트로부터 가입할 유저의 정보를 받는 클래스
         Member saveMember = memberService.createMember(member);
+        log.info(postDto.getDisplayName());
+        log.info(member.getDisplayName());
         log.info(saveMember.getDisplayName() + "님이 가입 하였습니다.");
         MemberResponseDto respponse = mapper.memberToMemberResponseDto(saveMember);
 

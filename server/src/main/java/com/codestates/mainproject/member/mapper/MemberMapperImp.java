@@ -13,13 +13,15 @@ import java.util.List;
 public class MemberMapperImp {
 
     public Member memberPostDtoToMember(MemberPostDto memberPostDto) {
-        Member member = new Member(memberPostDto.getDisplayName());
+        Member member = new Member();
+        member.setDisplayName(memberPostDto.getDisplayName());
         return member;
     }
 
 
     public Member memberPatchDtoToMember(MemberPatchDto memberPatchDto) {
-        Member member = new Member(memberPatchDto.getDisplayName());
+        Member member = new Member();
+        member.setDisplayName(memberPatchDto.getDisplayName());
         return member;
     }
 

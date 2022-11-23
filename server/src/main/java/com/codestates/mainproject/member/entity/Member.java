@@ -4,7 +4,6 @@ import com.codestates.mainproject.member.role.Role;
 import com.codestates.mainproject.mood.entity.Mood;
 import com.codestates.mainproject.palette.entity.MemberPalette;
 import com.codestates.mainproject.todo.entity.Todo;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +27,7 @@ public class Member {
 
     private String email;
 
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String displayName;
 
     @Column(nullable = false)
@@ -40,6 +39,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "MEMBER_ID")
@@ -58,11 +58,13 @@ public class Member {
     private List<Friend> friends = new ArrayList<>();
 
 
-    public Member(String displayName) {
-        this.displayName = displayName;
-    }
-
     public String getRoleKey() {
         return this.role.getKey();
     }
+
+    public Member(String email) {
+        this.email = email;
+    }
 }
+
+
