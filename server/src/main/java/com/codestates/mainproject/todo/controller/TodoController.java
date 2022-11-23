@@ -55,8 +55,13 @@ public class TodoController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-//    @GetMapping("/renewal/{member-id}")
-//    public ResponseEntity<TodoResponseDto> TodoRenewal()
+    @PatchMapping("/update/{member-id}")
+    public ResponseEntity<List<TodoResponseDto>> TodoRenewal(@PathVariable("member-id") Long memberId){
+        List<Todo> todos = todoService.renewalTodo(memberId);
+        List<TodoResponseDto> response = mapper.todosToTodoResponseDtos(todos);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
     @GetMapping("/{member-id}/{todo-id}")
     public ResponseEntity<TodoResponseDto> getTodo(@PathVariable("member-id") Long memberId,
@@ -66,9 +71,17 @@ public class TodoController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/{member-id}")
-    public ResponseEntity<List<TodoResponseDto>> getTodo(@PathVariable("member-id") Long memberId){
+    @GetMapping("/today/{member-id}")
+    public ResponseEntity<List<TodoResponseDto>> getTodayTodo(@PathVariable("member-id") Long memberId){
         List<Todo> todoList = todoService.findTodoList(memberId);
+        List<TodoResponseDto> response = mapper.todosToTodoResponseDtos(todoList);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/{member-id}")
+    public ResponseEntity<List<TodoResponseDto>> getAllTodo(@PathVariable("member-id") Long memberId){
+        List<Todo> todoList = todoService.findAllTodoList(memberId);
         List<TodoResponseDto> response = mapper.todosToTodoResponseDtos(todoList);
 
         return new ResponseEntity<>(response, HttpStatus.OK);

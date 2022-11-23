@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface TodoRepository extends JpaRepository<Todo, Long> {
       Optional<Todo> findByTodoIdAndMember_MemberId(Long todoId, Long memberid);
-      Optional<List<Todo>> findAllByMember_MemberId(Long memberId);
+     List<Todo> findAllByMember_MemberId(Long memberId);
 
       List<Todo> findAllByMember_MemberIdAndCreatedAtBetween(Long memberId,
                                                              LocalDateTime start,

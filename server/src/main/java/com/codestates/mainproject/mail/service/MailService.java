@@ -12,6 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Slf4j
@@ -51,8 +54,25 @@ public class MailService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MAIL_EXISTS));
     }
 
+    public List<Mail> convert(Long memberId) {
+        List<Mail> mailList = mailRepository.findAllByReceiverMemberId(memberId);
+        for(int i=0; i< mailList.size(); i++){
+            Mail mail = mailList.get(i);
+            mail.setCreatedAt(LocalDateTime.now().minusDays(1));
+            mailRepository.save(mail);
+        }
+
+        return mailList;
+    }
+
     public List<Mail> findMessages(Long memberId){
-        return mailRepository.findAllByReceiverMemberId(memberId);
+        LocalDateTime yesStartDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(0, 0, 0)); //어제 날짜 기준 0시 0분 0초
+        LocalDateTime yesEndDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(23, 59, 59)); // 어제 날짜 기준 23시 59분 59초
+
+//        LocalDateTime YesStartDateTime = LocalDateTime.now().minusMinutes(30); //어제 날짜 기준 0시 0분 0초
+//        LocalDateTime YesEndDateTime = LocalDateTime.now();
+
+        return mailRepository.findAllByReceiverMemberIdAndAndCreatedAtBetween(memberId, yesStartDateTime, yesEndDateTime);
     }
 
     public Mail verifyMessage(Long mailId){
