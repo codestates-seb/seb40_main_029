@@ -6,7 +6,7 @@ import { isLoggedInSelector, emailSelector } from '../../redux/hooks';
 import { setIsLoggedIn } from '../../redux/slice';
 import { postLoginToken } from '../../api/postLoginToken';
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 export default function GoogleLogin() {
   //   const isLoggedIn = useSelector(isLoggedInSelector);
@@ -14,13 +14,17 @@ export default function GoogleLogin() {
   //   console.log('로그인' + isLoggedIn);
   //   console.log('이메일' + userEmail);
 
-  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=http://localhost:3000/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
+  //840805606859-diamap7b8svl8fhe3kqt1bmjsi6aieg9.apps.googleusercontent.com
+  // https://accounts.google.com/o/oauth2/v2/auth?client_id=840805606859-diamap7b8svl8fhe3kqt1bmjsi6aieg9.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email
+  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=840805606859-diamap7b8svl8fhe3kqt1bmjsi6aieg9.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
 
-  // console.log(GOOGLE_LOGIN_URL);
+  console.log(GOOGLE_LOGIN_URL);
 
   const getAccessToken = async authorizationCode => {
     // const getURL = `${process.env.REACT_APP_BASIC_URL}?code=${authorizationCode}`;
-    const getURL = process.env.REACT_APP_REDIRECT_URL;
+    // const getURL = process.env.REACT_APP_REDIRECT_URL;
+    const getURL =
+      'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/oauth/google';
     // const params = { code: authorizationCode };
     let config = {
       // headers: {
@@ -36,7 +40,7 @@ export default function GoogleLogin() {
   };
 
   function oAuthHandler() {
-    window.location.assign(GOOGLE_LOGIN_URL);
+    window.location.replace(GOOGLE_LOGIN_URL);
   }
 
   useEffect(() => {
