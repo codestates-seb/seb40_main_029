@@ -20,3 +20,8 @@ export const sendMail = async ({ body, senderName, receiverName }) => {
   });
   return res.data;
 };
+
+export const readMail = async (memberId, mailId) => {
+  const res = await axios.patch(serverUrl + `/mails/${memberId}/${mailId}`);
+  return res.data;
+};
