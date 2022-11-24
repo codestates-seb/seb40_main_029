@@ -22,14 +22,15 @@ const DeleteBtn = styled.span`
 `;
 
 const LetterItem = ({ data }) => {
-  const { mailId, username, createdAt, body } = data;
+  const { mailId, senderId, createdAt, body } = data;
   const [isOpen, setIsOpen] = useState(false);
   const handleOpenLetter = () => {
     setIsOpen(!isOpen);
   };
+  const memberId = 1;
   const handleMailDelete = () => {
     const fetchData = async () => {
-      await deleteMail({ mailId });
+      await deleteMail(memberId, mailId);
     };
     fetchData();
   };
@@ -37,7 +38,7 @@ const LetterItem = ({ data }) => {
     <>
       <ShadowBox onClick={handleOpenLetter}>
         <LetterHeader>
-          <User>{username}</User>
+          <User>{senderId}</User>
           <span>{createdAt}</span>
         </LetterHeader>
         {isOpen ? (
