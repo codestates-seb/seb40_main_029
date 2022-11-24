@@ -74,13 +74,20 @@ const LetterCreate = ({ setIsOpen }) => {
   const senderName = '회원1';
   const handleSendLetter = e => {
     e.preventDefault();
+    if (letterBody.length > 300) {
+      alert('300자 이하로만 편지를 보낼 수 있어요!');
+      setLetterBody('');
+      return;
+    }
     if (friend !== '친구목록') {
       sendMail({
         body: `${letterBody}`,
         senderName: `${senderName}`,
         receiverName: `${friend}`,
       });
-      alert(`${friend}에게 편지를 보냈습니다.`);
+      setLetterBody('');
+      alert(`${friend}에게 편지를 보냈습니다.(-60포인트)`);
+      setIsOpen(false);
     }
   };
   return (
@@ -121,6 +128,7 @@ const LetterCreate = ({ setIsOpen }) => {
             border="transparent"
             size="long"
             name="body"
+            value={letterBody}
             onChange={handleTextarea}
             placeholder="친구에게 편지를 보내 보세요.(300자)"
           />
