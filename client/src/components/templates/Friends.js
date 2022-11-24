@@ -7,6 +7,8 @@ import { FriendModal } from '../module/Modal';
 import { getFriends } from '../../api/FriendDataApi';
 import { RightBottomLayout } from '../atoms/Layouts';
 import Button from '../atoms/Button';
+import Overlay from '../atoms/Overlay';
+import AddFriend from '../module/AddFriend';
 
 const CardLayout = styled.div`
   display: flex;
@@ -16,15 +18,19 @@ const CardLayout = styled.div`
 `;
 
 const Friends = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [friends, setFriends] = useState([]);
   useEffect(() => {
+    const memberId = 1;
     const fetchData = async () => {
-      const data = await getFriends();
+      const data = await getFriends(memberId);
       setFriends(data);
     };
     fetchData();
   }, []);
-  // console.log(friends);
+  const handleFindFriend = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <>
@@ -33,14 +39,24 @@ const Friends = () => {
           <CardLayout>
             {friends
               ? friends.map(friend => {
-                  return <FriendCard key={friend.id} friend={friend} />;
+                  return (
+                    <FriendCard key={friend.respondentId} friend={friend} />
+                  );
                 })
               : null}
           </CardLayout>
           <RightBottomLayout>
-            <Button size="circle">+</Button>
+            <Button size="circle" onClick={handleFindFriend}>
+              +
+            </Button>
           </RightBottomLayout>
         </FriendModal>
+        {isOpen ? (
+          <>
+            <AddFriend setIsOpen={setIsOpen} />
+            <Overlay />
+          </>
+        ) : null}
       </ContentLayout>
     </>
   );

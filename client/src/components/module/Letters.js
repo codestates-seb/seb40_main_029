@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import Button from '../atoms/Button';
 import ShadowBox from '../atoms/ShadowBox';
 import LetterItem from './LetterItem';
@@ -12,9 +11,10 @@ const Letters = ({ setIsOpen, isOpen }) => {
   const handleLetterCreate = () => {
     setIsOpen(!isOpen);
   };
+  const memberId = 2;
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getAllMails();
+      const data = await getAllMails(memberId);
       setMails(data);
     };
     fetchData();
