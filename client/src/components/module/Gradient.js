@@ -26,13 +26,19 @@ const GradientScreen = styled.div`
   position: absolute;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(217deg, #e7af8d, #e7af8d1a 66%),
-    linear-gradient(150deg, #e08890, #e088901a 36%),
-    linear-gradient(336deg, #f0dcb1, #f0dcb11a 32%),
-    linear-gradient(36deg, #a2a987, #a2a9871a 20%),
-    linear-gradient(0deg, #beb5bf, #beb5bf1a 20%);
+  background: linear-gradient(0deg, #beb5bf, #beb5bf66 20%),
+    linear-gradient(0deg, #a2a987, #a2a98766 20%),
+    linear-gradient(0deg, #f0dcb1, #f0dcb166 32%),
+    linear-gradient(0deg, #e08890, #e0889066 36%),
+    linear-gradient(0deg, #e7af8d, #e7af8d66 66%);
   animation: ${colors} 3s ease infinite linear alternate;
 `;
+
+// background: linear-gradient(217deg, #e7af8d, #e7af8d1a 66%),
+// linear-gradient(150deg, #e08890, #e088901a 36%),
+// linear-gradient(336deg, #f0dcb1, #f0dcb11a 32%),
+// linear-gradient(36deg, #a2a987, #a2a9871a 20%),
+// linear-gradient(0deg, #beb5bf, #beb5bf1a 20%);
 
 // background: `linear-gradient(to right, ${blue[200]}, ${blue[700])}`,
 
