@@ -23,8 +23,7 @@ export default function GoogleLogin() {
   const getAccessToken = async authorizationCode => {
     // const getURL = `${process.env.REACT_APP_BASIC_URL}?code=${authorizationCode}`;
     // const getURL = process.env.REACT_APP_REDIRECT_URL;
-    const getURL =
-      'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/oauth/google';
+    const getURL = 'https://521a-211-58-204-152.jp.ngrok.io/oauth/google';
     // const params = { code: authorizationCode };
     let config = {
       // headers: {
