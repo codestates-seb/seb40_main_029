@@ -5,6 +5,7 @@ import {
   faHighlighter,
   faStore,
   faUserGroup,
+  faFilm,
 } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import ReactTooltip from 'react-tooltip';
@@ -31,6 +32,11 @@ const Mail = styled(Blueprint)`
 
 const Store = styled(Blueprint)`
   width: 720px;
+  height: 500px;
+`;
+
+const Calendar = styled(Blueprint)`
+  width: 1000px;
   height: 500px;
 `;
 
@@ -79,7 +85,7 @@ const TodoModal = ({ children, lookBack }) => {
           오늘 할 일 &nbsp;
           <RealButton
             onClick={() => lookBack()}
-            data-tip="어제 완료하지 못한 일을 한 번 불러올 수 있어요"
+            data-tip="하루에 한 번, 어제 완료하지 못한 일을 불러올 수 있어요"
           >
             <FontAwesomeIcon icon={faHighlighter} />
           </RealButton>
@@ -145,4 +151,21 @@ const FriendModal = ({ children }) => {
   );
 };
 
-export { TodoModal, MailModal, StoreModal, FriendModal };
+const LookBackModal = ({ children }) => {
+  return (
+    <Calendar>
+      <Header>
+        <Title>
+          기록 &nbsp;
+          <FontAwesomeIcon icon={faFilm} />
+        </Title>
+        <Button onClick={() => {}}>
+          <FontAwesomeIcon icon={faXmark} size="lg" />
+        </Button>
+      </Header>
+      <Utility>{children}</Utility>
+    </Calendar>
+  );
+};
+
+export { TodoModal, MailModal, StoreModal, FriendModal, LookBackModal };

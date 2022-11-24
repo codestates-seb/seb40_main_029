@@ -17,7 +17,7 @@ const TodoList = () => {
   const [todoValue, todoBind, todoReset] = useInput('');
 
   useEffect(() => {
-    axios.get(URL + path + member_id).then(res => {
+    axios.get(URL + path + today + member_id).then(res => {
       const newTodoList = res.data.filter(each => each.selected === false);
       const doneList = res.data.filter(each => each.selected === true);
       setTodoList([...newTodoList, ...doneList]);
@@ -63,9 +63,10 @@ const TodoList = () => {
   };
 
   const lookBack = () => {
-    axios
-      .patch(URL + path + 'update/' + member_id)
-      .then(res => setTodoList([...res.data, ...todoList]));
+    axios.patch(URL + path + 'update/' + member_id).then(res => {
+      console.log(res.data);
+      setTodoList([...res.data, ...todoList]);
+    });
   };
 
   return (
