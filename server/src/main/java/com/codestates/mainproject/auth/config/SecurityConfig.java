@@ -56,7 +56,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeRequests()
                 .requestMatchers(request -> CorsUtils.isPreFlightRequest(request)).permitAll()
-                .antMatchers("/login/**", "/oauth/**", "/members/**",  "/docs/*", "/",  "/mails/**", "/mood/**", "/palette/**", "/friend/**", "/auth/**", "/todo/**").permitAll()
+                .antMatchers("/login/**", "/oauth/**", "/members/**",  "/docs/*", "/",  "/mails/**", "/mood/**", "/palette/**", "/friend/**", "/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
 

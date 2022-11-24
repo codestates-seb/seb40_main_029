@@ -15,6 +15,7 @@ public class MemberMapperImp {
     public Member memberPostDtoToMember(MemberPostDto memberPostDto) {
         Member member = new Member();
         member.setDisplayName(memberPostDto.getDisplayName());
+        member.setEmail(memberPostDto.getEmail());
         return member;
     }
 

@@ -32,10 +32,20 @@ public class MemberService {
 
 
     public Member createMember(Member member){
-        if(verifyDisplayName(member.getDisplayName()).isPresent()){
+        Member findMember = verifyEmail(member.getEmail())
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        findMember.setDisplayName(member.getDisplayName());
+
+        return memberRepository.save(findMember);
+    }
+
+    // Todo : 회원 생성 필요할 때 사용
+    public Member createMemberTest(Member member){
+        if(verifyEmail(member.getEmail()).isPresent()){
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
         }
-        log.info(member.getDisplayName());
+
         String basicCode = "P001";
         MoodPalette basicPalette = moodPaletteRepository.findById("P001").orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
 
@@ -155,6 +165,10 @@ public class MemberService {
 
     private Optional<Member> verifyDisplayName(String displayName){
         return memberRepository.findByDisplayName(displayName);
+    }
+
+    private Optional<Member> verifyEmail(String email) {
+        return memberRepository.findByEmail(email);
     }
 
 }

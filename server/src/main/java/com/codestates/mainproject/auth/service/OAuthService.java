@@ -23,10 +23,11 @@ public class OAuthService {
     private final RestTemplate restTemplate;
 
 //    private static final String CLIENT_ID = "681375843184-2dka6lh5p5ngmar14l3trfemkskk63tn.apps.googleusercontent.com";
-    private static final String CLIENT_ID = "840805606859-39e9r3frr8317aebpc8ld7comhnkgoli.apps.googleusercontent.com";
-    private static final String CLIENT_SECRET = "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";
+    private static final String CLIENT_ID = "840805606859-diamap7b8svl8fhe3kqt1bmjsi6aieg9.apps.googleusercontent.com";
+    private static final String CLIENT_SECRET = "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";
 //    private static final String CLIENT_SECRET = "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";
-    private static final String REDIRECT_URI = "https://521a-211-58-204-152.jp.ngrok.io/oauth/google";
+    private static final String REDIRECT_URI = "http://localhost:3000/login/callback";
+//    private static final String REDIRECT_URI = "ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/oauth/google";
     private static final String GRANT_TYPE = "authorization_code";
 
     public OAuthService(RestTemplate restTemplate) {
