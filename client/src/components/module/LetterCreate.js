@@ -74,12 +74,13 @@ const LetterCreate = ({ setIsOpen }) => {
   const senderName = '회원1';
   const handleSendLetter = e => {
     e.preventDefault();
-    if (receiverName !== '친구목록') {
+    if (friend !== '친구목록') {
       sendMail({
         body: `${letterBody}`,
         senderName: `${senderName}`,
         receiverName: `${friend}`,
       });
+      alert(`${friend}에게 편지를 보냈습니다.`);
     }
   };
   return (
