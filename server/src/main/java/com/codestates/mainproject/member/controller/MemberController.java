@@ -85,7 +85,7 @@ public class MemberController {
     @PostMapping("/addMember")
     public ResponseEntity<MemberResponseDto> postMember(@RequestBody MemberPostDto postDto){
         Member member = mapper.memberPostDtoToMember(postDto);// postDto는 클라이언트로부터 가입할 유저의 정보를 받는 클래스
-        Member saveMember = memberService.createMember(member);
+        Member saveMember = memberService.createMemberTest(member);
         log.info(saveMember.getDisplayName() + "님이 가입 하였습니다.");
         MemberResponseDto respponse = mapper.memberToMemberResponseDto(saveMember);
 

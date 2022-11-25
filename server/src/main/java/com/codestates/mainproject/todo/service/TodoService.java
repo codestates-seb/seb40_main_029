@@ -84,6 +84,11 @@ public class TodoService {
 
         for (Todo todo : todoList) {
             if (!todo.isSelected()) {
+                if(todo.isUpdateTodo()){
+                    todo.setUpdateTodo(false);
+                }else {
+                    todo.setUpdateTodo(true);
+                }
                 todoRepository.save(todo);
             }
         }
@@ -94,7 +99,7 @@ public class TodoService {
         LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0)); //오늘 날짜 기준 0시 0분 0초
         LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59)); // 오늘 날짜 기준 23시 59분 59초
 
-        List<Todo> todoList = todoRepository.findAllByMember_MemberIdAndCreatedAtBetween(memberId, startDateTime, endDateTime);
+        List<Todo> todoList = todoRepository.findAllByMember_MemberIdAndModifiedAtBetween(memberId, startDateTime, endDateTime);
         return todoList;
     }
 
