@@ -1,3 +1,4 @@
+import React from 'react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -5,18 +6,20 @@ import { useNavigate } from 'react-router-dom';
 import { isLoggedInSelector, emailSelector } from '../../redux/hooks';
 import { setIsLoggedIn } from '../../redux/slice';
 import { postLoginToken } from '../../api/postLoginToken';
-import { useCookies } from 'react-cookie';
+// import { useCookies } from 'react-cookie';
+import { Cookies } from 'react-cookie';
+import { setCookie, getCookie } from '../../utils/cookie';
 
 axios.defaults.withCredentials = true; // 쿠키 사용하기 위해 필수
 
 export default function GoogleLogin() {
-  const [cookies, setCookie, removeCookie] = useCookies(['refresh token']);
+  // const [cookies, setCookies, removeCookies] = useCookies(['refresh token']);
   //   const isLoggedIn = useSelector(isLoggedInSelector);
   //   const userEmail = useSelector(emailSelector);
   //   console.log('로그인' + isLoggedIn);
   //   console.log('이메일' + userEmail);
 
-  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=&redirect_uri=http://localhost:3000/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
+  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=840805606859-diamap7b8svl8fhe3kqt1bmjsi6aieg9.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
 
   console.log(GOOGLE_LOGIN_URL);
 
@@ -36,13 +39,25 @@ export default function GoogleLogin() {
     };
     console.log(getURL);
     await axios.get(getURL, config).then(res => {
-      console.log(res.data);
-      // 액세스 토큰 받아서 api 요청시마다 전달
-      const { accessToken } = res.data;
-      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-      // 리프레시 토큰 쿠키에 저장
-      setCookie('refresh token', res.data.refreshToken);
+      if (res.data) {
+        console.log(res.data);
+        // 액세스 토큰 받아서 api 요청시마다 전달
+        const { accessToken } = res.data;
+        console.log(accessToken);
+        console.log(res.data.refreshToken);
+        axios.defaults.headers.common['Authorization'] = accessToken;
+        // 리프레시 토큰 쿠키에 저장
+        setCookie('refreshToken', res.data.refreshToken, {
+          path: '/',
+          // HttpOnly: true,
+          secure: true,
+          sameSite: 'none',
+        });
+      }
+      // 라우팅
     });
+
+    console.log(getCookie('refreshToken'));
   };
 
   // accessToken

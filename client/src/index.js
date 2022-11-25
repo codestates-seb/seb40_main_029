@@ -12,16 +12,16 @@ import { CookiesProvider } from 'react-cookie';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <CookiesProvider>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <CookiesProvider>
         <BrowserRouter>
           <GlobalStyle />
           <App />
         </BrowserRouter>
-      </PersistGate>
-    </Provider>
-  </CookiesProvider>
+      </CookiesProvider>
+    </PersistGate>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
