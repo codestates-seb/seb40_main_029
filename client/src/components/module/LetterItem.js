@@ -31,6 +31,7 @@ const DetailDate = styled.span`
 const LetterItem = ({ data }) => {
   const { mailId, senderDisplayName, createdAt, body, verifyMail } = data;
   const [isOpen, setIsOpen] = useState(false);
+  const [verifyLetter, setVerifyLetter] = useState(verifyMail);
   const memberId = 1;
   //날짜 형식
   let date = 0;
@@ -40,6 +41,7 @@ const LetterItem = ({ data }) => {
     const today = new Date();
     const base = Math.ceil((sendDay - today) / (1000 * 60 * 60 * 24));
     date = formatter.format(base, 'day');
+    console.log(formatter.format(-1, 'day'));
   };
   FormatDate(createdAt);
 
@@ -68,7 +70,7 @@ const LetterItem = ({ data }) => {
         <LetterHeader>
           <div>
             <span>{senderDisplayName}</span>
-            <Alarm>{verifyMail ? '읽음' : '안읽음'} </Alarm>
+            <Alarm>{verifyLetter ? '읽음' : '안읽음'} </Alarm>
           </div>
           <DetailDate>{date}</DetailDate>
         </LetterHeader>
