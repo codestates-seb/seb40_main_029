@@ -40,10 +40,11 @@ const LetterItem = ({ data }) => {
     const sendDay = new Date(day);
     const today = new Date();
     const base = Math.ceil((sendDay - today) / (1000 * 60 * 60 * 24));
-    date = formatter.format(base, 'day');
-    console.log(formatter.format(-1, 'day'));
+    date = formatter.format(base > -1 ? -1 : base, 'day');
   };
   FormatDate(createdAt);
+  //어제가 아니라 오늘이라고 뜨는 오류 발견.
+  //1. 오늘날짜를 가공한다. 2. 계산후 -1 이상의 수가 나온다면 -1을 준다.
 
   let detailDate = 0;
   const FormatDetailDate = day => {
@@ -55,7 +56,6 @@ const LetterItem = ({ data }) => {
 
   const handleOpenLetter = () => {
     setIsOpen(!isOpen);
-    //안읽음 -> 읽음으로 펼치는순간 바뀌도록 하려면?
     readMail(memberId, mailId);
   };
   const handleMailDelete = () => {
