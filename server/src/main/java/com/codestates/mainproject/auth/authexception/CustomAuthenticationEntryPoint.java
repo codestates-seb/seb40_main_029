@@ -1,4 +1,4 @@
-package com.codestates.mainproject.auth.exception;
+package com.codestates.mainproject.auth.authexception;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,5 +35,9 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
     private String convertObjectToJson(Object object) throws JsonProcessingException {
         return object == null ? null : objectMapper.writeValueAsString(object);
+    }
+
+    public ObjectMapper getObjectMapper() {
+        return this.objectMapper;
     }
 }

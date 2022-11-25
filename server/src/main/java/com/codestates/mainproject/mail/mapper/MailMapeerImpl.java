@@ -13,6 +13,8 @@ public class MailMapeerImpl  {
                 mail.getBody(),
                 mail.getSender().getMemberId(),
                 mail.getReceiver().getMemberId(),
+                mail.getSender().getDisplayName(),
+                mail.getReceiver().getDisplayName(),
                 mail.isVerifyMail(),
                 mail.getCreatedAt());
     }

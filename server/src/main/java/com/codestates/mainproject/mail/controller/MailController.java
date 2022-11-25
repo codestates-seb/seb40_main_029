@@ -37,6 +37,12 @@ public class MailController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PatchMapping("/{member-id}")
+    public ResponseEntity<List<Mail>> convertMail(@PathVariable("member-id") Long memberId) {
+        List<Mail> convert = mailService.convert(memberId);
+        return new ResponseEntity<>(convert, HttpStatus.OK);
+    }
+
     // 메일 조회 기능
     @GetMapping("/{member-id}/{mail-id}") // 사용자로부터 받는 파라미터 URI 주소
     public ResponseEntity<MailResponseDto> findMail(@PathVariable("mail-id") Long mailId){

@@ -1,13 +1,12 @@
 package com.codestates.mainproject.auth.config;
 
-import com.codestates.mainproject.auth.exception.CustomAuthenticationEntryPoint;
+import com.codestates.mainproject.auth.authexception.CustomAuthenticationEntryPoint;
 import com.codestates.mainproject.auth.filter.JwtAuthenticationFilter;
 import com.codestates.mainproject.auth.jwt.JwtProvider;
 import com.codestates.mainproject.auth.jwt.MemberDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
@@ -55,12 +55,12 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/members/**", "/members/login", "/docs/*", "/", "/todo/**", "/mails/**", "/mood/**", "/palette/**", "/friend/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/questions/**", "/questions", "/answers/**", "/comments/**", "/").permitAll()
+                .requestMatchers(request -> CorsUtils.isPreFlightRequest(request)).permitAll()
+                .antMatchers("/login/**", "/oauth/**", "/members/**",  "/docs/*", "/",  "/mails/**", "/mood/**", "/palette/**", "/friend/**", "/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
 
-                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider, memberDetailsService), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthenticationFilter(this.jwtProvider, this.memberDetailsService), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -72,7 +72,7 @@ public class SecurityConfig {
         configuration.setAllowCredentials(true);
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Refresh"));
         configuration.setAllowedHeaders(Arrays.asList("*")); // 모든 출처에 대해 HTTP 통신을 허용
-        configuration.setAllowedOrigins(Arrays.asList("")); // 모든 출처에 대해 HTTP 통신을 허용
+        configuration.setAllowedOriginPatterns(Arrays.asList("*")); // 모든 출처에 대해 HTTP 통신을 허용
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS")); //파라미터로 지정한 HTTP Method에 대한 HTTP 통신을 허용
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

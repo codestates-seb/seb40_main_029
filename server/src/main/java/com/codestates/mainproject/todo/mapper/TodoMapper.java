@@ -1,9 +1,5 @@
 package com.codestates.mainproject.todo.mapper;
 
-import com.codestates.mainproject.member.dto.MemberPatchDto;
-import com.codestates.mainproject.member.dto.MemberPostDto;
-import com.codestates.mainproject.member.dto.MemberResponseDto;
-import com.codestates.mainproject.member.entity.Member;
 import com.codestates.mainproject.todo.dto.TodoPatchDto;
 import com.codestates.mainproject.todo.dto.TodoPostDto;
 import com.codestates.mainproject.todo.dto.TodoResponseDto;
