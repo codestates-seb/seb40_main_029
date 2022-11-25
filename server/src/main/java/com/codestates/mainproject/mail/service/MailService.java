@@ -66,7 +66,7 @@ public class MailService {
     }
 
     public List<Mail> findMessages(Long memberId){
-        LocalDateTime yesStartDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(0, 0, 0)); //어제 날짜 기준 0시 0분 0초
+        LocalDateTime yesStartDateTime = LocalDateTime.of(LocalDate.now().minusDays(1000), LocalTime.of(0, 0, 0)); //어제 날짜 기준 0시 0분 0초
         LocalDateTime yesEndDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(23, 59, 59)); // 어제 날짜 기준 23시 59분 59초
 
 //        LocalDateTime YesStartDateTime = LocalDateTime.now().minusMinutes(30); //어제 날짜 기준 0시 0분 0초
