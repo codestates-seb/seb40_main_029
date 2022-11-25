@@ -5,18 +5,18 @@ import { useNavigate } from 'react-router-dom';
 import { isLoggedInSelector, emailSelector } from '../../redux/hooks';
 import { setIsLoggedIn } from '../../redux/slice';
 import { postLoginToken } from '../../api/postLoginToken';
+import { useCookies } from 'react-cookie';
 
-// axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true; // 쿠키 사용하기 위해 필수
 
 export default function GoogleLogin() {
+  const [cookies, setCookie, removeCookie] = useCookies(['refresh token']);
   //   const isLoggedIn = useSelector(isLoggedInSelector);
   //   const userEmail = useSelector(emailSelector);
   //   console.log('로그인' + isLoggedIn);
   //   console.log('이메일' + userEmail);
 
-  //840805606859-diamap7b8svl8fhe3kqt1bmjsi6aieg9.apps.googleusercontent.com
-  // https://accounts.google.com/o/oauth2/v2/auth?client_id=840805606859-diamap7b8svl8fhe3kqt1bmjsi6aieg9.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email
-  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=840805606859-diamap7b8svl8fhe3kqt1bmjsi6aieg9.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
+  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=&redirect_uri=http://localhost:3000/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
 
   console.log(GOOGLE_LOGIN_URL);
 
@@ -35,8 +35,27 @@ export default function GoogleLogin() {
       },
     };
     console.log(getURL);
-    await axios.get(getURL, config).then(res => console.log(res));
+    await axios.get(getURL, config).then(res => {
+      console.log(res.data);
+      // 액세스 토큰 받아서 api 요청시마다 전달
+      const { accessToken } = res.data;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      // 리프레시 토큰 쿠키에 저장
+      setCookie('refresh token', res.data.refreshToken);
+    });
   };
+
+  // accessToken
+  // :
+  // "Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InlyeW4yMDE2QGdtYWlsLmNvbSIsIm1lbWJlcklkIjozLCJzdWIiOiJ5cnluMjAxNkBnbWFpbC5jb20iLCJpYXQiOjE2NjkzMTE1NzEsImV4cCI6MTY2OTMxMzM3MX0.JCBWS8anLn9QSpHRaxsQ8rabZj-b5DIM1vAWyu_QPxs"
+  // email
+  // :
+  // "yryn2016@gmail.com"
+  // refreshToken
+  // :
+  // tokenType
+  // :
+  // "bearer"
 
   function oAuthHandler() {
     window.location.replace(GOOGLE_LOGIN_URL);
