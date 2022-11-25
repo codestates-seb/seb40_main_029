@@ -163,12 +163,21 @@ public class MemberService {
        return memberRepository.findById(memberId);
     }
 
-    private Optional<Member> verifyDisplayName(String displayName){
+    public Optional<Member> verifyDisplayName(String displayName){
         return memberRepository.findByDisplayName(displayName);
     }
 
-    private Optional<Member> verifyEmail(String email) {
+    public Optional<Member> verifyEmail(String email) {
         return memberRepository.findByEmail(email);
     }
 
+    public long memberPoint(Long memberId){
+        return memberRepository.findById(memberId).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND))
+                .getPoint();
+    }
+
+    public long memberDisplayNamePoint(String displayName){
+        return memberRepository.findByDisplayName(displayName).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND))
+                .getPoint();
+    }
 }

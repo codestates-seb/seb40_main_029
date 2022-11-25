@@ -51,6 +51,11 @@ public class UserService {
         Member member = memberRepository.findByEmail(googleUser.getEmail()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         log.info(member.getEmail());
         TokenResponse tokenResponse = jwtProvider.createTokensByLogin(member);
+        if(member.getDisplayName() == null){
+            tokenResponse.setNewUser(true);
+        } else {
+            tokenResponse.setNewUser(false);
+        }
         tokenResponse.setEmail(member.getEmail());
         return tokenResponse;
     }

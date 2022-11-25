@@ -1,5 +1,12 @@
 package com.codestates.mainproject.member.controller;
 
+import com.codestates.mainproject.auth.TokenResponse;
+import com.codestates.mainproject.auth.jwt.JwtProvider;
+import com.codestates.mainproject.auth.jwt.MemberDetails;
+import com.codestates.mainproject.dto.MultiResponseDto;
+import com.codestates.mainproject.dto.SingleResponseDto;
+import com.codestates.mainproject.exception.BusinessLogicException;
+import com.codestates.mainproject.exception.ExceptionCode;
 import com.codestates.mainproject.member.dto.*;
 //import com.codestates.mainproject.member.entity.Friend;
 import com.codestates.mainproject.member.entity.Friend;
@@ -7,13 +14,18 @@ import com.codestates.mainproject.member.entity.Member;
 import com.codestates.mainproject.member.mapper.FriendMapper;
 import com.codestates.mainproject.member.mapper.MemberMapperImp;
 import com.codestates.mainproject.member.service.MemberService;
+import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/members")
@@ -24,6 +36,38 @@ public class MemberController {
     private final MemberService memberService;
     private final FriendMapper friendMapper;
     private final MemberMapperImp mapper;
+    private final JwtProvider jwtProvider;
+
+    @Transactional
+    @GetMapping("/logout")
+    public ResponseEntity logout(@AuthenticationPrincipal MemberDetails memberDetails,
+                                 @RequestHeader("Authorization") String bearerAtk) throws JwtException {
+        Member member = memberDetails.getMember();
+
+        jwtProvider.setBlackListAtk(bearerAtk);
+        jwtProvider.deleteRtk(member);
+
+        return new ResponseEntity<>(new SingleResponseDto<>("로그아웃이 완료되었습니다."), HttpStatus.NO_CONTENT);
+    }
+
+    @Transactional
+    @GetMapping("/reissue")
+    public ResponseEntity reissue(@RequestHeader("Refresh") String refreshToken) throws Exception {
+        String memberEmail = jwtProvider.getClaims(refreshToken).getBody().getSubject();
+        log.info(memberEmail);
+        Member member = memberService.verifyEmail(memberEmail)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        TokenResponse tokenResponse = jwtProvider.reissueAtk(member);
+
+        Map<String, Object> claims = jwtProvider.getClaims(tokenResponse.getAccessToken()).getBody();
+        long memberId = Long.parseLong(claims.get("memberId").toString());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + tokenResponse.getAccessToken());
+
+        return new ResponseEntity<>(new SingleResponseDto<>("memberId : " + memberId), headers, HttpStatus.OK);
+    }
+
 
     // 1. 클라이언트로부터 MemberPostDto 타입으로 데이터를 받는다.
     // 2. Service에서 사용할 파라미터 타입이 Member 타입이기 때문에 mapper로 MemberPostDto -> Member 타입으로 바꾼다.
@@ -70,13 +114,14 @@ public class MemberController {
     }
 
     @PatchMapping("/buy/{member-id}/{palette-code}")
-    public ResponseEntity<MemberResponseDto> buyPalette(@PathVariable("member-id") Long memberId,
+    public ResponseEntity buyPalette(@PathVariable("member-id") Long memberId,
                                                         @PathVariable("palette-code") String paletteCode){
         Member saveMember = memberService.buyMoodPalete(memberId, paletteCode);
         MemberResponseDto response = mapper.memberToMemberResponseDto(saveMember);
+        long point = memberService.memberPoint(memberId);
         log.info("팔레트 구매에 성공하였습니다.");
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(response, point), HttpStatus.OK);
     }
 
     @PatchMapping("/choice/{member-id}/{palette-code}")

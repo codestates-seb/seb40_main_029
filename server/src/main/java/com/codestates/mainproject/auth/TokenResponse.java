@@ -14,6 +14,7 @@ public class TokenResponse {
     private String refreshToken;
     private String tokenType;
     private String email;
+    private boolean newUser;
 
     public TokenResponse(String accessToken, String refreshToken, String tokenType) {
         this.accessToken = accessToken;
