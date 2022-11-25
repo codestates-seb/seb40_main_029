@@ -1,32 +1,20 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import MoodCard from './MoodCard';
 import SelectorCard from './SelectorCard';
 
-const Slider = styled.div`
-  transform: ${({ fade }) =>
-    fade ? `translateY(${-50}%)` : `translateY(${0}%)`};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s;
-`;
+const URL2 = 'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080';
 
-const SelectorContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-items: center;
-  width: ${({ fade }) => (fade ? '340px' : '840px')};
-  height: 460px;
-  background-color: ${({ color, fade }) => (fade ? 'white' : color)};
-  transition: background-color 0.3s, opacity 0.3s, width 0.3s;
-  animation-timing-function: ease-in-out;
-  overflow: hidden;
-`;
 const MoodSelector = ({ fade }) => {
+  useEffect(() => {
+    axios
+      .get(URL2 + '/mood/year/회원1/2022')
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err.response.status));
+  }, []);
+
   const palet = [
     ['#EE8242', '기쁨'],
     ['#EE8686', '분노'],
@@ -107,3 +95,26 @@ export default MoodSelector;
 //     </ButtonContainer>
 //   </InfoContainer>
 // </Wrapper>
+
+const Slider = styled.div`
+  transform: ${({ fade }) =>
+    fade ? `translateY(${-50}%)` : `translateY(${0}%)`};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s;
+`;
+
+const SelectorContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  width: ${({ fade }) => (fade ? '340px' : '840px')};
+  height: 460px;
+  background-color: ${({ color, fade }) => (fade ? 'white' : color)};
+  transition: background-color 0.3s, opacity 0.3s, width 0.3s;
+  animation-timing-function: ease-in-out;
+  overflow: hidden;
+`;

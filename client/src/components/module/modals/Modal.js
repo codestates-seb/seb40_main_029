@@ -4,14 +4,8 @@ import {
   faXmark,
   faHighlighter,
   faStore,
-  faUserGroup,
-  faFilm,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  faEnvelope,
-  faCircleQuestion,
-} from '@fortawesome/free-regular-svg-icons';
-import ReactTooltip from 'react-tooltip';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
 const Blueprint = styled.div`
   display: flex;
@@ -35,11 +29,6 @@ const Mail = styled(Blueprint)`
 
 const Store = styled(Blueprint)`
   width: 720px;
-  height: 500px;
-`;
-
-const Calendar = styled(Blueprint)`
-  width: 1000px;
   height: 500px;
 `;
 
@@ -70,33 +59,18 @@ const Button = styled.div`
   padding: 0 8px;
 `;
 
-const Info = styled(Button)`
-  font-size: 12px;
-`;
-
-const RealButton = styled.button`
-  background-color: transparent;
-  border: none;
-`;
-
 const Utility = styled.div`
   height: 100%;
   width: 100%;
 `;
 
-const TodoModal = ({ children, lookBack }) => {
+const TodoModal = ({ children }) => {
   return (
     <Todo>
       <Header>
         <Title>
           오늘 할 일 &nbsp;
-          <RealButton onClick={() => lookBack()}>
-            <FontAwesomeIcon icon={faHighlighter} />
-          </RealButton>
-          <Info data-tip="왼쪽 펜을 누르면 하루에 한 번, 어제 완료하지 못한 일을 불러올 수 있어요">
-            <FontAwesomeIcon icon={faCircleQuestion} />
-          </Info>
-          <ReactTooltip event="click" eventOff="mouseout" />
+          <FontAwesomeIcon icon={faHighlighter} />
         </Title>
         <Button onClick={() => {}}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
@@ -141,38 +115,4 @@ const StoreModal = ({ children }) => {
   );
 };
 
-const FriendModal = ({ children }) => {
-  return (
-    <Mail>
-      <Header>
-        <Title>
-          친구 &nbsp;
-          <FontAwesomeIcon icon={faUserGroup} />
-        </Title>
-        <Button onClick={() => {}}>
-          <FontAwesomeIcon icon={faXmark} size="lg" />
-        </Button>
-      </Header>
-      <Utility>{children}</Utility>
-    </Mail>
-  );
-};
-
-const LookBackModal = ({ children }) => {
-  return (
-    <Calendar>
-      <Header>
-        <Title>
-          기록 &nbsp;
-          <FontAwesomeIcon icon={faFilm} />
-        </Title>
-        <Button onClick={() => {}}>
-          <FontAwesomeIcon icon={faXmark} size="lg" />
-        </Button>
-      </Header>
-      <Utility>{children}</Utility>
-    </Calendar>
-  );
-};
-
-export { TodoModal, MailModal, StoreModal, FriendModal, LookBackModal };
+export { TodoModal, MailModal, StoreModal };
