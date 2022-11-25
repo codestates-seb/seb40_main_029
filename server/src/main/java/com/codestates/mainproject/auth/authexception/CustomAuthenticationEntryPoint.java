@@ -36,4 +36,8 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     private String convertObjectToJson(Object object) throws JsonProcessingException {
         return object == null ? null : objectMapper.writeValueAsString(object);
     }
+
+    public ObjectMapper getObjectMapper() {
+        return this.objectMapper;
+    }
 }

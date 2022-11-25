@@ -84,9 +84,13 @@ public class MoodService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         List<Mood> moods = moodRepository.findAllByMember_MemberId(member.getMemberId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MOOD_EXISTS));
-        MoodPaletteDetails moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(moods.get(moods.size()-1).getMoodCode(), moods.get(moods.size()-1).getPaletteCode())
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
-
+        MoodPaletteDetails moodPaletteDetails;
+        if(moods.get(0) == null){
+            moodPaletteDetails = null;
+        } else {
+            moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(moods.get(moods.size()-1).getMoodCode(), moods.get(moods.size()-1).getPaletteCode())
+                    .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
+        }
         List<Mood> moodList = moods.stream()
                 .map(mood -> {
                     mood.setMoodPaletteDetails(moodPaletteDetails);
@@ -105,8 +109,13 @@ public class MoodService {
 
         List<Mood> moodsWeek = moodRepository.findAllByMember_MemberIdAndCreatedAtBetween(member.getMemberId(), startDateTime, endDateTime);
 
-        MoodPaletteDetails moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(moodsWeek.get(moodsWeek.size()-1).getMoodCode(), moodsWeek.get(moodsWeek.size()-1).getPaletteCode())
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
+        MoodPaletteDetails moodPaletteDetails;
+        if(moodsWeek.get(0) == null){
+            moodPaletteDetails = null;
+        } else {
+            moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(moodsWeek.get(moodsWeek.size()-1).getMoodCode(), moodsWeek.get(moodsWeek.size()-1).getPaletteCode())
+                    .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
+        }
 
         List<Mood> moodListWeek = moodsWeek.stream()
                 .map(mood -> {
@@ -123,12 +132,17 @@ public class MoodService {
         LocalDateTime startDateTime = startMonth(month);
         LocalDateTime endDateTime = endMonth(month);
 
-        List<Mood> moodsWeek = moodRepository.findAllByMember_MemberIdAndCreatedAtBetween(member.getMemberId(), startDateTime, endDateTime);
+        List<Mood> moodsMonth = moodRepository.findAllByMember_MemberIdAndCreatedAtBetween(member.getMemberId(), startDateTime, endDateTime);
 
-        MoodPaletteDetails moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(moodsWeek.get(moodsWeek.size()-1).getMoodCode(), moodsWeek.get(moodsWeek.size()-1).getPaletteCode())
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
+        MoodPaletteDetails moodPaletteDetails;
+        if(moodsMonth.get(0) == null){
+            moodPaletteDetails = null;
+        } else {
+            moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(moodsMonth.get(moodsMonth.size()-1).getMoodCode(), moodsMonth.get(moodsMonth.size()-1).getPaletteCode())
+                    .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
+        }
 
-        List<Mood> moodListWeek = moodsWeek.stream()
+        List<Mood> moodListWeek = moodsMonth.stream()
                 .map(mood -> {
                     mood.setMoodPaletteDetails(moodPaletteDetails);
                     return mood;
@@ -143,12 +157,17 @@ public class MoodService {
         LocalDateTime startDateTime = startYear(year);
         LocalDateTime endDateTime = endYear(year);
 
-        List<Mood> moodsWeek = moodRepository.findAllByMember_MemberIdAndCreatedAtBetween(member.getMemberId(), startDateTime, endDateTime);
+        List<Mood> moodsYear = moodRepository.findAllByMember_MemberIdAndCreatedAtBetween(member.getMemberId(), startDateTime, endDateTime);
 
-        MoodPaletteDetails moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(moodsWeek.get(moodsWeek.size()-1).getMoodCode(), moodsWeek.get(moodsWeek.size()-1).getPaletteCode())
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
+        MoodPaletteDetails moodPaletteDetails;
+        if(moodsYear.get(0) == null){
+            moodPaletteDetails = null;
+        } else {
+            moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(moodsYear.get(moodsYear.size()-1).getMoodCode(), moodsYear.get(moodsYear.size()-1).getPaletteCode())
+                    .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
+        }
 
-        List<Mood> moodListWeek = moodsWeek.stream()
+        List<Mood> moodListWeek = moodsYear.stream()
                 .map(mood -> {
                     mood.setMoodPaletteDetails(moodPaletteDetails);
                     return mood;
@@ -195,11 +214,11 @@ public class MoodService {
 
     public static LocalDateTime startYear(int year) {
         LocalDateTime localDateTime = LocalDateTime.now();
-        return localDateTime.withYear(2021).withMonth(1).withDayOfMonth(1).withHour(0).withMinute(0);
+        return localDateTime.withYear(year).withMonth(1).withDayOfMonth(1).withHour(0).withMinute(0);
     }
 
     public static LocalDateTime endYear(int year) {
         LocalDateTime localDateTime = LocalDateTime.now();
-        return localDateTime.withYear(2021).withMonth(12).withDayOfMonth(31).withHour(23).minusMinutes(59);
+        return localDateTime.withYear(year).withMonth(12).withDayOfMonth(31).withHour(23).minusMinutes(59);
     }
 }

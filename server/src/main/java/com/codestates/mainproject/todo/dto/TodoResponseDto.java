@@ -17,4 +17,5 @@ public class TodoResponseDto {
     private String title;
     private boolean selected;
     private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 }

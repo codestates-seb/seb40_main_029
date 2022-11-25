@@ -51,11 +51,15 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
     if (booksArr.length < 10) {
       setBookmarkArr([
         ...booksArr,
-        { name: `${bookName}`, url: `https://${bookUrl}` },
+        {
+          name: `${bookName}`,
+          url: bookUrl.includes('http') ? `${bookUrl}` : `https://${bookUrl}`,
+        },
       ]);
       //여기서 북마크팝업을 닫아버리면 북마크가 로컬에 저장이 안됨! 왜일까;ㅠ0ㅠ
       nameReset();
       urlReset();
+      alert('북마크를 추가했어요!');
     } else {
       alert('북마크는 열개까지만 등록할 수 있어요!');
     }

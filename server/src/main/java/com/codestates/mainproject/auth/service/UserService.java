@@ -14,6 +14,7 @@ import com.codestates.mainproject.palette.entity.MemberPalette;
 import com.codestates.mainproject.palette.entity.MoodPalette;
 import com.codestates.mainproject.palette.repository.MoodPaletteRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class UserService {
     private final JwtProvider jwtProvider;
 
 
-    public TokenResponse oauthLogin(String code) throws JsonProcessingException {
+    public TokenResponse oauthLogin(String code) throws Exception {
         ResponseEntity<String> accessTokenResponse = oAuthService.createPostRequest(code);
         OAuthToken oAuthToken = oAuthService.getAccessToken(accessTokenResponse);
         log.info("Access Token: {}", oAuthToken.getAccessToken());
@@ -49,6 +50,21 @@ public class UserService {
         }
         Member member = memberRepository.findByEmail(googleUser.getEmail()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         log.info(member.getEmail());
+        TokenResponse tokenResponse = jwtProvider.createTokensByLogin(member);
+        tokenResponse.setEmail(member.getEmail());
+        return tokenResponse;
+    }
+
+    public Claims oauthVerify(String jwt) throws Exception {
+        return jwtProvider.verifyToken(jwt);
+    }
+
+    public TokenResponse oauthLoginTest() throws Exception {
+
+        Member member = new Member();
+        member.setEmail("yryn2016@gmail.com");
+        member.setMemberId(3);
+
         TokenResponse tokenResponse = jwtProvider.createTokensByLogin(member);
         tokenResponse.setEmail(member.getEmail());
         return tokenResponse;

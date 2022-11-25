@@ -10,10 +10,13 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.time.Duration;
@@ -21,6 +24,7 @@ import java.util.*;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtProvider {
 
     private final RedisDao redisDao;
@@ -52,7 +56,7 @@ public class JwtProvider {
         return key;
     }
 
-    public TokenResponse createTokensByLogin(Member member) throws JsonProcessingException {
+    public TokenResponse createTokensByLogin(Member member) throws Exception {
 
         String atk = "Bearer " + delegateAccessToken(member);
         String rtk = delegateRefreshToken(member);
@@ -61,7 +65,7 @@ public class JwtProvider {
     }
 
 
-    public String delegateAccessToken(Member member) {
+    public String delegateAccessToken(Member member) throws Exception {
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", member.getEmail());
         claims.put("memberId", member.getMemberId());
@@ -80,20 +84,25 @@ public class JwtProvider {
 
         return generateRefreshToken(subject, expiration, base64EncodedSecretKey);
     }
+    private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+    private Key createKey() {
+        // signiture에 대한 정보는 Byte array로 구성되어있습니다.
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secretKey);
+        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+        return signingKey;
+    }
 
     public String generateAccessToken(Map<String, Object> claims,
                                       String subject,
                                       Date expiration,
-                                      String base64EncodedSecretKey) {
-
-        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+                                      String base64EncodedSecretKey) throws Exception{
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(expiration)
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .signWith(createKey(), signatureAlgorithm)
                 .compact();
     }
 
@@ -101,37 +110,50 @@ public class JwtProvider {
                                        Date expiration,
                                        String base64EncodedSecretKey) {
 
-        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
         return Jwts.builder()
                 .setSubject(subject)
                 .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(expiration)
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .signWith(createKey(), signatureAlgorithm)
                 .compact();
     }
 
     public String getSubject(String jws) {
-        Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(secretKey));
-
-        return Jwts.parserBuilder()
-                .setSigningKey(key)
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
                 .build()
                 .parseClaimsJws(jws)
-                .getBody()
-                .getSubject();
-
+                .getBody();
+        System.out.println(claims.toString());
+        return (String) claims.get("email");
     }
 
+
+
     public Jws<Claims> getClaims(String jws) {
-        Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(secretKey));
 
         Jws<Claims> claims = Jwts.parserBuilder()
-                .setSigningKey(key)
+                .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
                 .build()
                 .parseClaimsJws(jws);
 
         return claims;
+    }
+
+    //엑세스 토큰 검증하는 로직
+    public Claims verifyToken(String jws){
+        try {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
+                    .build()
+                    .parseClaimsJws(jws)
+                    .getBody();
+            log.info("토큰 검증 완료");
+            return claims;
+        } catch (JwtException e) {
+            return null;
+        }
     }
 
 //    public TokenResponseDto reissueAtk(MemberResponseDto memberResponseDto) throws JwtException {

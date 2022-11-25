@@ -60,7 +60,7 @@ const Nav = () => {
       <Bubble>
         <ul>
           <NavItem>
-            <Link to="/letter">
+            <Link to="#">
               <DarkIcon>
                 <FontAwesomeIcon icon={faEnvelope} size="lg" />
               </DarkIcon>
@@ -84,7 +84,7 @@ const Nav = () => {
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="/friends">
+            <Link to="#">
               <DarkIcon>
                 <FontAwesomeIcon icon={faUserGroup} size="lg" />
               </DarkIcon>

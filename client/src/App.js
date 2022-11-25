@@ -1,9 +1,7 @@
 import { Routes, Route, Link } from 'react-router-dom';
-import Friends from './components/templates/Friends';
-import Header from './components/module/Header';
-import MoodCard from './components/module/MoodCard';
-import Letter from './components/templates/Letter';
-import Gradi from './components/templates/gradi';
+import Home from './components/templates/Home';
+// import Login from './templates/Login';
+// import Signup from './templates/Signup';
 import axios from 'axios';
 import TodoList from './components/module/TodoList';
 import LookBack from './components/module/LookBack';
@@ -16,13 +14,10 @@ const App = () => {
   console.log(curr);
   return (
     <div className="App">
-      <Header />
-      <TodoList />
       <Routes>
-        <Route path="/letter" element={<Letter />} />
-        <Route path="/friends" element={<Friends />} />
-        <Route path="/lookback" element={<LookBack />} />
-        <Route path="/moodselector" element={<MoodSelector />} />
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/login" element={<Login />} /> */}
+        {/* <Route path="/signup" element={<Signup />} /> */}
       </Routes>
     </div>
   );
