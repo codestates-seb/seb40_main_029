@@ -9,7 +9,7 @@ const CardContainer = styled.div`
   width: 340px;
   height: 460px;
   background-color: white;
-  opacity: ${({ fade }) => (fade ? 1 : 0)};
+  /* opacity: ${({ fade }) => (fade ? 1 : 0)}; */
   transition: opacity 0.3s;
 `;
 

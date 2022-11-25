@@ -12,11 +12,34 @@ import {
 import dayjs from 'dayjs';
 
 const URL = 'http://localhost:4000/mood';
+const URL2 = 'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080';
 
 const LookBack = () => {
   useEffect(() => {
     axios.get(URL).then(res => {
-      setData(...res.data);
+      // console.log(...res.data);
+      setData(res.data);
+      // const copied = [...res.data];
+
+      // const test = copied.map(each => {
+      //   const year = dayjs(each.day).format('YYYY');
+      //   each.year = year;
+      //   return each;
+      // });
+
+      // axios.patch(URL, test);
+      // console.log(test);
+    });
+    axios.get(URL2 + '/mood/회원1/').then(res => {
+      const copy = [...res.data];
+      copy.map(each => {
+        const year = dayjs(each.createdAt).format('YYYY');
+        const day = dayjs(each.createdAt).format('YYYY-MM-DD');
+        each.createdAt = day;
+        each.year = year;
+        return each;
+      });
+      console.log(copy);
     });
   }, []);
   const [data, setData] = useState([]);
@@ -38,6 +61,7 @@ const LookBack = () => {
       <BasicTooltip id={dayStr} value={list[value]} color={color} enableChip />
     );
   };
+  const theYear = 2022;
   return (
     <LookBackModal>
       <Wrapper>
@@ -49,7 +73,9 @@ const LookBack = () => {
           </LeftRightContainer>
 
           <ResponsiveCalendar
-            data={data}
+            data={data.filter(
+              each => dayjs(each.day).format('YYYY') === `${theYear}`
+            )}
             from="2022-01-01"
             to="2022-12-31"
             emptyColor="#eeeeee"

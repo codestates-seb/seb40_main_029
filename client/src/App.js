@@ -7,18 +7,22 @@ import Gradi from './components/templates/gradi';
 import axios from 'axios';
 import TodoList from './components/module/TodoList';
 import LookBack from './components/module/LookBack';
+import MoodSelector from './components/module/MoodSelector';
+
 axios.defaults.withCredentials = true;
 
 const App = () => {
+  const curr = window.location.toString();
+  console.log(curr);
   return (
     <div className="App">
       <Header />
-      {/* <Gradi /> */}
+      <TodoList />
       <Routes>
         <Route path="/letter" element={<Letter />} />
         <Route path="/friends" element={<Friends />} />
-        <Route path="/todo" element={<TodoList />} />
         <Route path="/lookback" element={<LookBack />} />
+        <Route path="/moodselector" element={<MoodSelector />} />
       </Routes>
     </div>
   );
