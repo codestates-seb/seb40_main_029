@@ -13,8 +13,9 @@ import { setCookie, getCookie } from '../../utils/cookie';
 axios.defaults.withCredentials = true; // 쿠키 사용하기 위해 필수
 
 export default function GoogleLogin() {
-  // const [cookies, setCookies, removeCookies] = useCookies(['refresh token']);
-  //   const isLoggedIn = useSelector(isLoggedInSelector);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(isLoggedInSelector);
   //   const userEmail = useSelector(emailSelector);
   //   console.log('로그인' + isLoggedIn);
   //   console.log('이메일' + userEmail);
@@ -53,8 +54,13 @@ export default function GoogleLogin() {
           secure: true,
           sameSite: 'none',
         });
+        // 라우팅
+        if (res.data.newUser) {
+          navigate('/signup');
+        } else {
+          navigate('/');
+        }
       }
-      // 라우팅
     });
 
     console.log(getCookie('refreshToken'));
@@ -73,6 +79,7 @@ export default function GoogleLogin() {
   // "bearer"
 
   function oAuthHandler() {
+    dispatch(setIsLoggedIn());
     window.location.replace(GOOGLE_LOGIN_URL);
   }
 
@@ -82,7 +89,7 @@ export default function GoogleLogin() {
     const authorizationCode = urlParams.get('code');
     console.log(authorizationCode);
     if (authorizationCode) getAccessToken(authorizationCode);
-  }, []);
+  }, [isLoggedIn]);
 
   // const handleLogin = async () => {
   //   await axios
@@ -127,34 +134,35 @@ export default function GoogleLogin() {
   // }, isLoggedIn);
 
   // 신규 구글 로그인 라이브러리 사용
-  // useEffect(() => {
-  //   if (window) {
-  //     google.accounts.id.initialize({
-  //       client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-  //       // 로그인 할 경우 호출되는 함수
-  //       // callback: handleCallbackResponse,
-  //       callback: window.location.assign(oAuthURL),
-  //     });
+  useEffect(() => {
+    if (window) {
+      google.accounts.id.initialize({
+        client_id:
+          '840805606859-diamap7b8svl8fhe3kqt1bmjsi6aieg9.apps.googleusercontent.com',
+        // 로그인 할 경우 호출되는 함수
+        // callback: handleCallbackResponse,
+        callback: oAuthHandler,
+      });
 
-  //     window.google.accounts.id.renderButton(
-  //       document.getElementById('signInDiv'),
-  //       {
-  //         theme: 'outline',
-  //         size: 'large',
-  //         width: '250',
-  //       }
-  //     );
-  //     window.google.accounts.id.prompt();
-  //   }
-  // }, []);
+      window.google.accounts.id.renderButton(
+        document.getElementById('signInDiv'),
+        {
+          theme: 'outline',
+          size: 'large',
+          width: '250',
+        }
+      );
+      window.google.accounts.id.prompt();
+    }
+  }, []);
 
-  // return <div id="signInDiv"></div>;
+  return <div id="signInDiv"></div>;
 
-  return (
-    <button id="oAuthBtn" onClick={oAuthHandler}>
-      google
-    </button>
-  );
+  // return (
+  //   <button id="oAuthBtn" onClick={oAuthHandler}>
+  //     google
+  //   </button>
+  // );
 }
 
 // 참고용
