@@ -4,37 +4,65 @@ import Button from '../atoms/Button';
 import { useEffect, useState } from 'react';
 import useInput from '../../utils/useInput';
 import ShadowBox from '../atoms/ShadowBox';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { RightBottomLayout } from '../atoms/Layouts';
 
+const Title = styled.h3`
+  border-bottom: 1px solid #d4d4d4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+`;
 const InputWraper = styled.form`
   display: flex;
   flex-direction: column;
-  margin: 8px 0;
   width: 300px;
-`;
-
-const ButtonLayout = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 16px;
-  > button:last-of-type {
-    margin: 0;
+  label {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  span {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  input {
+    padding: 8px;
+    width: 200px;
+    border-radius: 20px;
+  }
+  button {
+    width: 100px;
   }
 `;
 
 const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
-  const [bookName, bookNameBind] = useInput('');
-  const [bookUrl, bookUrlBind] = useInput('');
+  const [bookName, bookNameBind, nameReset] = useInput('');
+  const [bookUrl, bookUrlBind, urlReset] = useInput('');
 
   const handleBookmarkClose = () => {
     setAddBtnIsOpen(false);
   };
   const handleBookmarkSubmit = e => {
     e.preventDefault();
-    setBookmarkArr([
-      ...booksArr,
-      { name: `${bookName}`, url: `https://${bookUrl}` },
-    ]);
-    console.log(booksArr);
+    if (booksArr.length < 10) {
+      setBookmarkArr([
+        ...booksArr,
+        {
+          name: `${bookName}`,
+          url: bookUrl.includes('http') ? `${bookUrl}` : `https://${bookUrl}`,
+        },
+      ]);
+      //여기서 북마크팝업을 닫아버리면 북마크가 로컬에 저장이 안됨! 왜일까;ㅠ0ㅠ
+      nameReset();
+      urlReset();
+      alert('북마크를 추가했어요!');
+    } else {
+      alert('북마크는 열개까지만 등록할 수 있어요!');
+    }
   };
   useEffect(() => {
     localStorage.setItem('bookmark', JSON.stringify(booksArr));
@@ -42,19 +70,34 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
 
   return (
     <ShadowBox>
+      <Title>
+        북마크 추가
+        <FontAwesomeIcon icon={faXmark} onClick={handleBookmarkClose} />
+      </Title>
       <InputWraper>
-        <label htmlFor="name">이름</label>
-        <Input name="name" value={bookNameBind} border="shadow" />
-        <label htmlFor="url">URL</label>
-        <Input name="url" value={bookUrlBind} border="shadow" />
-        <ButtonLayout>
+        <label htmlFor="name">
+          <span>이름</span>
+          <Input
+            name="name"
+            value={bookNameBind}
+            border="shadow"
+            color="#f6f6f6"
+          />
+        </label>
+        <label htmlFor="url">
+          <span>URL</span>
+          <Input
+            name="url"
+            value={bookUrlBind}
+            border="shadow"
+            color="#f6f6f6"
+          />
+        </label>
+        <RightBottomLayout>
           <Button size="long" onClick={handleBookmarkSubmit}>
             저장
           </Button>
-          <Button size="long" onClick={handleBookmarkClose}>
-            취소
-          </Button>
-        </ButtonLayout>
+        </RightBottomLayout>
       </InputWraper>
     </ShadowBox>
   );

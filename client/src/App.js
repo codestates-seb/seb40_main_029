@@ -1,17 +1,20 @@
 import { Routes, Route, Link } from 'react-router-dom';
-import Friends from './components/templates/Friends';
-import Header from './components/module/Header';
-import MoodCard from './components/module/MoodCard';
-import Letter from './components/templates/Letter';
+import Home from './components/templates/Home';
+// import Login from './templates/Login';
+// import Signup from './templates/Signup';
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 const App = () => {
+  const curr = window.location.toString();
+  console.log(curr);
   return (
     <div className="App">
-      <Header />
-
       <Routes>
-        <Route path="/letter" element={<Letter />} />
-        <Route path="/friends" element={<Friends />} />
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/login" element={<Login />} /> */}
+        {/* <Route path="/signup" element={<Signup />} /> */}
       </Routes>
     </div>
   );
