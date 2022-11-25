@@ -12,6 +12,7 @@ import {
 import Letter from '../templates/Letter';
 
 const Bubble = styled.nav`
+  z-index: 2;
   background-color: #f6f6f6;
   padding: 16px 0;
   margin-right: 8px;
@@ -59,7 +60,7 @@ const Nav = () => {
       <Bubble>
         <ul>
           <NavItem>
-            <Link to="/letter">
+            <Link to="#">
               <DarkIcon>
                 <FontAwesomeIcon icon={faEnvelope} size="lg" />
               </DarkIcon>
@@ -83,7 +84,7 @@ const Nav = () => {
             </Link>
           </NavItem>
           <NavItem>
-            <Link>
+            <Link to="#">
               <DarkIcon>
                 <FontAwesomeIcon icon={faUserGroup} size="lg" />
               </DarkIcon>

@@ -25,15 +25,17 @@ const InputItem = styled.input`
   margin-bottom: 16px;
   box-shadow: var(--input-shadow);
   margin: 8px 0;
+  background-color: ${props => (props.color ? props.color : 'white')};
 `;
 
-const Input = ({ placeHolder, value, size, border }) => {
+const Input = ({ placeHolder, value, size, border, color }) => {
   const sizeStyle = SIZES[size];
   const borderStyle = BORDER[border];
   return (
     <InputItem
       sizeStyle={sizeStyle}
       borderStyle={borderStyle}
+      color={color}
       {...value}
       type="text"
       placeholder={placeHolder}
