@@ -74,6 +74,7 @@ const AddFriend = ({ setIsOpen }) => {
   const requesterDisplayName = '회원1';
   const handleAddFriend = () => {
     addFriend({ requesterDisplayName, respondentDisplayName });
+    alert('친구를 추가했어요!');
   };
 
   return (
