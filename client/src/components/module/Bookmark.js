@@ -1,51 +1,42 @@
 import styled from 'styled-components';
-import Button from '../atoms/Button';
 import { useEffect, useState } from 'react';
 import BookmarkHandle from './BookmarkHandle';
-import BookmarkDelete from '../module/BookmarkDelete';
-const BookItem = styled.div`
-  position: relative;
+import BookmarkItem from '../module/BookmarkItem';
 
-  &:hover > span {
-    display: inline-block;
-  }
+const BookmarkBox = styled.div`
+  margin-bottom: 8px;
+  display: flex;
 `;
-const Anchor = styled.a`
-  line-height: 1;
-`;
+
 const Bookmark = () => {
-  // const dummyBookmark = [
-  //   { name: 'naver', url: 'https://www.naver.com' },
-  //   { name: 'google', url: 'https://www.google.com' },
-  // ];
   const [booksArr, setBookmarkArr] = useState(
     JSON.parse(localStorage.getItem('bookmark')) || []
   );
+  const [minBooks, setMinbooks] = useState(true);
+  let sliceNum = minBooks ? 3 : 10;
+  const minBooksList = booksArr.slice(0, sliceNum);
 
-  const bookmarkDelete = e => {
-    // alert('북마크를 삭제하시겠습니까?');
-    // booksArr.filter(book => {
-    //   return e.target.value !== book;
-    // });
-    console.log(e.target);
-    // localStorage.removeItem();
-  };
   return (
-    <>
-      {booksArr.length
-        ? booksArr.map((book, i) => {
+    <BookmarkBox>
+      {booksArr
+        ? minBooksList.map((book, i) => {
             return (
-              <BookItem key={i}>
-                <Button size="long" fontsize="middle">
-                  <Anchor href={book.url}>{book.name}</Anchor>
-                </Button>
-                <BookmarkDelete onClick={bookmarkDelete} />
-              </BookItem>
+              <BookmarkItem
+                key={i}
+                book={book}
+                booksArr={booksArr}
+                setBookmarkArr={setBookmarkArr}
+              />
             );
           })
         : null}
-      <BookmarkHandle setBookmarkArr={setBookmarkArr} booksArr={booksArr} />
-    </>
+      <BookmarkHandle
+        setBookmarkArr={setBookmarkArr}
+        booksArr={booksArr}
+        setMinbooks={setMinbooks}
+        minBooks={minBooks}
+      />
+    </BookmarkBox>
   );
 };
 

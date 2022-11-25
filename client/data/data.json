@@ -18,13 +18,13 @@
       "id": 2,
       "memberId": 3,
       "username": "민택",
-      "mood": "sad"
+      "mood": "슬픔"
     },
     {
       "id": 3,
       "memberId": 4,
       "username": "우철",
-      "mood": "anger"
+      "mood": "분노"
     }
   ],
   "palette": [
@@ -267,6 +267,68 @@
         "moodCode": "m008",
         "colorCode": "B4B4B4",
         "mood": "hope"
+    }
+],
+"members": [
+    {
+        "memberId": 1,
+        "email": null,
+        "displayName": "회원2",
+        "palette": "basic",
+        "point": 580,
+        "role": "USER",
+        "palettes": [
+            {
+                "memberPaletteId": 1,
+                "moodPalette": {
+                    "paletteCode": "P001",
+                    "paletteName": "basic"
+                }
+            }
+        ],
+        "friends": [
+            "회원3",
+            "회원3",
+            "회원3"
+        ]
+    },
+    {
+        "memberId": 2,
+        "email": null,
+        "displayName": "회원1",
+        "palette": "basic",
+        "point": 580,
+        "role": "USER",
+        "palettes": [
+            {
+                "memberPaletteId": 2,
+                "moodPalette": {
+                    "paletteCode": "P001",
+                    "paletteName": "basic"
+                }
+            }
+        ],
+        "friends": [
+            "회원2"
+        ]
+    },
+    {
+        "memberId": 3,
+        "email": null,
+        "displayName": "회원3",
+        "palette": "basic",
+        "point": 580,
+        "role": "USER",
+        "palettes": [
+            {
+                "memberPaletteId": 3,
+                "moodPalette": {
+                    "paletteCode": "P001",
+                    "paletteName": "basic"
+                }
+            }
+        ],
+        "friends": []
     }
 ]
 }

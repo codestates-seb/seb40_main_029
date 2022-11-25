@@ -1,23 +1,24 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { getSpecificPalette } from '../../api/FriendDataApi';
+import { deleteFriend, getSpecificPalette } from '../../api/FriendDataApi';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
+import MiniCard from '../atoms/MiniCard';
 
-const Card = styled.div`
-  width: 100px;
-  height: 120px;
-  box-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25), -2px -2px 5px #faf8ff;
-  margin: 16px;
+const FriendCardWrap = styled.div`
+  position: relative;
+  &:hover > span {
+    display: inline-block;
+  }
 `;
-const MoodPic = styled.div`
-  width: 100px;
-  height: 90px;
-  border: 4px solid white;
-  background-color: ${props => (props.color ? `#${props.color}` : '#faf8ff')};
-`;
-const FriendName = styled.span`
-  margin-left: 4px;
-  font-size: 13px;
+const EditBtn = styled.span`
+  position: absolute;
+  right: 16px;
+  bottom: 24px;
+  display: none;
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 const FriendCard = ({ friend }) => {
@@ -26,22 +27,40 @@ const FriendCard = ({ friend }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getSpecificPalette({ paletteCode });
+      const data = await getSpecificPalette(paletteCode);
       setPalette(data);
     };
     fetchData();
   }, []);
 
-  const friendsColor = palette.find(mycolor => {
-    return mycolor.mood === friend.mood;
+  const friendsColor = palette?.find(mycolor => {
+    if (friend.respondentMoodPaletteDetails) {
+      return mycolor.mood === friend.respondentMoodPaletteDetails.mood;
+    }
   });
 
+  const handleDeleteFriend = () => {
+    const friendId = friend.respondentId;
+    const fetchData = async () => {
+      await deleteFriend(friendId);
+      window.location.reload();
+    };
+    fetchData();
+  };
+
   return (
-    <Card>
-      <MoodPic color={friendsColor?.colorCode}></MoodPic>
-      <FriendName>{friend.username}</FriendName>
-      <FriendName>{friend.mood}</FriendName>
-    </Card>
+    <FriendCardWrap>
+      <MiniCard
+        color={friendsColor?.colorCode}
+        contents={friend.respondentDisplayName}
+        mood={friend.respondentMoodPaletteDetails?.mood}
+        onClick={handleDeleteFriend}
+        icon={faDeleteLeft}
+      ></MiniCard>
+      <EditBtn onClick={handleDeleteFriend}>
+        <FontAwesomeIcon icon={faDeleteLeft} />
+      </EditBtn>
+    </FriendCardWrap>
   );
 };
 
