@@ -70,31 +70,7 @@ export default function GoogleLogin() {
 
   function oAuthHandler() {
     window.location.replace(GOOGLE_LOGIN_URL);
-    // dispatch(setIsLoggedIn());
-    // const urlParams = new URL(location.href).searchParams;
-    // console.log('코드');
-    // const authorizationCode = urlParams.get('code');
-    // console.log(authorizationCode);
-    // if (authorizationCode) {
-    //   const isNew = getAccessToken(authorizationCode);
-    //   {
-    //     isNew ? navigate('/signup') : navigate('/');
-    //   }
-    // }
   }
-
-  // useEffect(() => {
-  //   const urlParams = new URL(location.href).searchParams;
-  //   console.log('코드');
-  //   const authorizationCode = urlParams.get('code');
-  //   console.log(authorizationCode);
-  //   if (authorizationCode) {
-  //     const isNew = getAccessToken(authorizationCode);
-  //     {
-  //       isNew ? navigate('/signup') : navigate('/');
-  //     }
-  //   }
-  // }, [isLoggedIn]);
 
   // 신규 구글 로그인 라이브러리 사용
   useEffect(() => {
