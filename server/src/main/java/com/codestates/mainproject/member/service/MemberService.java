@@ -31,7 +31,9 @@ public class MemberService {
     private final FriendRepository friendRepository;
 
 
+    /* Oauth 로그인 후 displayName 설정 */
     public Member createMember(Member member){
+
         Member findMember = verifyEmail(member.getEmail())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
@@ -40,7 +42,7 @@ public class MemberService {
         return memberRepository.save(findMember);
     }
 
-    // Todo : 회원 생성 필요할 때 사용
+    /* 회원 생성 테스트 메서드 */
     public Member createMemberTest(Member member){
         if(verifyEmail(member.getEmail()).isPresent()){
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
@@ -57,6 +59,8 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+
+    /* 친구 추가 */
     public Friend addFriend(FriendPostDto friend){
         if(friendRepository.findByRespondent_DisplayNameAndRequester_DisplayName(
                                                     friend.getRespondentDisplayName(),
@@ -72,6 +76,7 @@ public class MemberService {
         return saveFriend;
     }
 
+    /* DisplayName 변경 */
     public Member updateMember(Member member, Long memberId){
         Member updateMember = verifyMember(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
@@ -79,6 +84,7 @@ public class MemberService {
         return updateMember;
     }
 
+    /* 팔레트 구매 */
     public Member buyMoodPalete(Long memberId, String paletteCode){
 
         Member member = memberRepository.findById(memberId)
@@ -120,6 +126,7 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+    /* 팔레트 변경 */
     public Member selectPalette(Long memberId, String paletteCode){
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
         MoodPalette palette = moodPaletteRepository.findById(paletteCode).orElseThrow(() -> new RuntimeException("팔레트 정보를 찾을 수 없습니다."));
@@ -133,49 +140,64 @@ public class MemberService {
         throw new RuntimeException("팔레트가 존재하지 않습니다.");
     }
 
+
+    /* 회원 조회 */
     public Member findMember(Long memberId){
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
     }
 
+
+    /* 전체 회원 조회 */
     public List<Member> findMembers(){
         List<Member> members = memberRepository.findAll();
         return members;
     }
 
+    /* 친구 추가한 회원 조회 */
     public List<Friend> findFriends(Long memberId){
         List<Friend> friends = friendRepository.findAllByRequester_MemberId(memberId);
         return friends;
     }
 
+    /* 회원 탈퇴 */
     public void deleteMember(Long memberId){
         memberRepository.deleteById(memberId);
     }
 
+    /* 모든 회원 삭제 : 사용 X */
     public void deleteMembers(){
         memberRepository.deleteAll();
     }
 
+
+    /* 친구 삭제 */
     public void deleteFriend(Long respondentId){
         friendRepository.deleteByRespondent_MemberId(respondentId);
     }
+
+    /* 회원 확인(회원ID) */
     public Optional<Member> verifyMember(Long memberId){
        return memberRepository.findById(memberId);
     }
 
+    /* 회원 확인(회원 displayName) */
     public Optional<Member> verifyDisplayName(String displayName){
         return memberRepository.findByDisplayName(displayName);
     }
 
+    /* 회원 확인(회원 이메일) */
     public Optional<Member> verifyEmail(String email) {
         return memberRepository.findByEmail(email);
     }
 
+    /* 회원 포인트 조회(회원ID) */
     public long memberPoint(Long memberId){
         return memberRepository.findById(memberId).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND))
                 .getPoint();
     }
 
+    /* 회원 포인트 조회(회원 displayName) */
     public long memberDisplayNamePoint(String displayName){
         return memberRepository.findByDisplayName(displayName).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND))
                 .getPoint();
