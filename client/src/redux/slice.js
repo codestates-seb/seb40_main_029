@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isLoggedIn: false,
-  email: -1,
+  email: '',
   displayName: -1,
   moodId: -1,
   today: { mood: -1, reason: -1 },

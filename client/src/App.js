@@ -1,18 +1,21 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import Home from './components/templates/Home';
 import Login from './components/templates/Login';
-// import Signup from './templates/Signup';
+import Signup from './components/templates/Signup';
+import LoginCallback from './components/module/LoginCallback';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 const App = () => {
+  const curr = window.location.toString();
+  console.log(curr);
   return (
     <div className="App">
       <Routes>
-        <Route path="/login/callback" element={<Login />} />
-        <Route path="/" element={<Login />} />
-        {/* <Route path="/login" element={<Login />} /> */}
-        {/* <Route path="/signup" element={<Signup />} /> */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/login/callback" element={<LoginCallback />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
   );
