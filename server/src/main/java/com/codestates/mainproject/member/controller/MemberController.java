@@ -47,7 +47,7 @@ public class MemberController {
         jwtProvider.setBlackListAtk(bearerAtk);
         jwtProvider.deleteRtk(member);
 
-        return new ResponseEntity<>(new SingleResponseDto<>("로그아웃이 완료되었습니다."), HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(new SingleResponseDto<>("로그아웃 되었습니다."), HttpStatus.OK);
     }
 
     @Transactional
@@ -73,14 +73,15 @@ public class MemberController {
     // 2. Service에서 사용할 파라미터 타입이 Member 타입이기 때문에 mapper로 MemberPostDto -> Member 타입으로 바꾼다.
     // 3. Service 클래스에 createdMember 메서드를 사용해서 member 객체를 DB에 저장한다.
     @PatchMapping("/addMember")
-    public ResponseEntity<MemberResponseDto> addMember(@RequestBody MemberPostDto postDto){
+    public ResponseEntity addMember(@RequestBody MemberPostDto postDto){
         Member member = mapper.memberPostDtoToMember(postDto);// postDto는 클라이언트로부터 가입할 유저의 정보를 받는 클래스
-        Member saveMember = memberService.createMember(member);
-        log.info(saveMember.getDisplayName() + "님이 가입 하였습니다.");
-        MemberResponseDto respponse = mapper.memberToMemberResponseDto(saveMember);
 
-        return new ResponseEntity<>(respponse, HttpStatus.CREATED);
+            Member saveMember = memberService.createMember(member);
+            log.info(saveMember.getDisplayName() + "님이 가입 하였습니다.");
+            MemberResponseDto response = mapper.memberToMemberResponseDto(saveMember);
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
 
     @PostMapping("/addMember")
     public ResponseEntity<MemberResponseDto> postMember(@RequestBody MemberPostDto postDto){

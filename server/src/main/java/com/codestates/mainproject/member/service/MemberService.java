@@ -118,7 +118,7 @@ public class MemberService {
             else member.setPoint(member.getPoint() - 500);
             break;
 
-            default: throw new RuntimeException("팔레트 정보를 찾을 수 없습니다.");
+            default: throw new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND);
         }
 
         member.getPalettes().add(new MemberPalette(newPalette));
@@ -128,8 +128,8 @@ public class MemberService {
 
     /* 팔레트 변경 */
     public Member selectPalette(Long memberId, String paletteCode){
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
-        MoodPalette palette = moodPaletteRepository.findById(paletteCode).orElseThrow(() -> new RuntimeException("팔레트 정보를 찾을 수 없습니다."));
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        MoodPalette palette = moodPaletteRepository.findById(paletteCode).orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
 
         for(int i=0; i < member.getPalettes().size(); i++){
             if(member.getPalettes().get(i).getMoodPalette().getPaletteCode().equals(paletteCode)){
@@ -137,14 +137,14 @@ public class MemberService {
                 return memberRepository.save(member);
             } else continue;
         }
-        throw new RuntimeException("팔레트가 존재하지 않습니다.");
+        throw new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND);
     }
 
 
     /* 회원 조회 */
     public Member findMember(Long memberId){
         return memberRepository.findById(memberId)
-                .orElseThrow(() -> new RuntimeException("MEMBER NOT FOUND"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
 

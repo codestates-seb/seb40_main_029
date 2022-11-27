@@ -67,11 +67,11 @@ public class TodoService {
     }
 
     public List<Todo> renewalTodo(Long memberId){
-//        LocalDateTime YesStartDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(0, 0, 0)); //어제 날짜 기준 0시 0분 0초
-//        LocalDateTime YesEndDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(23, 59, 59)); // 어제 날짜 기준 23시 59분 59초
+        LocalDateTime YesStartDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(0, 0, 0)); //어제 날짜 기준 0시 0분 0초
+        LocalDateTime YesEndDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(23, 59, 59)); // 어제 날짜 기준 23시 59분 59초
 
-        LocalDateTime YesStartDateTime = LocalDateTime.now().minusMinutes(1); //어제 날짜 기준 0시 0분 0초
-        LocalDateTime YesEndDateTime = LocalDateTime.now();
+//        LocalDateTime YesStartDateTime = LocalDateTime.now().minusMinutes(1); //어제 날짜 기준 0시 0분 0초
+//        LocalDateTime YesEndDateTime = LocalDateTime.now();
 
         LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
 //        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));

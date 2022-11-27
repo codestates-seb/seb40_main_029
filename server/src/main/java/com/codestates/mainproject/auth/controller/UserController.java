@@ -51,11 +51,12 @@ public class UserController {
 
     @GetMapping("/oauth/google")
     public ResponseEntity<TokenResponse> oauthLogin(String code) throws Exception {
-        log.info(code);
-        TokenResponse token = userService.oauthLogin(code);
-        log.info(token.getAccessToken());
-        return new ResponseEntity(token, HttpStatus.OK);
+            log.info(code);
+            TokenResponse token = userService.oauthLogin(code);
+            log.info(token.getAccessToken());
+            return new ResponseEntity(token, HttpStatus.OK);
     }
+
         @GetMapping("/oauth/test")
     public ResponseEntity<TokenResponse> oauthTest() throws Exception {
             TokenResponse token = userService.oauthLoginTest();
