@@ -1,11 +1,16 @@
 import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Input from '../atoms/Input';
 import useInput from '../../utils/useInput';
-import { handleSignup } from '../../api/SignupApi';
-import { isLoggedInSelector, emailSelector } from '../../redux/hooks';
-import { setIsLoggedIn, setEmail } from '../../redux/slice';
+import {
+  isLoggedInSelector,
+  displayNameSelector,
+  emailSelector,
+} from '../../redux/hooks';
+import { setIsLoggedIn, setDisplayName } from '../../redux/slice';
+import { SignupApi } from '../../api/SignupApi';
 
 const Container = styled.div`
   display: flex;
@@ -49,19 +54,39 @@ const ButtonContainer = styled.div`
 `;
 
 export default function Signup() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const email = useSelector(emailSelector);
-  console.log(email);
   const [displayName, displayNameBind] = useInput('');
+  const [response, setResponse] = useState({});
+  const [warning, setWarning] = useState('');
+  console.log(displayName);
+  console.log(email);
+
+  function handleSignup(displayName) {
+    (async () => {
+      setResponse(await SignupApi(displayName));
+    })();
+    if (response.displayName) {
+      setDisplayName(dispatch(response.displayName)), navigate('/');
+    } else {
+      setWarning(response.data);
+    }
+  }
 
   return (
     <Container>
       <InputContainer>
         <InputHeader>닉네임을 입력해주세요</InputHeader>
-        <Input name="DisplayName" value={displayName} border="shadow" />
-        <Button size="long" fontSize="little" onClick={handleSignup}>
+        <Input value={displayNameBind} border="shadow" />
+        <Button
+          size="long"
+          fontSize="little"
+          onClick={() => handleSignup(displayName)}
+        >
           시작하기
         </Button>
-        <Warning>이미 사용중인 닉네임이에요</Warning>
+        <Warning>{warning}</Warning>
       </InputContainer>
       <ButtonContainer>
         <Button size="long" fontSize="large">
@@ -71,9 +96,6 @@ export default function Signup() {
     </Container>
   );
 }
-// const [checkNickname, setCheckNickname] = useState(false)
-// const [nicknameMsg, setNicknameMsg] = useState("")
-
 // const checkDisplayName = async (e) => {
 //   e.preventDefault();
 
