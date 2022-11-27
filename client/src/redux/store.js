@@ -1,4 +1,9 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import {
+  configureStore,
+  combineReducers,
+  getDefaultMiddleware,
+} from '@reduxjs/toolkit';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import {
   persistStore,
   persistReducer,
@@ -22,17 +27,23 @@ const rootReducer = combineReducers({
   userInfo,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(
+  persistConfig,
+  rootReducer,
+  composeWithDevTools()
+);
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-      // }).concat(logger),
-    }),
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
+  // middleware: getDefaultMiddleware =>
+  //   getDefaultMiddleware({
+  //     serializableCheck: {
+  //       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+  //     },
+  //   }),
 });
 export const persistor = persistStore(store);
 export default store;

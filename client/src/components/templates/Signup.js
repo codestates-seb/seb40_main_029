@@ -1,7 +1,11 @@
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Input from '../atoms/Input';
 import useInput from '../../utils/useInput';
-import Button from '../atoms/Button';
+import { handleSignup } from '../../api/SignupApi';
+import { isLoggedInSelector, emailSelector } from '../../redux/hooks';
+import { setIsLoggedIn, setEmail } from '../../redux/slice';
 
 const Container = styled.div`
   display: flex;
@@ -18,6 +22,22 @@ const InputHeader = styled.h3`
   margin-left: 5px;
 `;
 
+const Button = styled.button`
+  margin-left: 10px;
+  padding: 5px 15px;
+  height: 28px;
+  border-radius: 30px;
+  font-size: 14px;
+  background-color: inherit;
+  box-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25), -2px -2px 5px #faf8ff;
+  border: none;
+
+  &:hover {
+    box-shadow: inset 2px 2px 5px rgba(22, 27, 29, 0.25),
+      inset -2px -2px 5px #faf8ff;
+  }
+`;
+
 const Warning = styled.h5`
   margin-left: 5px;
   font-weight: 200;
@@ -29,6 +49,8 @@ const ButtonContainer = styled.div`
 `;
 
 export default function Signup() {
+  const email = useSelector(emailSelector);
+  console.log(email);
   const [displayName, displayNameBind] = useInput('');
 
   return (
@@ -36,6 +58,9 @@ export default function Signup() {
       <InputContainer>
         <InputHeader>닉네임을 입력해주세요</InputHeader>
         <Input name="DisplayName" value={displayName} border="shadow" />
+        <Button size="long" fontSize="little" onClick={handleSignup}>
+          시작하기
+        </Button>
         <Warning>이미 사용중인 닉네임이에요</Warning>
       </InputContainer>
       <ButtonContainer>

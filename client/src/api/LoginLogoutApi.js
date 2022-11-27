@@ -22,17 +22,6 @@ export const onSilentRefresh = () => {
     });
 };
 
-// export const onLoginSuccess = response => {
-//   const { accessToken } = response.data.accessToken;
-//   const JWT_EXPIRY_TIME = 1 * 3600 * 1000; // 만료 시간 (1시간 밀리 초로 표현)
-
-//   // accessToken 설정
-//   axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-
-//   // accessToken 만료하기 1분 전에 로그인 연장
-//   setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
-// };
-
 export const getAccessToken = async authorizationCode => {
   const getURL = 'https://521a-211-58-204-152.jp.ngrok.io/oauth/google'; // 서버 주소
   const JWT_EXPIRY_TIME = 1 * 3600 * 1000; // 만료 시간 (1시간 밀리 초로 표현)
@@ -59,18 +48,13 @@ export const getAccessToken = async authorizationCode => {
       });
       // accessToken 만료하기 1분 전에 로그인 연장
       setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
-      // 라우팅
-      if (res.data.newUser) {
-        false;
-      } else {
-        console.log(res.data.email);
-        res.data.email;
-      }
+
+      return res.data;
     }
   });
 };
 
-export const Logout = async () => {
+export const LogoutApi = async () => {
   await axios
     .get('/members/logout') // 헤더 가는지 안가는지 확인
     .then(res => {

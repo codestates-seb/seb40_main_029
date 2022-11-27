@@ -1,8 +1,8 @@
 export const isLoggedInSelector = state => state.userInfo.isLoggedIn;
 
-export const emailSelector = state => state.userInfo.email;
-
 export const displayNameSelector = state => state.userInfo.displayName;
+
+export const emailSelector = state => state.userInfo.email;
 
 export const moodIdSelector = state => state.userInfo.moodId;
 

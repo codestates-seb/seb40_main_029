@@ -4,13 +4,11 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { isLoggedInSelector, emailSelector } from '../../redux/hooks';
-import { setIsLoggedIn } from '../../redux/slice';
-import { postLoginToken } from '../../api/postLoginToken';
-// import { useCookies } from 'react-cookie';
-// import { Cookies } from 'react-cookie';
-// import { setCookie, getCookie } from '../../utils/cookie';
-import { getAccessToken } from '../../api/LoginLogout';
+import {
+  isLoggedInSelector,
+  emailSelector,
+  displayNameSelector,
+} from '../../redux/hooks';
 
 axios.defaults.withCredentials = true; // 쿠키 사용하기 위해 필수
 
@@ -22,11 +20,9 @@ const Contain = styled.div`
 `;
 
 export default function GoogleLogin() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const isLoggedIn = useSelector(isLoggedInSelector);
-  //   const userEmail = useSelector(emailSelector);
-
+  const userEmail = useSelector(emailSelector);
+  const display = useSelector(displayNameSelector);
   const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=840805606859-diamap7b8svl8fhe3kqt1bmjsi6aieg9.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
   console.log(GOOGLE_LOGIN_URL);
 
@@ -92,7 +88,8 @@ export default function GoogleLogin() {
         }
       );
       // window.google.accounts.id.prompt();
-      console.log('이거 몇 번');
+      console.log(isLoggedIn);
+      console.log(userEmail);
     }
   }, []);
 

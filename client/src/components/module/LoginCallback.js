@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getAccessToken } from '../../api/LoginLogout';
+import { getAccessToken } from '../../api/LoginLogoutApi';
 import { isLoggedInSelector, emailSelector } from '../../redux/hooks';
 import { setIsLoggedIn, setEmail } from '../../redux/slice';
 
@@ -12,23 +12,30 @@ export default function LoginCallback() {
   const isLoggedIn = useSelector(isLoggedInSelector);
   const userEmail = useSelector(emailSelector);
 
+  console.log(userEmail);
+
   useEffect(() => {
     const urlParams = new URL(location.href).searchParams;
-    console.log('코드');
     const authorizationCode = urlParams.get('code');
     console.log(authorizationCode);
     if (authorizationCode) {
-      setResult(getAccessToken(authorizationCode));
-      console.log(result);
+      (async () => {
+        setResult(await getAccessToken(authorizationCode)); // 이메일과 newUser를 담은 객체
+      })();
     }
   }, []);
+  console.log('응답 후');
+  console.log(result.email);
+  console.log(result.newUser);
 
   useEffect(() => {
-    // 기존 유저면 이메일 리턴, 신규 유저면 false 리턴 (닉네임 입력후 이메일 전달)
-    {
-      result
-        ? (dispatch(setIsLoggedIn()), dispatch(setEmail(result)), navigate('/'))
-        : navigate('/signup');
+    // 기존 유저면 홈화면, 신규 유저면 회원가입화면
+    if (result.newUser == true) {
+      dispatch(setEmail(result.email));
+      navigate('/signup');
+    } else if (result.newUser == false) {
+      dispatch(setEmail(result.email));
+      navigate('/');
     }
   }, [result]);
 
