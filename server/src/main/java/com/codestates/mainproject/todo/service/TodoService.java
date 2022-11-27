@@ -30,6 +30,8 @@ public class TodoService {
     private final MemberRepository memberRepository;
     private final MemberService memberService;
 
+
+    /*Todo 등록*/
     public Todo createdTodo(Todo todo, Long memberId){
         Member member = memberService.verifyMember(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
@@ -37,6 +39,7 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
+    /*Todo title 변경*/
     public Todo updateTodo(Todo todo, Long todoId, Long memberId){
 
         Todo findTodo = verifyTodo(todoId, memberId)
@@ -46,6 +49,7 @@ public class TodoService {
         return todoRepository.save(findTodo);
     }
 
+    /*Todo 완료처리*/
     public Todo seletedTodo(Long todoId, Long memberId){
 
         Member member = memberService.verifyMember(memberId)
@@ -54,18 +58,27 @@ public class TodoService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.TODO_NOT_FOUND));
 
         seletedTodo.setSelected(true);
-        member.setPoint(member.getPoint() + 50);
 
-        memberRepository.save(member);
+        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59));
+        List<Todo> todoList = todoRepository.findAllByMember_MemberIdAndModifiedAtBetween(memberId, startDateTime, endDateTime)
+                .stream()
+                .filter(todo -> todo.isSelected())
+                .collect(Collectors.toList());
+        if(todoList == null){
+            member.setPoint(member.getPoint() + 50);
+        }
         return todoRepository.save(seletedTodo);
     }
 
+    /*Todo 개별 조회*/
     public Todo findTodo(Long memberId, Long todoId){
 
         return verifyTodo(todoId, memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.TODO_NOT_FOUND));
     }
 
+    /*작일 미완료Todo -> 오늘 날짜로 업데이트*/
     public List<Todo> renewalTodo(Long memberId){
         LocalDateTime YesStartDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(0, 0, 0)); //어제 날짜 기준 0시 0분 0초
         LocalDateTime YesEndDateTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(23, 59, 59)); // 어제 날짜 기준 23시 59분 59초
@@ -95,6 +108,7 @@ public class TodoService {
         return falseTodo;
     }
 
+    /*오늘 등록한Todo 조회*/
     public List<Todo> findTodoList(Long memberId){
         LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0)); //오늘 날짜 기준 0시 0분 0초
         LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59)); // 오늘 날짜 기준 23시 59분 59초
@@ -103,24 +117,29 @@ public class TodoService {
         return todoList;
     }
 
+    /*등록한 모든 Todo 조회*/
     public List<Todo> findAllTodoList(Long memberId){
 
         List<Todo> todoList = todoRepository.findAllByMember_MemberId(memberId);
         return todoList;
     }
 
+    /*Todo 삭제*/
     public void deleteTodo(Long todoId, Long memberId){
         todoRepository.deleteByTodoIdAndMember_MemberId(todoId, memberId);
     }
 
+    /*모든 Todo 삭제*/
     public void deleteTodoList(Long memberId){
         todoRepository.deleteAllByMember_MemberId(memberId);
     }
 
+    /*내가 등록한 Todo DB에서 조회*/
     public Optional<Todo> verifyTodo(Long todoId, Long memberId){
         return todoRepository.findByTodoIdAndMember_MemberId(todoId, memberId);
     }
 
+    /*내가 등록한 모든 Todo DB에서 조회*/
     public List<Todo> verifyTodoList(Long memberId){
         return todoRepository.findAllByMember_MemberId(memberId);
     }

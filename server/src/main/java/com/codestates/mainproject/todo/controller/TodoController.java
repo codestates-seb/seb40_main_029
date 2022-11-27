@@ -44,6 +44,7 @@ public class TodoController {
                                                      @PathVariable("todo-id") Long todoId){
         Todo todo = mapper.todoPatchDtoToTodo(patchDto);
         Todo updateTodo = todoService.updateTodo(todo, todoId, memberId);
+
         TodoResponseDto response = mapper.todoToTodoResponseDto(updateTodo);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
