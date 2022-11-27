@@ -1,11 +1,316 @@
 {
-  "mails": [
-    {
-      "id": 1,
-      "memberId": 1,
-      "username": "예륜",
-      "createdAt": "2022-11-10T15:23:23.614035",
-      "body": "안녕하세요?"
-    }
+  "moods": [
+    [
+      {
+        "body": "",
+        "createdAt": "2021-01-01",
+        "memberId": 1,
+        "moodId": 1,
+        "moodPaletteDetails": {
+          "mood": "예민",
+          "colorCode": "BEB5BF"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었음...",
+        "createdAt": "2021-01-02",
+        "memberId": 1,
+        "moodId": 2,
+        "moodPaletteDetails": {
+          "mood": "희망",
+          "colorCode": "A9C0C5"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었고... 저런저런 일도 있어서... 이러저러한 이유로 나의 심경은 이러했음...",
+        "createdAt": "2021-01-03",
+        "memberId": 1,
+        "moodId": 3,
+        "moodPaletteDetails": {
+          "mood": "예민",
+          "colorCode": "BEB5BF"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었고... 저런저런 일도 있어서... 이러저러한 이유로 나의 심경은 이러했음...",
+        "createdAt": "2021-01-04",
+        "memberId": 1,
+        "moodId": 4,
+        "moodPaletteDetails": {
+          "mood": "기쁨",
+          "colorCode": "E7AF8D"
+        }
+      },
+      {
+        "body": "",
+        "createdAt": "2021-01-05",
+        "memberId": 1,
+        "moodId": 5,
+        "moodPaletteDetails": {
+          "mood": "걱정",
+          "colorCode": "A2A987"
+        }
+      },
+      {
+        "body": "",
+        "createdAt": "2021-01-06",
+        "memberId": 1,
+        "moodId": 6,
+        "moodPaletteDetails": {
+          "mood": "분노",
+          "colorCode": "CD686D"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었음... 저런저런 일도 있었음...",
+        "createdAt": "2021-01-07",
+        "memberId": 1,
+        "moodId": 7,
+        "moodPaletteDetails": {
+          "mood": "평온",
+          "colorCode": "F0DCB1"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었음... 저런저런 일도 있었음...",
+        "createdAt": "2021-01-08",
+        "memberId": 1,
+        "moodId": 8,
+        "moodPaletteDetails": {
+          "mood": "평온",
+          "colorCode": "F0DCB1"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었고... 저런저런 일도 있어서... 이러저러한 이유로 나의 심경은 이러했음...",
+        "createdAt": "2021-01-09",
+        "memberId": 1,
+        "moodId": 9,
+        "moodPaletteDetails": {
+          "mood": "평온",
+          "colorCode": "F0DCB1"
+        }
+      },
+      {
+        "body": "",
+        "createdAt": "2021-01-10",
+        "memberId": 1,
+        "moodId": 10,
+        "moodPaletteDetails": {
+          "mood": "슬픔",
+          "colorCode": "B0AEBA"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었음... 저런저런 일도 있었음...",
+        "createdAt": "2021-01-11",
+        "memberId": 1,
+        "moodId": 11,
+        "moodPaletteDetails": {
+          "mood": "설렘",
+          "colorCode": "m004"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었음... 저런저런 일도 있었음...",
+        "createdAt": "2021-01-12",
+        "memberId": 1,
+        "moodId": 12,
+        "moodPaletteDetails": {
+          "mood": "기쁨",
+          "colorCode": "E7AF8D"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었음...",
+        "createdAt": "2021-01-13",
+        "memberId": 1,
+        "moodId": 13,
+        "moodPaletteDetails": {
+          "mood": "예민",
+          "colorCode": "BEB5BF"
+        }
+      },
+      {
+        "body": "",
+        "createdAt": "2021-01-14",
+        "memberId": 1,
+        "moodId": 14,
+        "moodPaletteDetails": {
+          "mood": "희망",
+          "colorCode": "A9C0C5"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었음...",
+        "createdAt": "2021-01-15",
+        "memberId": 1,
+        "moodId": 15,
+        "moodPaletteDetails": {
+          "mood": "희망",
+          "colorCode": "A9C0C5"
+        }
+      },
+      {
+        "body": "",
+        "createdAt": "2021-01-16",
+        "memberId": 1,
+        "moodId": 16,
+        "moodPaletteDetails": {
+          "mood": "기쁨",
+          "colorCode": "E7AF8D"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었고... 저런저런 일도 있어서... 이러저러한 이유로 나의 심경은 이러했음...",
+        "createdAt": "2021-01-17",
+        "memberId": 1,
+        "moodId": 17,
+        "moodPaletteDetails": {
+          "mood": "슬픔",
+          "colorCode": "B0AEBA"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었음... 저런저런 일도 있었음...",
+        "createdAt": "2021-01-18",
+        "memberId": 1,
+        "moodId": 18,
+        "moodPaletteDetails": {
+          "mood": "예민",
+          "colorCode": "BEB5BF"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었음...",
+        "createdAt": "2021-01-19",
+        "memberId": 1,
+        "moodId": 19,
+        "moodPaletteDetails": {
+          "mood": "설렘",
+          "colorCode": "m004"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었고... 저런저런 일도 있어서... 이러저러한 이유로 나의 심경은 이러했음...",
+        "createdAt": "2021-01-20",
+        "memberId": 1,
+        "moodId": 20,
+        "moodPaletteDetails": {
+          "mood": "설렘",
+          "colorCode": "m004"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었음... 저런저런 일도 있었음...",
+        "createdAt": "2021-01-21",
+        "memberId": 1,
+        "moodId": 21,
+        "moodPaletteDetails": {
+          "mood": "설렘",
+          "colorCode": "m004"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었고... 저런저런 일도 있어서... 이러저러한 이유로 나의 심경은 이러했음...",
+        "createdAt": "2021-01-22",
+        "memberId": 1,
+        "moodId": 22,
+        "moodPaletteDetails": {
+          "mood": "걱정",
+          "colorCode": "A2A987"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었음... 저런저런 일도 있었음...",
+        "createdAt": "2021-01-23",
+        "memberId": 1,
+        "moodId": 23,
+        "moodPaletteDetails": {
+          "mood": "분노",
+          "colorCode": "CD686D"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었음... 저런저런 일도 있었음...",
+        "createdAt": "2021-01-24",
+        "memberId": 1,
+        "moodId": 24,
+        "moodPaletteDetails": {
+          "mood": "걱정",
+          "colorCode": "A2A987"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었음...",
+        "createdAt": "2021-01-25",
+        "memberId": 1,
+        "moodId": 25,
+        "moodPaletteDetails": {
+          "mood": "슬픔",
+          "colorCode": "B0AEBA"
+        }
+      },
+      {
+        "body": "",
+        "createdAt": "2021-01-26",
+        "memberId": 1,
+        "moodId": 26,
+        "moodPaletteDetails": {
+          "mood": "희망",
+          "colorCode": "A9C0C5"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었고... 저런저런 일도 있어서... 이러저러한 이유로 나의 심경은 이러했음...",
+        "createdAt": "2021-01-27",
+        "memberId": 1,
+        "moodId": 27,
+        "moodPaletteDetails": {
+          "mood": "분노",
+          "colorCode": "CD686D"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었고... 저런저런 일도 있어서... 이러저러한 이유로 나의 심경은 이러했음...",
+        "createdAt": "2021-01-28",
+        "memberId": 1,
+        "moodId": 28,
+        "moodPaletteDetails": {
+          "mood": "희망",
+          "colorCode": "A9C0C5"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었음...",
+        "createdAt": "2021-01-29",
+        "memberId": 1,
+        "moodId": 29,
+        "moodPaletteDetails": {
+          "mood": "걱정",
+          "colorCode": "A2A987"
+        }
+      },
+      {
+        "body": "",
+        "createdAt": "2021-01-30",
+        "memberId": 1,
+        "moodId": 30,
+        "moodPaletteDetails": {
+          "mood": "평온",
+          "colorCode": "F0DCB1"
+        }
+      },
+      {
+        "body": "이런이런 일이 있었음... 저런저런 일도 있었음...",
+        "createdAt": "2021-01-31",
+        "memberId": 1,
+        "moodId": 31,
+        "moodPaletteDetails": {
+          "mood": "슬픔",
+          "colorCode": "B0AEBA"
+        }
+      }
+    ]
   ]
 }
