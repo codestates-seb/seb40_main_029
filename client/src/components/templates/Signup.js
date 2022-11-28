@@ -56,22 +56,31 @@ const ButtonContainer = styled.div`
 export default function Signup() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const email = useSelector(emailSelector);
-  const [displayName, displayNameBind] = useInput('');
-  const [response, setResponse] = useState({});
+  const emailValue = useSelector(emailSelector);
+  const [displayNameValue, displayNameBind] = useInput('');
+  const [response, setResponse] = useState();
   const [warning, setWarning] = useState('');
-  console.log(displayName);
-  console.log(email);
+  console.log(displayNameValue);
+  console.log(emailValue);
 
-  function handleSignup(displayName) {
+  // useEffect(() => {
+  //   if (response.displayName) {
+  //     console.log('1번');
+  //     setDisplayName(dispatch(response.displayName)), navigate('/');
+  //   } else {
+  //     console.log('2번');
+  //     setWarning(response.data);
+  //   }
+  // }, [response]);
+
+  function handleSignup(emailValue, displayNameValue) {
     (async () => {
-      setResponse(await SignupApi(displayName));
+      const res = await SignupApi(emailValue, displayNameValue);
+      console.log(res);
+      // setResponse(await SignupApi(emailValue, displayNameValue));
     })();
-    if (response.displayName) {
-      setDisplayName(dispatch(response.displayName)), navigate('/');
-    } else {
-      setWarning(response.data);
-    }
+    console.log('응답');
+    // console.log(response);
   }
 
   return (
@@ -82,7 +91,7 @@ export default function Signup() {
         <Button
           size="long"
           fontSize="little"
-          onClick={() => handleSignup(displayName)}
+          onClick={() => handleSignup(emailValue, displayNameValue)}
         >
           시작하기
         </Button>

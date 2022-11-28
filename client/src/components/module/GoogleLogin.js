@@ -75,7 +75,6 @@ export default function GoogleLogin() {
         client_id:
           '840805606859-diamap7b8svl8fhe3kqt1bmjsi6aieg9.apps.googleusercontent.com',
         // 로그인 할 경우 호출되는 함수
-        // callback: handleCallbackResponse,
         callback: oAuthHandler,
       });
 

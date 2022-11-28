@@ -5,7 +5,7 @@ export const onSilentRefresh = () => {
   const JWT_EXPIRY_TIME = 1 * 3600 * 1000; // 만료 시간 (1시간 밀리 초로 표현)
   const refreshToken = getCookie('refreshToken');
   axios
-    .get('/members/reissue', {
+    .get('https://521a-211-58-204-152.jp.ngrok.io/members/reissue', {
       headers: {
         Refresh: refreshToken,
       },
@@ -56,7 +56,7 @@ export const getAccessToken = async authorizationCode => {
 
 export const LogoutApi = async () => {
   await axios
-    .get('/members/logout') // 헤더 가는지 안가는지 확인
+    .get('https://521a-211-58-204-152.jp.ngrok.io/members/logout') // 헤더 가는지 안가는지 확인
     .then(res => {
       console.log(res);
       // 리덕스 변경

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -34,6 +35,10 @@ export default function LoginCallback() {
       dispatch(setEmail(result.email));
       navigate('/signup');
     } else if (result.newUser == false) {
+      // 기존 유저 헤더 토큰 추가
+      const { accessToken } = result;
+      console.log(accessToken);
+      axios.defaults.headers.common['Authorization'] = accessToken;
       dispatch(setEmail(result.email));
       navigate('/');
     }
