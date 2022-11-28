@@ -25,7 +25,7 @@ export const PaletteList = async () => {
 
 export const BuyPalette = async paletteCode => {
   // const memberId = useSelector(memberIdSelector);
-  const memberId = 4; // 임시 멤버아이디
+  const memberId = 1; // 임시 멤버아이디, 파라미터로 전달
   const path = `/members/buy/${memberId}/${paletteCode}`;
 
   try {
@@ -39,7 +39,7 @@ export const BuyPalette = async paletteCode => {
 };
 
 export const SetPalette = async paletteCode => {
-  const memberId = 4;
+  const memberId = 1;
   const path = `/members/choice/${memberId}/${paletteCode}`;
 
   try {

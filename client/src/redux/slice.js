@@ -6,8 +6,8 @@ const initialState = {
   email: -1,
   displayName: -1,
   moodId: -1,
-  paletteCode: 'P001',
-  myPalette: ['P001'],
+  paletteCode: 'P001', // 적용한 팔레트
+  myPalette: ['P001'], // 보유한 팔레트
   today: { mood: -1, reason: -1 },
 };
 
