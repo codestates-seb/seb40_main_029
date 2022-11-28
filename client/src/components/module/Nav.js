@@ -10,6 +10,9 @@ import {
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import Letter from '../templates/Letter';
+import GlobalModal from '../templates/GlobalModal';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../redux/modalSlice';
 
 const Bubble = styled.nav`
   z-index: 2;
@@ -53,13 +56,29 @@ const DarkIcon = styled.span`
     }
   }
 `;
-
 const Nav = () => {
+  const dispatch = useDispatch();
+  const handleFriendModal = () => {
+    dispatch(
+      openModal({
+        modalType: 'FriendModal',
+        isOpen: true,
+      })
+    );
+  };
+  const handleLetterModal = () => {
+    dispatch(
+      openModal({
+        modalType: 'LetterModal',
+        isOpen: true,
+      })
+    );
+  };
   return (
     <>
       <Bubble>
         <ul>
-          <NavItem>
+          <NavItem onClick={handleLetterModal}>
             <Link to="#">
               <DarkIcon>
                 <FontAwesomeIcon icon={faEnvelope} size="lg" />
@@ -83,7 +102,7 @@ const Nav = () => {
               <FontSize14>색상테마</FontSize14>
             </Link>
           </NavItem>
-          <NavItem>
+          <NavItem onClick={handleFriendModal}>
             <Link to="#">
               <DarkIcon>
                 <FontAwesomeIcon icon={faUserGroup} size="lg" />
