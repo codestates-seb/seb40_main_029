@@ -57,17 +57,17 @@ public class TodoService {
         Todo seletedTodo = verifyTodo(todoId, memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.TODO_NOT_FOUND));
 
-        seletedTodo.setSelected(true);
-
         LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
         LocalDateTime endDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59));
         List<Todo> todoList = todoRepository.findAllByMember_MemberIdAndModifiedAtBetween(memberId, startDateTime, endDateTime)
                 .stream()
                 .filter(todo -> todo.isSelected())
                 .collect(Collectors.toList());
-        if(todoList == null){
+
+        if(todoList.size() == 0){
             member.setPoint(member.getPoint() + 50);
         }
+        seletedTodo.setSelected(true);
         return todoRepository.save(seletedTodo);
     }
 
