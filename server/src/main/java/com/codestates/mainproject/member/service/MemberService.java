@@ -78,6 +78,9 @@ public class MemberService {
 
     /* DisplayName 변경 */
     public Member updateMember(Member member, Long memberId){
+        if( verifyDisplayName(member.getDisplayName()).isPresent()){
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+        }
         Member updateMember = verifyMember(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         updateMember.setDisplayName(member.getDisplayName());
