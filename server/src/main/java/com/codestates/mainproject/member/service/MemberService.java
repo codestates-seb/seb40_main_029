@@ -113,7 +113,11 @@ public class MemberService {
             break;
 
             case "P005" : if (member.getPoint() - 500 < 0){
-                throw new RuntimeException("포인트가 부족합니다.");
+                throw new BusinessLogicException(ExceptionCode.NOT_ENOUGH_POINT);
+            }
+
+            case "P006" : if (member.getPoint() - 500 < 0){
+                throw new BusinessLogicException(ExceptionCode.NOT_ENOUGH_POINT);
             }
             else member.setPoint(member.getPoint() - 500);
             break;
