@@ -1,84 +1,80 @@
 import styled from 'styled-components';
+import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { TWallpaper } from '@twallpaper/react';
 import '@twallpaper/react/css';
-import { useSelector } from 'react-redux';
 
 const Contain = styled.div`
   width: 100vh;
   height: 100vh;
 `;
 
+const MonthlyColor = styled.h1`
+  margin-top: 50px;
+  margin-left: 50px;
+  opacity: 0.2;
+  font-size: 40px;
+  letter-spacing: 0.7rem;
+`;
+
 const GradientWall = () => {
-  const [topColors, setTopColors] = useState([
-    '#BEB5BF',
-    '#A9C0C5',
-    '#E7AF8D',
-    '#E7AF8D',
-  ]);
+  const [topColors, setTopColors] = useState();
   const option = {
     fps: 60,
     tails: 30,
     colors: topColors,
   };
+  let todayMonth = '11';
 
-  // const GetMonth = async () => {
-  //   const displayName = useSelector(displayNameSelector);
-  //   const now = new Date(); // 현재 날짜 및 시간
-  //   const month = now.getMonth();
-  //   const jsonServer = 'http://localhost:4000/moods';
-  // const path = `/mood/month/${displayName}/${month}`;
+  const GetMonth = () => {
+    const now = new Date(); // 현재 날짜 및 시간
+    return 1 + now.getMonth();
+  };
 
-  // try {
-  // axios.get(jsonServer).then(res => console.log(res));
-  // for (let i = 0; i < result.length; i++) {
-  //   let colors = [];
-  //   colors.push(result[i].moodPaletteDetails.colorCode);
-  //   return colors;
-  // }
-  // // 요약 {"a":2,"b":2,"c":1}
-  // const summary = {};
-  // colors.forEach(x => {
-  //   summary[x] = (summary[x] || 0) + 1;
-  // });
-  // const sorted = Object.entries(summary).sort((a, b) => b[1] - a[1]);
-  // const topFour = [];
-  // for (let el of sorted) {
-  //   topFour.push(el[0]);
-  //   console.log(el[0] + ':' + el[1]);
-  // }
-  // console.log(topFour);
-  // const number = Object.keys(colors);
-  // const total = 0;
-  // number.forEach(x => (total += x));
-  //   } catch (err) {
-  //     throw err;
-  //   }
-  // }
+  async function GetColors() {
+    const jsonServer = 'http://localhost:4000/moods';
+    return await axios.get(jsonServer).then(res => {
+      let colors = res.data[0].map(x => x.moodPaletteDetails.colorCode);
+      // 요약 {"a":2,"b":2,"c":1}
+      const summary = {};
+      colors.forEach(x => {
+        summary[x] = (summary[x] || 0) + 1;
+      });
+      const sorted = Object.entries(summary).sort((a, b) => b[1] - a[1]);
+      const topColor = [];
+      for (let el of sorted) {
+        topColor.push(el[0]);
+      }
+      return topColor; // 많은 색 부터 순서대로 있는 배열
+    });
+  }
 
-  // useEffect(() => GetMonth(), []);
+  useEffect(() => {
+    todayMonth = GetMonth();
+    console.log(todayMonth);
+    const loadData = async () => {
+      const topArr = await GetColors();
+      console.log(topArr);
+      setTopColors([
+        `#${topArr[0]}`,
+        `#${topArr[1]}`,
+        `#${topArr[2]}`,
+        `#${topArr[3]}`,
+      ]);
+    };
+
+    loadData();
+    console.log(topColors);
+  }, []);
+
+  console.log('탑칼라' + topColors);
 
   return (
-    <Contain>
-      <TWallpaper options={option} />
-    </Contain>
+    <>
+      <MonthlyColor>{'당신의 ' + todayMonth + '월'}</MonthlyColor>
+      {topColors && <TWallpaper options={option} />}
+    </>
   );
 };
 
 export default GradientWall;
-
-// [
-//   {
-//     "moodId": 1,
-//     "body": "밥먹자!!!!!",
-//     "memberId": 1,
-//     "moodPaletteDetails": {
-//         "moodPaletteDetailsId": 1,
-//         "paletteCode": "P001",
-//         "moodCode": "m001",
-//         "colorCode": "EE8242",
-//         "mood": "기쁨"
-//     },
-//     "createdAt": "2022-11-24T10:40:01.616384"
-// }
-// ]
