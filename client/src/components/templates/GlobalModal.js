@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Friend from './Friends';
 import Letter from './Letter';
 import modalSlice, { selectModal } from '../../redux/modalSlice';
+import TodoList from '../module/TodoList';
 
 const MODAL_TYPES = {
   FriendModal: 'FriendModal',
@@ -17,6 +18,10 @@ const MODAL_COMPONENTS = [
   {
     type: MODAL_TYPES.LetterModal,
     component: <Letter />,
+  },
+  {
+    type: MODAL_TYPES.TodoModal,
+    component: <TodoList />,
   },
 ];
 
