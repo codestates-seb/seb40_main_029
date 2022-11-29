@@ -23,6 +23,18 @@ const Blueprint = styled.div`
   background-color: white;
   border-radius: 20px;
   margin-left: 20px;
+  transition: all 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  animation: slideIn 0.5s;
+  @keyframes slideIn {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
 `;
 
 const Todo = styled(Blueprint)`
