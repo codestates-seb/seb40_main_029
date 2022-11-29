@@ -4,11 +4,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {
-  isLoggedInSelector,
-  emailSelector,
-  displayNameSelector,
-} from '../../redux/hooks';
+import { emailSelector, displayNameSelector } from '../../redux/hooks';
 
 axios.defaults.withCredentials = true; // 쿠키 사용하기 위해 필수
 
@@ -20,7 +16,7 @@ const Contain = styled.div`
 `;
 
 export default function GoogleLogin() {
-  const isLoggedIn = useSelector(isLoggedInSelector);
+  // const isLoggedIn = useSelector(isLoggedInSelector);
   const userEmail = useSelector(emailSelector);
   const display = useSelector(displayNameSelector);
   const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=840805606859-diamap7b8svl8fhe3kqt1bmjsi6aieg9.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
@@ -87,7 +83,6 @@ export default function GoogleLogin() {
         }
       );
       // window.google.accounts.id.prompt();
-      console.log(isLoggedIn);
       console.log(userEmail);
     }
   }, []);
