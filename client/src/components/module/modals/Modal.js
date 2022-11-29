@@ -17,7 +17,7 @@ const Blueprint = styled.div`
 `;
 
 const Todo = styled(Blueprint)`
-  width: 720px;
+  width: 650px;
   height: 500px;
 `;
 

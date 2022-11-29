@@ -1,37 +1,42 @@
 import styled from 'styled-components';
-import Button from '../atoms/Button';
 import { useEffect, useState } from 'react';
 import BookmarkHandle from './BookmarkHandle';
+import BookmarkItem from '../module/BookmarkItem';
 
-const Anchor = styled.a`
-  line-height: 1;
+const BookmarkBox = styled.div`
+  margin-bottom: 8px;
+  display: flex;
 `;
 
-let dummyBookmark = [
-  { name: 'naver', url: 'https://www.naver.com' },
-  { name: 'google', url: 'https://www.google.com' },
-];
 const Bookmark = () => {
-  const [booksArr, setBookmarkArr] = useState(dummyBookmark);
-  const [isOpen, setIsOpen] = useState(false);
-  //로컬스토리지에서 가져옴
-  useEffect(() => {
-    let test = JSON.parse(localStorage.getItem('bookmark'));
-    console.log(test);
-  }, []);
+  const [booksArr, setBookmarkArr] = useState(
+    JSON.parse(localStorage.getItem('bookmark')) || []
+  );
+  const [minBooks, setMinbooks] = useState(true);
+  let sliceNum = minBooks ? 3 : 10;
+  const minBooksList = booksArr.slice(0, sliceNum);
+
   return (
-    <>
-      {dummyBookmark.length !== 0
-        ? dummyBookmark.map((book, i) => {
+    <BookmarkBox>
+      {booksArr
+        ? minBooksList.map((book, i) => {
             return (
-              <Button key={i} size="long" fontsize="middle">
-                <Anchor href={book.url}>{book.name}</Anchor>
-              </Button>
+              <BookmarkItem
+                key={i}
+                book={book}
+                booksArr={booksArr}
+                setBookmarkArr={setBookmarkArr}
+              />
             );
           })
         : null}
-      <BookmarkHandle setBookmarkArr={setBookmarkArr} booksArr={booksArr} />
-    </>
+      <BookmarkHandle
+        setBookmarkArr={setBookmarkArr}
+        booksArr={booksArr}
+        setMinbooks={setMinbooks}
+        minBooks={minBooks}
+      />
+    </BookmarkBox>
   );
 };
 

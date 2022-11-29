@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const CardContainer = styled.div`
@@ -9,7 +9,7 @@ const CardContainer = styled.div`
   width: 340px;
   height: 460px;
   background-color: white;
-  opacity: ${({ fade }) => (fade ? 1 : 0)};
+  /* opacity: ${({ fade }) => (fade ? 1 : 0)}; */
   transition: opacity 0.3s;
 `;
 
@@ -17,7 +17,7 @@ const Mood = styled.div`
   width: 320px;
   height: 290px;
   margin: 10px 10px 0 10px;
-  background-color: #6868ac;
+  background-color: ${({ color }) => color};
 `;
 
 const Info = styled.div`
@@ -53,11 +53,7 @@ const Contents = styled.div`
   }
 `;
 
-const MoodCard = ({ fade }) => {
-  const hexcode = '#6868AC';
-  const contents =
-    'black coffee 뇌가 저릿 위험한 향기 black coffee 한 잔 손에 쥔 도시의 좀비 쓰고 검은 커피는 이리 부드럽게 넘어가는데 쓰고 검은 내 밤은 오늘도 좀처럼 넘어가질 않고 버티네';
-
+const MoodCard = ({ fade, setFade, color, id, reason }) => {
   const [viewDetails, setViewDetails] = useState(false);
   const handleViewDetails = () => {
     const selection = window.getSelection();
@@ -68,12 +64,12 @@ const MoodCard = ({ fade }) => {
 
   return (
     <CardContainer fade={fade}>
-      <Mood />
+      <Mood color={color} onClick={() => setFade(false)} />
       <Info>
-        <Type>예민</Type>
-        <Hexcode>{hexcode.slice(1)}</Hexcode>
+        <Type>{id}</Type>
+        <Hexcode>{color !== null ? color.slice(1) : null}</Hexcode>
         <Contents onClick={() => handleViewDetails()} viewDetails={viewDetails}>
-          {contents}
+          {reason}
         </Contents>
       </Info>
     </CardContainer>

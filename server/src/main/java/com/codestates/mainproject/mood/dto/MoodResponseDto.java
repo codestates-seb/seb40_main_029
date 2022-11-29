@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,6 +18,7 @@ public class MoodResponseDto {
 
     private Long moodId;
     private String body;
-    private Member member;
+    private Long memberId;
     private MoodPaletteDetails moodPaletteDetails;
+    private LocalDateTime createdAt;
 }

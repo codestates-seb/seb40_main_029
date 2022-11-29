@@ -1,18 +1,22 @@
 package com.codestates.mainproject.auth.jwt;
 
-import com.codestates.mainproject.auth.dto.TokenResponseDto;
+import com.codestates.mainproject.auth.TokenResponse;
 import com.codestates.mainproject.auth.redis.RedisDao;
 import com.codestates.mainproject.member.dto.MemberResponseDto;
+import com.codestates.mainproject.member.entity.Member;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.time.Duration;
@@ -20,6 +24,7 @@ import java.util.*;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtProvider {
 
     private final RedisDao redisDao;
@@ -37,6 +42,13 @@ public class JwtProvider {
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
+    private Key createKey() {
+        // signiture에 대한 정보는 Byte array로 구성되어있습니다.
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secretKey);
+        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+        return signingKey;
+    }
+
     public Date getTokenExpiration(int expirationMinutes) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, expirationMinutes);
@@ -45,55 +57,54 @@ public class JwtProvider {
         return expiration;
     }
 
-    private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
-        byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
-        Key key = Keys.hmacShaKeyFor(keyBytes);
+//    private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
+//        byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
+//        Key key = Keys.hmacShaKeyFor(keyBytes);
+//        return key;
+//    }
 
-        return key;
+    public TokenResponse createTokensByLogin(Member member) throws Exception {
+
+        String atk = "Bearer " + delegateAccessToken(member);
+        String rtk = delegateRefreshToken(member);
+        redisDao.setValues(member.getEmail(), rtk, Duration.ofMinutes((long) refreshTokenExpirationMinutes));
+        return new TokenResponse(atk, rtk, "bearer");
     }
 
-    public TokenResponseDto createTokensByLogin(MemberResponseDto memberResponseDto) throws JsonProcessingException {
 
-        String atk = delegateAccessToken(memberResponseDto);
-        String rtk = delegateRefreshToken(memberResponseDto);
-        redisDao.setValues(memberResponseDto.getEmail(), rtk, Duration.ofMinutes((long) refreshTokenExpirationMinutes));
-        return new TokenResponseDto(atk, rtk);
-    }
-
-
-    private String delegateAccessToken(MemberResponseDto memberResponseDto) {
+    public String delegateAccessToken(Member member) throws Exception {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("displayName", memberResponseDto.getDisplayName());
-        claims.put("memberId", memberResponseDto.getMemberId());
+        claims.put("email", member.getEmail());
+        claims.put("memberId", member.getMemberId());
 
-        String subject = memberResponseDto.getEmail();
+        String subject = member.getEmail();
         Date expiration = getTokenExpiration(accessTokenExpirationMinutes);
         String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
 
         return generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
     }
 
-    private String delegateRefreshToken(MemberResponseDto memberResponseDto) {
-        String subject = memberResponseDto.getEmail();
+    public String delegateRefreshToken(Member member) {
+        String subject = member.getEmail();
         Date expiration = getTokenExpiration(refreshTokenExpirationMinutes);
         String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
 
         return generateRefreshToken(subject, expiration, base64EncodedSecretKey);
     }
+    private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+
 
     public String generateAccessToken(Map<String, Object> claims,
                                       String subject,
                                       Date expiration,
-                                      String base64EncodedSecretKey) {
-
-        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+                                      String base64EncodedSecretKey) throws Exception{
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(expiration)
-                .signWith(key)
+                .signWith(createKey(), signatureAlgorithm)
                 .compact();
     }
 
@@ -101,51 +112,63 @@ public class JwtProvider {
                                        Date expiration,
                                        String base64EncodedSecretKey) {
 
-        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
         return Jwts.builder()
                 .setSubject(subject)
                 .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(expiration)
-                .signWith(key)
+                .signWith(createKey(), signatureAlgorithm)
                 .compact();
     }
 
     public String getSubject(String jws) {
-        Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(secretKey));
-
-        return Jwts.parserBuilder()
-                .setSigningKey(key)
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
                 .build()
                 .parseClaimsJws(jws)
-                .getBody()
-                .getSubject();
-
+                .getBody();
+        System.out.println(claims.toString());
+        return (String) claims.get("email");
     }
 
-    public Jws<Claims> getClaims(String jws) {
-        Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(secretKey));
 
-        Jws<Claims> claims = Jwts.parserBuilder()
-                .setSigningKey(key)
+
+    public Jws<Claims> getClaims(String jws) {
+
+        return Jwts.parserBuilder()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
                 .build()
                 .parseClaimsJws(jws);
 
-        return claims;
     }
 
-    public TokenResponseDto reissueAtk(MemberResponseDto memberResponseDto) throws JwtException {
-        String rtkInRedis = redisDao.getValues(memberResponseDto.getEmail());
+    //엑세스 토큰 검증하는 로직
+    public Claims verifyToken(String jws){
+        try {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
+                    .build()
+                    .parseClaimsJws(jws)
+                    .getBody();
+            log.info("토큰 검증 완료");
+            return claims;
+        } catch (JwtException e) {
+            return null;
+        }
+    }
+
+    public TokenResponse reissueAtk(Member member) throws Exception {
+        String rtkInRedis = redisDao.getValues(member.getEmail());
         if (Objects.isNull(rtkInRedis)) {
             throw new JwtException("인증 정보가 만료되었습니다.");
         }
 
-        String atk = delegateAccessToken(memberResponseDto);
-        return new TokenResponseDto(atk, null);
+        String atk = delegateAccessToken(member);
+        return new TokenResponse(atk, null, "bearer");
     }
 
-    public void deleteRtk(MemberResponseDto memberResponseDto) throws JwtException {
-        redisDao.deleteValues(memberResponseDto.getEmail());
+    public void deleteRtk(Member member) throws JwtException {
+        redisDao.deleteValues(member.getEmail());
     }
 
     public void setBlackListAtk(String bearerAtk) {

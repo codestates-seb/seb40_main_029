@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { StoreModal } from './Modal';
 import Button from '../atoms/Button';
 import CircleCarousel from './CircleCarousel';
@@ -8,6 +9,13 @@ import {
   faChevronRight,
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
+import { BuyPalette, SetPalette } from '../../api/PaletteShop';
+import {
+  memberIdSelector,
+  paletteCodeSelector,
+  myPaletteSelector,
+} from '../../redux/hooks';
+import { setMyPalette, setPaletteCode } from '../../redux/slice';
 
 const TitleContainer = styled.div`
   margin: 5px;
@@ -60,8 +68,39 @@ const CarouselBtnContainer = styled.div`
 `;
 
 export const ThemeStore = () => {
+  const dispatch = useDispatch();
   const [carouselIndex, setIndex] = useState(0);
+  const [disable, setDisable] = useState(false);
+  const paletteCode = 'P00' + (carouselIndex + 1);
+  console.log('팔레트 코드' + paletteCode);
   const lastIndex = 4;
+  const paletteName = ['기본', '테라코타', '빈티지', '크리스마스', '모노'];
+  const palettePoint = ['', '1000P', '500P', '1500P', '500P'];
+  const memberId = useSelector(memberIdSelector);
+  const paletteCodeSelec = useSelector(paletteCodeSelector);
+  const myPalette = useSelector(myPaletteSelector);
+
+  const handleBuy = paletteCode => {
+    BuyPalette(paletteCode);
+    dispatch(setMyPalette(paletteCode));
+  };
+
+  const handleSet = paletteCode => {
+    SetPalette(paletteCode);
+    dispatch(setPaletteCode(paletteCode));
+  };
+
+  console.log('적용된 팔레트' + typeof paletteCodeSelec);
+  console.log(myPalette);
+
+  // 보유하고 있으면 disable을 true로 변경
+  const isMine = () => {
+    if (myPalette.includes(paletteCode)) {
+      setDisable(true);
+    } else if (!myPalette.includes(paletteCode)) {
+      setDisable(false);
+    }
+  };
 
   const toRight = () => {
     if (carouselIndex < lastIndex) {
@@ -69,6 +108,8 @@ export const ThemeStore = () => {
     } else {
       setIndex(0);
     }
+    isMine();
+    console.log(disable);
   };
 
   const toLeft = () => {
@@ -77,19 +118,30 @@ export const ThemeStore = () => {
     } else {
       setIndex(lastIndex);
     }
+    isMine();
+    console.log(disable);
   };
 
   console.log(carouselIndex);
   return (
     <StoreModal>
       <TitleContainer>
-        <Point>1000P</Point>
-        <PaletteName>테라코타</PaletteName>
+        <Point>{palettePoint[carouselIndex]}</Point>
+        <PaletteName>{paletteName[carouselIndex]}</PaletteName>
         <BtnContainer>
-          <Button size="long" fontsize="middle">
+          <Button
+            size="long"
+            fontsize="middle"
+            onClick={() => handleBuy(paletteCode)}
+          >
             구매
           </Button>
-          <Button size="long" fontsize="middle">
+          <Button
+            size="long"
+            fontsize="middle"
+            onClick={() => handleSet(paletteCode)}
+            disable={disable}
+          >
             적용
           </Button>
         </BtnContainer>
@@ -99,11 +151,13 @@ export const ThemeStore = () => {
           icon={faChevronLeft}
           size="2x"
           onClick={() => toLeft()}
+          style={{ cursor: 'pointer' }}
         />
         <FontAwesomeIcon
           icon={faChevronRight}
           size="2x"
           onClick={() => toRight()}
+          style={{ cursor: 'pointer' }}
         />
       </ArrowContainer>
       <CircleCarousel carouselIndex={carouselIndex} />

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -26,7 +27,9 @@ public class Todo extends Auditable {
     @Column(nullable = false)
     private boolean selected;
 
-    @JsonBackReference
+    private boolean updateTodo;
+
+
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;

@@ -51,9 +51,7 @@ const Btn = styled.button`
   /* font-weight: 700; */
   font-size: var(--button-font-size);
 
-  &:active,
-  &:hover,
-  &:focus {
+  &:hover {
     box-shadow: inset 2px 2px 5px rgba(22, 27, 29, 0.25),
       inset -2px -2px 5px #faf8ff;
   }

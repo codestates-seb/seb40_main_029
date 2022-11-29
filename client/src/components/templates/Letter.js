@@ -1,27 +1,15 @@
-import styled from 'styled-components';
 import Letters from '../module/Letters';
-import MoodCard from '../module/MoodCard';
 import { useState } from 'react';
 import LetterCreate from '../module/LetterCreate';
-
-const ContentLayout = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
+import { ContentLayout } from '../atoms/Layouts';
 
 const Letter = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <ContentLayout>
-      <MoodCard />
-      {isOpen ? (
-        <LetterCreate />
-      ) : (
-        <Letters setIsOpen={setIsOpen} isOpen={isOpen} />
-      )}
+      <Letters setIsOpen={setIsOpen} isOpen={isOpen} />
+      {isOpen ? <LetterCreate setIsOpen={setIsOpen} /> : null}
     </ContentLayout>
   );
 };

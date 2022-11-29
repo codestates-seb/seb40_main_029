@@ -10,7 +10,5 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TodoPatchDto {
-
-    private Long todoId;
     private String title;
 }
