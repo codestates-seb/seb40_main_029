@@ -4,7 +4,7 @@ import Letter from './Letter';
 import modalSlice, { selectModal } from '../../redux/modalSlice';
 import TodoList from '../module/TodoList';
 import ThemeStore from '../module/ThemeStore';
-import GradientWave from '../module/GradientWave';
+import GradientWall from '../module/GradientWall';
 
 const MODAL_TYPES = {
   LetterModal: 'LetterModal',
@@ -33,7 +33,7 @@ const MODAL_COMPONENTS = [
   },
   {
     type: MODAL_TYPES.GradientModal,
-    component: <GradientWave />,
+    component: <GradientWall />,
   },
 ];
 

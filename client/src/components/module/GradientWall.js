@@ -5,13 +5,16 @@ import { TWallpaper } from '@twallpaper/react';
 import '@twallpaper/react/css';
 
 const Contain = styled.div`
-  width: 100vh;
-  height: 100vh;
+  position: relative;
+  /* z-index: 50; */
+  width: 100%;
+  height: 100%;
 `;
 
 const MonthlyColor = styled.h1`
-  margin-top: 50px;
-  margin-left: 50px;
+  position: fixed;
+  top: 10px;
+  left: 80px;
   opacity: 0.2;
   font-size: 40px;
   letter-spacing: 0.7rem;
@@ -32,7 +35,7 @@ const GradientWall = () => {
   };
 
   async function GetColors() {
-    const jsonServer = 'http://localhost:4000/moods';
+    const jsonServer = 'http://localhost:4000/moods'; // dataMonth.json 파일 4000번 포트로 열기
     return await axios.get(jsonServer).then(res => {
       let colors = res.data[0].map(x => x.moodPaletteDetails.colorCode);
       // 요약 {"a":2,"b":2,"c":1}
@@ -71,8 +74,10 @@ const GradientWall = () => {
 
   return (
     <>
-      <MonthlyColor>{'당신의 ' + todayMonth + '월'}</MonthlyColor>
-      {topColors && <TWallpaper options={option} />}
+      <Contain>
+        <MonthlyColor>{'당신의 ' + todayMonth + '월'}</MonthlyColor>
+        {topColors && <TWallpaper options={option} />}
+      </Contain>
     </>
   );
 };
