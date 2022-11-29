@@ -66,7 +66,7 @@ export default function GoogleLogin() {
 
   // 신규 구글 로그인 라이브러리 사용
   useEffect(() => {
-    if (window.google) {
+    if (window) {
       window.google.accounts.id.initialize({
         client_id:
           '840805606859-diamap7b8svl8fhe3kqt1bmjsi6aieg9.apps.googleusercontent.com',
