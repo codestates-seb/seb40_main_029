@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { getAllMails } from '../../api/MailDataApi';
 import { RightBottomLayout } from '../atoms/Layouts';
 import styled from 'styled-components';
+import Pagination from '../atoms/Pagination';
 
 const ContentWrap = styled.div`
   //임시방편. 페이지네이션 구현 예정
@@ -19,7 +20,10 @@ const ContentWrap = styled.div`
   }
 `;
 const Letters = ({ setIsOpen, isOpen }) => {
-  const [mails, setMails] = useState();
+  const [mails, setMails] = useState([]);
+  const limit = 5;
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
   const handleLetterCreate = () => {
     setIsOpen(!isOpen);
   };
@@ -36,18 +40,26 @@ const Letters = ({ setIsOpen, isOpen }) => {
       <MailModal>
         <ContentWrap>
           {mails ? (
-            mails.map((mail, i) => {
+            mails.slice(offset, offset + limit).map((mail, i) => {
               return <LetterItem key={i} data={mail} />;
             })
           ) : (
             <ShadowBox>받은 편지가 없습니다.</ShadowBox>
           )}
+          <RightBottomLayout>
+            <Button size="circle" onClick={handleLetterCreate}>
+              +
+            </Button>
+          </RightBottomLayout>
         </ContentWrap>
-        <RightBottomLayout>
-          <Button size="circle" onClick={handleLetterCreate}>
-            +
-          </Button>
-        </RightBottomLayout>
+        <footer>
+          <Pagination
+            total={mails.length}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+          />
+        </footer>
       </MailModal>
     </>
   );

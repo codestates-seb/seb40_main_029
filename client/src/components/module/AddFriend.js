@@ -53,27 +53,39 @@ const FriendListBox = styled.div`
   margin-bottom: 18px;
 `;
 
-const AddFriend = ({ setIsOpen }) => {
-  const [friendsList, setFriendsList] = useState([]);
+const AddFriend = ({ setIsOpen, friends, setReFresh }) => {
+  const [userList, setUserList] = useState([]);
   const [keyword, bindKeyword] = useInput('');
   const [respondentDisplayName, setRespondentDisplayName] = useState('');
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllMembers();
-      setFriendsList(data);
+      setUserList(data);
     };
     fetchData();
   }, []);
   const CloseModal = () => {
     setIsOpen(false);
   };
-  const filteredMember = friendsList?.filter(member => {
+
+  const filteredMember = userList?.filter(member => {
     return member.displayName.includes(keyword);
   });
+  const checkAlreadyAdd = el => {
+    if (el.respondentDisplayName === respondentDisplayName) {
+      return true;
+    }
+  };
+
   // 유저 ID 1로 가정
   const requesterDisplayName = '회원1';
   const handleAddFriend = () => {
+    if (friends.some(checkAlreadyAdd)) {
+      alert('이미 추가한 친구예요!');
+      return;
+    }
     addFriend({ requesterDisplayName, respondentDisplayName });
+    setReFresh(refresh => refresh + 1);
     alert('친구를 추가했어요!');
   };
 
@@ -106,7 +118,6 @@ const AddFriend = ({ setIsOpen }) => {
                       key={i}
                       member={member}
                       setRespondentDisplayName={setRespondentDisplayName}
-                      // onClick={handleCheckFriend}
                     />
                   );
                 })
