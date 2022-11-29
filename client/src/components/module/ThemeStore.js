@@ -59,7 +59,7 @@ const ArrowContainer = styled.div`
 const CarouselContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 870px;
+  height: 100%;
   display: block;
   overflow: hidden;
 `;
