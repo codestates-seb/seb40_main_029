@@ -46,6 +46,7 @@ const Mail = styled(Blueprint)`
   width: 650px;
   height: 500px;
   margin-left: 20px;
+  position: relative;
 `;
 
 const Store = styled(Blueprint)`
