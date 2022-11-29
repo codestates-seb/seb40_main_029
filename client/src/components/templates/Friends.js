@@ -53,7 +53,7 @@ const Friends = () => {
         </FriendModal>
         {isOpen ? (
           <>
-            <AddFriend setIsOpen={setIsOpen} />
+            <AddFriend setIsOpen={setIsOpen} friends={friends} />
             <Overlay />
           </>
         ) : null}
