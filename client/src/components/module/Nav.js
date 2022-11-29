@@ -9,6 +9,8 @@ import {
   faCalendarDays,
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
+import Letter from '../templates/Letter';
+import GlobalModal from '../templates/GlobalModal';
 import { useDispatch } from 'react-redux';
 import { openModal } from '../../redux/modalSlice';
 import Letter from '../templates/Letter';
@@ -74,14 +76,6 @@ const Nav = () => {
       })
     );
   };
-  const handleTodoModal = () => {
-    dispatch(
-      openModal({
-        modalType: 'TodoModal',
-        isOpen: true,
-      })
-    );
-  };
   return (
     <>
       <Bubble>
@@ -94,7 +88,7 @@ const Nav = () => {
               <FontSize14>편지함</FontSize14>
             </Link>
           </NavItem>
-          <NavItem onClick={handleTodoModal}>
+          <NavItem>
             <Link to="#">
               <DarkIcon>
                 <FontAwesomeIcon icon={faHighlighter} size="lg" />
