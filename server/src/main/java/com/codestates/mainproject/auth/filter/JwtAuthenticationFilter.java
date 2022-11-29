@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 // 요청이 엑세스 토큰 재발급 요청이면 if문 실행 (재발급)
                 if (requestURI.equals("/members/reissue")) {
-                    String rtkSubject = jwtProvider.getSubject(refresh);
+                    String rtkSubject = jwtProvider.getClaims(refresh).getBody().getSubject();
                     UserDetails userDetails = memberDetailsService.loadUserByUsername(rtkSubject);
                     Authentication token = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(token);

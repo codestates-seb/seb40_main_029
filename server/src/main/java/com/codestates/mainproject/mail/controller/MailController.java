@@ -1,12 +1,14 @@
 package com.codestates.mainproject.mail.controller;
 
 
+import com.codestates.mainproject.dto.MultiResponseDto;
 import com.codestates.mainproject.mail.dto.MailPostDto;
 import com.codestates.mainproject.mail.dto.MailResponseDto;
 import com.codestates.mainproject.mail.entity.Mail;
 import com.codestates.mainproject.mail.mapper.MailMapeerImpl;
 import com.codestates.mainproject.mail.service.MailService;
 import com.codestates.mainproject.member.repository.MemberRepository;
+import com.codestates.mainproject.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,17 +26,19 @@ import java.util.stream.Collectors;
 public class MailController {
 
     private final MailService mailService;
+    private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final MailMapeerImpl mapper;
 
 
     //TODO : 편지 전송
     @PostMapping
-    public ResponseEntity<MailResponseDto> sendMail(@RequestBody MailPostDto postDto){
+    public ResponseEntity sendMail(@RequestBody MailPostDto postDto){
         Mail message = mailService.write(postDto);
         MailResponseDto response = mapper.mailToMailResponseDto(message);
+        long point = memberService.memberDisplayNamePoint(postDto.getSenderName());
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(response, point), HttpStatus.OK);
     }
 
     @PatchMapping("/{member-id}")

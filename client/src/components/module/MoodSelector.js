@@ -1,42 +1,43 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import MoodCard from './MoodCard';
 import SelectorCard from './SelectorCard';
+import { paletteCodeSelector } from '../../redux/hooks';
+import { useSelector } from 'react-redux';
 
-const Slider = styled.div`
-  transform: ${({ fade }) =>
-    fade ? `translateY(${-50}%)` : `translateY(${0}%)`};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s;
-`;
+const URL2 = 'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080';
 
-const SelectorContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-items: center;
-  width: ${({ fade }) => (fade ? '340px' : '840px')};
-  height: 460px;
-  background-color: ${({ color, fade }) => (fade ? 'white' : color)};
-  transition: background-color 0.3s, opacity 0.3s, width 0.3s;
-  animation-timing-function: ease-in-out;
-  overflow: hidden;
-`;
-const MoodSelector = ({ fade }) => {
-  const palet = [
-    ['#EE8242', '기쁨'],
-    ['#EE8686', '분노'],
-    ['#E6AACB', '설렘'],
-    ['#D2CCC2', '걱정'],
-    ['#FFE27A', '평온'],
-    ['#6868AC', '예민'],
-    ['#9FC1EE', '슬픔'],
-    ['#A7CF99', '희망'],
-  ];
+const MoodSelector = () => {
+  const paletteCode = useSelector(paletteCodeSelector);
+
+  const [palette, setPalette] = useState([]);
+  const [fade, setFade] = useState(false);
+  const [reason, setReason] = useState('');
+
+  const [moodId, setMoodId] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get(URL2 + '/mood/day/회원1')
+      .then(res => {
+        setFade(true);
+        setReason(res.data.body);
+        setMoodId(res.data.moodId);
+        setIdx(res.data.moodPaletteDetails.moodPaletteDetailsId - 1);
+      })
+      .catch(err => console.log(err.response.status));
+
+    axios.get(URL2 + '/palette/' + paletteCode).then(res => {
+      const arr = [];
+
+      for (const each of res.data) {
+        arr.push(['#' + each.colorCode, each.mood]);
+      }
+      setPalette(arr);
+    });
+  }, []);
 
   const [idx, setIdx] = useState(0);
   const [darkmode, setDarkmode] = useState(false);
@@ -53,18 +54,32 @@ const MoodSelector = ({ fade }) => {
   };
 
   return (
-    <SelectorContainer color={palet[idx][0]} fade={fade}>
+    <SelectorContainer
+      color={palette.length !== 0 ? palette[idx][0] : null}
+      fade={fade}
+    >
       <Slider fade={fade}>
         <SelectorCard
           darkmode={darkmode}
-          palet={palet}
+          palette={palette.length !== 0 ? palette : null}
           idx={idx}
           toLeft={toLeft}
           toRight={toRight}
           setDarkmode={setDarkmode}
+          setFade={setFade}
           fade={fade}
+          paletteCode={paletteCode}
+          reason={reason}
+          setReason={setReason}
+          moodId={moodId}
         />
-        <MoodCard fade={fade} />
+        <MoodCard
+          fade={fade}
+          setFade={setFade}
+          color={palette.length !== 0 ? palette[idx][0] : null}
+          id={palette.length !== 0 ? palette[idx][1] : null}
+          reason={reason}
+        />
       </Slider>
     </SelectorContainer>
   );
@@ -107,3 +122,26 @@ export default MoodSelector;
 //     </ButtonContainer>
 //   </InfoContainer>
 // </Wrapper>
+
+const Slider = styled.div`
+  transform: ${({ fade }) =>
+    fade ? `translateY(${-50}%)` : `translateY(${0}%)`};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s;
+`;
+
+const SelectorContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  width: ${({ fade }) => (fade ? '340px' : '840px')};
+  height: 460px;
+  background-color: ${({ color, fade }) => (fade ? '#f6f6f6' : color)};
+  transition: background-color 0.3s, opacity 0.3s, width 0.3s;
+  animation-timing-function: ease-in-out;
+  overflow: hidden;
+`;

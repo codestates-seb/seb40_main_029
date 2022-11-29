@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 
@@ -51,7 +52,14 @@ public class UserService {
         Member member = memberRepository.findByEmail(googleUser.getEmail()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         log.info(member.getEmail());
         TokenResponse tokenResponse = jwtProvider.createTokensByLogin(member);
+        if(member.getDisplayName() == null){
+            tokenResponse.setNewUser(true);
+        } else {
+            tokenResponse.setNewUser(false);
+        }
         tokenResponse.setEmail(member.getEmail());
+        tokenResponse.setAccessTokenExpirationMinutes(LocalDateTime.now().plusMinutes(60));
+        tokenResponse.setRefreshTokenExpirationMinutes(LocalDateTime.now().plusMinutes(60 * 24 * 7));
         return tokenResponse;
     }
 
@@ -67,6 +75,8 @@ public class UserService {
 
         TokenResponse tokenResponse = jwtProvider.createTokensByLogin(member);
         tokenResponse.setEmail(member.getEmail());
+        tokenResponse.setAccessTokenExpirationMinutes(LocalDateTime.now().plusMinutes(60));
+        tokenResponse.setRefreshTokenExpirationMinutes(LocalDateTime.now().plusMinutes(60 * 24 * 7));
         return tokenResponse;
     }
 

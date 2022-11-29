@@ -2,9 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isLoggedIn: false,
+  mamberId: -1,
   displayName: -1,
   email: -1,
   moodId: -1,
+  paletteCode: 'P001',
+  myPalette: ['P001'],
   today: { mood: -1, reason: -1 },
 };
 
@@ -14,6 +17,9 @@ const slice = createSlice({
   reducers: {
     setIsLoggedIn: (state, action) => {
       state.isLoggedIn = !state.isLoggedIn;
+    },
+    setMemberId: (state, action) => {
+      state.mamberId = action.payload;
     },
     setDisplayName: (state, action) => {
       state.displayName = action.payload;
@@ -27,6 +33,13 @@ const slice = createSlice({
     setMoodId: (state, action) => {
       state.moodId = action.payload;
     },
+    setPaletteCode: (state, action) => {
+      state.paletteCode = action.payload;
+    },
+    setMyPalette: (state, action) => ({
+      ...state,
+      myPalette: [...state.myPalette, action.payload],
+    }),
     setMood: (state, action) => {
       state.today.color = action.payload.color;
     },
@@ -41,9 +54,12 @@ const slice = createSlice({
 
 export const {
   setIsLoggedIn,
+  setMemberId,
   setDisplayName,
   setEmail,
   setMoodId,
+  setPaletteCode,
+  setMyPalette,
   setMood,
   setReason,
 } = slice.actions;

@@ -42,6 +42,13 @@ public class JwtProvider {
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
+    private Key createKey() {
+        // signiture에 대한 정보는 Byte array로 구성되어있습니다.
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secretKey);
+        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+        return signingKey;
+    }
+
     public Date getTokenExpiration(int expirationMinutes) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, expirationMinutes);
@@ -50,11 +57,11 @@ public class JwtProvider {
         return expiration;
     }
 
-    private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
-        byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
-        Key key = Keys.hmacShaKeyFor(keyBytes);
-        return key;
-    }
+//    private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
+//        byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
+//        Key key = Keys.hmacShaKeyFor(keyBytes);
+//        return key;
+//    }
 
     public TokenResponse createTokensByLogin(Member member) throws Exception {
 
@@ -85,12 +92,7 @@ public class JwtProvider {
         return generateRefreshToken(subject, expiration, base64EncodedSecretKey);
     }
     private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-    private Key createKey() {
-        // signiture에 대한 정보는 Byte array로 구성되어있습니다.
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secretKey);
-        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
-        return signingKey;
-    }
+
 
     public String generateAccessToken(Map<String, Object> claims,
                                       String subject,
@@ -133,12 +135,11 @@ public class JwtProvider {
 
     public Jws<Claims> getClaims(String jws) {
 
-        Jws<Claims> claims = Jwts.parserBuilder()
+        return Jwts.parserBuilder()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
                 .build()
                 .parseClaimsJws(jws);
 
-        return claims;
     }
 
     //엑세스 토큰 검증하는 로직
@@ -156,18 +157,18 @@ public class JwtProvider {
         }
     }
 
-//    public TokenResponseDto reissueAtk(MemberResponseDto memberResponseDto) throws JwtException {
-//        String rtkInRedis = redisDao.getValues(memberResponseDto.getEmail());
-//        if (Objects.isNull(rtkInRedis)) {
-//            throw new JwtException("인증 정보가 만료되었습니다.");
-//        }
-//
-//        String atk = delegateAccessToken(memberResponseDto);
-//        return new TokenResponseDto(atk, null);
-//    }
+    public TokenResponse reissueAtk(Member member) throws Exception {
+        String rtkInRedis = redisDao.getValues(member.getEmail());
+        if (Objects.isNull(rtkInRedis)) {
+            throw new JwtException("인증 정보가 만료되었습니다.");
+        }
 
-    public void deleteRtk(MemberResponseDto memberResponseDto) throws JwtException {
-        redisDao.deleteValues(memberResponseDto.getEmail());
+        String atk = delegateAccessToken(member);
+        return new TokenResponse(atk, null, "bearer");
+    }
+
+    public void deleteRtk(Member member) throws JwtException {
+        redisDao.deleteValues(member.getEmail());
     }
 
     public void setBlackListAtk(String bearerAtk) {
