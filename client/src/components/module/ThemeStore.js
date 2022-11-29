@@ -19,12 +19,14 @@ import { setMyPalette, setPaletteCode } from '../../redux/slice';
 
 const TitleContainer = styled.div`
   margin: 5px;
+  height: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const Point = styled.div`
+  height: 50px;
   margin-top: 20px;
   font-size: 17px;
   font-weight: 500;
@@ -57,7 +59,7 @@ const ArrowContainer = styled.div`
 const CarouselContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 59%;
+  height: 870px;
   display: block;
   overflow: hidden;
 `;
@@ -164,7 +166,9 @@ export const ThemeStore = () => {
           style={{ cursor: 'pointer' }}
         />
       </ArrowContainer>
-      <CircleCarousel carouselIndex={carouselIndex} />
+      <CarouselContainer>
+        <CircleCarousel carouselIndex={carouselIndex} />
+      </CarouselContainer>
     </StoreModal>
   );
 };
