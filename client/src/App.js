@@ -1,17 +1,21 @@
 import { Routes, Route, Link } from 'react-router-dom';
-import Header from './components/module/Header';
-import MoodCard from './components/module/MoodCard';
-import Letter from './components/templates/Letter';
-import ThemeStore from './components/module/ThemeStore';
-import SelectorCard from './components/module/SelectorCard';
-import Gradient from './components/module/Gradient';
-import GradientWall from './components/module/GradientWall';
+import Home from './components/templates/Home';
+// import Login from './templates/Login';
+// import Signup from './templates/Signup';
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 const App = () => {
+  const curr = window.location.toString();
+  console.log(curr);
   return (
     <div className="App">
-      {/* <Header /> */}
-      <GradientWall />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/login" element={<Login />} /> */}
+        {/* <Route path="/signup" element={<Signup />} /> */}
+      </Routes>
     </div>
   );
 };
