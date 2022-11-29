@@ -2,8 +2,8 @@ import axios from 'axios';
 import { setCookie, getCookie } from '../../utils/cookie';
 import { ContentLayout } from '../atoms/Layouts';
 import Header from '../module/Header';
-import MoodCard from '../module/MoodCard';
 import GlobalModal from './GlobalModal';
+import MoodSelector from '../module/MoodSelector';
 const Home = () => {
   const accessToken = getCookie('accessToken');
   if (accessToken) {
@@ -14,7 +14,7 @@ const Home = () => {
     <>
       <Header />
       <ContentLayout>
-        <MoodCard />
+        <MoodSelector />
         {/* 여기서 모달 조정 */}
         <GlobalModal />
       </ContentLayout>
