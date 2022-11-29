@@ -30,27 +30,34 @@ const Page = styled.button`
 const Pagination = ({ total, limit, page, setPage }) => {
   const numPages = Math.ceil(total / limit);
   return (
-    <ContentLayout>
-      <Pages>
-        <Page onClick={() => setPage(page - 1)} disabled={page === 1}>
-          <FontAwesomeIcon icon={faChevronLeft} />
-        </Page>
-        {Array(numPages)
-          .fill()
-          .map((_, i) => (
-            <Page
-              key={i + 1}
-              onClick={() => setPage(i + 1)}
-              className={i + 1 === page ? 'active' : null}
-            >
-              {i + 1}
+    <>
+      {numPages > 1 ? (
+        <ContentLayout>
+          <Pages>
+            <Page onClick={() => setPage(page - 1)} disabled={page === 1}>
+              <FontAwesomeIcon icon={faChevronLeft} />
             </Page>
-          ))}
-        <Page onClick={() => setPage(page + 1)} disabled={page === numPages}>
-          <FontAwesomeIcon icon={faChevronRight} />
-        </Page>
-      </Pages>
-    </ContentLayout>
+            {Array(numPages)
+              .fill()
+              .map((_, i) => (
+                <Page
+                  key={i + 1}
+                  onClick={() => setPage(i + 1)}
+                  className={i + 1 === page ? 'active' : null}
+                >
+                  {i + 1}
+                </Page>
+              ))}
+            <Page
+              onClick={() => setPage(page + 1)}
+              disabled={page === numPages}
+            >
+              <FontAwesomeIcon icon={faChevronRight} />
+            </Page>
+          </Pages>
+        </ContentLayout>
+      ) : null}
+    </>
   );
 };
 
