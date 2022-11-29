@@ -10,9 +10,9 @@ import {
 import { PaletteList } from '../../api/PaletteShop';
 
 const CarouselContainer = styled.div`
-  position: relative;
+  position: absolute;
   width: 100%;
-  height: 59%;
+  height: 30.3%;
   display: block;
   overflow: hidden;
 `;
@@ -25,7 +25,7 @@ const CarouselBtnContainer = styled.div`
 const Carousel = styled.div`
   position: absolute;
   bottom: -200px;
-  left: 170px;
+  left: 180px;
   width: 364px;
   height: 364px;
   background-color: #ffffff;
@@ -47,12 +47,11 @@ const Carousel = styled.div`
 const ItemCarousel = styled.div`
   position: fixed;
   border-radius: 10%;
-  transform-origin: 260px;
-  top: 135px;
-  left: -80px;
-  right: -80px;
+  transform-origin: 270px;
+  top: 130px;
+  left: -90px;
   background-color: ${props => props.color || '#fff'};
-  width: 120px;
+  width: 140px;
   height: 90px;
   display: flex;
   align-items: center;
@@ -60,6 +59,7 @@ const ItemCarousel = styled.div`
   font-size: 14px;
   margin: 2px;
   transition: 0.5s;
+  box-shadow: 1px -2px 2px 1px rgba(22, 27, 29, 0.2);
 `;
 
 const CircleCarousel = ({ carouselIndex }) => {
