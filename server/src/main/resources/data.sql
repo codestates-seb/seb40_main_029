@@ -1,6 +1,6 @@
 
 INSERT INTO mood_palette(palette_code, palette_name)
-values ('P001', 'basic'), ('P002', 'teracota'), ('P003', 'vintage'), ('P004', 'christmas'), ('P005', 'mono');
+values ('P001', 'basic'), ('P002', 'teracota'), ('P003', 'vintage'), ('P004', 'christmas'), ('P005', 'mono'), ('P006', 'vivid');
 
 INSERT INTO mood_palette_details(palette_code, mood_code, color_code, mood)
 values ('P001', 'm001', 'EE8242', '기쁨'),
@@ -46,4 +46,13 @@ values ('P001', 'm001', 'EE8242', '기쁨'),
        ('P005', 'm005', '7D7D7D', '걱정'),
        ('P005', 'm006', '9D9D9D', '평온'),
        ('P005', 'm007', '434343', '예민'),
-       ('P005', 'm008', 'B4B4B4', '희망');
+       ('P005', 'm008', 'B4B4B4', '희망'),
+
+       ('P006', 'm001', 'F7B0BE', '기쁨'),
+       ('P006', 'm002', '2178AE', '슬픔'),
+       ('P006', 'm003', 'ED8E83', '분노'),
+       ('P006', 'm004', 'EF3C23', '설렘'),
+       ('P006', 'm005', 'F15A42', '걱정'),
+       ('P006', 'm006', 'FAC92C', '평온'),
+       ('P006', 'm007', 'CFE5CC', '예민'),
+       ('P006', 'm008', '1B4793', '희망');

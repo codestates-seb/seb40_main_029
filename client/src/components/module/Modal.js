@@ -40,7 +40,7 @@ const Store = styled(Blueprint)`
 
 const Calendar = styled(Blueprint)`
   width: 1000px;
-  height: 500px;
+  height: 600px;
 `;
 
 const Header = styled.div`
@@ -165,6 +165,10 @@ const LookBackModal = ({ children }) => {
         <Title>
           기록 &nbsp;
           <FontAwesomeIcon icon={faFilm} />
+          <Info data-tip="작은 사각형을 선택해 과거 기록을 살펴볼 수 있어요">
+            <FontAwesomeIcon icon={faCircleQuestion} />
+          </Info>
+          <ReactTooltip event="click" eventOff="mouseout" />
         </Title>
         <Button onClick={() => {}}>
           <FontAwesomeIcon icon={faXmark} size="lg" />

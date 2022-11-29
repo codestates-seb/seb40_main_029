@@ -1,4 +1,9 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import {
+  configureStore,
+  combineReducers,
+  getDefaultMiddleware,
+} from '@reduxjs/toolkit';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import {
   persistStore,
   persistReducer,
@@ -23,7 +28,11 @@ const rootReducer = combineReducers({
   userInfo,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(
+  persistConfig,
+  rootReducer,
+  composeWithDevTools()
+);
 
 const store = configureStore({
   reducer: {

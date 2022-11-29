@@ -25,12 +25,17 @@ const FONTSIZES = {
   `,
 };
 
-function Button({ size, fontsize, children, onClick }) {
+function Button({ size, fontsize, children, onClick, disabled }) {
   const sizeStyle = SIZES[size];
   const fontSizeStyle = FONTSIZES[fontsize];
 
   return (
-    <Btn sizeStyle={sizeStyle} fontSizeStyle={fontSizeStyle} onClick={onClick}>
+    <Btn
+      sizeStyle={sizeStyle}
+      fontSizeStyle={fontSizeStyle}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </Btn>
   );
@@ -51,9 +56,18 @@ const Btn = styled.button`
   /* font-weight: 700; */
   font-size: var(--button-font-size);
 
-  &:hover {
-    box-shadow: inset 2px 2px 5px rgba(22, 27, 29, 0.25),
-      inset -2px -2px 5px #faf8ff;
+  &:hover,
+  &:active {
+    &:not([disabled]) {
+      box-shadow: inset 2px 2px 5px rgba(22, 27, 29, 0.25),
+        inset -2px -2px 5px #faf8ff;
+    }
+  }
+
+  &[disabled] {
+    cursor: default;
+    opacity: 0.5;
+    background: #dc3545 #025ce2;
   }
 `;
 
