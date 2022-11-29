@@ -1,14 +1,16 @@
+import { ContentLayout } from '../atoms/Layouts';
 import Header from '../module/Header';
-import { emailSelector } from '../../redux/hooks';
-import { useSelector } from 'react-redux';
-
+import MoodCard from '../module/MoodCard';
+import GlobalModal from './GlobalModal';
 const Home = () => {
-  const email = useSelector(emailSelector);
-  console.log(email);
-
   return (
     <>
       <Header />
+      <ContentLayout>
+        <MoodCard />
+        {/* 여기서 모달 조정 */}
+        <GlobalModal />
+      </ContentLayout>
     </>
   );
 };

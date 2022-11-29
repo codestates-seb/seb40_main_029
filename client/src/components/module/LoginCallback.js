@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getAccessToken } from '../../api/LoginLogoutApi';
-import { isLoggedInSelector, emailSelector } from '../../redux/hooks';
-import { setIsLoggedIn, setEmail } from '../../redux/slice';
+import { emailSelector } from '../../redux/hooks';
+import { setEmail } from '../../redux/slice';
 
 export default function LoginCallback() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [result, setResult] = useState('');
-  const isLoggedIn = useSelector(isLoggedInSelector);
+  // const isLoggedIn = useSelector(isLoggedInSelector);
   const userEmail = useSelector(emailSelector);
 
   console.log(userEmail);

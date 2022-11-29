@@ -5,11 +5,14 @@ export const onSilentRefresh = () => {
   const JWT_EXPIRY_TIME = 1 * 3600 * 1000; // 만료 시간 (1시간 밀리 초로 표현)
   const refreshToken = getCookie('refreshToken');
   axios
-    .get('https://521a-211-58-204-152.jp.ngrok.io/members/reissue', {
-      headers: {
-        Refresh: refreshToken,
-      },
-    })
+    .get(
+      'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/members/reissue',
+      {
+        headers: {
+          Refresh: refreshToken,
+        },
+      }
+    )
     .then(res => {
       // 재발급되어 헤더에 담겨져온 액세스 토큰 다시 변수에 저장
       const newAccess = res.headers.get('Authorization');
@@ -23,7 +26,8 @@ export const onSilentRefresh = () => {
 };
 
 export const getAccessToken = async authorizationCode => {
-  const getURL = 'https://521a-211-58-204-152.jp.ngrok.io/oauth/google'; // 서버 주소
+  const getURL =
+    'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/oauth/google'; // 서버 주소
   const JWT_EXPIRY_TIME = 1 * 3600 * 1000; // 만료 시간 (1시간 밀리 초로 표현)
 
   let config = {
@@ -56,7 +60,9 @@ export const getAccessToken = async authorizationCode => {
 
 export const LogoutApi = async () => {
   await axios
-    .get('https://521a-211-58-204-152.jp.ngrok.io/members/logout') // 헤더 가는지 안가는지 확인
+    .get(
+      'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/members/logout'
+    ) // 헤더 가는지 안가는지 확인
     .then(res => {
       console.log(res);
       // 리덕스 변경

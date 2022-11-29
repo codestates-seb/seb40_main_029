@@ -46,3 +46,5 @@ export const GradientWave = () => {
     </div>
   );
 };
+
+export default GradientWave;
