@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
@@ -56,6 +56,7 @@ const DarkIcon = styled.span`
   }
 `;
 const Nav = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLetterModal = () => {
     dispatch(
@@ -96,6 +97,14 @@ const Nav = () => {
         isOpen: true,
       })
     );
+  };
+
+  const handleLogout = async () => {
+    const res = await LogoutApi();
+    console.log(res);
+    if (res.status == 200) {
+      navigate('/login');
+    }
   };
 
   return (
@@ -142,7 +151,7 @@ const Nav = () => {
               <FontSize14>기록</FontSize14>
             </Link>
           </NavItem>
-          <NavItem onClick={LogoutApi}>
+          <NavItem onClick={handleLogout}>
             <Link>
               <DarkIcon>
                 <FontAwesomeIcon icon={faRightFromBracket} size="lg" />
