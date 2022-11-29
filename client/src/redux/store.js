@@ -17,6 +17,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 import userInfo from './slice';
 import modalReducer from './modalSlice';
+import modal from './modalSlice';
 
 const persistConfig = {
   key: 'root',
@@ -26,6 +27,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   userInfo,
+  modal,
 });
 
 const persistedReducer = persistReducer(
@@ -35,10 +37,7 @@ const persistedReducer = persistReducer(
 );
 
 const store = configureStore({
-  reducer: {
-    persistedReducer,
-    modal: modalReducer,
-  },
+  reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
