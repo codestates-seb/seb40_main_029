@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setCookie, getCookie } from '../../utils/cookie';
 import { getAccessToken } from '../../api/LoginLogoutApi';
 import { emailSelector } from '../../redux/hooks';
 import { setEmail } from '../../redux/slice';
@@ -30,16 +31,20 @@ export default function LoginCallback() {
   console.log(result.newUser);
 
   useEffect(() => {
+    setCookie('accessToken', result.accessToken, {
+      path: '/',
+      secure: true,
+      sameSite: 'none',
+    });
+    dispatch(setEmail(result.email));
     // 기존 유저면 홈화면, 신규 유저면 회원가입화면
     if (result.newUser == true) {
-      dispatch(setEmail(result.email));
       navigate('/signup');
     } else if (result.newUser == false) {
       // 기존 유저 헤더 토큰 추가
-      const { accessToken } = result;
-      console.log(accessToken);
-      axios.defaults.headers.common['Authorization'] = accessToken;
-      dispatch(setEmail(result.email));
+      // const { accessToken } = result;
+      // console.log(accessToken);
+      // axios.defaults.headers.common['Authorization'] = accessToken;
       navigate('/');
     }
   }, [result]);

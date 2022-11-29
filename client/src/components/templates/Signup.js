@@ -9,7 +9,7 @@ import {
   displayNameSelector,
   emailSelector,
 } from '../../redux/hooks';
-import { setIsLoggedIn, setDisplayName } from '../../redux/slice';
+import { setMemberId, setDisplayName } from '../../redux/slice';
 import { SignupApi } from '../../api/SignupApi';
 
 const Container = styled.div`
@@ -77,7 +77,11 @@ export default function Signup() {
     (async () => {
       const res = await SignupApi(emailValue, displayNameValue);
       console.log(res);
-      // setResponse(await SignupApi(emailValue, displayNameValue));
+      if (res.displayName) {
+        dispatch(setMemberId(res.memberId));
+        dispatch(setDisplayName(res.displayName));
+        navigate('/');
+      }
     })();
     console.log('응답');
     // console.log(response);
