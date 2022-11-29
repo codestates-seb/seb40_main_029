@@ -1,17 +1,9 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import Home from './components/templates/Home';
-// import Login from './templates/Login';
-// import Signup from './templates/Signup';
+import Login from './components/templates/Login';
+import Signup from './components/templates/Signup';
+import LoginCallback from './components/module/LoginCallback';
 import axios from 'axios';
-
-import MoodSelector from './components/module/MoodSelector';
-import LookBack from './components/module/LookBack';
-import TodoList from './components/module/TodoList';
-
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setPaletteCode } from './redux/slice';
-
 axios.defaults.withCredentials = true;
 
 const App = () => {
@@ -42,12 +34,10 @@ const App = () => {
       <TodoList refresher={refresher} />
       <LookBack refresh={refresh} />
       <Routes>
-        <Route path="/home" element={<Home />} />
-        {/* <Route path="/login" element={<Login />} /> */}
-        {/* <Route path="/signup" element={<Signup />} /> */}
-        {/* <Route path="/mood" element={<MoodSelector />} />
-        <Route path="/look" element={<LookBack />} />
-        <Route path="/todo" element={<TodoList />} /> */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/login/callback" element={<LoginCallback />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
   );
