@@ -21,6 +21,7 @@ const CardLayout = styled.div`
 const Friends = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [friends, setFriends] = useState([]);
+  const [reFresh, setReFresh] = useState(0);
   const limit = 8;
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
@@ -31,7 +32,7 @@ const Friends = () => {
       setFriends(data);
     };
     fetchData();
-  }, []);
+  }, [reFresh]);
   const handleFindFriend = () => {
     setIsOpen(!isOpen);
   };
@@ -44,7 +45,11 @@ const Friends = () => {
             {friends
               ? friends.slice(offset, offset + limit).map(friend => {
                   return (
-                    <FriendCard key={friend.respondentId} friend={friend} />
+                    <FriendCard
+                      key={friend.respondentId}
+                      friend={friend}
+                      setReFresh={setReFresh}
+                    />
                   );
                 })
               : null}
@@ -65,7 +70,11 @@ const Friends = () => {
         </FriendModal>
         {isOpen ? (
           <>
-            <AddFriend setIsOpen={setIsOpen} friends={friends} />
+            <AddFriend
+              setIsOpen={setIsOpen}
+              friends={friends}
+              setReFresh={setReFresh}
+            />
             <Overlay />
           </>
         ) : null}

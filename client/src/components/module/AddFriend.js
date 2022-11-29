@@ -53,7 +53,7 @@ const FriendListBox = styled.div`
   margin-bottom: 18px;
 `;
 
-const AddFriend = ({ setIsOpen, friends }) => {
+const AddFriend = ({ setIsOpen, friends, setReFresh }) => {
   const [userList, setUserList] = useState([]);
   const [keyword, bindKeyword] = useInput('');
   const [respondentDisplayName, setRespondentDisplayName] = useState('');
@@ -85,6 +85,7 @@ const AddFriend = ({ setIsOpen, friends }) => {
       return;
     }
     addFriend({ requesterDisplayName, respondentDisplayName });
+    setReFresh(refresh => refresh + 1);
     alert('친구를 추가했어요!');
   };
 
