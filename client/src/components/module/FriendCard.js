@@ -21,7 +21,7 @@ const EditBtn = styled.span`
   }
 `;
 
-const FriendCard = ({ friend }) => {
+const FriendCard = ({ friend, setReFresh }) => {
   const [palette, setPalette] = useState([]);
   const paletteCode = 'P001';
 
@@ -43,7 +43,7 @@ const FriendCard = ({ friend }) => {
     const friendId = friend.respondentId;
     const fetchData = async () => {
       await deleteFriend(friendId);
-      window.location.reload();
+      setReFresh(refresh => refresh - 1);
     };
     fetchData();
   };

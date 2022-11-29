@@ -12,6 +12,8 @@ import {
   faCircleQuestion,
 } from '@fortawesome/free-regular-svg-icons';
 import ReactTooltip from 'react-tooltip';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeModal } from '../../redux/modalSlice';
 
 const Blueprint = styled.div`
   display: flex;
@@ -21,6 +23,18 @@ const Blueprint = styled.div`
   background-color: white;
   border-radius: 20px;
   margin-left: 20px;
+  transition: all 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  animation: slideIn 0.5s;
+  @keyframes slideIn {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
 `;
 
 const Todo = styled(Blueprint)`
@@ -32,6 +46,7 @@ const Mail = styled(Blueprint)`
   width: 650px;
   height: 500px;
   margin-left: 20px;
+  position: relative;
 `;
 
 const Store = styled(Blueprint)`
@@ -86,6 +101,10 @@ const Utility = styled.div`
 `;
 
 const TodoModal = ({ children, lookBack }) => {
+  const dispatch = useDispatch();
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
   return (
     <Todo>
       <Header>
@@ -99,7 +118,7 @@ const TodoModal = ({ children, lookBack }) => {
           </Info>
           <ReactTooltip event="click" eventOff="mouseout" />
         </Title>
-        <Button onClick={() => {}}>
+        <Button onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
         </Button>
       </Header>
@@ -109,6 +128,10 @@ const TodoModal = ({ children, lookBack }) => {
 };
 
 const MailModal = ({ children }) => {
+  const dispatch = useDispatch();
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
   return (
     <Mail>
       <Header>
@@ -116,7 +139,7 @@ const MailModal = ({ children }) => {
           편지함 &nbsp;
           <FontAwesomeIcon icon={faEnvelope} />
         </Title>
-        <Button onClick={() => {}}>
+        <Button onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
         </Button>
       </Header>
@@ -126,6 +149,10 @@ const MailModal = ({ children }) => {
 };
 
 const StoreModal = ({ children }) => {
+  const dispatch = useDispatch();
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
   return (
     <Store>
       <Header>
@@ -133,7 +160,7 @@ const StoreModal = ({ children }) => {
           색상 테마 &nbsp;
           <FontAwesomeIcon icon={faStore} />
         </Title>
-        <Button onClick={() => {}}>
+        <Button onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
         </Button>
       </Header>
@@ -143,6 +170,10 @@ const StoreModal = ({ children }) => {
 };
 
 const FriendModal = ({ children }) => {
+  const dispatch = useDispatch();
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
   return (
     <Mail>
       <Header>
@@ -150,7 +181,7 @@ const FriendModal = ({ children }) => {
           친구 &nbsp;
           <FontAwesomeIcon icon={faUserGroup} />
         </Title>
-        <Button onClick={() => {}}>
+        <Button onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
         </Button>
       </Header>
@@ -160,6 +191,10 @@ const FriendModal = ({ children }) => {
 };
 
 const LookBackModal = ({ children }) => {
+  const dispatch = useDispatch();
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
   return (
     <Calendar>
       <Header>
@@ -171,7 +206,7 @@ const LookBackModal = ({ children }) => {
           </Info>
           <ReactTooltip event="click" eventOff="mouseout" />
         </Title>
-        <Button onClick={() => {}}>
+        <Button onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
         </Button>
       </Header>
