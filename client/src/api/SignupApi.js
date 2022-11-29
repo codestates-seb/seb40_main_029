@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { setMemberId, setDisplayName } from '../redux/slice';
+import { useSelector, useDispatch } from 'react-redux';
 import { emailSelector } from '../redux/hooks';
 
 export const SignupApi = async (emailValue, displayNameValue) => {
@@ -13,6 +14,7 @@ export const SignupApi = async (emailValue, displayNameValue) => {
     .patch(getURL + path, data)
     .then(res => {
       console.log(res);
+      return res.data;
     })
     .catch(err => {
       console.log('회원가입' + err);
