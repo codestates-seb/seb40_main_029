@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Nav from './Nav';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Bookmark from './Bookmark';
 import User from '../atoms/User';
 
@@ -33,6 +33,18 @@ function Header() {
   const onClick = () => {
     setIsOpen(!isOpen);
   };
+  const ref = useRef();
+  const clickOut = e => {
+    if (isOpen && ref.current && !ref.current.contains(e.target)) {
+      setIsOpen(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('mousedown', clickOut);
+    return () => {
+      document.removeEventListener('mousedown', clickOut);
+    };
+  }, [isOpen]);
   return (
     <HeaderWrapper>
       <div>
@@ -45,7 +57,7 @@ function Header() {
           <Bookmark />
         </BookmarkWrapper>
       </div>
-      <GnbLayout>
+      <GnbLayout ref={ref}>
         <User onClick={onClick}>USERNAME</User>
         {isOpen ? <Nav /> : null}
       </GnbLayout>
