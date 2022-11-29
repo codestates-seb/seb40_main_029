@@ -4,8 +4,8 @@ import { faCircleCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 const Todos = ({ each, completeTodo, deleteTodo }) => {
   return (
-    <Todo selected={each.selected}>
-      <div>
+    <Todo selected={each.selected} key={each.todoId}>
+      <div key={each.todoId}>
         <CheckButton
           onClick={() => completeTodo(each.todoId)}
           selected={each.selected}
