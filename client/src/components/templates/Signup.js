@@ -11,6 +11,7 @@ import {
 } from '../../redux/hooks';
 import { setMemberId, setDisplayName } from '../../redux/slice';
 import { SignupApi } from '../../api/SignupApi';
+import { ReactComponent as Logo } from '../../assets/logo.svg';
 
 const Container = styled.div`
   display: flex;
@@ -20,7 +21,7 @@ const Container = styled.div`
 `;
 
 const InputContainer = styled.div`
-  margin-right: 100px;
+  margin-right: 10%;
 `;
 
 const InputHeader = styled.h3`
@@ -49,8 +50,8 @@ const Warning = styled.h5`
   color: red;
 `;
 
-const ButtonContainer = styled.div`
-  margin-left: 100px;
+const LogoContainer = styled.div`
+  margin: 10px;
 `;
 
 export default function Signup() {
@@ -101,11 +102,9 @@ export default function Signup() {
         </Button>
         <Warning>{warning}</Warning>
       </InputContainer>
-      <ButtonContainer>
-        <Button size="long" fontSize="large">
-          로고
-        </Button>
-      </ButtonContainer>
+      <LogoContainer>
+        <Logo width="170" height="170" />
+      </LogoContainer>
     </Container>
   );
 }
