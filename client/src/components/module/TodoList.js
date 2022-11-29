@@ -9,7 +9,7 @@ const URL = 'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/';
 const URL2 = 'https://521a-211-58-204-152.jp.ngrok.io:8080/';
 const path = 'todo/';
 const selected = 'selected/';
-const member_id = '1/';
+const member_id = '15/';
 const today = 'today/';
 
 const TodoList = () => {
@@ -20,6 +20,7 @@ const TodoList = () => {
     axios.get(URL + path + today + member_id).then(res => {
       const newTodoList = res.data.filter(each => each.selected === false);
       const doneList = res.data.filter(each => each.selected === true);
+
       setTodoList([...newTodoList, ...doneList]);
     });
   }, []);
@@ -43,15 +44,16 @@ const TodoList = () => {
 
   const completeTodo = todoId => {
     axios.patch(URL + path + selected + member_id + todoId).then(res => {
+      // console.log(res);
       const newTodoList = todoList.filter(
-        each => each.todoId !== res.data.todoId
+        each => each.todoId !== res.data.data.todoId
       );
       newTodoList.push({
-        todoId: res.data.todoId,
-        title: res.data.title,
-        selected: res.data.selected,
+        todoId: res.data.data.todoId,
+        title: res.data.data.title,
+        selected: res.data.data.selected,
       });
-
+      console.log(res.data);
       setTodoList(newTodoList);
     });
   };
@@ -73,16 +75,14 @@ const TodoList = () => {
     <TodoModal lookBack={lookBack}>
       <Wrapper>
         <TodoContainer>
-          {todoList.map(each => {
-            return (
-              <Todos
-                key={each.todoId}
-                each={each}
-                completeTodo={completeTodo}
-                deleteTodo={deleteTodo}
-              />
-            );
-          })}
+          {todoList.map(each => (
+            <Todos
+              key={each.todoId}
+              each={each}
+              completeTodo={completeTodo}
+              deleteTodo={deleteTodo}
+            />
+          ))}
         </TodoContainer>
         <InputContainer>
           <Input placeholder={'Enter 눌러 입력'} {...todoBind} />

@@ -10,6 +10,7 @@ import {
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import Letter from '../templates/Letter';
+import { LogoutApi } from '../../api/LoginLogoutApi';
 
 const Bubble = styled.nav`
   z-index: 2;
@@ -99,7 +100,7 @@ const Nav = () => {
               <FontSize14>기록</FontSize14>
             </Link>
           </NavItem>
-          <NavItem>
+          <NavItem onClick={LogoutApi}>
             <Link>
               <DarkIcon>
                 <FontAwesomeIcon icon={faRightFromBracket} size="lg" />

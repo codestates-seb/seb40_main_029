@@ -1,5 +1,7 @@
 package com.codestates.mainproject.mood.controller;
 
+import com.codestates.mainproject.dto.MultiResponseDto;
+import com.codestates.mainproject.member.service.MemberService;
 import com.codestates.mainproject.mood.dto.MoodPatchDto;
 import com.codestates.mainproject.mood.dto.MoodPostDto;
 import com.codestates.mainproject.mood.dto.MoodResponseDto;
@@ -22,16 +24,17 @@ import java.util.List;
 public class MoodController {
 
     private final MoodService moodService;
+    private final MemberService memberService;
     private final MoodMapperImp mapper;
 
     @PostMapping("/{member-displayName}")
-    public ResponseEntity<MoodResponseDto> postMood(@PathVariable("member-displayName") String memberDisplayName,
+    public ResponseEntity postMood(@PathVariable("member-displayName") String memberDisplayName,
                                          @RequestBody MoodPostDto postDto){
         Mood mood = mapper.moodPostDtoToMood(postDto);
         Mood saveMood = moodService.createdMood(mood, memberDisplayName);
         MoodResponseDto response = mapper.moodToMoodResponseDto(saveMood);
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        long point = memberService.memberDisplayNamePoint(memberDisplayName);
+        return new ResponseEntity<>(new MultiResponseDto<>(response, point), HttpStatus.OK);
     }
 
     @PatchMapping("/{member-displayName}/{mood-id}")
@@ -41,7 +44,6 @@ public class MoodController {
         Mood mood = mapper.moodPatchDtoToMood(patchDto);
         Mood saveMood = moodService.updateMood(mood, memberDisplayName, moodId);
         MoodResponseDto response = mapper.moodToMoodResponseDto(saveMood);
-
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

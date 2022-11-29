@@ -27,6 +27,8 @@ public class Todo extends Auditable {
     @Column(nullable = false)
     private boolean selected;
 
+    private boolean updateTodo;
+
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
