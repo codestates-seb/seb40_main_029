@@ -72,13 +72,14 @@ export const ThemeStore = () => {
   const [carouselIndex, setIndex] = useState(0);
   const [disable, setDisable] = useState(false);
   const paletteCode = 'P00' + (carouselIndex + 1);
-  console.log('팔레트 코드' + paletteCode);
   const lastIndex = 4;
   const paletteName = ['기본', '테라코타', '빈티지', '크리스마스', '모노'];
   const palettePoint = ['', '1000P', '500P', '1500P', '500P'];
   const memberId = useSelector(memberIdSelector);
   const paletteCodeSelec = useSelector(paletteCodeSelector);
   const myPalette = useSelector(myPaletteSelector);
+  console.log('팔레트 코드' + paletteCode);
+  console.log(myPalette);
 
   const handleBuy = paletteCode => {
     BuyPalette(paletteCode);
@@ -90,26 +91,30 @@ export const ThemeStore = () => {
     dispatch(setPaletteCode(paletteCode));
   };
 
-  console.log('적용된 팔레트' + typeof paletteCodeSelec);
-  console.log(myPalette);
+  // console.log('적용된 팔레트' + typeof paletteCodeSelec);
 
   // 보유하고 있으면 disable을 true로 변경
-  const isMine = () => {
-    if (myPalette.includes(paletteCode)) {
-      setDisable(true);
-    } else if (!myPalette.includes(paletteCode)) {
-      setDisable(false);
-    }
-  };
+  // const isMine = () => {
+  //   console.log(paletteCode);
+  //   if (myPalette.indexOf(paletteCode)) {
+  //     // 보유하고 있다면 true로 비활성화
+  //     setDisable(true);
+  //   } else if (myPalette.indexOf(paletteCode) == -1) {
+  //     //  보유하지 않았으면 false로 구매 가능
+  //     setDisable(false);
+  //   }
+  // };
+
+  console.log(disable);
 
   const toRight = () => {
     if (carouselIndex < lastIndex) {
+      // isMine();
       setIndex(carouselIndex + 1);
     } else {
+      // isMine();
       setIndex(0);
     }
-    isMine();
-    console.log(disable);
   };
 
   const toLeft = () => {
@@ -118,11 +123,9 @@ export const ThemeStore = () => {
     } else {
       setIndex(lastIndex);
     }
-    isMine();
-    console.log(disable);
+    // isMine();
   };
 
-  console.log(carouselIndex);
   return (
     <StoreModal>
       <TitleContainer>
@@ -133,6 +136,7 @@ export const ThemeStore = () => {
             size="long"
             fontsize="middle"
             onClick={() => handleBuy(paletteCode)}
+            disabled={myPalette.includes(paletteCode)}
           >
             구매
           </Button>
@@ -140,7 +144,7 @@ export const ThemeStore = () => {
             size="long"
             fontsize="middle"
             onClick={() => handleSet(paletteCode)}
-            disable={disable}
+            disabled={paletteCodeSelec == paletteCode}
           >
             적용
           </Button>
