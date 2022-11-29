@@ -1,10 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  isLoggedIn: false,
   mamberId: -1,
   displayName: -1,
-  email: -1,
+  email: '',
   moodId: -1,
   paletteCode: 'P001', // 적용한 팔레트
   myPalette: ['P001'], // 보유한 팔레트
@@ -15,9 +14,6 @@ const slice = createSlice({
   name: 'userInfo',
   initialState,
   reducers: {
-    setIsLoggedIn: (state, action) => {
-      state.isLoggedIn = !state.isLoggedIn;
-    },
     setMemberId: (state, action) => {
       state.mamberId = action.payload;
     },
@@ -25,10 +21,7 @@ const slice = createSlice({
       state.displayName = action.payload;
     },
     setEmail: (state, action) => {
-      return {
-        ...state,
-        email: action.payload,
-      };
+      state.email = action.payload;
     },
     setMoodId: (state, action) => {
       state.moodId = action.payload;
@@ -47,13 +40,12 @@ const slice = createSlice({
       state.today.reason = action.payload.reason;
     },
     default: (state, action) => {
-      state;
+      return state;
     },
   },
 });
 
 export const {
-  setIsLoggedIn,
   setMemberId,
   setDisplayName,
   setEmail,
