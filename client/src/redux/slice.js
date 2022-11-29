@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isLoggedIn: false,
   mamberId: -1,
-  email: -1,
   displayName: -1,
+  email: -1,
   moodId: -1,
   paletteCode: 'P001',
   myPalette: ['P001'],
@@ -21,11 +21,14 @@ const slice = createSlice({
     setMemberId: (state, action) => {
       state.mamberId = action.payload;
     },
-    setEmail: (state, action) => {
-      state.email = action.payload;
-    },
     setDisplayName: (state, action) => {
       state.displayName = action.payload;
+    },
+    setEmail: (state, action) => {
+      return {
+        ...state,
+        email: action.payload,
+      };
     },
     setMoodId: (state, action) => {
       state.moodId = action.payload;
@@ -43,14 +46,17 @@ const slice = createSlice({
     setReason: (state, action) => {
       state.today.reason = action.payload.reason;
     },
+    default: (state, action) => {
+      state;
+    },
   },
 });
 
 export const {
   setIsLoggedIn,
   setMemberId,
-  setEmail,
   setDisplayName,
+  setEmail,
   setMoodId,
   setPaletteCode,
   setMyPalette,
