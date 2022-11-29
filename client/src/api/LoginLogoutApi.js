@@ -14,7 +14,7 @@ export const onSilentRefresh = () => {
       }
     )
     .then(res => {
-      // 재발급되어 헤더에 담겨져온 액세스 토큰 다시 변수에 저장
+      // 재발급되어 헤더에 담겨져온 액세스 토큰 다시 변수에 저장 > 여기도 쿠키에 저장
       const newAccess = res.headers.get('Authorization');
       axios.defaults.headers.common['Authorization'] = newAccess;
       setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
@@ -43,7 +43,7 @@ export const getAccessToken = async authorizationCode => {
       const { accessToken } = res.data;
       console.log(accessToken);
       console.log(res.data.refreshToken);
-      axios.defaults.headers.common['Authorization'] = accessToken;
+      // axios.defaults.headers.common['Authorization'] = accessToken;
       // 리프레시 토큰 쿠키에 저장
       setCookie('refreshToken', res.data.refreshToken, {
         path: '/',
