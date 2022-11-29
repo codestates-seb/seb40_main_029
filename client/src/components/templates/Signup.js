@@ -12,6 +12,9 @@ import {
 import { setMemberId, setDisplayName } from '../../redux/slice';
 import { SignupApi } from '../../api/SignupApi';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
+import React, { useCallback } from 'react';
+import { render } from 'https://cdn.skypack.dev/react-dom@17';
+import confetti from 'https://cdn.skypack.dev/canvas-confetti@1';
 
 const Container = styled.div`
   display: flex;
@@ -74,6 +77,14 @@ export default function Signup() {
   //   }
   // }, [response]);
 
+  const welcome = useCallback(() => {
+    confetti({
+      particleCount: 150,
+      spread: 130,
+    });
+    console.log('클릭!');
+  }, []);
+
   function handleSignup(emailValue, displayNameValue) {
     (async () => {
       const res = await SignupApi(emailValue, displayNameValue);
@@ -96,7 +107,10 @@ export default function Signup() {
         <Button
           size="long"
           fontSize="little"
-          onClick={() => handleSignup(emailValue, displayNameValue)}
+          onClick={() => {
+            welcome();
+            handleSignup(emailValue, displayNameValue);
+          }}
         >
           시작하기
         </Button>
