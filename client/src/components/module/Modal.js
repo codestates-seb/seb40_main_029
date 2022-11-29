@@ -20,6 +20,7 @@ const Blueprint = styled.div`
   flex-direction: column;
   background-color: white;
   border-radius: 20px;
+  margin-left: 20px;
 `;
 
 const Todo = styled(Blueprint)`

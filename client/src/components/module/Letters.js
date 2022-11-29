@@ -11,6 +11,12 @@ const ContentWrap = styled.div`
   //임시방편. 페이지네이션 구현 예정
   overflow-y: scroll;
   height: 396px;
+  //스크롤바 보이지않도록 설정
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const Letters = ({ setIsOpen, isOpen }) => {
   const [mails, setMails] = useState();
