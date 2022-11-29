@@ -22,7 +22,6 @@ const MoodSelector = () => {
     axios
       .get(URL2 + '/mood/day/회원1')
       .then(res => {
-        console.log(res.data);
         setFade(true);
         setReason(res.data.body);
         setMoodId(res.data.moodId);

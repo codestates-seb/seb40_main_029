@@ -92,6 +92,7 @@ const LookBack = () => {
     }
 
     handleSetPieData(data, output);
+
     return setYear(output);
   };
 
