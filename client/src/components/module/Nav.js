@@ -9,11 +9,8 @@ import {
   faCalendarDays,
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
-import Letter from '../templates/Letter';
-import GlobalModal from '../templates/GlobalModal';
 import { useDispatch } from 'react-redux';
 import { openModal } from '../../redux/modalSlice';
-import Letter from '../templates/Letter';
 import { LogoutApi } from '../../api/LoginLogoutApi';
 
 const Bubble = styled.nav`
@@ -60,14 +57,6 @@ const DarkIcon = styled.span`
 `;
 const Nav = () => {
   const dispatch = useDispatch();
-  const handleFriendModal = () => {
-    dispatch(
-      openModal({
-        modalType: 'FriendModal',
-        isOpen: true,
-      })
-    );
-  };
   const handleLetterModal = () => {
     dispatch(
       openModal({
@@ -76,6 +65,39 @@ const Nav = () => {
       })
     );
   };
+  const handleTodoModal = () => {
+    dispatch(
+      openModal({
+        modalType: 'TodoModal',
+        isOpen: true,
+      })
+    );
+  };
+  const handleFriendModal = () => {
+    dispatch(
+      openModal({
+        modalType: 'FriendModal',
+        isOpen: true,
+      })
+    );
+  };
+  const handleThemeModal = () => {
+    dispatch(
+      openModal({
+        modalType: 'ThemeModal',
+        isOpen: true,
+      })
+    );
+  };
+  const handleGradientModal = () => {
+    dispatch(
+      openModal({
+        modalType: 'GradientModal',
+        isOpen: true,
+      })
+    );
+  };
+
   return (
     <>
       <Bubble>
@@ -88,7 +110,7 @@ const Nav = () => {
               <FontSize14>편지함</FontSize14>
             </Link>
           </NavItem>
-          <NavItem>
+          <NavItem onClick={handleTodoModal}>
             <Link to="#">
               <DarkIcon>
                 <FontAwesomeIcon icon={faHighlighter} size="lg" />
@@ -96,7 +118,7 @@ const Nav = () => {
               <FontSize14>오늘할일</FontSize14>
             </Link>
           </NavItem>
-          <NavItem>
+          <NavItem onClick={handleThemeModal}>
             <Link>
               <DarkIcon>
                 <FontAwesomeIcon icon={faStore} size="lg" />
@@ -112,7 +134,7 @@ const Nav = () => {
               <FontSize14>친구</FontSize14>
             </Link>
           </NavItem>
-          <NavItem>
+          <NavItem onClick={handleGradientModal}>
             <Link>
               <DarkIcon>
                 <FontAwesomeIcon icon={faCalendarDays} size="lg" />

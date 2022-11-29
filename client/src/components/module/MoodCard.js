@@ -67,7 +67,7 @@ const MoodCard = ({ fade, setFade, color, id, reason }) => {
       <Mood color={color} onClick={() => setFade(false)} />
       <Info>
         <Type>{id}</Type>
-        <Hexcode>{color !== null ? color.slice(1) : null}</Hexcode>
+        <Hexcode>{color !== undefined ? color.slice(1) : null}</Hexcode>
         <Contents onClick={() => handleViewDetails()} viewDetails={viewDetails}>
           {reason}
         </Contents>
