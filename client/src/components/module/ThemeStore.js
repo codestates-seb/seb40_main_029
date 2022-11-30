@@ -59,7 +59,7 @@ const ArrowContainer = styled.div`
 const CarouselContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 870px;
+  height: 100%;
   display: block;
   overflow: hidden;
 `;
@@ -74,9 +74,16 @@ export const ThemeStore = () => {
   const [carouselIndex, setIndex] = useState(0);
   const [disable, setDisable] = useState(false);
   const paletteCode = 'P00' + (carouselIndex + 1);
-  const lastIndex = 4;
-  const paletteName = ['기본', '테라코타', '빈티지', '크리스마스', '모노'];
-  const palettePoint = ['', '1000P', '500P', '1500P', '500P'];
+  const lastIndex = 5;
+  const paletteName = [
+    '기본',
+    '테라코타',
+    '빈티지',
+    '크리스마스',
+    '모노',
+    '비비드',
+  ];
+  const palettePoint = ['', '1000P', '500P', '1500P', '500P', '500'];
   const memberId = useSelector(memberIdSelector);
   const paletteCodeSelec = useSelector(paletteCodeSelector);
   const myPalette = useSelector(myPaletteSelector);

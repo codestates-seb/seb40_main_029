@@ -11,6 +11,10 @@ import {
 } from '../../redux/hooks';
 import { setMemberId, setDisplayName } from '../../redux/slice';
 import { SignupApi } from '../../api/SignupApi';
+import { ReactComponent as Logo } from '../../assets/logo.svg';
+import React, { useCallback } from 'react';
+import { render } from 'https://cdn.skypack.dev/react-dom@17';
+import confetti from 'https://cdn.skypack.dev/canvas-confetti@1';
 
 const Container = styled.div`
   display: flex;
@@ -20,7 +24,7 @@ const Container = styled.div`
 `;
 
 const InputContainer = styled.div`
-  margin-right: 100px;
+  margin-right: 10%;
 `;
 
 const InputHeader = styled.h3`
@@ -49,8 +53,8 @@ const Warning = styled.h5`
   color: red;
 `;
 
-const ButtonContainer = styled.div`
-  margin-left: 100px;
+const LogoContainer = styled.div`
+  margin: 10px;
 `;
 
 export default function Signup() {
@@ -72,6 +76,14 @@ export default function Signup() {
   //     setWarning(response.data);
   //   }
   // }, [response]);
+
+  const welcome = useCallback(() => {
+    confetti({
+      particleCount: 150,
+      spread: 130,
+    });
+    console.log('클릭!');
+  }, []);
 
   function handleSignup(emailValue, displayNameValue) {
     (async () => {
@@ -95,17 +107,18 @@ export default function Signup() {
         <Button
           size="long"
           fontSize="little"
-          onClick={() => handleSignup(emailValue, displayNameValue)}
+          onClick={() => {
+            welcome();
+            handleSignup(emailValue, displayNameValue);
+          }}
         >
           시작하기
         </Button>
         <Warning>{warning}</Warning>
       </InputContainer>
-      <ButtonContainer>
-        <Button size="long" fontSize="large">
-          로고
-        </Button>
-      </ButtonContainer>
+      <LogoContainer>
+        <Logo width="170" height="170" />
+      </LogoContainer>
     </Container>
   );
 }

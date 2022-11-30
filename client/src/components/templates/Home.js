@@ -4,6 +4,7 @@ import { ContentLayout } from '../atoms/Layouts';
 import Header from '../module/Header';
 import MoodSelector from '../module/MoodSelector';
 import GlobalModal from './GlobalModal';
+
 const Home = () => {
   const accessToken = getCookie('accessToken');
   if (accessToken) {
