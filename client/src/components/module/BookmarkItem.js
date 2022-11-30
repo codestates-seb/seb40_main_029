@@ -12,6 +12,7 @@ const BookItem = styled.div`
 `;
 const Anchor = styled.a`
   line-height: 1;
+  padding: 8px 0;
 `;
 const EditBtn = styled.span`
   position: absolute;
