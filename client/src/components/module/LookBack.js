@@ -12,18 +12,25 @@ import { Pie } from './Charts';
 import ActivityCalendar from './ActivityCalendar';
 import { paletteCodeSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
+import { CenterLayout } from '../atoms/Layouts';
+import { memberIdSelector, displayNameSelector } from '../../redux/hooks';
 
-const URL = 'http://localhost:3000/';
-const URL2 = 'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080';
+const URL = `${process.env.REACT_APP_BASIC_URL}/`;
+const p = 'palette/';
+const m = 'mood/';
+const t = 'todo/';
 
 // memberId, displayname 필요
 
-const LookBack = ({ refresh }) => {
+const LookBack = ({ lookbackRefresh }) => {
   const paletteCode = useSelector(paletteCodeSelector);
+  const memberId = useSelector(memberIdSelector);
+  const displayName = useSelector(displayNameSelector);
+  // const displayName = '회원1';
   const [palette, setPalette] = useState([]);
 
   useEffect(() => {
-    axios.get(URL2 + '/palette/' + paletteCode).then(res => {
+    axios.get(URL + p + paletteCode).then(res => {
       const arr = [];
       for (const each of res.data) {
         arr.push('#' + each.colorCode);
@@ -31,28 +38,40 @@ const LookBack = ({ refresh }) => {
       setPalette(arr);
     });
 
-    axios.get(URL2 + '/mood/회원1').then(res => {
+    axios.get(URL + m + displayName).then(res => {
       // displayName
       const data = res.data;
-      // console.log(res.data);
+      console.log(res.data);
+      // console.log(data);
+      console.log(
+        res.data.filter(
+          each =>
+            dayjs(each.createdAt).format('YYYY') === '2021' &&
+            each.moodPaletteDetails !== null
+        )
+      );
       setData(
-        data.map(each => {
-          each.count = Number(each.moodPaletteDetails.moodCode[3]) * 50 - 25;
-          each.date = dayjs(each.createdAt).format('YYYY-MM-DD');
-          // value, day
-          return each;
-        })
+        res.data
+          .filter(each => each.moodPaletteDetails !== null)
+          .map(each => {
+            const details = each.moodPaletteDetails;
+            each.count =
+              details !== null ? Number(details.moodCode[3]) * 50 - 25 : 0;
+            each.date = dayjs(each.createdAt).format('YYYY-MM-DD');
+            // value, day
+            return each;
+          })
       );
       handleSetPieData(data, Number(year), palette);
     });
 
-    axios.get(URL2 + '/todo/1').then(res => {
+    axios.get(URL + t + memberId).then(res => {
       // memberId
       const data = res.data;
 
       setTodoData(data);
     });
-  }, [refresh]);
+  }, [lookbackRefresh]);
 
   const today = new Date();
   const [data, setData] = useState([]);
@@ -62,7 +81,9 @@ const LookBack = ({ refresh }) => {
   const [viewDetails, setViewDetails] = useState(false);
   const [year, setYear] = useState(today.getFullYear());
 
-  const selectedData = data.find(e => e.date === selected);
+  const withoutDup = data.filter(e => e.date === selected);
+  // const selectedData = data.find(e => e.date === selected);
+  const selectedData = withoutDup.pop();
   const selectedTodoData = todoData.filter(
     e => dayjs(e.createdAt).format('YYYY-MM-DD') === selected
   );
@@ -105,7 +126,9 @@ const LookBack = ({ refresh }) => {
     );
 
     for (const each of filtered) {
-      moods[each.moodPaletteDetails.mood] += 1;
+      if (each.moodPaletteDetails !== null) {
+        moods[each.moodPaletteDetails.mood] += 1;
+      }
     }
 
     const moodsKeys = Object.keys(moods);
@@ -131,91 +154,108 @@ const LookBack = ({ refresh }) => {
       setViewDetails(!viewDetails);
     }
   };
+  console.log(selected);
+  console.log(selectedData);
 
   return (
-    <LookBackModal>
-      <Wrapper>
-        <CalendarContainer>
-          <LeftRightContainer>
-            <LeftRight>
-              <FontAwesomeIcon
-                icon={faChevronLeft}
-                onClick={() => {
-                  handleSetYear(-1);
-                }}
-              />
-              <Spacer />
-            </LeftRight>
-          </LeftRightContainer>
-          <ActivityCalendar
-            palette={palette}
-            year={year}
-            data={data.filter(
-              each => dayjs(each.date).format('YYYY') === `${year}`
-            )}
-            setSelected={setSelected}
-            showWeekdayLabels={true}
-            blockMargin={5}
-            blockSize={11}
-          />
-          {/* <Calendar
+    <CenterLayout>
+      <LookBackModal>
+        <Wrapper>
+          {data.length === 0 ? (
+            <article>
+              <p>기록된 무드가 없어요</p>
+            </article>
+          ) : (
+            <>
+              <CalendarContainer>
+                <LeftRightContainer>
+                  <LeftRight>
+                    <FontAwesomeIcon
+                      icon={faChevronLeft}
+                      onClick={() => {
+                        handleSetYear(-1);
+                      }}
+                    />
+                    <Spacer />
+                  </LeftRight>
+                </LeftRightContainer>
+                <ActivityCalendar
+                  palette={palette}
+                  year={year}
+                  data={data.filter(
+                    each => dayjs(each.date).format('YYYY') === `${year}`
+                  )}
+                  setSelected={setSelected}
+                  showWeekdayLabels={true}
+                  blockMargin={5}
+                  blockSize={11}
+                />
+                {/* <Calendar
             data={data}
             palette={palette}
             setSelected={setSelected}
             year={year}
           /> */}
 
-          <LeftRightContainer>
-            <LeftRight>
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                onClick={() => handleSetYear(1)}
-              />
-              <Spacer />
-            </LeftRight>
-          </LeftRightContainer>
-        </CalendarContainer>
-        <StatisticsContainer>
-          <PieCard>
-            <div>{year}년 회고</div>
-            <Pie pieData={pieData} year={year} palette={palette} />
-          </PieCard>
-          <MoodCard>
-            <Title>하루 돌아보기</Title>
-            <CardContainer viewDetails={viewDetails}>
-              <Mood
-                viewDetails={viewDetails}
-                color={
-                  selectedData === undefined
-                    ? '#eeeeee'
-                    : palette[
-                        Number(selectedData.moodPaletteDetails.moodCode[3]) - 1
-                      ]
-                }
-              />
-              <Info>
-                <Type>
-                  {selectedData === undefined
-                    ? ''
-                    : selectedData.moodPaletteDetails.mood}
-                </Type>
-                <Hexcode>{selected}</Hexcode>
-                <Contents
-                  onClick={() => handleViewDetails()}
-                  viewDetails={viewDetails}
-                >
-                  {viewDetails ? (
-                    <Details data={selectedData} todo={selectedTodoData} />
-                  ) : (
-                    '자세히보기'
-                  )}
-                </Contents>
-              </Info>
-            </CardContainer>
-          </MoodCard>
-        </StatisticsContainer>
-      </Wrapper>
-    </LookBackModal>
+                <LeftRightContainer>
+                  <LeftRight>
+                    <FontAwesomeIcon
+                      icon={faChevronRight}
+                      onClick={() => handleSetYear(1)}
+                    />
+                    <Spacer />
+                  </LeftRight>
+                </LeftRightContainer>
+              </CalendarContainer>
+              <StatisticsContainer>
+                <PieCard>
+                  <div>{year}년 회고</div>
+                  <Pie pieData={pieData} year={year} palette={palette} />
+                </PieCard>
+                <MoodCard>
+                  <Title>하루 돌아보기</Title>
+                  <CardContainer viewDetails={viewDetails}>
+                    <Mood
+                      viewDetails={viewDetails}
+                      color={
+                        selectedData === undefined
+                          ? '#eeeeee'
+                          : palette[
+                              Number(
+                                selectedData.moodPaletteDetails.moodCode[3]
+                              ) - 1
+                            ]
+                      }
+                    />
+                    <Info>
+                      <Type>
+                        {selectedData === undefined
+                          ? ''
+                          : selectedData.moodPaletteDetails.mood}
+                      </Type>
+                      <Hexcode>{selected}</Hexcode>
+                      <Contents
+                        onClick={() => handleViewDetails()}
+                        viewDetails={viewDetails}
+                      >
+                        {viewDetails ? (
+                          <Details
+                            data={selectedData}
+                            todo={selectedTodoData}
+                          />
+                        ) : (
+                          '자세히보기'
+                        )}
+                      </Contents>
+                    </Info>
+                  </CardContainer>
+                </MoodCard>
+              </StatisticsContainer>
+            </>
+          )}
+        </Wrapper>
+      </LookBackModal>
+    </CenterLayout>
   );
 };
 
@@ -460,3 +500,7 @@ export default LookBack;
 // axios.post(URL + 'todos', todos);
 // console.log(moods);
 // console.log(todos);
+
+/*
+
+*/

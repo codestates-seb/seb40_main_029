@@ -9,6 +9,8 @@ import Button from '../atoms/Button';
 import { useEffect, useState } from 'react';
 import { addFriend, getAllMembers } from '../../api/FriendDataApi';
 import useInput from '../../utils/useInput';
+import { displayNameSelector } from '../../redux/hooks';
+import { useSelector } from 'react-redux';
 
 const PopUp = styled.div`
   z-index: 2;
@@ -53,7 +55,7 @@ const FriendListBox = styled.div`
   margin-bottom: 18px;
 `;
 
-const AddFriend = ({ setIsOpen, friends, setReFresh }) => {
+const AddFriend = ({ setIsOpen, friends, setfriendRefresh }) => {
   const [userList, setUserList] = useState([]);
   const [keyword, bindKeyword] = useInput('');
   const [respondentDisplayName, setRespondentDisplayName] = useState('');
@@ -77,15 +79,14 @@ const AddFriend = ({ setIsOpen, friends, setReFresh }) => {
     }
   };
 
-  // 유저 ID 1로 가정
-  const requesterDisplayName = '회원1';
+  const requesterDisplayName = useSelector(displayNameSelector);
   const handleAddFriend = () => {
     if (friends.some(checkAlreadyAdd)) {
       alert('이미 추가한 친구예요!');
       return;
     }
     addFriend({ requesterDisplayName, respondentDisplayName });
-    setReFresh(refresh => refresh + 1);
+    setfriendRefresh(refresh => refresh + 1);
     alert('친구를 추가했어요!');
   };
 

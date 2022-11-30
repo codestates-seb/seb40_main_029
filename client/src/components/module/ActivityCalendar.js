@@ -62,7 +62,8 @@ function ActivityCalendar({
   const textHeight = hideMonthLabels ? 0 : fontSize + 2 * blockMargin;
   const theme = getTheme(themeProp, color);
   const labels = Object.assign({}, DEFAULT_LABELS, labelsProp);
-  const totalCount = data.length;
+  const total = data.filter(each => each.moodPaletteDetails !== null);
+  const totalCount = total.length;
 
   function getDimensions() {
     return {
@@ -139,6 +140,9 @@ function ActivityCalendar({
       </>
     );
   }
+  /*
+  
+  */
 
   function renderBlocks() {
     return weeks
@@ -157,7 +161,7 @@ function ActivityCalendar({
           // fill={palette[Number(data.moodPaletteDetails.moodCode[3])]}
 
           const color =
-            day.moodPaletteDetails !== undefined
+            day.createdAt !== undefined
               ? palette[Number(day.moodPaletteDetails.moodCode[3]) - 1]
               : '#eeeeee';
           // console.log(day);
@@ -179,6 +183,7 @@ function ActivityCalendar({
               style={style}
               onClick={() => {
                 day.createdAt !== undefined ? setSelected(day.date) : null;
+                console.log(day);
               }}
               data-tip={dayjs(day.date).format('M월 D일')}
             ></rect>

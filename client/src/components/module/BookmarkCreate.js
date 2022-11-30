@@ -8,6 +8,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { RightBottomLayout } from '../atoms/Layouts';
 
+const PopUp = styled.div`
+  z-index: 2;
+  button {
+    margin-right: -10px;
+  }
+`;
+const BrowserCenterLayout = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 const Title = styled.h3`
   border-bottom: 1px solid #d4d4d4;
   display: flex;
@@ -69,37 +81,41 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
   }, [booksArr]);
 
   return (
-    <ShadowBox>
-      <Title>
-        북마크 추가
-        <FontAwesomeIcon icon={faXmark} onClick={handleBookmarkClose} />
-      </Title>
-      <InputWraper>
-        <label htmlFor="name">
-          <span>이름</span>
-          <Input
-            name="name"
-            value={bookNameBind}
-            border="shadow"
-            color="#f6f6f6"
-          />
-        </label>
-        <label htmlFor="url">
-          <span>URL</span>
-          <Input
-            name="url"
-            value={bookUrlBind}
-            border="shadow"
-            color="#f6f6f6"
-          />
-        </label>
-        <RightBottomLayout>
-          <Button size="long" onClick={handleBookmarkSubmit}>
-            저장
-          </Button>
-        </RightBottomLayout>
-      </InputWraper>
-    </ShadowBox>
+    <PopUp>
+      <BrowserCenterLayout>
+        <ShadowBox>
+          <Title>
+            북마크 추가
+            <FontAwesomeIcon icon={faXmark} onClick={handleBookmarkClose} />
+          </Title>
+          <InputWraper>
+            <label htmlFor="name">
+              <span>이름</span>
+              <Input
+                name="name"
+                value={bookNameBind}
+                border="shadow"
+                color="#f6f6f6"
+              />
+            </label>
+            <label htmlFor="url">
+              <span>URL</span>
+              <Input
+                name="url"
+                value={bookUrlBind}
+                border="shadow"
+                color="#f6f6f6"
+              />
+            </label>
+            <RightBottomLayout>
+              <Button size="long" onClick={handleBookmarkSubmit}>
+                저장
+              </Button>
+            </RightBottomLayout>
+          </InputWraper>
+        </ShadowBox>
+      </BrowserCenterLayout>
+    </PopUp>
   );
 };
 

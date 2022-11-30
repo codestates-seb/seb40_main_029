@@ -5,6 +5,7 @@ import modalSlice, { selectModal } from '../../redux/modalSlice';
 import TodoList from '../module/TodoList';
 import ThemeStore from '../module/ThemeStore';
 import GradientWall from '../module/GradientWall';
+import LookBack from '../module/LookBack';
 
 const MODAL_TYPES = {
   LetterModal: 'LetterModal',
@@ -12,32 +13,41 @@ const MODAL_TYPES = {
   FriendModal: 'FriendModal',
   ThemeModal: 'ThemeModal',
   GradientModal: 'GradientModal',
+  LookbackModal: 'LookbackModal',
 };
 
-const MODAL_COMPONENTS = [
-  {
-    type: MODAL_TYPES.LetterModal,
-    component: <Letter />,
-  },
-  {
-    type: MODAL_TYPES.TodoModal,
-    component: <TodoList />,
-  },
-  {
-    type: MODAL_TYPES.FriendModal,
-    component: <Friend />,
-  },
-  {
-    type: MODAL_TYPES.ThemeModal,
-    component: <ThemeStore />,
-  },
-  {
-    type: MODAL_TYPES.GradientModal,
-    component: <GradientWall />,
-  },
-];
-
-function GlobalModal() {
+function GlobalModal({ lookbackRefresh, lookbackRefresher, pointRefresher }) {
+  const MODAL_COMPONENTS = [
+    {
+      type: MODAL_TYPES.LetterModal,
+      component: <Letter pointRefresher={pointRefresher} />,
+    },
+    {
+      type: MODAL_TYPES.TodoModal,
+      component: (
+        <TodoList
+          lookbackRefresher={lookbackRefresher}
+          pointRefresher={pointRefresher}
+        />
+      ),
+    },
+    {
+      type: MODAL_TYPES.FriendModal,
+      component: <Friend />,
+    },
+    {
+      type: MODAL_TYPES.ThemeModal,
+      component: <ThemeStore pointRefresher={pointRefresher} />,
+    },
+    {
+      type: MODAL_TYPES.GradientModal,
+      component: <GradientWall />,
+    },
+    {
+      type: MODAL_TYPES.LookbackModal,
+      component: <LookBack lookbackRefresh={lookbackRefresh} />,
+    },
+  ];
   const { modalType, isOpen } = useSelector(selectModal);
   if (!isOpen) return;
 

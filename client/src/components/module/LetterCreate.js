@@ -7,6 +7,8 @@ import ShadowBox from '../atoms/ShadowBox';
 import { useEffect, useState } from 'react';
 import { getFriends } from '../../api/FriendDataApi';
 import { sendMail } from '../../api/MailDataApi';
+import { memberIdSelector, displayNameSelector } from '../../redux/hooks';
+import { useSelector } from 'react-redux';
 
 const PopUp = styled.div`
   z-index: 2;
@@ -63,8 +65,8 @@ const LetterCreate = ({ setIsOpen }) => {
   const [friends, setFriends] = useState([]);
   const [friend, setFriend] = useState('');
   const [letterBody, setLetterBody] = useState('');
+  const memberId = useSelector(memberIdSelector);
   useEffect(() => {
-    const memberId = 1;
     const fetchData = async () => {
       const data = await getFriends(memberId);
       setFriends(data);
@@ -77,7 +79,7 @@ const LetterCreate = ({ setIsOpen }) => {
   const handleTextarea = e => {
     setLetterBody(e.target.value);
   };
-  const senderName = '회원1';
+  const senderName = useSelector(displayNameSelector);
   const handleSendLetter = e => {
     e.preventDefault();
     if (letterBody.length > 300) {

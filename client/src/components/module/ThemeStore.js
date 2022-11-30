@@ -9,7 +9,7 @@ import {
   faChevronRight,
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
-import { BuyPalette, SetPalette } from '../../api/PaletteShop';
+import { BuyPalette, SetPalette } from '../../api/PaletteShopApi';
 import {
   memberIdSelector,
   paletteCodeSelector,
@@ -69,8 +69,11 @@ const CarouselBtnContainer = styled.div`
   padding-left: 40px;
 `;
 
-export const ThemeStore = () => {
+export const ThemeStore = ({ pointRefresher }) => {
   const dispatch = useDispatch();
+  const memberId = useSelector(memberIdSelector);
+  const paletteCodeSelec = useSelector(paletteCodeSelector);
+  const myPalette = useSelector(myPaletteSelector);
   const [carouselIndex, setIndex] = useState(0);
   const [disable, setDisable] = useState(false);
   const paletteCode = 'P00' + (carouselIndex + 1);
@@ -84,37 +87,27 @@ export const ThemeStore = () => {
     '비비드',
   ];
   const palettePoint = ['', '1000P', '500P', '1500P', '500P', '500'];
-  const memberId = useSelector(memberIdSelector);
-  const paletteCodeSelec = useSelector(paletteCodeSelector);
-  const myPalette = useSelector(myPaletteSelector);
   console.log('팔레트 코드' + paletteCode);
   console.log(myPalette);
 
-  const handleBuy = paletteCode => {
-    BuyPalette(paletteCode);
-    dispatch(setMyPalette(paletteCode));
+  const handleBuy = (paletteCode, memberId) => {
+    console.log(memberId);
+    (async () => {
+      const result = await BuyPalette(paletteCode, memberId);
+      console.log(result);
+      if (result) {
+        console.log('팔레트 구매');
+        dispatch(setMyPalette(paletteCode));
+      }
+    })();
+    pointRefresher();
   };
 
-  const handleSet = paletteCode => {
-    SetPalette(paletteCode);
+  const handleSet = (paletteCode, memberId) => {
+    SetPalette(paletteCode, memberId);
     dispatch(setPaletteCode(paletteCode));
+    window.location.reload();
   };
-
-  // console.log('적용된 팔레트' + typeof paletteCodeSelec);
-
-  // 보유하고 있으면 disable을 true로 변경
-  // const isMine = () => {
-  //   console.log(paletteCode);
-  //   if (myPalette.indexOf(paletteCode)) {
-  //     // 보유하고 있다면 true로 비활성화
-  //     setDisable(true);
-  //   } else if (myPalette.indexOf(paletteCode) == -1) {
-  //     //  보유하지 않았으면 false로 구매 가능
-  //     setDisable(false);
-  //   }
-  // };
-
-  console.log(disable);
 
   const toRight = () => {
     if (carouselIndex < lastIndex) {
@@ -144,7 +137,7 @@ export const ThemeStore = () => {
           <Button
             size="long"
             fontsize="middle"
-            onClick={() => handleBuy(paletteCode)}
+            onClick={() => handleBuy(paletteCode, memberId)}
             disabled={myPalette.includes(paletteCode)}
           >
             구매
@@ -152,7 +145,7 @@ export const ThemeStore = () => {
           <Button
             size="long"
             fontsize="middle"
-            onClick={() => handleSet(paletteCode)}
+            onClick={() => handleSet(paletteCode, memberId)}
             disabled={paletteCodeSelec == paletteCode}
           >
             적용

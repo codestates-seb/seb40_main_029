@@ -9,10 +9,6 @@ import { useState, useEffect } from 'react';
 
 const App = () => {
   // const dispatch = useDispatch();
-  const [refresh, setRefresh] = useState(-1);
-  const refresher = () => {
-    setRefresh(refresh * -1);
-  };
 
   useEffect(() => {
     // axios

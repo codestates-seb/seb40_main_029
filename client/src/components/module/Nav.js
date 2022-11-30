@@ -8,12 +8,14 @@ import {
   faUserGroup,
   faCalendarDays,
   faRightFromBracket,
+  faFilm,
 } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { openModal } from '../../redux/modalSlice';
 import { LogoutApi } from '../../api/LoginLogoutApi';
 
 const Bubble = styled.nav`
+  max-width: 120px;
   z-index: 2;
   background-color: #f6f6f6;
   padding: 16px 0;
@@ -98,6 +100,14 @@ const Nav = () => {
       })
     );
   };
+  const handleLookbackModal = () => {
+    dispatch(
+      openModal({
+        modalType: 'LookbackModal',
+        isOpen: true,
+      })
+    );
+  };
 
   const handleLogout = async () => {
     const res = await LogoutApi();
@@ -111,6 +121,14 @@ const Nav = () => {
     <>
       <Bubble>
         <ul>
+          <NavItem onClick={handleFriendModal}>
+            <Link to="#">
+              <DarkIcon>
+                <FontAwesomeIcon icon={faUserGroup} size="lg" />
+              </DarkIcon>
+              <FontSize14>친구</FontSize14>
+            </Link>
+          </NavItem>
           <NavItem onClick={handleLetterModal}>
             <Link to="#">
               <DarkIcon>
@@ -135,20 +153,21 @@ const Nav = () => {
               <FontSize14>색상테마</FontSize14>
             </Link>
           </NavItem>
-          <NavItem onClick={handleFriendModal}>
-            <Link to="#">
-              <DarkIcon>
-                <FontAwesomeIcon icon={faUserGroup} size="lg" />
-              </DarkIcon>
-              <FontSize14>친구</FontSize14>
-            </Link>
-          </NavItem>
+
           <NavItem onClick={handleGradientModal}>
             <Link>
               <DarkIcon>
                 <FontAwesomeIcon icon={faCalendarDays} size="lg" />
               </DarkIcon>
-              <FontSize14>기록</FontSize14>
+              <FontSize14>한달기록</FontSize14>
+            </Link>
+          </NavItem>
+          <NavItem onClick={handleLookbackModal}>
+            <Link>
+              <DarkIcon>
+                <FontAwesomeIcon icon={faFilm} size="lg" />
+              </DarkIcon>
+              <FontSize14>일년기록</FontSize14>
             </Link>
           </NavItem>
           <NavItem onClick={handleLogout}>
