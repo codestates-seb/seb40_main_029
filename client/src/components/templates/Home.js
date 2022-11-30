@@ -12,6 +12,8 @@ import styled from 'styled-components';
 
 const Browser = styled.div`
   position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
 `;
 const Home = () => {
   const [userPoint, setUserPoint] = useState(-1);

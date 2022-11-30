@@ -169,7 +169,7 @@ const Type = styled.div`
 `;
 
 const Today = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   -webkit-user-select: none;
   user-select: none;
   color: ${({ darkmode }) => (darkmode ? '#333435' : 'white')};
