@@ -14,7 +14,7 @@ export const SignupApi = async (emailValue, displayNameValue) => {
     .patch(getURL + path, data)
     .then(res => {
       console.log(res);
-      return res.data;
+      return res;
     })
     .catch(err => {
       console.log('회원가입' + err);

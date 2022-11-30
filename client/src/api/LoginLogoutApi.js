@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Navigate } from 'react-router';
-import { setCookie, getCookie } from '../utils/cookie';
+import { setCookie, getCookie, deleteCookie } from '../utils/cookie';
 
 export const onSilentRefresh = () => {
   const JWT_EXPIRY_TIME = 1 * 3600 * 1000; // 만료 시간 (1시간 밀리 초로 표현)
@@ -70,6 +70,7 @@ export const LogoutApi = async () => {
   return await axios
     .get(getURL + path) // 헤더 가는지 안가는지 확인
     .then(res => {
+      deleteCookie('accessToken');
       return res;
     })
     .catch(err => {
