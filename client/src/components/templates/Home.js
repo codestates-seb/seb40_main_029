@@ -16,6 +16,7 @@ const Browser = styled.div`
   margin: 0 auto;
 `;
 const Home = () => {
+  const [openMoodCard, setOpenMoodCard] = useState(true);
   const [userPoint, setUserPoint] = useState(-1);
   const memberId = useSelector(memberIdSelector);
   console.log(memberId);
@@ -43,15 +44,17 @@ const Home = () => {
     <Browser>
       <Header userPoint={userPoint} />
       <ContentLayout>
-        <MoodSelector
-          lookbackRefresher={lookbackRefresher}
-          pointRefresher={pointRefresher}
-        />
-        {/* 여기서 모달 조정 */}
+        {openMoodCard ? (
+          <MoodSelector
+            lookbackRefresher={lookbackRefresher}
+            pointRefresher={pointRefresher}
+          />
+        ) : null}
         <GlobalModal
           lookbackRefresh={lookbackRefresh}
           lookbackRefresher={lookbackRefresher}
           pointRefresher={pointRefresher}
+          setOpenMoodCard={setOpenMoodCard}
         />
       </ContentLayout>
     </Browser>
