@@ -16,22 +16,10 @@ import { useSelector } from 'react-redux';
 const URL = 'http://localhost:3000/';
 const URL2 = 'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080';
 
-const LookBack = () => {
-  //리덕스로 불러올 것
+// memberId, displayname 필요
 
-  // const palette = [
-  //   '#EE8242',
-  //   '#9FC1EE',
-  //   '#EE8686',
-  //   '#E6AACB',
-  //   '#D2CCC2',
-  //   '#FFE27A',
-  //   '#6868AC',
-  //   '#A7CF99',
-  // ];
-
+const LookBack = ({ refresh }) => {
   const paletteCode = useSelector(paletteCodeSelector);
-
   const [palette, setPalette] = useState([]);
 
   useEffect(() => {
@@ -43,12 +31,14 @@ const LookBack = () => {
       setPalette(arr);
     });
 
-    axios.get(URL + 'moods').then(res => {
-      const [data] = [...res.data];
+    axios.get(URL2 + '/mood/회원1').then(res => {
+      // displayName
+      const data = res.data;
+      // console.log(res.data);
       setData(
         data.map(each => {
           each.count = Number(each.moodPaletteDetails.moodCode[3]) * 50 - 25;
-          each.date = each.createdAt;
+          each.date = dayjs(each.createdAt).format('YYYY-MM-DD');
           // value, day
           return each;
         })
@@ -56,12 +46,13 @@ const LookBack = () => {
       handleSetPieData(data, Number(year), palette);
     });
 
-    axios.get(URL + 'todos').then(res => {
-      const [data] = [...res.data];
+    axios.get(URL2 + '/todo/1').then(res => {
+      // memberId
+      const data = res.data;
 
       setTodoData(data);
     });
-  }, []);
+  }, [refresh]);
 
   const today = new Date();
   const [data, setData] = useState([]);
@@ -72,7 +63,9 @@ const LookBack = () => {
   const [year, setYear] = useState(today.getFullYear());
 
   const selectedData = data.find(e => e.date === selected);
-  const selectedTodoData = todoData.filter(e => e.createdAt === selected);
+  const selectedTodoData = todoData.filter(
+    e => dayjs(e.createdAt).format('YYYY-MM-DD') === selected
+  );
 
   const extent = [];
   for (const each of data) {
@@ -124,6 +117,7 @@ const LookBack = () => {
           id: moodsKeys[i],
           label: moodsKeys[i],
           value: moodsValues[i],
+          code: moodsKeys.indexOf(moodsKeys[i]),
           // color: palette[i],
         });
       }
@@ -170,6 +164,7 @@ const LookBack = () => {
             setSelected={setSelected}
             year={year}
           /> */}
+
           <LeftRightContainer>
             <LeftRight>
               <FontAwesomeIcon
