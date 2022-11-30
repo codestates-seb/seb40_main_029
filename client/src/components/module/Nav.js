@@ -1,4 +1,3 @@
-import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
@@ -58,7 +57,6 @@ const DarkIcon = styled.span`
   }
 `;
 const Nav = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLetterModal = () => {
     dispatch(
@@ -122,61 +120,47 @@ const Nav = () => {
       <Bubble>
         <ul>
           <NavItem onClick={handleFriendModal}>
-            <Link to="#">
-              <DarkIcon>
-                <FontAwesomeIcon icon={faUserGroup} size="lg" />
-              </DarkIcon>
-              <FontSize14>친구</FontSize14>
-            </Link>
+            <DarkIcon>
+              <FontAwesomeIcon icon={faUserGroup} size="lg" />
+            </DarkIcon>
+            <FontSize14>친구</FontSize14>
           </NavItem>
           <NavItem onClick={handleLetterModal}>
-            <Link to="#">
-              <DarkIcon>
-                <FontAwesomeIcon icon={faEnvelope} size="lg" />
-              </DarkIcon>
-              <FontSize14>편지함</FontSize14>
-            </Link>
+            <DarkIcon>
+              <FontAwesomeIcon icon={faEnvelope} size="lg" />
+            </DarkIcon>
+            <FontSize14>편지함</FontSize14>
           </NavItem>
           <NavItem onClick={handleTodoModal}>
-            <Link to="#">
-              <DarkIcon>
-                <FontAwesomeIcon icon={faHighlighter} size="lg" />
-              </DarkIcon>
-              <FontSize14>오늘할일</FontSize14>
-            </Link>
+            <DarkIcon>
+              <FontAwesomeIcon icon={faHighlighter} size="lg" />
+            </DarkIcon>
+            <FontSize14>오늘할일</FontSize14>
           </NavItem>
           <NavItem onClick={handleThemeModal}>
-            <Link>
-              <DarkIcon>
-                <FontAwesomeIcon icon={faStore} size="lg" />
-              </DarkIcon>
-              <FontSize14>색상테마</FontSize14>
-            </Link>
+            <DarkIcon>
+              <FontAwesomeIcon icon={faStore} size="lg" />
+            </DarkIcon>
+            <FontSize14>색상테마</FontSize14>
           </NavItem>
 
           <NavItem onClick={handleGradientModal}>
-            <Link>
-              <DarkIcon>
-                <FontAwesomeIcon icon={faCalendarDays} size="lg" />
-              </DarkIcon>
-              <FontSize14>한달기록</FontSize14>
-            </Link>
+            <DarkIcon>
+              <FontAwesomeIcon icon={faCalendarDays} size="lg" />
+            </DarkIcon>
+            <FontSize14>한달기록</FontSize14>
           </NavItem>
           <NavItem onClick={handleLookbackModal}>
-            <Link>
-              <DarkIcon>
-                <FontAwesomeIcon icon={faFilm} size="lg" />
-              </DarkIcon>
-              <FontSize14>일년기록</FontSize14>
-            </Link>
+            <DarkIcon>
+              <FontAwesomeIcon icon={faFilm} size="lg" />
+            </DarkIcon>
+            <FontSize14>일년기록</FontSize14>
           </NavItem>
           <NavItem onClick={handleLogout}>
-            <Link>
-              <DarkIcon>
-                <FontAwesomeIcon icon={faRightFromBracket} size="lg" />
-              </DarkIcon>
-              <FontSize14>로그아웃</FontSize14>
-            </Link>
+            <DarkIcon>
+              <FontAwesomeIcon icon={faRightFromBracket} size="lg" />
+            </DarkIcon>
+            <FontSize14>로그아웃</FontSize14>
           </NavItem>
         </ul>
       </Bubble>
