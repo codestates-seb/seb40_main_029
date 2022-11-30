@@ -1,24 +1,18 @@
 import styled from 'styled-components';
 import Input from '../atoms/Input';
 import Button from '../atoms/Button';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import useInput from '../../utils/useInput';
 import ShadowBox from '../atoms/ShadowBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { RightBottomLayout } from '../atoms/Layouts';
+import { CenterLayout, RightBottomLayout } from '../atoms/Layouts';
 
 const PopUp = styled.div`
   z-index: 2;
   button {
     margin-right: -10px;
   }
-`;
-const BrowserCenterLayout = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 `;
 const Title = styled.h3`
   border-bottom: 1px solid #d4d4d4;
@@ -82,7 +76,7 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
 
   return (
     <PopUp>
-      <BrowserCenterLayout>
+      <CenterLayout>
         <ShadowBox>
           <Title>
             북마크 추가
@@ -114,7 +108,7 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
             </RightBottomLayout>
           </InputWraper>
         </ShadowBox>
-      </BrowserCenterLayout>
+      </CenterLayout>
     </PopUp>
   );
 };

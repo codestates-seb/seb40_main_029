@@ -16,7 +16,12 @@ const MODAL_TYPES = {
   LookbackModal: 'LookbackModal',
 };
 
-function GlobalModal({ lookbackRefresh, lookbackRefresher, pointRefresher }) {
+function GlobalModal({
+  lookbackRefresh,
+  lookbackRefresher,
+  pointRefresher,
+  setOpenMoodCard,
+}) {
   const MODAL_COMPONENTS = [
     {
       type: MODAL_TYPES.LetterModal,
@@ -56,6 +61,11 @@ function GlobalModal({ lookbackRefresh, lookbackRefresher, pointRefresher }) {
   });
 
   const renderModal = () => {
+    if (findModal.type === 'LookbackModal') {
+      setOpenMoodCard(false);
+    } else {
+      setOpenMoodCard(true);
+    }
     return findModal.component;
   };
   return <div>{renderModal()}</div>;

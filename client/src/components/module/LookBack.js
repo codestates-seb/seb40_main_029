@@ -12,7 +12,6 @@ import { Pie } from './Charts';
 import ActivityCalendar from './ActivityCalendar';
 import { paletteCodeSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
-import { CenterLayout } from '../atoms/Layouts';
 import { memberIdSelector, displayNameSelector } from '../../redux/hooks';
 
 const URL = `${process.env.REACT_APP_BASIC_URL}/`;
@@ -158,104 +157,99 @@ const LookBack = ({ lookbackRefresh }) => {
   console.log(selectedData);
 
   return (
-    <CenterLayout>
-      <LookBackModal>
-        <Wrapper>
-          {data.length === 0 ? (
-            <article>
-              <p>기록된 무드가 없어요</p>
-            </article>
-          ) : (
-            <>
-              <CalendarContainer>
-                <LeftRightContainer>
-                  <LeftRight>
-                    <FontAwesomeIcon
-                      icon={faChevronLeft}
-                      onClick={() => {
-                        handleSetYear(-1);
-                      }}
-                    />
-                    <Spacer />
-                  </LeftRight>
-                </LeftRightContainer>
-                <ActivityCalendar
-                  palette={palette}
-                  year={year}
-                  data={data.filter(
-                    each => dayjs(each.date).format('YYYY') === `${year}`
-                  )}
-                  setSelected={setSelected}
-                  showWeekdayLabels={true}
-                  blockMargin={5}
-                  blockSize={11}
-                />
-                {/* <Calendar
+    <LookBackModal>
+      <Wrapper>
+        {data.length === 0 ? (
+          <article>
+            <p>기록된 무드가 없어요</p>
+          </article>
+        ) : (
+          <>
+            <CalendarContainer>
+              <LeftRightContainer>
+                <LeftRight>
+                  <FontAwesomeIcon
+                    icon={faChevronLeft}
+                    onClick={() => {
+                      handleSetYear(-1);
+                    }}
+                  />
+                  <Spacer />
+                </LeftRight>
+              </LeftRightContainer>
+              <ActivityCalendar
+                palette={palette}
+                year={year}
+                data={data.filter(
+                  each => dayjs(each.date).format('YYYY') === `${year}`
+                )}
+                setSelected={setSelected}
+                showWeekdayLabels={true}
+                blockMargin={5}
+                blockSize={11}
+              />
+              {/* <Calendar
             data={data}
             palette={palette}
             setSelected={setSelected}
             year={year}
           /> */}
 
-                <LeftRightContainer>
-                  <LeftRight>
-                    <FontAwesomeIcon
-                      icon={faChevronRight}
-                      onClick={() => handleSetYear(1)}
-                    />
-                    <Spacer />
-                  </LeftRight>
-                </LeftRightContainer>
-              </CalendarContainer>
-              <StatisticsContainer>
-                <PieCard>
-                  <div>{year}년 회고</div>
-                  <Pie pieData={pieData} year={year} palette={palette} />
-                </PieCard>
-                <MoodCard>
-                  <Title>하루 돌아보기</Title>
-                  <CardContainer viewDetails={viewDetails}>
-                    <Mood
+              <LeftRightContainer>
+                <LeftRight>
+                  <FontAwesomeIcon
+                    icon={faChevronRight}
+                    onClick={() => handleSetYear(1)}
+                  />
+                  <Spacer />
+                </LeftRight>
+              </LeftRightContainer>
+            </CalendarContainer>
+            <StatisticsContainer>
+              <PieCard>
+                <div>{year}년 회고</div>
+                <Pie pieData={pieData} year={year} palette={palette} />
+              </PieCard>
+              <MoodCard>
+                <Title>하루 돌아보기</Title>
+                <CardContainer viewDetails={viewDetails}>
+                  <Mood
+                    viewDetails={viewDetails}
+                    color={
+                      selectedData === undefined
+                        ? '#eeeeee'
+                        : palette[
+                            Number(
+                              selectedData.moodPaletteDetails.moodCode[3]
+                            ) - 1
+                          ]
+                    }
+                  />
+                  <Info>
+                    <Type>
+                      {selectedData === undefined
+                        ? ''
+                        : selectedData.moodPaletteDetails.mood}
+                    </Type>
+                    <Hexcode>{selected}</Hexcode>
+                    <Contents
+                      onClick={() => handleViewDetails()}
                       viewDetails={viewDetails}
-                      color={
-                        selectedData === undefined
-                          ? '#eeeeee'
-                          : palette[
-                              Number(
-                                selectedData.moodPaletteDetails.moodCode[3]
-                              ) - 1
-                            ]
-                      }
-                    />
-                    <Info>
-                      <Type>
-                        {selectedData === undefined
-                          ? ''
-                          : selectedData.moodPaletteDetails.mood}
-                      </Type>
-                      <Hexcode>{selected}</Hexcode>
-                      <Contents
-                        onClick={() => handleViewDetails()}
-                        viewDetails={viewDetails}
-                      >
-                        {viewDetails ? (
-                          <Details
-                            data={selectedData}
-                            todo={selectedTodoData}
-                          />
-                        ) : (
-                          '자세히보기'
-                        )}
-                      </Contents>
-                    </Info>
-                  </CardContainer>
-                </MoodCard>
-              </StatisticsContainer>
-            </>
-          )}
-        </Wrapper>
-      </LookBackModal>
-    </CenterLayout>
+                    >
+                      {viewDetails ? (
+                        <Details data={selectedData} todo={selectedTodoData} />
+                      ) : (
+                        '자세히보기'
+                      )}
+                    </Contents>
+                  </Info>
+                </CardContainer>
+              </MoodCard>
+            </StatisticsContainer>
+          </>
+        )}
+      </Wrapper>
+    </LookBackModal>
   );
 };
 
