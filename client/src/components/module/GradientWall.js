@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { TWallpaper } from '@twallpaper/react';
 import '@twallpaper/react/css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
+import ReactTooltip from 'react-tooltip';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { closeModal } from '../../redux/modalSlice';
 
@@ -24,10 +26,27 @@ const MonthlyColor = styled.h1`
   letter-spacing: 0.7rem;
 `;
 
+const Button = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  opacity: 0.3;
+  padding: 0 7px;
+`;
+
+const Info = styled(Button)`
+  position: fixed;
+  font-size: 17px;
+  top: 57px;
+  left: 310px;
+`;
+
 const ButtonContain = styled.span`
   position: fixed;
   top: 30px;
   right: 30px;
+  cursor: pointer;
   opacity: 0.4;
 `;
 
@@ -69,19 +88,24 @@ const GradientWall = () => {
   };
 
   useEffect(() => {
+    const topArr = [];
     todayMonth = GetMonth();
-    console.log(todayMonth);
+    console.log(typeof todayMonth);
     const loadData = async () => {
-      const topArr = await GetColors();
+      topArr = await GetColors();
       console.log(topArr);
-      setTopColors([
-        `#${topArr[0]}`,
-        `#${topArr[1]}`,
-        `#${topArr[2]}`,
-        `#${topArr[3]}`,
-      ]);
+      if (topArr.length) {
+        setTopColors([
+          `#${topArr[0]}`,
+          `#${topArr[1]}`,
+          `#${topArr[2]}`,
+          `#${topArr[3]}`,
+        ]);
+      }
     };
-
+    if (!topArr.length) {
+      setTopColors(['#E7AF8D', '#F0DCB1', '#BEB5BF', '#A2A987']);
+    }
     loadData();
     console.log(topColors);
   }, []);
@@ -92,6 +116,10 @@ const GradientWall = () => {
     <>
       <Contain>
         <MonthlyColor>{'당신의 ' + todayMonth + '월'}</MonthlyColor>
+        <Info data-tip="이번 달 가장 많이 기록한 감정 4가지가 나와요">
+          <FontAwesomeIcon icon={faCircleQuestion} />
+        </Info>
+        <ReactTooltip event="click" eventOff="mouseout" place="right" />
         {topColors && <TWallpaper options={option} />}
         <ButtonContain onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
