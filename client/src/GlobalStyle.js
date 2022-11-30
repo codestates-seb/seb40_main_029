@@ -21,6 +21,10 @@ export const GlobalStyle = createGlobalStyle`
     /* background-color: gray */
     background-color: #F6F6F6;
     /* background-color: black */
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
   a, button {
     cursor: pointer;

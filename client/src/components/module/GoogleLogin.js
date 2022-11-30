@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { emailSelector, displayNameSelector } from '../../redux/hooks';
+import { ReactComponent as Logo } from '../../assets/logo.svg';
 
 axios.defaults.withCredentials = true; // 쿠키 사용하기 위해 필수
 
@@ -12,7 +13,12 @@ const Contain = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   min-height: 100vh;
+
+  #signInDiv {
+    margin-top: 20px;
+  }
 `;
 
 export default function GoogleLogin() {
@@ -89,6 +95,7 @@ export default function GoogleLogin() {
 
   return (
     <Contain>
+      <Logo width="170" height="170" />
       <div id="signInDiv"></div>
     </Contain>
   );

@@ -12,7 +12,7 @@ import { PaletteList } from '../../api/PaletteShop';
 const CarouselContainer = styled.div`
   position: absolute;
   width: 100%;
-  height: 30.8%;
+  height: 59.9%;
   display: block;
   overflow: hidden;
 `;
