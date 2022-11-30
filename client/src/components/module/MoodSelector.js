@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import SelectorCard from './SelectorCard';
 import { paletteCodeSelector } from '../../redux/hooks';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { closeModal } from '../../redux/modalSlice';
 
 const URL2 = 'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080';
 const URL = 'https://c0db-211-58-204-152.jp.ngrok.io';
@@ -74,6 +76,11 @@ const MoodSelector = ({ refresher }) => {
       setViewDetails(!viewDetails);
     }
   };
+
+  const dispatch = useDispatch();
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
   return (
     <SelectorContainer color={palette[idx]} fade={fade}>
       <Slider fade={fade}>
@@ -101,7 +108,13 @@ const MoodSelector = ({ refresher }) => {
           reason={reason}
         /> */}
         <CardContainer fade={fade}>
-          <Mood color={palette[idx]} onClick={() => setFade(false)} />
+          <Mood
+            color={palette[idx]}
+            onClick={() => {
+              setFade(false);
+              handleCloseModal();
+            }}
+          />
           <Info>
             <Type>{moods[idx]}</Type>
             <Hexcode>{palette[idx]}</Hexcode>

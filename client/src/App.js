@@ -15,17 +15,17 @@ const App = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(
-        'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/mood/day/회원1'
-      )
-      .then
-      // res => dispatch(setPaletteCode(res.data.moodPaletteDetails.paletteCode))
-      // dispatch(setPaletteCode('p006'))
-      ();
-    axios.get(
-      'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/palette/'
-    );
+    // axios
+    //   .get(
+    //     'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/mood/day/회원1'
+    //   )
+    //   .then
+    // res => dispatch(setPaletteCode(res.data.moodPaletteDetails.paletteCode))
+    // dispatch(setPaletteCode('p006'))
+    // ();
+    // axios.get(
+    //   'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/palette/'
+    // );
     // .then(res => console.log(res.data));
   }, []);
 
