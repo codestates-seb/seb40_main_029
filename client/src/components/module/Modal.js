@@ -84,10 +84,14 @@ const Button = styled.div`
   align-items: center;
   background-color: transparent;
   padding: 0 8px;
+  cursor: pointer;
 `;
 
 const Info = styled(Button)`
-  font-size: 12px;
+  opacity: 0.5;
+  font-size: 15px;
+  margin-top: 8px;
+  cursor: pointer;
 `;
 
 const RealButton = styled.button`

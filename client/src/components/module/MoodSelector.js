@@ -4,16 +4,16 @@ import styled from 'styled-components';
 import SelectorCard from './SelectorCard';
 import { paletteCodeSelector } from '../../redux/hooks';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { closeModal } from '../../redux/modalSlice';
 
 const URL2 = 'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080';
 const URL = 'https://c0db-211-58-204-152.jp.ngrok.io';
 //displayName 필요
 
-const MoodSelector = ({ refresher }) => {
-  const paletteCode = useSelector(paletteCodeSelector);
+const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
+  const dispatch = useDispatch();
 
+  const paletteCode = useSelector(paletteCodeSelector);
   const [palette, setPalette] = useState([]);
 
   const moods = [
@@ -39,7 +39,7 @@ const MoodSelector = ({ refresher }) => {
     axios
       .get(URL2 + '/mood/day/회원1') // displayName
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         setReason(res.data.body);
         setMoodId(res.data.moodId);
         setIdx(Number(res.data.moodPaletteDetails.moodCode[3]) - 1);
@@ -48,8 +48,6 @@ const MoodSelector = ({ refresher }) => {
       .catch(err => {
         console.log(err.response.status);
       });
-
-    axios.get(URL2 + '/members').then(res => console.log(res.data));
   }, []);
 
   const [idx, setIdx] = useState(0);
@@ -77,7 +75,6 @@ const MoodSelector = ({ refresher }) => {
     }
   };
 
-  const dispatch = useDispatch();
   const handleCloseModal = () => {
     dispatch(closeModal());
   };
@@ -98,7 +95,8 @@ const MoodSelector = ({ refresher }) => {
           setReason={setReason}
           moodId={moodId}
           moods={moods}
-          refresher={refresher}
+          lookbackRefresher={lookbackRefresher}
+          pointRefresher={pointRefresher}
         />
         {/* <MoodCard
           fade={fade}

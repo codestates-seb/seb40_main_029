@@ -4,6 +4,8 @@ import { deleteFriend, getSpecificPalette } from '../../api/FriendDataApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import MiniCard from '../atoms/MiniCard';
+import { useSelector } from 'react-redux';
+import { paletteCodeSelector } from '../../redux/hooks';
 
 const FriendCardWrap = styled.div`
   position: relative;
@@ -21,9 +23,10 @@ const EditBtn = styled.span`
   }
 `;
 
-const FriendCard = ({ friend, setReFresh }) => {
+const FriendCard = ({ friend, setfriendRefresh }) => {
   const [palette, setPalette] = useState([]);
-  const paletteCode = 'P001';
+  const getPaletteCode = useSelector(paletteCodeSelector);
+  const paletteCode = getPaletteCode ? getPaletteCode : 'P001';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +46,7 @@ const FriendCard = ({ friend, setReFresh }) => {
     const friendId = friend.respondentId;
     const fetchData = async () => {
       await deleteFriend(friendId);
-      setReFresh(refresh => refresh - 1);
+      setfriendRefresh(refresh => refresh - 1);
     };
     fetchData();
   };

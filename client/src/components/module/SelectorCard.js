@@ -7,8 +7,12 @@ import {
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMood } from '../../redux/slice';
+import { displayNameSelector } from '../../redux/hooks';
+import dayjs from 'dayjs';
 
-const URL2 = 'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080';
+const URL = `${process.env.REACT_APP_BASIC_URL}/mood/`;
 
 const SelectorCard = ({
   darkmode,
@@ -24,37 +28,45 @@ const SelectorCard = ({
   setReason,
   moodId,
   moods,
-  refresher,
+  lookbackRefresher,
+  pointRefresher,
 }) => {
-  const today = new Date();
-  const month = ('0' + (today.getMonth() + 1)).slice(-2);
-  const day = ('0' + today.getDate()).slice(-2);
-  const dateString = month + '-' + day;
+  const dispatch = useDispatch();
+
+  const dateString = dayjs(new Date()).format('M월 D일');
+  const displayName = useSelector(displayNameSelector);
 
   const submit = () => {
     const moodCode = `m00${idx + 1}`;
+
     const body = reason;
     axios
-      .post(URL2 + '/mood/회원1', { paletteCode, moodCode, body }) // displayName
+      .post(URL + displayName, { paletteCode, moodCode, body }) // displayName
       .then(res => {
         console.log(res.data);
         setFade(true);
-        refresher();
+        dispatch(setMood({ mood: moods[idx], reason }));
+        lookbackRefresher();
+        pointRefresher();
       });
   };
 
   const edit = () => {
     const moodCode = `m00${idx + 1}`;
+    console.log(moodId);
+
     const body = reason;
     axios
-      .patch(URL2 + `/mood/회원1/${moodId}`, {
+      .patch(URL + displayName + `/${moodId}`, {
         paletteCode,
         moodCode,
         body,
       }) // dislayName
-      .then(res => {
+      .then(_ => {
         setFade(true);
-        refresher();
+        dispatch(setMood({ mood: moods[idx], reason }));
+        lookbackRefresher();
+        pointRefresher();
       });
   };
 

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  mamberId: -1,
+  memberId: -1,
   displayName: -1,
   email: '',
   moodId: -1,
@@ -15,7 +15,7 @@ const slice = createSlice({
   initialState,
   reducers: {
     setMemberId: (state, action) => {
-      state.mamberId = action.payload;
+      state.memberId = action.payload;
     },
     setDisplayName: (state, action) => {
       state.displayName = action.payload;
@@ -29,12 +29,12 @@ const slice = createSlice({
     setPaletteCode: (state, action) => {
       state.paletteCode = action.payload;
     },
-    setMyPalette: (state, action) => ({
-      ...state,
-      myPalette: [...state.myPalette, action.payload],
-    }),
+    setMyPalette: (state, action) => {
+      state.myPalette = [...state.myPalette, action.payload];
+    },
     setMood: (state, action) => {
-      state.today.color = action.payload.color;
+      state.today.mood = action.payload.mood;
+      state.today.reason = action.payload.reason;
     },
     setReason: (state, action) => {
       state.today.reason = action.payload.reason;

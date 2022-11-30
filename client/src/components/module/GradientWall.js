@@ -9,6 +9,8 @@ import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
 import ReactTooltip from 'react-tooltip';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { closeModal } from '../../redux/modalSlice';
+import { GetColors } from '../../api/GradientApi';
+import dayjs from 'dayjs';
 
 const Contain = styled.div`
   position: relative;
@@ -40,6 +42,7 @@ const Info = styled(Button)`
   font-size: 17px;
   top: 57px;
   left: 310px;
+  cursor: pointer;
 `;
 
 const ButtonContain = styled.span`
@@ -65,57 +68,56 @@ const GradientWall = () => {
     return 1 + now.getMonth();
   };
 
-  async function GetColors() {
-    const jsonServer = 'http://localhost:4000/moods'; // client 폴더에서 json-server ./data/dataMonth.json --port 4000 실행
-    return await axios.get(jsonServer).then(res => {
-      let colors = res.data[0].map(x => x.moodPaletteDetails.colorCode);
-      // 요약 {"a":2,"b":2,"c":1}
-      const summary = {};
-      colors.forEach(x => {
-        summary[x] = (summary[x] || 0) + 1;
-      });
-      const sorted = Object.entries(summary).sort((a, b) => b[1] - a[1]);
-      const topColor = [];
-      for (let el of sorted) {
-        topColor.push(el[0]);
-      }
-      return topColor; // 많은 색 부터 순서대로 있는 배열
-    });
-  }
+  // async function GetColors() {
+  //   const jsonServer = 'http://localhost:4000/moods'; // client 폴더에서 json-server ./data/dataMonth.json --port 4000 실행
+  //   return await axios.get(jsonServer).then(res => {
+  //     let colors = res.data[0].map(x => x.moodPaletteDetails.colorCode);
+  //     // 요약 {"a":2,"b":2,"c":1}
+  //     const summary = {};
+  //     colors.forEach(x => {
+  //       summary[x] = (summary[x] || 0) + 1;
+  //     });
+  //     const sorted = Object.entries(summary).sort((a, b) => b[1] - a[1]);
+  //     const topColor = [];
+  //     for (let el of sorted) {
+  //       topColor.push(el[0]);
+  //     }
+  //     return topColor; // 많은 색 부터 순서대로 있는 배열
+  //   });
+  // }
 
   const handleCloseModal = () => {
     dispatch(closeModal());
   };
 
   useEffect(() => {
-    const topArr = [];
+    let topArr;
     todayMonth = GetMonth();
     console.log(typeof todayMonth);
     const loadData = async () => {
       topArr = await GetColors();
-      console.log(topArr);
-      if (topArr.length) {
-        setTopColors([
-          `#${topArr[0]}`,
-          `#${topArr[1]}`,
-          `#${topArr[2]}`,
-          `#${topArr[3]}`,
-        ]);
-      }
-    };
-    if (!topArr.length) {
+      // {
+      //   topArr
+      //     ? setTopColors([
+      //         `#${topArr[0]}`,
+      //         `#${topArr[1]}`,
+      //         `#${topArr[2]}`,
+      //         `#${topArr[3]}`,
+      //       ])
+      //     : setTopColors(['#E7AF8D', '#F0DCB1', '#BEB5BF', '#A2A987']);
+      // }
       setTopColors(['#E7AF8D', '#F0DCB1', '#BEB5BF', '#A2A987']);
-    }
+    };
     loadData();
     console.log(topColors);
   }, []);
 
-  console.log('탑칼라' + topColors);
-
   return (
     <>
       <Contain>
-        <MonthlyColor>{'당신의 ' + todayMonth + '월'}</MonthlyColor>
+        <MonthlyColor>
+          {'당신의 ' + dayjs(new Date()).format('MM') + '월'}
+        </MonthlyColor>
         <Info data-tip="이번 달 가장 많이 기록한 감정 4가지가 나와요">
           <FontAwesomeIcon icon={faCircleQuestion} />
         </Info>

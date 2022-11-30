@@ -10,6 +10,8 @@ import Button from '../atoms/Button';
 import Overlay from '../atoms/Overlay';
 import AddFriend from '../module/AddFriend';
 import Pagination from '../atoms/Pagination';
+import { memberIdSelector } from '../../redux/hooks';
+import { useSelector } from 'react-redux';
 
 const CardLayout = styled.div`
   display: flex;
@@ -21,18 +23,18 @@ const CardLayout = styled.div`
 const Friends = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [friends, setFriends] = useState([]);
-  const [reFresh, setReFresh] = useState(0);
+  const [friendRefresh, setfriendRefresh] = useState(0);
   const limit = 8;
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
+  const memberId = useSelector(memberIdSelector);
   useEffect(() => {
-    const memberId = 1;
     const fetchData = async () => {
       const data = await getFriends(memberId);
       setFriends(data);
     };
     fetchData();
-  }, [reFresh]);
+  }, [friendRefresh]);
   const handleFindFriend = () => {
     setIsOpen(!isOpen);
   };
@@ -48,7 +50,7 @@ const Friends = () => {
                     <FriendCard
                       key={friend.respondentId}
                       friend={friend}
-                      setReFresh={setReFresh}
+                      setfriendRefresh={setfriendRefresh}
                     />
                   );
                 })
@@ -73,7 +75,7 @@ const Friends = () => {
             <AddFriend
               setIsOpen={setIsOpen}
               friends={friends}
-              setReFresh={setReFresh}
+              setfriendRefresh={setfriendRefresh}
             />
             <Overlay />
           </>

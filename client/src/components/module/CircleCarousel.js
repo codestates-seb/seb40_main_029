@@ -7,7 +7,7 @@ import {
   faChevronRight,
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
-import { PaletteList } from '../../api/PaletteShop';
+import { PaletteList } from '../../api/PaletteShopApi';
 
 const CarouselContainer = styled.div`
   position: absolute;
