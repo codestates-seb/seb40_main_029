@@ -89,10 +89,13 @@ export default function Signup() {
     (async () => {
       const res = await SignupApi(emailValue, displayNameValue);
       console.log(res);
-      if (res.displayName) {
-        dispatch(setMemberId(res.memberId));
-        dispatch(setDisplayName(res.displayName));
+      if (res.data.displayName) {
+        welcome();
+        dispatch(setMemberId(res.data.memberId));
+        dispatch(setDisplayName(res.data.displayName));
         navigate('/');
+      } else if (res.status == 409) {
+        setWarning('이미 사용중인 닉네임이에요');
       }
     })();
     console.log('응답');
@@ -108,7 +111,6 @@ export default function Signup() {
           size="long"
           fontSize="little"
           onClick={() => {
-            welcome();
             handleSignup(emailValue, displayNameValue);
           }}
         >
