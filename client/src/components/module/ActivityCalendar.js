@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import parseISO from 'date-fns/parseISO';
 import getDay from 'date-fns/getDay';
 import getYear from 'date-fns/getYear';
@@ -243,11 +243,6 @@ function ActivityCalendar({
         {!loading && renderLabels()}
         {renderBlocks()}
       </svg>
-      <ReactTooltip
-        textColor="#333435"
-        backgroundColor="white"
-        effect="solid"
-      />
 
       {renderFooter()}
       {children}

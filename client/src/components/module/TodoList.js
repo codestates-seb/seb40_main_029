@@ -9,10 +9,10 @@ const URL = 'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/';
 const URL2 = 'https://521a-211-58-204-152.jp.ngrok.io:8080/';
 const path = 'todo/';
 const selected = 'selected/';
-const member_id = '15/';
+const member_id = '1/';
 const today = 'today/';
 
-const TodoList = () => {
+const TodoList = ({ refresher }) => {
   const [todoList, setTodoList] = useState([]);
   const [todoValue, todoBind, todoReset] = useInput('');
 
@@ -39,6 +39,7 @@ const TodoList = () => {
       });
       setTodoList([...newTodoList, ...doneList]);
       todoReset();
+      refresher();
     });
   };
 
@@ -55,11 +56,12 @@ const TodoList = () => {
       });
       console.log(res.data);
       setTodoList(newTodoList);
+      refresher();
     });
   };
 
   const deleteTodo = todoId => {
-    axios.delete(URL + path + member_id + todoId);
+    axios.delete(URL + path + member_id + todoId).then(() => refresher());
     setTodoList(todoList.filter(each => each.todoId !== todoId));
     // setTodoList(todoList.filter(e => e.id !== id));
   };
@@ -67,7 +69,15 @@ const TodoList = () => {
   const lookBack = () => {
     axios.patch(URL + path + 'update/' + member_id).then(res => {
       console.log(res.data);
-      setTodoList([...res.data, ...todoList]);
+      const safe = [];
+      for (const each of res.data) {
+        const test = todoList.filter(ea => ea.todoId === each.todoId);
+        if (test.length === 0) {
+          safe.push(each);
+        }
+      }
+      setTodoList([...safe, ...todoList]);
+      refresher();
     });
   };
 
