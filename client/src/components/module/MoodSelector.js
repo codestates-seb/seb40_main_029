@@ -1,46 +1,62 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
-import MoodCard from './MoodCard';
 import SelectorCard from './SelectorCard';
 import { paletteCodeSelector } from '../../redux/hooks';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { closeModal } from '../../redux/modalSlice';
 
 const URL2 = 'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080';
+const URL = 'https://c0db-211-58-204-152.jp.ngrok.io';
+//displayName 필요
 
-const MoodSelector = () => {
+const MoodSelector = ({ refresher }) => {
   const paletteCode = useSelector(paletteCodeSelector);
 
   const [palette, setPalette] = useState([]);
-  const [fade, setFade] = useState(false);
-  const [reason, setReason] = useState('');
 
-  const [moodId, setMoodId] = useState(false);
+  const moods = [
+    '기쁨',
+    '슬픔',
+    '분노',
+    '설렘',
+    '걱정',
+    '평온',
+    '예민',
+    '희망',
+  ];
 
   useEffect(() => {
-    axios
-      .get(URL2 + '/mood/day/회원1')
-      .then(res => {
-        setFade(true);
-        setReason(res.data.body);
-        setMoodId(res.data.moodId);
-        setIdx(res.data.moodPaletteDetails.moodPaletteDetailsId - 1);
-      })
-      .catch(err => console.log(err.response.status));
-
     axios.get(URL2 + '/palette/' + paletteCode).then(res => {
       const arr = [];
-
       for (const each of res.data) {
-        arr.push(['#' + each.colorCode, each.mood]);
+        arr.push('#' + each.colorCode);
       }
       setPalette(arr);
     });
+
+    axios
+      .get(URL2 + '/mood/day/회원1') // displayName
+      .then(res => {
+        console.log(res.data);
+        setReason(res.data.body);
+        setMoodId(res.data.moodId);
+        setIdx(Number(res.data.moodPaletteDetails.moodCode[3]) - 1);
+        setFade(true);
+      })
+      .catch(err => {
+        console.log(err.response.status);
+      });
+
+    axios.get(URL2 + '/members').then(res => console.log(res.data));
   }, []);
 
   const [idx, setIdx] = useState(0);
   const [darkmode, setDarkmode] = useState(false);
+  const [fade, setFade] = useState(false);
+  const [reason, setReason] = useState('');
+  const [moodId, setMoodId] = useState(false);
 
   const toRight = () => {
     setIdx((idx + 1) % 8);
@@ -53,15 +69,24 @@ const MoodSelector = () => {
     setIdx((idx - 1) % 8);
   };
 
+  const [viewDetails, setViewDetails] = useState(false);
+  const handleViewDetails = () => {
+    const selection = window.getSelection();
+    if (selection.type != 'Range') {
+      setViewDetails(!viewDetails);
+    }
+  };
+
+  const dispatch = useDispatch();
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
   return (
-    <SelectorContainer
-      color={palette.length !== 0 ? palette[idx][0] : null}
-      fade={fade}
-    >
+    <SelectorContainer color={palette[idx]} fade={fade}>
       <Slider fade={fade}>
         <SelectorCard
           darkmode={darkmode}
-          palette={palette.length !== 0 ? palette : null}
+          palette={palette}
           idx={idx}
           toLeft={toLeft}
           toRight={toRight}
@@ -72,14 +97,35 @@ const MoodSelector = () => {
           reason={reason}
           setReason={setReason}
           moodId={moodId}
+          moods={moods}
+          refresher={refresher}
         />
-        <MoodCard
+        {/* <MoodCard
           fade={fade}
           setFade={setFade}
-          color={palette.length !== 0 ? palette[idx][0] : null}
-          id={palette.length !== 0 ? palette[idx][1] : null}
+          color={palette[idx]}
+          id={moods[idx]}
           reason={reason}
-        />
+        /> */}
+        <CardContainer fade={fade}>
+          <Mood
+            color={palette[idx]}
+            onClick={() => {
+              setFade(false);
+              handleCloseModal();
+            }}
+          />
+          <Info>
+            <Type>{moods[idx]}</Type>
+            <Hexcode>{palette[idx]}</Hexcode>
+            <Contents
+              onClick={() => handleViewDetails()}
+              viewDetails={viewDetails}
+            >
+              {reason}
+            </Contents>
+          </Info>
+        </CardContainer>
       </Slider>
     </SelectorContainer>
   );
@@ -144,4 +190,56 @@ const SelectorContainer = styled.div`
   transition: background-color 0.3s, opacity 0.3s, width 0.3s;
   animation-timing-function: ease-in-out;
   overflow: hidden;
+`;
+
+const CardContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  width: 340px;
+  height: 460px;
+  background-color: white;
+  /* opacity: ${({ fade }) => (fade ? 1 : 0)}; */
+  transition: opacity 0.3s;
+`;
+
+const Mood = styled.div`
+  width: 320px;
+  height: 290px;
+  margin: 10px 10px 0 10px;
+  background-color: ${({ color }) => color};
+`;
+
+const Info = styled.div`
+  width: 100%;
+  margin: 10px auto auto auto;
+  padding: 10px;
+  text-align: left;
+`;
+
+const Type = styled.div`
+  height: 40px;
+  line-height: 40px;
+  font-size: 40px;
+  font-weight: 800;
+`;
+
+const Hexcode = styled.div`
+  height: 36px;
+  font-size: 24px;
+  font-weight: 300;
+`;
+const Contents = styled.div`
+  height: ${({ viewDetails }) =>
+    viewDetails ? '354px' : '44px'}; //460 - 94 - 10
+  font-size: 16px;
+  font-weight: 300;
+  white-space: pre-line;
+  overflow-y: scroll;
+  transition: height 1s;
+  animation-timing-function: ease-in-out;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;

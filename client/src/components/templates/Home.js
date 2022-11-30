@@ -2,8 +2,9 @@ import axios from 'axios';
 import { setCookie, getCookie } from '../../utils/cookie';
 import { ContentLayout } from '../atoms/Layouts';
 import Header from '../module/Header';
-import GlobalModal from './GlobalModal';
 import MoodSelector from '../module/MoodSelector';
+import GlobalModal from './GlobalModal';
+
 const Home = () => {
   const accessToken = getCookie('accessToken');
   if (accessToken) {

@@ -7,9 +7,7 @@ import {
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setMood } from '../../redux/slice';
+
 const URL2 = 'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080';
 
 const SelectorCard = ({
@@ -25,6 +23,8 @@ const SelectorCard = ({
   reason,
   setReason,
   moodId,
+  moods,
+  refresher,
 }) => {
   const today = new Date();
   const month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -35,10 +35,11 @@ const SelectorCard = ({
     const moodCode = `m00${idx + 1}`;
     const body = reason;
     axios
-      .post(URL2 + '/mood/회원1', { paletteCode, moodCode, body })
+      .post(URL2 + '/mood/회원1', { paletteCode, moodCode, body }) // displayName
       .then(res => {
         console.log(res.data);
         setFade(true);
+        refresher();
       });
   };
 
@@ -46,9 +47,14 @@ const SelectorCard = ({
     const moodCode = `m00${idx + 1}`;
     const body = reason;
     axios
-      .patch(URL2 + `/mood/회원1/${moodId}`, { paletteCode, moodCode, body })
+      .patch(URL2 + `/mood/회원1/${moodId}`, {
+        paletteCode,
+        moodCode,
+        body,
+      }) // dislayName
       .then(res => {
         setFade(true);
+        refresher();
       });
   };
 
@@ -61,9 +67,7 @@ const SelectorCard = ({
           </LeftRight>
         </LeftRightContainer>
         <Mood darkmode={darkmode}>
-          <Type darkmode={darkmode}>
-            {palette !== null ? palette[idx][1] : null}
-          </Type>
+          <Type darkmode={darkmode}>{moods[idx]}</Type>
         </Mood>
         <LeftRightContainer>
           <LeftRight darkmode={darkmode}>
