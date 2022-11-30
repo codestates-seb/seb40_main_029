@@ -7,9 +7,10 @@ import { getAllMails } from '../../api/MailDataApi';
 import { RightBottomLayout } from '../atoms/Layouts';
 import styled from 'styled-components';
 import Pagination from '../atoms/Pagination';
+import { memberIdSelector } from '../../redux/hooks';
+import { useSelector } from 'react-redux';
 
 const ContentWrap = styled.div`
-  //임시방편. 페이지네이션 구현 예정
   overflow-y: scroll;
   height: 396px;
   //스크롤바 보이지않도록 설정
@@ -27,7 +28,7 @@ const Letters = ({ setIsOpen, isOpen }) => {
   const handleLetterCreate = () => {
     setIsOpen(!isOpen);
   };
-  const memberId = 2;
+  const memberId = useSelector(memberIdSelector);
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllMails(memberId);

@@ -3,21 +3,23 @@ import styled from 'styled-components';
 import useInput from '../../utils/useInput';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { memberIdSelector } from '../../redux/hooks';
 import Todos from './Todos';
 
-const URL = 'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/';
-const URL2 = 'https://521a-211-58-204-152.jp.ngrok.io:8080/';
-const path = 'todo/';
+const URL = `${process.env.REACT_APP_BASIC_URL}/todo/`;
 const selected = 'selected/';
-const member_id = '1/';
 const today = 'today/';
+const update = 'update/';
 
-const TodoList = ({ refresher }) => {
+const TodoList = ({ lookbackRefresher, pointRefresher }) => {
+  const memberId = useSelector(memberIdSelector);
+
   const [todoList, setTodoList] = useState([]);
   const [todoValue, todoBind, todoReset] = useInput('');
 
   useEffect(() => {
-    axios.get(URL + path + today + member_id).then(res => {
+    axios.get(URL + today + memberId).then(res => {
       const newTodoList = res.data.filter(each => each.selected === false);
       const doneList = res.data.filter(each => each.selected === true);
 
@@ -29,7 +31,7 @@ const TodoList = ({ refresher }) => {
     if (todoValue === '') {
       return;
     }
-    axios.post(URL + path + member_id, { title: todoValue }).then(res => {
+    axios.post(URL + memberId, { title: todoValue }).then(res => {
       const newTodoList = todoList.filter(each => each.selected === false);
       const doneList = todoList.filter(each => each.selected === true);
       newTodoList.push({
@@ -39,12 +41,12 @@ const TodoList = ({ refresher }) => {
       });
       setTodoList([...newTodoList, ...doneList]);
       todoReset();
-      refresher();
+      lookbackRefresher();
     });
   };
 
   const completeTodo = todoId => {
-    axios.patch(URL + path + selected + member_id + todoId).then(res => {
+    axios.patch(URL + selected + memberId + todoId).then(res => {
       // console.log(res);
       const newTodoList = todoList.filter(
         each => each.todoId !== res.data.data.todoId
@@ -54,20 +56,20 @@ const TodoList = ({ refresher }) => {
         title: res.data.data.title,
         selected: res.data.data.selected,
       });
-      console.log(res.data);
       setTodoList(newTodoList);
-      refresher();
+      lookbackRefresher();
+      pointRefresher();
     });
   };
 
   const deleteTodo = todoId => {
-    axios.delete(URL + path + member_id + todoId).then(() => refresher());
+    axios.delete(URL + memberId + todoId).then(() => lookbackRefresher());
     setTodoList(todoList.filter(each => each.todoId !== todoId));
     // setTodoList(todoList.filter(e => e.id !== id));
   };
 
   const lookBack = () => {
-    axios.patch(URL + path + 'update/' + member_id).then(res => {
+    axios.patch(URL + update + memberId).then(res => {
       console.log(res.data);
       const safe = [];
       for (const each of res.data) {
@@ -77,7 +79,7 @@ const TodoList = ({ refresher }) => {
         }
       }
       setTodoList([...safe, ...todoList]);
-      refresher();
+      lookbackRefresher();
     });
   };
 

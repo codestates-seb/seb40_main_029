@@ -25,7 +25,7 @@ export const PaletteList = async () => {
   }
 };
 
-export const BuyPalette = (pale(paletteCode, memberId) => {
+export const BuyPalette = async (paletteCode, memberId) => {
   console.log(memberId);
   const path = `/members/buy/${memberId}/${paletteCode}`;
 
@@ -34,7 +34,7 @@ export const BuyPalette = (pale(paletteCode, memberId) => {
       process.env.REACT_APP_SERVER_API_URL + path
     );
     console.log(result);
-    if (result.data.palette) {
+    if (result.status == 200) {
       return true;
     } else if (result.status == 204) {
       alert('아쉽지만 포인트가 부족해요');
@@ -45,8 +45,7 @@ export const BuyPalette = (pale(paletteCode, memberId) => {
   }
 };
 
-export const SetPalette = async paletteCode => {
-  const memberId = useSelector(memberIdSelector);
+export const SetPalette = async (paletteCode, memberId) => {
   console.log(memberId);
   const path = `/members/choice/${memberId}/${paletteCode}`;
 

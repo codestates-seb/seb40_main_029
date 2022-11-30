@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { CenterLayout } from '../atoms/Layouts';
 
 const CardContainer = styled.div`
   display: flex;
@@ -36,13 +37,13 @@ const Type = styled.div`
 
 const Hexcode = styled.div`
   height: 36px;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 300;
 `;
 const Contents = styled.div`
   height: ${({ viewDetails }) =>
     viewDetails ? '354px' : '44px'}; //460 - 94 - 10
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 300;
   white-space: pre-line;
   overflow-y: scroll;
@@ -63,16 +64,21 @@ const MoodCard = ({ fade, setFade, color, id, reason }) => {
   };
 
   return (
-    <CardContainer fade={fade}>
-      <Mood color={color} onClick={() => setFade(false)} />
-      <Info>
-        <Type>{id}</Type>
-        <Hexcode>{color}</Hexcode>
-        <Contents onClick={() => handleViewDetails()} viewDetails={viewDetails}>
-          {reason}
-        </Contents>
-      </Info>
-    </CardContainer>
+    <CenterLayout>
+      <CardContainer fade={fade}>
+        <Mood color={color} onClick={() => setFade(false)} />
+        <Info>
+          <Type>{id}</Type>
+          <Hexcode>{color}</Hexcode>
+          <Contents
+            onClick={() => handleViewDetails()}
+            viewDetails={viewDetails}
+          >
+            {reason}
+          </Contents>
+        </Info>
+      </CardContainer>
+    </CenterLayout>
   );
 };
 

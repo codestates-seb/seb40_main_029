@@ -5,15 +5,14 @@ import { setCookie, getCookie } from '../utils/cookie';
 export const onSilentRefresh = () => {
   const JWT_EXPIRY_TIME = 1 * 3600 * 1000; // 만료 시간 (1시간 밀리 초로 표현)
   const refreshToken = getCookie('refreshToken');
+  const getURL = process.env.REACT_APP_BASIC_URL;
+  const path = '/members/reissue';
   axios
-    .get(
-      'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/members/reissue',
-      {
-        headers: {
-          Refresh: refreshToken,
-        },
-      }
-    )
+    .get(getURL + path, {
+      headers: {
+        Refresh: refreshToken,
+      },
+    })
     .then(res => {
       // 재발급되어 헤더에 담겨져온 액세스 토큰 다시 변수에 저장 > 여기도 쿠키에 저장
       const newAccess = res.headers.get('Authorization');
@@ -32,8 +31,8 @@ export const onSilentRefresh = () => {
 };
 
 export const getAccessToken = async authorizationCode => {
-  const getURL =
-    'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/oauth/google'; // 서버 주소
+  const getURL = process.env.REACT_APP_BASIC_URL; // 서버 주소
+  const path = '/oauth/google';
   const JWT_EXPIRY_TIME = 1 * 3600 * 1000; // 만료 시간 (1시간 밀리 초로 표현)
 
   let config = {
@@ -42,7 +41,7 @@ export const getAccessToken = async authorizationCode => {
     },
   };
   console.log(getURL);
-  return await axios.get(getURL, config).then(res => {
+  return await axios.get(getURL + path, config).then(res => {
     if (res.data) {
       console.log(res.data);
       // 액세스 토큰 받아서 api 요청시마다 전달
@@ -65,10 +64,11 @@ export const getAccessToken = async authorizationCode => {
 };
 
 export const LogoutApi = async () => {
+  const getURL = process.env.REACT_APP_BASIC_URL;
+  const path = '/members/logout';
+
   return await axios
-    .get(
-      'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080/members/logout'
-    ) // 헤더 가는지 안가는지 확인
+    .get(getURL + path) // 헤더 가는지 안가는지 확인
     .then(res => {
       return res;
     })
