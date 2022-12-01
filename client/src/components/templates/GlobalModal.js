@@ -69,7 +69,6 @@ function GlobalModal({
     // }
     return findModal.component;
   };
-  // console.log(findModal.type === 'LookbackModal');
   return <div>{renderModal()}</div>;
 }
 

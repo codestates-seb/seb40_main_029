@@ -6,6 +6,8 @@ import User from '../atoms/User';
 import { getSpecificPalette } from '../../api/FriendDataApi';
 import { useSelector } from 'react-redux';
 import { moodSelector, paletteCodeSelector } from '../../redux/hooks';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -34,6 +36,12 @@ const GnbLayout = styled.div`
 const Point = styled.span`
   margin-right: 16px;
   font-size: 14px;
+  > svg {
+    margin-right: 8px;
+  }
+  path {
+    color: #fcc403;
+  }
   &:after {
     content: 'P';
     margin-left: 2px;
@@ -93,7 +101,10 @@ function Header({ userPoint }) {
           <User onClick={onClick} color={userMoodColor?.colorCode}>
             USERNAME
           </User>
-          <Point>{userPoint}</Point>
+          <Point>
+            <FontAwesomeIcon icon={faSackDollar} />
+            {userPoint}
+          </Point>
           {isOpen ? <Nav /> : null}
         </GnbLayout>
       </HeaderWrapper>
