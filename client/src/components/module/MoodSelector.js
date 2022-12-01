@@ -6,6 +6,7 @@ import { paletteCodeSelector } from '../../redux/hooks';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeModal } from '../../redux/modalSlice';
 import { displayNameSelector } from '../../redux/hooks';
+import modalSlice, { selectModal } from '../../redux/modalSlice';
 
 const URL = `${process.env.REACT_APP_BASIC_URL}/`;
 const p = 'palette/';
@@ -16,6 +17,11 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
   const dispatch = useDispatch();
   const paletteCode = useSelector(paletteCodeSelector);
   const displayName = useSelector(displayNameSelector);
+  const { isOpen } = useSelector(selectModal);
+  const [fade, setFade] = useState(false);
+  // if (isOpen) {
+  //   setFade(true);
+  // }
 
   const [palette, setPalette] = useState([]);
 
@@ -51,11 +57,10 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
       .catch(err => {
         console.log(err.response.status);
       });
-  }, []);
+  }, [isOpen]);
 
   const [idx, setIdx] = useState(0);
   const [darkmode, setDarkmode] = useState(false);
-  const [fade, setFade] = useState(false);
   const [reason, setReason] = useState('');
   const [moodId, setMoodId] = useState(false);
 
@@ -81,6 +86,7 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
   const handleCloseModal = () => {
     dispatch(closeModal());
   };
+
   return (
     <SelectorContainer color={palette[idx]} fade={fade}>
       <Slider fade={fade}>
@@ -112,8 +118,7 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
           <Mood
             color={palette[idx]}
             onClick={() => {
-              setFade(false);
-              handleCloseModal();
+              !isOpen ? (setFade(false), handleCloseModal()) : null;
             }}
           />
           <Info>
@@ -235,6 +240,7 @@ const Contents = styled.div`
   height: ${({ viewDetails }) =>
     viewDetails ? '354px' : '44px'}; //460 - 94 - 10
   font-size: 18px;
+  line-height: 22px;
   font-weight: 300;
   white-space: pre-line;
   overflow-y: scroll;
