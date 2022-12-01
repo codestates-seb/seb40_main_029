@@ -15,9 +15,9 @@ jobs:
         working-directory: ./client
       - name: Set .env
         run: |
-          echo "REACT_APP_GOOGLE_CLIENT_ID=${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}" >> .env
-          echo "REACT_APP_BASIC_URL=${{ secrets.REACT_APP_BASIC_URL }}" >> .env
-          echo "REACT_APP_DEPLOY_URL=${{ secrets.REACT_APP_DEPLOY_URL }}" >> .env
+          echo "REACT_APP_GOOGLE_CLIENT_ID=$REACT_APP_GOOGLE_CLIENT_ID" >> .env
+          echo "REACT_APP_BASIC_URL=$secrets.REACT_APP_BASIC_URL" >> .env
+          echo "REACT_APP_DEPLOY_URL=$secrets.REACT_APP_DEPLOY_URL" >> .env
           cat .env
       - name: Build
         run: npm run build
