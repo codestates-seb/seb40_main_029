@@ -5,15 +5,18 @@ import SelectorCard from './SelectorCard';
 import { paletteCodeSelector } from '../../redux/hooks';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeModal } from '../../redux/modalSlice';
+import { displayNameSelector } from '../../redux/hooks';
 
-const URL2 = 'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080';
-const URL = 'https://c0db-211-58-204-152.jp.ngrok.io';
+const URL = `${process.env.REACT_APP_BASIC_URL}/`;
+const p = 'palette/';
+const m = 'mood/day/';
 //displayName 필요
 
 const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
   const dispatch = useDispatch();
-
   const paletteCode = useSelector(paletteCodeSelector);
+  const displayName = useSelector(displayNameSelector);
+
   const [palette, setPalette] = useState([]);
 
   const moods = [
@@ -28,7 +31,7 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
   ];
 
   useEffect(() => {
-    axios.get(URL2 + '/palette/' + paletteCode).then(res => {
+    axios.get(URL + p + paletteCode).then(res => {
       const arr = [];
       for (const each of res.data) {
         arr.push('#' + each.colorCode);
@@ -37,7 +40,7 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
     });
 
     axios
-      .get(URL2 + '/mood/day/회원1') // displayName
+      .get(URL + m + displayName) // displayName
       .then(res => {
         // console.log(res.data);
         setReason(res.data.body);
