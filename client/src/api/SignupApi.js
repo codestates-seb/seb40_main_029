@@ -18,5 +18,6 @@ export const SignupApi = async (emailValue, displayNameValue) => {
     })
     .catch(err => {
       console.log('회원가입' + err);
+      return err;
     });
 };

@@ -10,6 +10,8 @@ import { GetPoint } from '../../api/GetPointApi';
 import { memberIdSelector } from '../../redux/hooks';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import { onSilentRefresh } from '../../api/LoginLogoutApi';
 
 const Browser = styled.div`
   position: relative;
@@ -17,6 +19,7 @@ const Browser = styled.div`
   margin: 0 auto;
 `;
 const Home = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
   const [openMoodCard, setOpenMoodCard] = useState(true);
   const navigate = useNavigate();
   const [userPoint, setUserPoint] = useState(0);
@@ -35,11 +38,16 @@ const Home = () => {
   };
 
   useEffect(() => {
-    {
-      accessToken
-        ? (axios.defaults.headers.common['Authorization'] = accessToken)
-        : navigate('/login');
+    console.log(accessToken);
+    if (accessToken) {
+      axios.defaults.headers.common['Authorization'] = accessToken;
+      navigate('/');
+      console.log('토큰 있음');
+    } else if (accessToken == undefined) {
+      navigate('/login');
+      console.log('토큰 없음');
     }
+    onSilentRefresh();
   }, []);
 
   useEffect(() => {
