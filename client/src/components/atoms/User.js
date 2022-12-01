@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { displayNameSelector } from '../../redux/hooks';
 
 const Username = styled.span`
-  margin-right: 30px; /* nav가 오픈되었을때 여부와 상관없이 위치고정 */
+  margin-right: 16px; /* nav가 오픈되었을때 여부와 상관없이 위치고정 */
   font-size: 14px;
   svg {
     margin-right: 8px;
