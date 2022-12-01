@@ -4,8 +4,9 @@ import Login from './components/templates/Login';
 import Signup from './components/templates/Signup';
 import LoginCallback from './components/module/LoginCallback';
 import axios from 'axios';
-axios.defaults.withCredentials = true;
 import { useState, useEffect } from 'react';
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['Referrer-Policy'] = 'no-referrer-when-downgrade';
 
 const App = () => {
   // const dispatch = useDispatch();
