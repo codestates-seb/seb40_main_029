@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setCookie, getCookie } from '../../utils/cookie';
+import { setcookie, getCookie } from '../../utils/cookie';
 import { getAccessToken } from '../../api/LoginLogoutApi';
 import { emailSelector } from '../../redux/hooks';
 import { setEmail } from '../../redux/slice';
@@ -33,7 +33,7 @@ export default function LoginCallback() {
   useEffect(() => {
     var exdate = new Date();
     exdate.setMinutes(exdate.getMinutes() + 60);
-    setCookie('accessToken', result.accessToken, {
+    setcookie('accessToken', result.accessToken, {
       expires: exdate,
       path: '/',
       secure: true,

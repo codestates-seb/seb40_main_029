@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Navigate } from 'react-router';
 // import { useCookies } from 'react-cookie';
-import { setCookie, getCookie } from '../utils/cookie';
+import { setcookie, getCookie } from '../utils/cookie';
 
 export const onSilentRefresh = () => {
   const JWT_EXPIRY_TIME = 1 * 3600 * 1000; // 만료 시간 (1시간 밀리 초로 표현)
@@ -20,7 +20,7 @@ export const onSilentRefresh = () => {
       // axios.defaults.headers.common['Authorization'] = newAccess;
       let exdate = new Date();
       exdate.setMinutes(exdate.getMinutes() + 60);
-      setCookie('accessToken', newAccess, {
+      setcookie('accessToken', newAccess, {
         expires: exdate,
         path: '/',
         secure: true,
@@ -55,7 +55,7 @@ export const getAccessToken = async authorizationCode => {
       // console.log(res.data.refreshToken);
       // axios.defaults.headers.common['Authorization'] = accessToken;
       // 리프레시 토큰 쿠키에 저장
-      setCookie('refreshToken', res.data.refreshToken, {
+      setcookie('refreshToken', res.data.refreshToken, {
         path: '/',
         secure: true,
         sameSite: 'none',

@@ -19,12 +19,13 @@ const Browser = styled.div`
   margin: 0 auto;
 `;
 const Home = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+  const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
   const [openMoodCard, setOpenMoodCard] = useState(true);
   const navigate = useNavigate();
   const [userPoint, setUserPoint] = useState(0);
   const memberId = useSelector(memberIdSelector);
   console.log(memberId);
+  const accessToken = getCookie('accessToken');
 
   const [lookbackRefresh, setLookbackRefresh] = useState(-1);
   const lookbackRefresher = () => {
@@ -37,14 +38,16 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const accessToken = getCookie('accessToken');
-    console.log('액세스');
     console.log(accessToken);
-    {
-      accessToken
-        ? (axios.defaults.headers.common['Authorization'] = accessToken)
-        : navigate('/login');
+    if (accessToken) {
+      axios.defaults.headers.common['Authorization'] = accessToken;
+      navigate('/');
+      console.log('토큰 있음');
+    } else if (accessToken == undefined) {
+      navigate('/login');
+      console.log('토큰 없음');
     }
+    onSilentRefresh();
   }, []);
 
   useEffect(() => {
