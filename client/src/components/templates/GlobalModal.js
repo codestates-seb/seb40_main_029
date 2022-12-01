@@ -62,14 +62,13 @@ function GlobalModal({
   });
 
   const renderModal = () => {
-    if (findModal.type === 'LookbackModal') {
-      setOpenMoodCard(false);
-    } else {
-      setOpenMoodCard(true);
-    }
+    // if (findModal.type === 'LookbackModal') {
+    //   setOpenMoodCard(false);
+    // } else {
+    //   setOpenMoodCard(true);
+    // }
     return findModal.component;
   };
-  // console.log(findModal.type === 'LookbackModal');
   return <div>{renderModal()}</div>;
 }
 
