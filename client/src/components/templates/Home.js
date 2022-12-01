@@ -10,6 +10,8 @@ import { GetPoint } from '../../api/GetPointApi';
 import { memberIdSelector } from '../../redux/hooks';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import { onSilentRefresh } from '../../api/LoginLogoutApi';
 
 const Browser = styled.div`
   position: relative;
@@ -17,12 +19,12 @@ const Browser = styled.div`
   margin: 0 auto;
 `;
 const Home = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
   const [openMoodCard, setOpenMoodCard] = useState(true);
   const navigate = useNavigate();
   const [userPoint, setUserPoint] = useState(0);
   const memberId = useSelector(memberIdSelector);
   console.log(memberId);
-  const accessToken = getCookie('accessToken');
 
   const [lookbackRefresh, setLookbackRefresh] = useState(-1);
   const lookbackRefresher = () => {
@@ -35,6 +37,9 @@ const Home = () => {
   };
 
   useEffect(() => {
+    const accessToken = getCookie('accessToken');
+    console.log('액세스');
+    console.log(accessToken);
     {
       accessToken
         ? (axios.defaults.headers.common['Authorization'] = accessToken)

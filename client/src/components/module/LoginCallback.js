@@ -31,7 +31,10 @@ export default function LoginCallback() {
   console.log(result.newUser);
 
   useEffect(() => {
+    var exdate = new Date();
+    exdate.setMinutes(exdate.getMinutes() + 60);
     setCookie('accessToken', result.accessToken, {
+      expires: exdate,
       path: '/',
       secure: true,
       sameSite: 'none',
@@ -41,7 +44,7 @@ export default function LoginCallback() {
     if (result.newUser == true) {
       navigate('/signup');
     } else if (result.newUser == false) {
-      // 기존 유저 헤더 토큰 추가
+      // // 기존 유저 헤더 토큰 추가
       // const { accessToken } = result;
       // console.log(accessToken);
       // axios.defaults.headers.common['Authorization'] = accessToken;

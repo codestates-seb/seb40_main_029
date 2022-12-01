@@ -11,6 +11,7 @@ import {
   faFilm,
 } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
+import { useCookies } from 'react-cookie';
 import { openModal } from '../../redux/modalSlice';
 import { LogoutApi } from '../../api/LoginLogoutApi';
 
@@ -60,6 +61,8 @@ const DarkIcon = styled.span`
 const Nav = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+
   const handleLetterModal = () => {
     dispatch(
       openModal({
@@ -113,7 +116,10 @@ const Nav = () => {
     const res = await LogoutApi();
     console.log(res);
     if (res.status == 200) {
+      removeCookie('accessToken');
       navigate('/login');
+    } else {
+      alert('잠시 뒤에 다시 시도해주세요');
     }
   };
 

@@ -89,12 +89,12 @@ export default function Signup() {
     (async () => {
       const res = await SignupApi(emailValue, displayNameValue);
       console.log(res);
-      if (res.data.displayName) {
+      if (res.status == 201) {
         welcome();
         dispatch(setMemberId(res.data.memberId));
         dispatch(setDisplayName(res.data.displayName));
         navigate('/');
-      } else if (res.status == 409) {
+      } else if (res.response.status == 409) {
         setWarning('이미 사용중인 닉네임이에요');
       }
     })();
