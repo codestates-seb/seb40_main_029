@@ -46,7 +46,7 @@ const FriendCard = ({ friend, setfriendRefresh }) => {
     const friendId = friend.respondentId;
     const fetchData = async () => {
       await deleteFriend(friendId);
-      setfriendRefresh(refresh => refresh - 1);
+      setfriendRefresh(refresh => refresh * -1);
     };
     fetchData();
   };
