@@ -97,10 +97,11 @@ export const ThemeStore = ({ pointRefresher }) => {
       console.log(result);
       if (result) {
         console.log('팔레트 구매');
+        pointRefresher();
         dispatch(setMyPalette(paletteCode));
+        alert('팔레트 구매가 완료되었습니다');
       }
     })();
-    pointRefresher();
   };
 
   const handleSet = (paletteCode, memberId) => {
