@@ -7,7 +7,6 @@ import ThemeStore from '../module/ThemeStore';
 import GradientWall from '../module/GradientWall';
 import LookBack from '../module/LookBack';
 import MoodSelector from '../module/MoodSelector';
-import styled from 'styled-components';
 
 const MODAL_TYPES = {
   LetterModal: 'LetterModal',
@@ -18,10 +17,12 @@ const MODAL_TYPES = {
   LookbackModal: 'LookbackModal',
 };
 
-const ModalLayout = styled.div`
-  display: flex;
-`;
-function GlobalModal({ lookbackRefresh, lookbackRefresher, pointRefresher }) {
+function GlobalModal({
+  lookbackRefresh,
+  lookbackRefresher,
+  pointRefresher,
+  setOpenMoodCard,
+}) {
   const MODAL_COMPONENTS = [
     {
       type: MODAL_TYPES.LetterModal,
@@ -61,14 +62,15 @@ function GlobalModal({ lookbackRefresh, lookbackRefresher, pointRefresher }) {
   });
 
   const renderModal = () => {
+    if (findModal.type === 'LookbackModal') {
+      setOpenMoodCard(false);
+    } else {
+      setOpenMoodCard(true);
+    }
     return findModal.component;
   };
-  return (
-    <ModalLayout>
-      {findModal.type !== 'LookbackModal' ? <MoodSelector /> : null}
-      {renderModal()}
-    </ModalLayout>
-  );
+  // console.log(findModal.type === 'LookbackModal');
+  return <div>{renderModal()}</div>;
 }
 
 export default GlobalModal;

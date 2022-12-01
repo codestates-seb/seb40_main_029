@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { getCookie } from '../../utils/cookie';
 import { ContentLayout } from '../atoms/Layouts';
 import Header from '../module/Header';
+import MoodSelector from '../module/MoodSelector';
 import GlobalModal from './GlobalModal';
 import { GetPoint } from '../../api/GetPointApi';
 import { memberIdSelector } from '../../redux/hooks';
@@ -51,6 +52,12 @@ const Home = () => {
     <Browser>
       <Header userPoint={userPoint} />
       <ContentLayout>
+        {openMoodCard ? (
+          <MoodSelector
+            lookbackRefresher={lookbackRefresher}
+            pointRefresher={pointRefresher}
+          />
+        ) : null}
         <GlobalModal
           lookbackRefresh={lookbackRefresh}
           lookbackRefresher={lookbackRefresher}
