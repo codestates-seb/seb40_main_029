@@ -6,6 +6,8 @@ import TodoList from '../module/TodoList';
 import ThemeStore from '../module/ThemeStore';
 import GradientWall from '../module/GradientWall';
 import LookBack from '../module/LookBack';
+import MoodSelector from '../module/MoodSelector';
+import styled from 'styled-components';
 
 const MODAL_TYPES = {
   LetterModal: 'LetterModal',
@@ -16,12 +18,10 @@ const MODAL_TYPES = {
   LookbackModal: 'LookbackModal',
 };
 
-function GlobalModal({
-  lookbackRefresh,
-  lookbackRefresher,
-  pointRefresher,
-  setOpenMoodCard,
-}) {
+const ModalLayout = styled.div`
+  display: flex;
+`;
+function GlobalModal({ lookbackRefresh, lookbackRefresher, pointRefresher }) {
   const MODAL_COMPONENTS = [
     {
       type: MODAL_TYPES.LetterModal,
@@ -61,14 +61,14 @@ function GlobalModal({
   });
 
   const renderModal = () => {
-    if (findModal.type === 'LookbackModal') {
-      setOpenMoodCard(false);
-    } else {
-      setOpenMoodCard(true);
-    }
     return findModal.component;
   };
-  return <div>{renderModal()}</div>;
+  return (
+    <ModalLayout>
+      {findModal.type !== 'LookbackModal' ? <MoodSelector /> : null}
+      {renderModal()}
+    </ModalLayout>
+  );
 }
 
 export default GlobalModal;

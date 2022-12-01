@@ -86,7 +86,7 @@ const AddFriend = ({ setIsOpen, friends, setfriendRefresh }) => {
       return;
     }
     addFriend({ requesterDisplayName, respondentDisplayName });
-    setfriendRefresh(refresh => refresh + 1);
+    setfriendRefresh(refresh => refresh * -1);
     alert('친구를 추가했어요!');
   };
 
