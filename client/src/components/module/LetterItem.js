@@ -30,10 +30,9 @@ const DetailDate = styled.span`
   font-size: 13px;
   opacity: 0.5;
 `;
-const LetterItem = ({ data }) => {
+const LetterItem = ({ data, setMailRefresh }) => {
   const { mailId, senderDisplayName, createdAt, body, verifyMail } = data;
   const [isOpen, setIsOpen] = useState(false);
-  const [verifyLetter, setVerifyLetter] = useState(verifyMail);
   const memberId = useSelector(memberIdSelector);
   //날짜 형식
   let date = 0;
@@ -57,10 +56,12 @@ const LetterItem = ({ data }) => {
   const handleOpenLetter = () => {
     setIsOpen(!isOpen);
     readMail(memberId, mailId);
+    setMailRefresh(refresh => refresh + 1);
   };
   const handleMailDelete = () => {
     const fetchData = async () => {
       await deleteMail(memberId, mailId);
+      setMailRefresh(refresh => refresh - 1);
     };
     fetchData();
   };
@@ -70,7 +71,7 @@ const LetterItem = ({ data }) => {
         <LetterHeader>
           <div>
             <span>{senderDisplayName}</span>
-            <Alarm>{verifyLetter ? '읽음' : '안읽음'} </Alarm>
+            <Alarm>{verifyMail ? '읽음' : '안읽음'} </Alarm>
           </div>
           <DetailDate>{date}</DetailDate>
         </LetterHeader>
