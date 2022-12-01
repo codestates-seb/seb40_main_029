@@ -22,7 +22,8 @@ const ContentWrap = styled.div`
 `;
 const Letters = ({ setIsOpen, isOpen }) => {
   const [mails, setMails] = useState([]);
-  const limit = 5;
+  const [mailRefresh, setMailRefresh] = useState(0);
+  const limit = 4;
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   const handleLetterCreate = () => {
@@ -35,14 +36,20 @@ const Letters = ({ setIsOpen, isOpen }) => {
       setMails(data);
     };
     fetchData();
-  }, []);
+  }, [mailRefresh]);
   return (
     <>
       <MailModal>
         <ContentWrap>
           {mails ? (
             mails.slice(offset, offset + limit).map((mail, i) => {
-              return <LetterItem key={i} data={mail} />;
+              return (
+                <LetterItem
+                  key={i}
+                  data={mail}
+                  setMailRefresh={setMailRefresh}
+                />
+              );
             })
           ) : (
             <ShadowBox>받은 편지가 없습니다.</ShadowBox>

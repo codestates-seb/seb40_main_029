@@ -1,13 +1,18 @@
 {
-  "short_name": "Emo",
-  "name": "Emolog",
-  "description": "Chrome homepage",
-  "version": "0.1",
-  "manifest_version": 3,
-  "chrome_url_overrides": {
-    "newtab": "index.html"
-  },
-  "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'"
-  }
+  "short_name": "오무",
+  "name": "오무: 오늘의 무드",
+  "icons": [
+    {
+      "src": "omu.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "omu.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone"
 }

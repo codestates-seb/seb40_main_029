@@ -89,9 +89,9 @@ const LetterCreate = ({ setIsOpen }) => {
     }
     if (friend !== '') {
       sendMail({
-        body: `${letterBody}`,
-        senderName: `${senderName}`,
-        receiverName: `${friend}`,
+        body: letterBody,
+        senderName: senderName,
+        receiverName: friend,
       });
       setLetterBody('');
       alert(`${friend}에게 편지를 보냈습니다.(-60포인트)`);
