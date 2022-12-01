@@ -16,10 +16,18 @@ jobs:
       - name: Set .env
         run: |
           echo "REACT_APP_GOOGLE_CLIENT_ID=$REACT_APP_GOOGLE_CLIENT_ID" >> .env
-          echo "REACT_APP_BASIC_URL=$secrets.REACT_APP_BASIC_URL" >> .env
-          echo "REACT_APP_DEPLOY_URL=$secrets.REACT_APP_DEPLOY_URL" >> .env
+          echo "REACT_APP_BASIC_URL=$REACT_APP_BASIC_URL" >> .env
+          echo "REACT_APP_DEPLOY_URL=$REACT_APP_DEPLOY_URL" >> .env
           cat .env
+        env:
+          REACT_APP_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
+          REACT_APP_BASIC_URL: ${{ secrets.REACT_APP_BASIC_URL }}
+          REACT_APP_DEPLOY_URL: ${{ secrets.REACT_APP_DEPLOY_URL }}
       - name: Build
+        env:
+          REACT_APP_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
+          REACT_APP_BASIC_URL: ${{ secrets.REACT_APP_BASIC_URL }}
+          REACT_APP_DEPLOY_URL: ${{ secrets.REACT_APP_DEPLOY_URL }}
         run: npm run build
         working-directory: ./client
       - name: SHOW AWS CLI VERSION
