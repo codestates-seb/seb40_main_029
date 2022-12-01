@@ -5,8 +5,7 @@ import { emailSelector } from '../redux/hooks';
 
 export const SignupApi = async (emailValue, displayNameValue) => {
   const data = { email: emailValue, displayName: displayNameValue };
-  const getURL =
-    'http://ec2-15-165-76-0.ap-northeast-2.compute.amazonaws.com:8080'; // 서버 주소
+  const getURL = process.env.REACT_APP_BASIC_URL; // 서버 주소
   const path = '/members/addMember';
   console.log(data);
   console.log('닉네임 등록');

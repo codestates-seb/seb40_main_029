@@ -13,8 +13,6 @@ import { setMemberId, setDisplayName } from '../../redux/slice';
 import { SignupApi } from '../../api/SignupApi';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import React, { useCallback } from 'react';
-import { render } from 'https://cdn.skypack.dev/react-dom@17';
-import confetti from 'https://cdn.skypack.dev/canvas-confetti@1';
 
 const Container = styled.div`
   display: flex;
@@ -78,10 +76,6 @@ export default function Signup() {
   // }, [response]);
 
   const welcome = useCallback(() => {
-    confetti({
-      particleCount: 150,
-      spread: 130,
-    });
     console.log('클릭!');
   }, []);
 

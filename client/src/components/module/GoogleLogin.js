@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { emailSelector, displayNameSelector } from '../../redux/hooks';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
-import { render } from 'https://cdn.skypack.dev/react-dom@17';
-import confetti from 'https://cdn.skypack.dev/canvas-confetti@1';
 
 axios.defaults.withCredentials = true; // 쿠키 사용하기 위해 필수
 
@@ -27,14 +25,10 @@ export default function GoogleLogin() {
   // const isLoggedIn = useSelector(isLoggedInSelector);
   const userEmail = useSelector(emailSelector);
   const display = useSelector(displayNameSelector);
-  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=840805606859-diamap7b8svl8fhe3kqt1bmjsi6aieg9.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
+  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_DEPLOY_URL}/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
   console.log(GOOGLE_LOGIN_URL);
 
   const welcome = () => {
-    confetti({
-      particleCount: 150,
-      spread: 130,
-    });
     console.log('클릭!');
   };
 
@@ -85,8 +79,7 @@ export default function GoogleLogin() {
   useEffect(() => {
     if (window) {
       window.google.accounts.id.initialize({
-        client_id:
-          '840805606859-diamap7b8svl8fhe3kqt1bmjsi6aieg9.apps.googleusercontent.com',
+        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
         // 로그인 할 경우 호출되는 함수
         callback: oAuthHandler,
       });
