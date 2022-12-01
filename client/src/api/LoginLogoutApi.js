@@ -55,10 +55,14 @@ export const getAccessToken = async authorizationCode => {
       // console.log(res.data.refreshToken);
       // axios.defaults.headers.common['Authorization'] = accessToken;
       // 리프레시 토큰 쿠키에 저장
+      let exdate = new Date();
+      exdate.setDate(exdate.getDate() + 14);
       setcookie('refreshToken', res.data.refreshToken, {
         path: '/',
+        expires: exdate,
         secure: true,
         sameSite: 'none',
+        httponly: true,
       });
       // accessToken 만료하기 1분 전에 로그인 연장
       setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
