@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setCookie, getCookie } from '../../utils/cookie';
+import { setcookie, getCookie } from '../../utils/cookie';
 import { getAccessToken } from '../../api/LoginLogoutApi';
 import { emailSelector } from '../../redux/hooks';
 import { setEmail } from '../../redux/slice';
@@ -31,7 +31,10 @@ export default function LoginCallback() {
   console.log(result.newUser);
 
   useEffect(() => {
-    setCookie('accessToken', result.accessToken, {
+    var exdate = new Date();
+    exdate.setMinutes(exdate.getMinutes() + 60);
+    setcookie('accessToken', result.accessToken, {
+      expires: exdate,
       path: '/',
       secure: true,
       sameSite: 'none',
@@ -41,7 +44,7 @@ export default function LoginCallback() {
     if (result.newUser == true) {
       navigate('/signup');
     } else if (result.newUser == false) {
-      // 기존 유저 헤더 토큰 추가
+      // // 기존 유저 헤더 토큰 추가
       // const { accessToken } = result;
       // console.log(accessToken);
       // axios.defaults.headers.common['Authorization'] = accessToken;

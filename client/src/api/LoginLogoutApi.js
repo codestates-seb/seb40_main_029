@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Navigate } from 'react-router';
-import { setCookie, getCookie, deleteCookie } from '../utils/cookie';
+// import { useCookies } from 'react-cookie';
+import { setcookie, getCookie } from '../utils/cookie';
 
 export const onSilentRefresh = () => {
   const JWT_EXPIRY_TIME = 1 * 3600 * 1000; // 만료 시간 (1시간 밀리 초로 표현)
@@ -17,10 +18,14 @@ export const onSilentRefresh = () => {
       // 재발급되어 헤더에 담겨져온 액세스 토큰 다시 변수에 저장 > 여기도 쿠키에 저장
       const newAccess = res.headers.get('Authorization');
       // axios.defaults.headers.common['Authorization'] = newAccess;
-      setCookie('accessToken', newAccess, {
+      let exdate = new Date();
+      exdate.setMinutes(exdate.getMinutes() + 60);
+      setcookie('accessToken', newAccess, {
+        expires: exdate,
         path: '/',
         secure: true,
         sameSite: 'none',
+        httponly: true,
       });
       setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
       console.log('액세스 토큰 재발급');
@@ -50,7 +55,7 @@ export const getAccessToken = async authorizationCode => {
       // console.log(res.data.refreshToken);
       // axios.defaults.headers.common['Authorization'] = accessToken;
       // 리프레시 토큰 쿠키에 저장
-      setCookie('refreshToken', res.data.refreshToken, {
+      setcookie('refreshToken', res.data.refreshToken, {
         path: '/',
         secure: true,
         sameSite: 'none',
@@ -66,14 +71,18 @@ export const getAccessToken = async authorizationCode => {
 export const LogoutApi = async () => {
   const getURL = process.env.REACT_APP_BASIC_URL;
   const path = '/members/logout';
-
+  const accessToken = getCookie('accessToken');
   return await axios
-    .get(getURL + path) // 헤더 가는지 안가는지 확인
+    .get(getURL + path, {
+      headers: {
+        Authorization: accessToken,
+      },
+    })
     .then(res => {
-      deleteCookie('accessToken');
       return res;
     })
     .catch(err => {
+      alert('잠시 후 다시 시도해주세요');
       console.log('로그아웃 에러' + err);
     });
 };
