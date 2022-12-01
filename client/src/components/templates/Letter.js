@@ -4,7 +4,7 @@ import LetterCreate from '../module/LetterCreate';
 import { ContentLayout } from '../atoms/Layouts';
 import Overlay from '../atoms/Overlay';
 
-const Letter = () => {
+const Letter = ({ pointRefresher }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -12,7 +12,7 @@ const Letter = () => {
       <Letters setIsOpen={setIsOpen} isOpen={isOpen} />
       {isOpen ? (
         <>
-          <LetterCreate setIsOpen={setIsOpen} />
+          <LetterCreate setIsOpen={setIsOpen} pointRefresher={pointRefresher} />
           <Overlay />
         </>
       ) : null}

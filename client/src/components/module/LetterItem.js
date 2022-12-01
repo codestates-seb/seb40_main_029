@@ -56,12 +56,12 @@ const LetterItem = ({ data, setMailRefresh }) => {
   const handleOpenLetter = () => {
     setIsOpen(!isOpen);
     readMail(memberId, mailId);
-    setMailRefresh(refresh => refresh + 1);
+    setMailRefresh(refresh => refresh * -1);
   };
   const handleMailDelete = () => {
     const fetchData = async () => {
       await deleteMail(memberId, mailId);
-      setMailRefresh(refresh => refresh - 1);
+      setMailRefresh(refresh => refresh * -1);
     };
     fetchData();
   };

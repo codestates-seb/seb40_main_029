@@ -6,6 +6,7 @@ import TodoList from '../module/TodoList';
 import ThemeStore from '../module/ThemeStore';
 import GradientWall from '../module/GradientWall';
 import LookBack from '../module/LookBack';
+import MoodSelector from '../module/MoodSelector';
 
 const MODAL_TYPES = {
   LetterModal: 'LetterModal',
@@ -61,13 +62,14 @@ function GlobalModal({
   });
 
   const renderModal = () => {
-    if (findModal.type === 'LookbackModal') {
-      setOpenMoodCard(false);
-    } else {
-      setOpenMoodCard(true);
-    }
+    // if (findModal.type === 'LookbackModal') {
+    //   setOpenMoodCard(false);
+    // } else {
+    //   setOpenMoodCard(true);
+    // }
     return findModal.component;
   };
+  // console.log(findModal.type === 'LookbackModal');
   return <div>{renderModal()}</div>;
 }
 

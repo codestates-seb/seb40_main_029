@@ -13,7 +13,7 @@ const today = 'today/';
 const update = 'update/';
 
 const TodoList = ({ lookbackRefresher, pointRefresher }) => {
-  const memberId = useSelector(memberIdSelector);
+  const memberId = `${useSelector(memberIdSelector)}/`;
 
   const [todoList, setTodoList] = useState([]);
   const [todoValue, todoBind, todoReset] = useInput('');

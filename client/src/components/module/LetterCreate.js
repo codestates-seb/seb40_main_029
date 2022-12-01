@@ -61,7 +61,7 @@ const Textarea = styled.textarea`
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
 `;
 
-const LetterCreate = ({ setIsOpen }) => {
+const LetterCreate = ({ setIsOpen, pointRefresher }) => {
   const [friends, setFriends] = useState([]);
   const [friend, setFriend] = useState('');
   const [letterBody, setLetterBody] = useState('');
@@ -95,6 +95,7 @@ const LetterCreate = ({ setIsOpen }) => {
       });
       setLetterBody('');
       alert(`${friend}에게 편지를 보냈습니다.(-60포인트)`);
+      pointRefresher();
       setIsOpen(false);
     } else if (friend === '') {
       alert('편지를 보낼 친구를 선택하세요.');
