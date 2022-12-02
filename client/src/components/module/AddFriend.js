@@ -9,6 +9,8 @@ import Button from '../atoms/Button';
 import { useEffect, useState } from 'react';
 import { addFriend, getAllMembers } from '../../api/FriendDataApi';
 import useInput from '../../utils/useInput';
+import { displayNameSelector } from '../../redux/hooks';
+import { useSelector } from 'react-redux';
 
 const PopUp = styled.div`
   z-index: 2;
@@ -53,27 +55,38 @@ const FriendListBox = styled.div`
   margin-bottom: 18px;
 `;
 
-const AddFriend = ({ setIsOpen }) => {
-  const [friendsList, setFriendsList] = useState([]);
+const AddFriend = ({ setIsOpen, friends, setfriendRefresh }) => {
+  const [userList, setUserList] = useState([]);
   const [keyword, bindKeyword] = useInput('');
   const [respondentDisplayName, setRespondentDisplayName] = useState('');
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllMembers();
-      setFriendsList(data);
+      setUserList(data);
     };
     fetchData();
   }, []);
   const CloseModal = () => {
     setIsOpen(false);
   };
-  const filteredMember = friendsList?.filter(member => {
+
+  const filteredMember = userList?.filter(member => {
     return member.displayName.includes(keyword);
   });
-  // 유저 ID 1로 가정
-  const requesterDisplayName = '회원1';
+  const checkAlreadyAdd = el => {
+    if (el.respondentDisplayName === respondentDisplayName) {
+      return true;
+    }
+  };
+
+  const requesterDisplayName = useSelector(displayNameSelector);
   const handleAddFriend = () => {
+    if (friends.some(checkAlreadyAdd)) {
+      alert('이미 추가한 친구예요!');
+      return;
+    }
     addFriend({ requesterDisplayName, respondentDisplayName });
+    setfriendRefresh(refresh => refresh * -1);
     alert('친구를 추가했어요!');
   };
 
@@ -106,7 +119,6 @@ const AddFriend = ({ setIsOpen }) => {
                       key={i}
                       member={member}
                       setRespondentDisplayName={setRespondentDisplayName}
-                      // onClick={handleCheckFriend}
                     />
                   );
                 })

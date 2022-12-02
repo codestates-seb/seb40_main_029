@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { CenterLayout } from '../atoms/Layouts';
 
 const CardContainer = styled.div`
   display: flex;
@@ -17,7 +18,7 @@ const Mood = styled.div`
   width: 320px;
   height: 290px;
   margin: 10px 10px 0 10px;
-  background-color: #6868ac;
+  background-color: ${({ color }) => color};
 `;
 
 const Info = styled.div`
@@ -36,13 +37,13 @@ const Type = styled.div`
 
 const Hexcode = styled.div`
   height: 36px;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 300;
 `;
 const Contents = styled.div`
   height: ${({ viewDetails }) =>
     viewDetails ? '354px' : '44px'}; //460 - 94 - 10
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 300;
   white-space: pre-line;
   overflow-y: scroll;
@@ -53,11 +54,7 @@ const Contents = styled.div`
   }
 `;
 
-const MoodCard = ({ fade }) => {
-  const hexcode = '#6868AC';
-  const contents =
-    'black coffee 뇌가 저릿 위험한 향기 black coffee 한 잔 손에 쥔 도시의 좀비 쓰고 검은 커피는 이리 부드럽게 넘어가는데 쓰고 검은 내 밤은 오늘도 좀처럼 넘어가질 않고 버티네';
-
+const MoodCard = ({ fade, setFade, color, id, reason }) => {
   const [viewDetails, setViewDetails] = useState(false);
   const handleViewDetails = () => {
     const selection = window.getSelection();
@@ -67,16 +64,21 @@ const MoodCard = ({ fade }) => {
   };
 
   return (
-    <CardContainer fade={fade}>
-      <Mood />
-      <Info>
-        <Type>예민</Type>
-        <Hexcode>{hexcode.slice(1)}</Hexcode>
-        <Contents onClick={() => handleViewDetails()} viewDetails={viewDetails}>
-          {contents}
-        </Contents>
-      </Info>
-    </CardContainer>
+    <CenterLayout>
+      <CardContainer fade={fade}>
+        <Mood color={color} onClick={() => setFade(false)} />
+        <Info>
+          <Type>{id}</Type>
+          <Hexcode>{color}</Hexcode>
+          <Contents
+            onClick={() => handleViewDetails()}
+            viewDetails={viewDetails}
+          >
+            {reason}
+          </Contents>
+        </Info>
+      </CardContainer>
+    </CenterLayout>
   );
 };
 

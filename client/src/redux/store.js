@@ -1,4 +1,9 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import {
+  configureStore,
+  combineReducers,
+  getDefaultMiddleware,
+} from '@reduxjs/toolkit';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import {
   persistStore,
   persistReducer,
@@ -11,6 +16,8 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import userInfo from './slice';
+import modalReducer from './modalSlice';
+import modal from './modalSlice';
 
 const persistConfig = {
   key: 'root',
@@ -20,19 +27,31 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   userInfo,
+  modal,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(
+  persistConfig,
+  rootReducer,
+  composeWithDevTools()
+);
 
 const store = configureStore({
+  // reducer: {
+  //   persistedReducer,
+  //   modal: modalReducer,
+  // },
+  // middleware: getDefaultMiddleware =>
+  //   getDefaultMiddleware({
+  //     serializableCheck: {
+  //       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+  //     },
+  //     // }).concat(logger),
   reducer: persistedReducer,
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-      // }).concat(logger),
-    }),
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });
+
 export const persistor = persistStore(store);
 export default store;

@@ -1,13 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  isLoggedIn: false,
-  mamberId: -1,
-  email: -1,
+  memberId: -1,
   displayName: -1,
+  email: '',
   moodId: -1,
-  paletteCode: 'P001',
-  myPalette: ['P001'],
+  paletteCode: 'P001', // 적용한 팔레트
+  myPalette: ['P001'], // 보유한 팔레트
   today: { mood: -1, reason: -1 },
 };
 
@@ -15,17 +14,14 @@ const slice = createSlice({
   name: 'userInfo',
   initialState,
   reducers: {
-    setIsLoggedIn: (state, action) => {
-      state.isLoggedIn = !state.isLoggedIn;
-    },
     setMemberId: (state, action) => {
-      state.mamberId = action.payload;
-    },
-    setEmail: (state, action) => {
-      state.email = action.payload;
+      state.memberId = action.payload;
     },
     setDisplayName: (state, action) => {
       state.displayName = action.payload;
+    },
+    setEmail: (state, action) => {
+      state.email = action.payload;
     },
     setMoodId: (state, action) => {
       state.moodId = action.payload;
@@ -33,24 +29,26 @@ const slice = createSlice({
     setPaletteCode: (state, action) => {
       state.paletteCode = action.payload;
     },
-    setMyPalette: (state, action) => ({
-      ...state,
-      myPalette: [...state.myPalette, action.payload],
-    }),
+    setMyPalette: (state, action) => {
+      state.myPalette = [...state.myPalette, action.payload];
+    },
     setMood: (state, action) => {
-      state.today.color = action.payload.color;
+      state.today.mood = action.payload.mood;
+      state.today.reason = action.payload.reason;
     },
     setReason: (state, action) => {
       state.today.reason = action.payload.reason;
+    },
+    default: (state, action) => {
+      return state;
     },
   },
 });
 
 export const {
-  setIsLoggedIn,
   setMemberId,
-  setEmail,
   setDisplayName,
+  setEmail,
   setMoodId,
   setPaletteCode,
   setMyPalette,

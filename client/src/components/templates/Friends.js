@@ -9,6 +9,9 @@ import { RightBottomLayout } from '../atoms/Layouts';
 import Button from '../atoms/Button';
 import Overlay from '../atoms/Overlay';
 import AddFriend from '../module/AddFriend';
+import Pagination from '../atoms/Pagination';
+import { memberIdSelector } from '../../redux/hooks';
+import { useSelector } from 'react-redux';
 
 const CardLayout = styled.div`
   display: flex;
@@ -20,14 +23,18 @@ const CardLayout = styled.div`
 const Friends = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [friends, setFriends] = useState([]);
+  const [friendRefresh, setfriendRefresh] = useState(0);
+  const limit = 8;
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
+  const memberId = useSelector(memberIdSelector);
   useEffect(() => {
-    const memberId = 1;
     const fetchData = async () => {
       const data = await getFriends(memberId);
       setFriends(data);
     };
     fetchData();
-  }, []);
+  }, [friendRefresh]);
   const handleFindFriend = () => {
     setIsOpen(!isOpen);
   };
@@ -38,9 +45,13 @@ const Friends = () => {
         <FriendModal>
           <CardLayout>
             {friends
-              ? friends.map(friend => {
+              ? friends.slice(offset, offset + limit).map(friend => {
                   return (
-                    <FriendCard key={friend.respondentId} friend={friend} />
+                    <FriendCard
+                      key={friend.respondentId}
+                      friend={friend}
+                      setfriendRefresh={setfriendRefresh}
+                    />
                   );
                 })
               : null}
@@ -50,10 +61,22 @@ const Friends = () => {
               +
             </Button>
           </RightBottomLayout>
+          <footer>
+            <Pagination
+              total={friends.length}
+              limit={limit}
+              page={page}
+              setPage={setPage}
+            />
+          </footer>
         </FriendModal>
         {isOpen ? (
           <>
-            <AddFriend setIsOpen={setIsOpen} />
+            <AddFriend
+              setIsOpen={setIsOpen}
+              friends={friends}
+              setfriendRefresh={setfriendRefresh}
+            />
             <Overlay />
           </>
         ) : null}

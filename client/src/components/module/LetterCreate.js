@@ -2,12 +2,20 @@ import styled from 'styled-components';
 import Button from '../atoms/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { RightBottomLayout } from '../atoms/Layouts';
+import { CenterLayout, RightBottomLayout } from '../atoms/Layouts';
 import ShadowBox from '../atoms/ShadowBox';
 import { useEffect, useState } from 'react';
 import { getFriends } from '../../api/FriendDataApi';
 import { sendMail } from '../../api/MailDataApi';
+import { memberIdSelector, displayNameSelector } from '../../redux/hooks';
+import { useSelector } from 'react-redux';
 
+const PopUp = styled.div`
+  z-index: 2;
+  button {
+    margin-right: -10px;
+  }
+`;
 const Title = styled.div`
   display: flex;
   justify-content: space-between;
@@ -53,12 +61,12 @@ const Textarea = styled.textarea`
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
 `;
 
-const LetterCreate = ({ setIsOpen }) => {
+const LetterCreate = ({ setIsOpen, pointRefresher }) => {
   const [friends, setFriends] = useState([]);
   const [friend, setFriend] = useState('');
   const [letterBody, setLetterBody] = useState('');
+  const memberId = useSelector(memberIdSelector);
   useEffect(() => {
-    const memberId = 1;
     const fetchData = async () => {
       const data = await getFriends(memberId);
       setFriends(data);
@@ -71,7 +79,7 @@ const LetterCreate = ({ setIsOpen }) => {
   const handleTextarea = e => {
     setLetterBody(e.target.value);
   };
-  const senderName = '회원1';
+  const senderName = useSelector(displayNameSelector);
   const handleSendLetter = e => {
     e.preventDefault();
     if (letterBody.length > 300) {
@@ -79,66 +87,73 @@ const LetterCreate = ({ setIsOpen }) => {
       setLetterBody('');
       return;
     }
-    if (friend !== '친구목록') {
+    if (friend !== '') {
       sendMail({
-        body: `${letterBody}`,
-        senderName: `${senderName}`,
-        receiverName: `${friend}`,
+        body: letterBody,
+        senderName: senderName,
+        receiverName: friend,
       });
       setLetterBody('');
       alert(`${friend}에게 편지를 보냈습니다.(-60포인트)`);
+      pointRefresher();
       setIsOpen(false);
+    } else if (friend === '') {
+      alert('편지를 보낼 친구를 선택하세요.');
     }
   };
   return (
     <>
-      <ShadowBox>
-        <Title>
-          <h3>편지쓰기</h3>
-          <FontAwesomeIcon
-            icon={faXmark}
-            onClick={() => {
-              setIsOpen(false);
-            }}
-          />
-        </Title>
-        <LetterBox>
-          <div>
-            <label htmlFor="friend">To </label>
-            <Selector name="friend" onChange={handleSelect}>
-              <Option>친구목록</Option>
-              {friends ? (
-                friends.map(friend => {
-                  return (
-                    <Option
-                      key={friend.respondentId}
-                      value={friend.respondentDisplayName}
-                    >
-                      {friend.respondentDisplayName}
-                    </Option>
-                  );
-                })
-              ) : (
-                <Option>친구가 없습니다.</Option>
-              )}
-            </Selector>
-          </div>
-          <label htmlFor="body">내용</label>
-          <Textarea
-            border="transparent"
-            size="long"
-            name="body"
-            value={letterBody}
-            onChange={handleTextarea}
-            placeholder="친구에게 편지를 보내 보세요.(300자)"
-          />
-        </LetterBox>
-        <RightBottomLayout>
-          <Button size="circle" onClick={handleSendLetter}>
-            <FontAwesomeIcon icon={faPaperPlane} />
-          </Button>
-        </RightBottomLayout>
-      </ShadowBox>
+      <PopUp>
+        <CenterLayout>
+          <ShadowBox>
+            <Title>
+              <h3>편지쓰기</h3>
+              <FontAwesomeIcon
+                icon={faXmark}
+                onClick={() => {
+                  setIsOpen(false);
+                }}
+              />
+            </Title>
+            <LetterBox>
+              <div>
+                <label htmlFor="friend">To </label>
+                <Selector name="friend" onChange={handleSelect}>
+                  <Option value="">친구목록</Option>
+                  {friends ? (
+                    friends.map(friend => {
+                      return (
+                        <Option
+                          key={friend.respondentId}
+                          value={friend.respondentDisplayName}
+                        >
+                          {friend.respondentDisplayName}
+                        </Option>
+                      );
+                    })
+                  ) : (
+                    <Option>친구가 없습니다.</Option>
+                  )}
+                </Selector>
+              </div>
+              <label htmlFor="body">내용</label>
+              <Textarea
+                border="transparent"
+                size="long"
+                name="body"
+                value={letterBody}
+                onChange={handleTextarea}
+                placeholder="친구에게 편지를 보내 보세요.(300자)"
+              />
+            </LetterBox>
+            <RightBottomLayout>
+              <Button size="circle" onClick={handleSendLetter}>
+                <FontAwesomeIcon icon={faPaperPlane} />
+              </Button>
+            </RightBottomLayout>
+          </ShadowBox>
+        </CenterLayout>
+      </PopUp>
     </>
   );
 };

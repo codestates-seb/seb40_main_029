@@ -1,5 +1,3 @@
-export const isLoggedInSelector = state => state.userInfo.isLoggedIn;
-
 export const memberIdSelector = state => state.userInfo.memberId;
 
 export const emailSelector = state => state.userInfo.email;
@@ -12,6 +10,6 @@ export const paletteCodeSelector = state => state.userInfo.paletteCode;
 
 export const myPaletteSelector = state => state.userInfo.myPalette;
 
-export const moodSelector = state => state.userInfo.today.mood;
+export const moodSelector = state => state.userInfo.today;
 
 export const reasonSelector = state => state.userInfo.today.reason;

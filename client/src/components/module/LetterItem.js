@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import ShadowBox from '../atoms/ShadowBox';
 import { deleteMail, readMail } from '../../api/MailDataApi';
 import { RightBottomLayout } from '../atoms/Layouts';
+import { memberIdSelector } from '../../redux/hooks';
+import { useSelector } from 'react-redux';
 
 const LetterHeader = styled.div`
   display: flex;
@@ -28,11 +30,10 @@ const DetailDate = styled.span`
   font-size: 13px;
   opacity: 0.5;
 `;
-const LetterItem = ({ data }) => {
+const LetterItem = ({ data, setMailRefresh }) => {
   const { mailId, senderDisplayName, createdAt, body, verifyMail } = data;
   const [isOpen, setIsOpen] = useState(false);
-  const [verifyLetter, setVerifyLetter] = useState(verifyMail);
-  const memberId = 1;
+  const memberId = useSelector(memberIdSelector);
   //날짜 형식
   let date = 0;
   const FormatDate = day => {
@@ -43,8 +44,6 @@ const LetterItem = ({ data }) => {
     date = formatter.format(base > -1 ? -1 : base, 'day');
   };
   FormatDate(createdAt);
-  //어제가 아니라 오늘이라고 뜨는 오류 발견.
-  //1. 오늘날짜를 가공한다. 2. 계산후 -1 이상의 수가 나온다면 -1을 준다.
 
   let detailDate = 0;
   const FormatDetailDate = day => {
@@ -57,10 +56,12 @@ const LetterItem = ({ data }) => {
   const handleOpenLetter = () => {
     setIsOpen(!isOpen);
     readMail(memberId, mailId);
+    setMailRefresh(refresh => refresh * -1);
   };
   const handleMailDelete = () => {
     const fetchData = async () => {
       await deleteMail(memberId, mailId);
+      setMailRefresh(refresh => refresh * -1);
     };
     fetchData();
   };
@@ -70,7 +71,7 @@ const LetterItem = ({ data }) => {
         <LetterHeader>
           <div>
             <span>{senderDisplayName}</span>
-            <Alarm>{verifyLetter ? '읽음' : '안읽음'} </Alarm>
+            <Alarm>{verifyMail ? '읽음' : '안읽음'} </Alarm>
           </div>
           <DetailDate>{date}</DetailDate>
         </LetterHeader>

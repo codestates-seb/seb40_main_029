@@ -12,6 +12,8 @@ import {
   faCircleQuestion,
 } from '@fortawesome/free-regular-svg-icons';
 import ReactTooltip from 'react-tooltip';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeModal } from '../../redux/modalSlice';
 
 const Blueprint = styled.div`
   display: flex;
@@ -20,6 +22,19 @@ const Blueprint = styled.div`
   flex-direction: column;
   background-color: white;
   border-radius: 20px;
+  margin-left: 16px;
+  transition: all 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  animation: slideIn 0.5s;
+  @keyframes slideIn {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
 `;
 
 const Todo = styled(Blueprint)`
@@ -30,7 +45,7 @@ const Todo = styled(Blueprint)`
 const Mail = styled(Blueprint)`
   width: 650px;
   height: 500px;
-  margin-left: 20px;
+  position: relative;
 `;
 
 const Store = styled(Blueprint)`
@@ -57,9 +72,13 @@ const Title = styled.div`
   align-items: center;
   color: rgb(51, 52, 53);
   line-height: 40px;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
-  margin: 5px;
+  margin: 8px 0 0 8px;
+  > svg {
+    margin-left: 8px;
+    font-size: 20px;
+  }
 `;
 
 const Button = styled.div`
@@ -67,16 +86,21 @@ const Button = styled.div`
   justify-content: center;
   align-items: center;
   background-color: transparent;
-  padding: 0 8px;
+  padding: 8px 8px 0;
+  cursor: pointer;
 `;
 
 const Info = styled(Button)`
-  font-size: 12px;
+  opacity: 0.5;
+  font-size: 15px;
+  padding: 4px 4px 0;
+  cursor: pointer;
 `;
 
 const RealButton = styled.button`
   background-color: transparent;
   border: none;
+  margin-left: 4px;
 `;
 
 const Utility = styled.div`
@@ -85,11 +109,15 @@ const Utility = styled.div`
 `;
 
 const TodoModal = ({ children, lookBack }) => {
+  const dispatch = useDispatch();
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
   return (
     <Todo>
       <Header>
         <Title>
-          오늘 할 일 &nbsp;
+          오늘 할 일
           <RealButton onClick={() => lookBack()}>
             <FontAwesomeIcon icon={faHighlighter} />
           </RealButton>
@@ -98,7 +126,7 @@ const TodoModal = ({ children, lookBack }) => {
           </Info>
           <ReactTooltip event="click" eventOff="mouseout" />
         </Title>
-        <Button onClick={() => {}}>
+        <Button onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
         </Button>
       </Header>
@@ -108,14 +136,18 @@ const TodoModal = ({ children, lookBack }) => {
 };
 
 const MailModal = ({ children }) => {
+  const dispatch = useDispatch();
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
   return (
     <Mail>
       <Header>
         <Title>
-          편지함 &nbsp;
+          편지함
           <FontAwesomeIcon icon={faEnvelope} />
         </Title>
-        <Button onClick={() => {}}>
+        <Button onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
         </Button>
       </Header>
@@ -125,14 +157,18 @@ const MailModal = ({ children }) => {
 };
 
 const StoreModal = ({ children }) => {
+  const dispatch = useDispatch();
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
   return (
     <Store>
       <Header>
         <Title>
-          색상 테마 &nbsp;
+          색상 테마
           <FontAwesomeIcon icon={faStore} />
         </Title>
-        <Button onClick={() => {}}>
+        <Button onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
         </Button>
       </Header>
@@ -142,14 +178,18 @@ const StoreModal = ({ children }) => {
 };
 
 const FriendModal = ({ children }) => {
+  const dispatch = useDispatch();
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
   return (
     <Mail>
       <Header>
         <Title>
-          친구 &nbsp;
+          친구
           <FontAwesomeIcon icon={faUserGroup} />
         </Title>
-        <Button onClick={() => {}}>
+        <Button onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
         </Button>
       </Header>
@@ -159,14 +199,18 @@ const FriendModal = ({ children }) => {
 };
 
 const LookBackModal = ({ children }) => {
+  const dispatch = useDispatch();
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
   return (
     <Calendar>
       <Header>
         <Title>
-          기록 &nbsp;
+          기록
           <FontAwesomeIcon icon={faFilm} />
         </Title>
-        <Button onClick={() => {}}>
+        <Button onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
         </Button>
       </Header>

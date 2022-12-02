@@ -1,9 +1,11 @@
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { memberIdSelector } from '../redux/hooks';
 
 axios.defaults.withCredentials = true;
 
 export const PaletteList = async () => {
-  const API_URL = process.env.REACT_APP_SERVER_API_URL;
+  const API_URL = process.env.REACT_APP_BASIC_URL;
   const path = '/palette';
   try {
     // 팔레트가 담긴 배열
@@ -23,29 +25,30 @@ export const PaletteList = async () => {
   }
 };
 
-export const BuyPalette = async paletteCode => {
-  // const memberId = useSelector(memberIdSelector);
-  const memberId = 4; // 임시 멤버아이디
+export const BuyPalette = async (paletteCode, memberId) => {
+  console.log(memberId);
   const path = `/members/buy/${memberId}/${paletteCode}`;
 
   try {
-    const result = await axios.patch(
-      process.env.REACT_APP_SERVER_API_URL + path
-    );
+    const result = await axios.patch(process.env.REACT_APP_BASIC_URL + path);
     console.log(result);
+    if (result.status == 200) {
+      return true;
+    } else if (result.status == 204) {
+      alert('아쉽지만 포인트가 부족해요');
+      return false;
+    }
   } catch (err) {
     throw err;
   }
 };
 
-export const SetPalette = async paletteCode => {
-  const memberId = 4;
+export const SetPalette = async (paletteCode, memberId) => {
+  console.log(memberId);
   const path = `/members/choice/${memberId}/${paletteCode}`;
 
   try {
-    const result = await axios.patch(
-      process.env.REACT_APP_SERVER_API_URL + path
-    );
+    const result = await axios.patch(process.env.REACT_APP_BASIC_URL + path);
     console.log(result);
   } catch (err) {
     throw err;

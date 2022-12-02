@@ -1,13 +1,117 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faCaretLeft,
-  faCaretRight,
   faCircleHalfStroke,
   faPaperPlane,
   faChevronRight,
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMood } from '../../redux/slice';
+import { displayNameSelector } from '../../redux/hooks';
+import dayjs from 'dayjs';
+
+const URL = `${process.env.REACT_APP_BASIC_URL}/mood/`;
+
+const SelectorCard = ({
+  darkmode,
+  palette,
+  idx,
+  toLeft,
+  toRight,
+  setDarkmode,
+  setFade,
+  fade,
+  paletteCode,
+  reason,
+  setReason,
+  moodId,
+  moods,
+  lookbackRefresher,
+  pointRefresher,
+}) => {
+  const dispatch = useDispatch();
+
+  const dateString = dayjs(new Date()).format('M월 D일');
+  const displayName = useSelector(displayNameSelector);
+
+  const submit = () => {
+    const moodCode = `m00${idx + 1}`;
+
+    const body = reason;
+    axios
+      .post(URL + displayName, { paletteCode, moodCode, body }) // displayName
+      .then(res => {
+        console.log(res.data);
+        setFade(true);
+        dispatch(setMood({ mood: moods[idx], reason }));
+        lookbackRefresher();
+        pointRefresher();
+      });
+  };
+
+  const edit = () => {
+    const moodCode = `m00${idx + 1}`;
+    console.log(moodId);
+
+    const body = reason;
+    axios
+      .patch(URL + displayName + `/${moodId}`, {
+        paletteCode,
+        moodCode,
+        body,
+      }) // dislayName
+      .then(_ => {
+        setFade(true);
+        dispatch(setMood({ mood: moods[idx], reason }));
+        lookbackRefresher();
+        pointRefresher();
+      });
+  };
+
+  return (
+    <Wrapper fade={fade}>
+      <Selector>
+        <LeftRightContainer>
+          <LeftRight darkmode={darkmode}>
+            <FontAwesomeIcon icon={faChevronLeft} onClick={() => toLeft()} />
+          </LeftRight>
+        </LeftRightContainer>
+        <Mood darkmode={darkmode}>
+          <Type darkmode={darkmode}>{moods[idx]}</Type>
+        </Mood>
+        <LeftRightContainer>
+          <LeftRight darkmode={darkmode}>
+            <FontAwesomeIcon icon={faChevronRight} onClick={() => toRight()} />
+          </LeftRight>
+        </LeftRightContainer>
+      </Selector>
+      <Today darkmode={darkmode}>{dateString}</Today>
+      <InfoContainer>
+        <Info
+          placeholder="무슨 일이 있었나요? 생략해도 돼요."
+          darkmode={darkmode}
+          value={reason}
+          onChange={e => setReason(e.target.value)}
+        ></Info>
+        <ButtonContainer>
+          <Button darkmode={darkmode} onClick={() => setDarkmode(!darkmode)}>
+            <FontAwesomeIcon icon={faCircleHalfStroke} />
+          </Button>
+          <Button
+            darkmode={darkmode}
+            onClick={() => (moodId ? edit() : submit())}
+          >
+            <FontAwesomeIcon icon={faPaperPlane} />
+          </Button>
+        </ButtonContainer>
+      </InfoContainer>
+    </Wrapper>
+  );
+};
+
+export default SelectorCard;
 
 const Wrapper = styled.div`
   display: flex;
@@ -65,7 +169,7 @@ const Type = styled.div`
 `;
 
 const Today = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   -webkit-user-select: none;
   user-select: none;
   color: ${({ darkmode }) => (darkmode ? '#333435' : 'white')};
@@ -143,55 +247,3 @@ const Button = styled.button`
       inset -2px -2px 5px rgba(255, 255, 255, 0.15);
   }
 `;
-
-const SelectorCard = ({
-  darkmode,
-  palet,
-  idx,
-  toLeft,
-  toRight,
-  setDarkmode,
-  fade,
-}) => {
-  const today = new Date();
-  const month = ('0' + (today.getMonth() + 1)).slice(-2);
-  const day = ('0' + today.getDate()).slice(-2);
-
-  const dateString = month + '-' + day;
-  return (
-    <Wrapper>
-      <Selector>
-        <LeftRightContainer>
-          <LeftRight darkmode={darkmode}>
-            <FontAwesomeIcon icon={faChevronLeft} onClick={() => toLeft()} />
-          </LeftRight>
-        </LeftRightContainer>
-        <Mood darkmode={darkmode}>
-          <Type darkmode={darkmode}>{palet[idx][1]}</Type>
-        </Mood>
-        <LeftRightContainer>
-          <LeftRight darkmode={darkmode}>
-            <FontAwesomeIcon icon={faChevronRight} onClick={() => toRight()} />
-          </LeftRight>
-        </LeftRightContainer>
-      </Selector>
-      <Today darkmode={darkmode}>{dateString}</Today>
-      <InfoContainer>
-        <Info
-          placeholder="무슨 일이 있었나요? 생략해도 돼요."
-          darkmode={darkmode}
-        ></Info>
-        <ButtonContainer>
-          <Button darkmode={darkmode} onClick={() => setDarkmode(!darkmode)}>
-            <FontAwesomeIcon icon={faCircleHalfStroke} />
-          </Button>
-          <Button darkmode={darkmode} onClick={() => {}}>
-            <FontAwesomeIcon icon={faPaperPlane} />
-          </Button>
-        </ButtonContainer>
-      </InfoContainer>
-    </Wrapper>
-  );
-};
-
-export default SelectorCard;
