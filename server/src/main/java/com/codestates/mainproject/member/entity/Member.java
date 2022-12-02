@@ -1,11 +1,19 @@
 package com.codestates.mainproject.member.entity;
 
+import com.codestates.mainproject.mail.entity.Mail;
 import com.codestates.mainproject.member.role.Role;
+import com.codestates.mainproject.mood.entity.Mood;
+import com.codestates.mainproject.palette.entity.MemberPalette;
+import com.codestates.mainproject.todo.entity.Todo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -15,19 +23,53 @@ import javax.persistence.*;
 public class Member {
 
     @Id
+    @Column(name = "memberId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long memberId;
 
-    @Column(nullable = false, length = 50)
+    private String email;
+
+    @Column(length = 50)
     private String displayName;
+
+    @Column(nullable = false)
+    private String palette; // 지금 사용하고 있는 팔레트
 
     @Column(nullable = false)
     private long point;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
-    public Member(String displayName) {
-        this.displayName = displayName;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "MEMBER_ID")
+    private List<MemberPalette> palettes = new ArrayList<>(); //사용자가 가지고 있는 팔레트 목록
+
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Todo> todoList = new ArrayList<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "member", cascade = CascadeType. PERSIST)
+    private List<Mood> moodList = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "respondent", cascade = CascadeType.ALL)
+    private List<Friend> friends = new ArrayList<>();
+
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.PERSIST)
+    private List<Mail> mails = new ArrayList<>();
+
+
+    public String getRoleKey() {
+        return this.role.getKey();
+    }
+
+    public Member(String email) {
+        this.email = email;
     }
 }
+
+

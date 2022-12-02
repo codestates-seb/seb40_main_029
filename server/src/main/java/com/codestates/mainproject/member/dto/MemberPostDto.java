@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class MemberPostDto {
 
     private String displayName;
+    private String email;
 }
