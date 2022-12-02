@@ -76,7 +76,7 @@ export default function GoogleLogin() {
 
   // 신규 구글 로그인 라이브러리 사용
   useEffect(() => {
-    if (window) {
+    if (window.google) {
       window.google.accounts.id.initialize({
         client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
         // 로그인 할 경우 호출되는 함수

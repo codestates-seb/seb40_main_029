@@ -75,16 +75,15 @@ export default function Signup() {
   //   }
   // }, [response]);
 
-  const welcome = useCallback(() => {
-    console.log('클릭!');
-  }, []);
+  // const welcome = useCallback(() => {
+  //   console.log('클릭!');
+  // }, []);
 
   function handleSignup(emailValue, displayNameValue) {
     (async () => {
       const res = await SignupApi(emailValue, displayNameValue);
       console.log(res);
       if (res.status == 201) {
-        welcome();
         dispatch(setMemberId(res.data.memberId));
         dispatch(setDisplayName(res.data.displayName));
         navigate('/');
