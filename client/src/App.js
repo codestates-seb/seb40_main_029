@@ -10,6 +10,7 @@ axios.defaults.headers.common['Referrer-Policy'] = 'no-referrer-when-downgrade';
 
 const App = () => {
   // const dispatch = useDispatch();
+  console.log('Merged!');
 
   useEffect(() => {
     // axios
