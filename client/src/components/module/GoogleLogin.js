@@ -22,7 +22,7 @@ const Contain = styled.div`
 `;
 
 export default function GoogleLogin() {
-  // const isLoggedIn = useSelector(isLoggedInSelector);
+  // const isLoggedIn = useSelector(isLoggedInSelector000);
   const userEmail = useSelector(emailSelector);
   const display = useSelector(displayNameSelector);
   const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_DEPLOY_URL}/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
