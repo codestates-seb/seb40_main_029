@@ -150,8 +150,8 @@ export const ThemeStore = ({ pointRefresher }) => {
             fontsize="middle"
             onClick={() => handleSet(paletteCode, memberId)}
             disabled={
-              paletteCodeSelec == paletteCode &&
-              !myPalette.includes(paletteCode)
+              !myPalette.includes(paletteCode) ||
+              paletteCodeSelec == paletteCode
             }
           >
             적용
