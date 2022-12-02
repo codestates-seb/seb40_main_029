@@ -30,11 +30,13 @@ public class MoodController {
     @PostMapping("/{member-displayName}")
     public ResponseEntity postMood(@PathVariable("member-displayName") String memberDisplayName,
                                          @RequestBody MoodPostDto postDto){
-        Mood mood = mapper.moodPostDtoToMood(postDto);
-        Mood saveMood = moodService.createdMood(mood, memberDisplayName);
-        MoodResponseDto response = mapper.moodToMoodResponseDto(saveMood);
-        long point = memberService.memberDisplayNamePoint(memberDisplayName);
-        return new ResponseEntity<>(new MultiResponseDto<>(response, point), HttpStatus.OK);
+
+            Mood mood = mapper.moodPostDtoToMood(postDto);
+            Mood saveMood = moodService.createdMood(mood, memberDisplayName);
+            MoodResponseDto response = mapper.moodToMoodResponseDto(saveMood);
+            long point = memberService.memberDisplayNamePoint(memberDisplayName);
+
+            return new ResponseEntity<>(new MultiResponseDto<>(response, point), HttpStatus.OK);
     }
 
     @PatchMapping("/{member-displayName}/{mood-id}")
@@ -46,6 +48,21 @@ public class MoodController {
         MoodResponseDto response = mapper.moodToMoodResponseDto(saveMood);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PatchMapping("/dummy/{member-displayName}")
+    @ResponseStatus(HttpStatus.OK)
+    public void patchMood(@PathVariable("member-displayName") String memberDisplayName){
+        moodService.dummyMember(memberDisplayName);
+    }
+
+    @PatchMapping("/dummy/{mood-id}/{palette-code}/{mood-code}")
+    @ResponseStatus(HttpStatus.OK)
+    public void patchMood(@PathVariable("mood-id") Long moodId,
+                          @PathVariable("palette-code") String paletteCode,
+                          @PathVariable("mood-code") String moodCode){
+        moodService.dummyMood(moodId, paletteCode, moodCode);
+    }
+
 
 
     @GetMapping("/{member-displayName}")

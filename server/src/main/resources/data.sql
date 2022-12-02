@@ -1,58 +1,432 @@
+--
+-- INSERT INTO mood_palette(palette_code, palette_name)
+-- values ('P001', 'basic'), ('P002', 'teracota'), ('P003', 'vintage'), ('P004', 'christmas'), ('P005', 'mono'), ('P006', 'vivid');
+--
+-- INSERT INTO mood_palette_details(palette_code, mood_code, color_code, mood)
+-- values ('P001', 'm001', 'EE8242', '기쁨'),
+--        ('P001', 'm002', '9FC1EE', '슬픔'),
+--        ('P001', 'm003', 'EE8686', '분노'),
+--        ('P001', 'm004', 'E6AACB', '설렘'),
+--        ('P001', 'm005', 'D2CCC2', '걱정'),
+--        ('P001', 'm006', 'FFE27A', '평온'),
+--        ('P001', 'm007', '6868AC', '예민'),
+--        ('P001', 'm008', 'A7CF99', '희망'),
+--
+--        ('P002', 'm001', 'CE7E5D', '기쁨'),
+--        ('P002', 'm002', 'CDD6DD', '슬픔'),
+--        ('P002', 'm003', 'A2543D', '분노'),
+--        ('P002', 'm004', 'D39A89', '설렘'),
+--        ('P002', 'm005', 'D6DCD8', '걱정'),
+--        ('P002', 'm006', 'D2D0AC', '평온'),
+--        ('P002', 'm007', '1D354F', '예민'),
+--        ('P002', 'm008', '557570', '희망'),
+--
+--        ('P003', 'm001', 'E7AF8D', '기쁨'),
+--        ('P003', 'm002', 'B0AEBA', '슬픔'),
+--        ('P003', 'm003', 'CD686D', '분노'),
+--        ('P003', 'm004', 'E08890', '설렘'),
+--        ('P003', 'm005', 'A2A987', '걱정'),
+--        ('P003', 'm006', 'F0DCB1', '평온'),
+--        ('P003', 'm007', 'BEB5BF', '예민'),
+--        ('P003', 'm008', 'A9C0C5', '희망'),
+--
+--        ('P004', 'm001', 'C66157', '기쁨'),
+--        ('P004', 'm002', 'BDB7A1', '슬픔'),
+--        ('P004', 'm003', 'A7241C', '분노'),
+--        ('P004', 'm004', 'DF5756', '설렘'),
+--        ('P004', 'm005', 'A38440', '걱정'),
+--        ('P004', 'm006', '7D873B', '평온'),
+--        ('P004', 'm007', '5A958E', '예민'),
+--        ('P004', 'm008', '2E5542', '희망'),
+--
+--        ('P005', 'm001', 'E4E4E4', '기쁨'),
+--        ('P005', 'm002', '666666', '슬픔'),
+--        ('P005', 'm003', '000000', '분노'),
+--        ('P005', 'm004', 'D4D4D4', '설렘'),
+--        ('P005', 'm005', '7D7D7D', '걱정'),
+--        ('P005', 'm006', '9D9D9D', '평온'),
+--        ('P005', 'm007', '434343', '예민'),
+--        ('P005', 'm008', 'B4B4B4', '희망'),
+--
+--        ('P006', 'm001', 'F7B0BE', '기쁨'),
+--        ('P006', 'm002', '2178AE', '슬픔'),
+--        ('P006', 'm003', 'ED8E83', '분노'),
+--        ('P006', 'm004', 'EF3C23', '설렘'),
+--        ('P006', 'm005', 'F15A42', '걱정'),
+--        ('P006', 'm006', 'FAC92C', '평온'),
+--        ('P006', 'm007', 'CFE5CC', '예민'),
+--        ('P006', 'm008', '1B4793', '희망');
 
-INSERT INTO mood_palette(palette_code, palette_name)
-values ('P001', 'basic'), ('P002', 'teracota'), ('P003', 'vintage'), ('P004', 'christmas'), ('P005', 'mono'), ('P006', 'vivid');
 
-INSERT INTO mood_palette_details(palette_code, mood_code, color_code, mood)
-values ('P001', 'm001', 'EE8242', '기쁨'),
-       ('P001', 'm002', '9FC1EE', '슬픔'),
-       ('P001', 'm003', 'EE8686', '분노'),
-       ('P001', 'm004', 'E6AACB', '설렘'),
-       ('P001', 'm005', 'D2CCC2', '걱정'),
-       ('P001', 'm006', 'FFE27A', '평온'),
-       ('P001', 'm007', '6868AC', '예민'),
-       ('P001', 'm008', 'A7CF99', '희망'),
-
-       ('P002', 'm001', 'CE7E5D', '기쁨'),
-       ('P002', 'm002', 'CDD6DD', '슬픔'),
-       ('P002', 'm003', 'A2543D', '분노'),
-       ('P002', 'm004', 'D39A89', '설렘'),
-       ('P002', 'm005', 'D6DCD8', '걱정'),
-       ('P002', 'm006', 'D2D0AC', '평온'),
-       ('P002', 'm007', '1D354F', '예민'),
-       ('P002', 'm008', '557570', '희망'),
-
-       ('P003', 'm001', 'E7AF8D', '기쁨'),
-       ('P003', 'm002', 'B0AEBA', '슬픔'),
-       ('P003', 'm003', 'CD686D', '분노'),
-       ('P003', 'm004', 'E08890', '설렘'),
-       ('P003', 'm005', 'A2A987', '걱정'),
-       ('P003', 'm006', 'F0DCB1', '평온'),
-       ('P003', 'm007', 'BEB5BF', '예민'),
-       ('P003', 'm008', 'A9C0C5', '희망'),
-
-       ('P004', 'm001', 'C66157', '기쁨'),
-       ('P004', 'm002', 'BDB7A1', '슬픔'),
-       ('P004', 'm003', 'A7241C', '분노'),
-       ('P004', 'm004', 'DF5756', '설렘'),
-       ('P004', 'm005', 'A38440', '걱정'),
-       ('P004', 'm006', '7D873B', '평온'),
-       ('P004', 'm007', '5A958E', '예민'),
-       ('P004', 'm008', '2E5542', '희망'),
-
-       ('P005', 'm001', 'E4E4E4', '기쁨'),
-       ('P005', 'm002', '666666', '슬픔'),
-       ('P005', 'm003', '000000', '분노'),
-       ('P005', 'm004', 'D4D4D4', '설렘'),
-       ('P005', 'm005', '7D7D7D', '걱정'),
-       ('P005', 'm006', '9D9D9D', '평온'),
-       ('P005', 'm007', '434343', '예민'),
-       ('P005', 'm008', 'B4B4B4', '희망'),
-
-       ('P006', 'm001', 'F7B0BE', '기쁨'),
-       ('P006', 'm002', '2178AE', '슬픔'),
-       ('P006', 'm003', 'ED8E83', '분노'),
-       ('P006', 'm004', 'EF3C23', '설렘'),
-       ('P006', 'm005', 'F15A42', '걱정'),
-       ('P006', 'm006', 'FAC92C', '평온'),
-       ('P006', 'm007', 'CFE5CC', '예민'),
-       ('P006', 'm008', '1B4793', '희망');
+insert into mail (created_At, verify_mail) values ('2022-11-30', false);
+insert into mail (created_At, verify_mail) values ('2022-11-30', false);
+insert into mail (created_At, verify_mail) values ('2022-11-30', false);
+insert into mail (created_At, verify_mail) values ('2022-11-30', false);
+insert into mail (created_At, verify_mail) values ('2022-11-30', false);
+--
+--
+-- insert into mood (body, created_At) values ('Glazier', '2022-11-25');
+-- insert into mood (body, created_At) values ('Waterproofer', '2022-11-27');
+-- insert into mood (body, created_At) values ('Painter', '2022-03-28');
+-- insert into mood (body, created_At) values ('Electrician', '2022-04-29');
+-- insert into mood (body, created_At) values ('Linemen', '2022-06-20');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-09-13');
+-- insert into mood (body, created_At) values ('Linemen', '2022-03-14');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-10-16');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-08-31');
+-- insert into mood (body, created_At) values ('HVAC', '2022-10-12');
+-- insert into mood (body, created_At) values ('Landscaper', '2022-04-21');
+-- insert into mood (body, created_At) values ('Equipment Operator', '2022-05-10');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-07-14');
+-- insert into mood (body, created_At) values ('Painter', '2022-04-18');
+-- insert into mood (body, created_At) values ('Terrazzo', '2021-12-11');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-11-13');
+-- insert into mood (body, created_At) values ('Electrician', '2022-04-18');
+-- insert into mood (body, created_At) values ('Linemen', '2022-01-21');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-04-25');
+-- insert into mood (body, created_At) values ('Refridgeration', '2022-04-26');
+-- insert into mood (body, created_At) values ('Concrete Finisher', '2022-02-10');
+-- insert into mood (body, created_At) values ('Ironworker', '2022-02-01');
+-- insert into mood (body, created_At) values ('Landscaper', '2021-12-31');
+-- insert into mood (body, created_At) values ('Landscaper', '2022-08-05');
+-- insert into mood (body, created_At) values ('Boilermaker', '2022-05-22');
+-- insert into mood (body, created_At) values ('Waterproofer', '2022-07-06');
+-- insert into mood (body, created_At) values ('Brickmason', '2022-05-13');
+-- insert into mood (body, created_At) values ('Landscaper', '2022-02-17');
+-- insert into mood (body, created_At) values ('Landscaper', '2022-05-16');
+-- insert into mood (body, created_At) values ('Millwright', '2021-11-29');
+-- insert into mood (body, created_At) values ('Millwright', '2022-06-19');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-05-16');
+-- insert into mood (body, created_At) values ('Waterproofer', '2021-12-07');
+-- insert into mood (body, created_At) values ('Landscaper', '2021-12-09');
+-- insert into mood (body, created_At) values ('Boilermaker', '2021-12-26');
+-- insert into mood (body, created_At) values ('Painter', '2022-03-13');
+-- insert into mood (body, created_At) values ('Cement Mason', '2022-02-27');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-04-05');
+-- insert into mood (body, created_At) values ('Pipefitter', '2021-12-29');
+-- insert into mood (body, created_At) values ('Welder', '2022-06-03');
+-- insert into mood (body, created_At) values ('Brickmason', '2022-09-19');
+-- insert into mood (body, created_At) values ('Linemen', '2022-03-20');
+-- insert into mood (body, created_At) values ('Waterproofer', '2022-10-12');
+-- insert into mood (body, created_At) values ('Electrician', '2022-06-17');
+-- insert into mood (body, created_At) values ('Laborer', '2022-05-21');
+-- insert into mood (body, created_At) values ('Brickmason', '2022-06-15');
+-- insert into mood (body, created_At) values ('HVAC', '2021-12-14');
+-- insert into mood (body, created_At) values ('Welder', '2022-07-05');
+-- insert into mood (body, created_At) values ('Cement Mason', '2021-12-26');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-04-19');
+-- insert into mood (body, created_At) values ('Terrazzo', '2022-11-06');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-07-26');
+-- insert into mood (body, created_At) values ('Boilermaker', '2021-12-13');
+-- insert into mood (body, created_At) values ('Glazier', '2022-06-03');
+-- insert into mood (body, created_At) values ('Sheet Metal Worker', '2022-06-11');
+-- insert into mood (body, created_At) values ('Tile Setter', '2021-12-31');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-05-05');
+-- insert into mood (body, created_At) values ('Millwright', '2022-07-09');
+-- insert into mood (body, created_At) values ('Terrazzo', '2022-08-18');
+-- insert into mood (body, created_At) values ('Electrician', '2022-07-01');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-04-28');
+-- insert into mood (body, created_At) values ('Cement Mason', '2022-09-28');
+-- insert into mood (body, created_At) values ('HVAC', '2021-12-11');
+-- insert into mood (body, created_At) values ('Sheet Metal Worker', '2022-06-06');
+-- insert into mood (body, created_At) values ('Refridgeration', '2022-01-09');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-08-02');
+-- insert into mood (body, created_At) values ('Cement Mason', '2022-04-20');
+-- insert into mood (body, created_At) values ('Glazier', '2022-03-29');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-08-28');
+-- insert into mood (body, created_At) values ('Laborer', '2022-11-02');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2021-12-22');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-06-10');
+-- insert into mood (body, created_At) values ('Painter', '2022-07-07');
+-- insert into mood (body, created_At) values ('Laborer', '2022-03-14');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-09-13');
+-- insert into mood (body, created_At) values ('Boilermaker', '2022-03-17');
+-- insert into mood (body, created_At) values ('Sheet Metal Worker', '2022-07-15');
+-- insert into mood (body, created_At) values ('Pipefitter', '2022-01-05');
+-- insert into mood (body, created_At) values ('Concrete Finisher', '2022-02-20');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-02-10');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-10-29');
+-- insert into mood (body, created_At) values ('Plumber', '2022-08-21');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-10-25');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-02-12');
+-- insert into mood (body, created_At) values ('Safety Officer', '2022-03-10');
+-- insert into mood (body, created_At) values ('Pipelayer', '2022-08-26');
+-- insert into mood (body, created_At) values ('Safety Officer', '2022-06-28');
+-- insert into mood (body, created_At) values ('Brickmason', '2022-09-21');
+-- insert into mood (body, created_At) values ('Tile Setter', '2021-12-05');
+-- insert into mood (body, created_At) values ('Laborer', '2022-03-11');
+-- insert into mood (body, created_At) values ('Terrazzo', '2022-08-10');
+-- insert into mood (body, created_At) values ('Laborer', '2022-06-01');
+-- insert into mood (body, created_At) values ('Glazier', '2022-10-09');
+-- insert into mood (body, created_At) values ('Refridgeration', '2022-01-10');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-07-17');
+-- insert into mood (body, created_At) values ('Boilermaker', '2022-05-01');
+-- insert into mood (body, created_At) values ('Equipment Operator', '2022-10-20');
+-- insert into mood (body, created_At) values ('Laborer', '2022-10-10');
+-- insert into mood (body, created_At) values ('Terrazzo', '2022-02-16');
+-- insert into mood (body, created_At) values ('Safety Officer', '2022-05-01');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-09-14');
+-- insert into mood (body, created_At) values ('Waterproofer', '2022-09-12');
+-- insert into mood (body, created_At) values ('Landscaper', '2022-09-20');
+-- insert into mood (body, created_At) values ('HVAC', '2022-01-16');
+-- insert into mood (body, created_At) values ('Glazier', '2021-12-03');
+-- insert into mood (body, created_At) values ('Welder', '2022-01-21');
+-- insert into mood (body, created_At) values ('Landscaper', '2022-01-01');
+-- insert into mood (body, created_At) values ('Plumber', '2022-01-22');
+-- insert into mood (body, created_At) values ('Waterproofer', '2022-11-12');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-05-04');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-05-11');
+-- insert into mood (body, created_At) values ('Pipelayer', '2022-04-10');
+-- insert into mood (body, created_At) values ('Safety Officer', '2022-02-14');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-02-27');
+-- insert into mood (body, created_At) values ('Welder', '2022-02-19');
+-- insert into mood (body, created_At) values ('Waterproofer', '2022-09-23');
+-- insert into mood (body, created_At) values ('Cement Mason', '2022-09-06');
+-- insert into mood (body, created_At) values ('Millwright', '2022-11-09');
+-- insert into mood (body, created_At) values ('Terrazzo', '2022-01-23');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-06-27');
+-- insert into mood (body, created_At) values ('Sheet Metal Worker', '2022-02-03');
+-- insert into mood (body, created_At) values ('Refridgeration', '2022-02-09');
+-- insert into mood (body, created_At) values ('Pipelayer', '2022-06-16');
+-- insert into mood (body, created_At) values ('Terrazzo', '2022-03-17');
+-- insert into mood (body, created_At) values ('Electrician', '2022-04-03');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-05-30');
+-- insert into mood (body, created_At) values ('Plumber', '2022-07-22');
+-- insert into mood (body, created_At) values ('Safety Officer', '2022-10-22');
+-- insert into mood (body, created_At) values ('Glazier', '2022-06-02');
+-- insert into mood (body, created_At) values ('Brickmason', '2022-07-16');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-06-03');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-06-07');
+-- insert into mood (body, created_At) values ('Refridgeration', '2022-01-23');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-08-11');
+-- insert into mood (body, created_At) values ('HVAC', '2021-12-31');
+-- insert into mood (body, created_At) values ('Refridgeration', '2022-07-24');
+-- insert into mood (body, created_At) values ('Millwright', '2022-09-03');
+-- insert into mood (body, created_At) values ('Equipment Operator', '2022-05-07');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-05-13');
+-- insert into mood (body, created_At) values ('Ironworker', '2022-09-08');
+-- insert into mood (body, created_At) values ('Cement Mason', '2022-06-18');
+-- insert into mood (body, created_At) values ('Pipelayer', '2022-11-23');
+-- insert into mood (body, created_At) values ('Waterproofer', '2022-03-22');
+-- insert into mood (body, created_At) values ('Painter', '2022-06-15');
+-- insert into mood (body, created_At) values ('Electrician', '2022-06-24');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-08-25');
+-- insert into mood (body, created_At) values ('Linemen', '2022-03-08');
+-- insert into mood (body, created_At) values ('Waterproofer', '2022-10-15');
+-- insert into mood (body, created_At) values ('Pipelayer', '2022-05-28');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-10-10');
+-- insert into mood (body, created_At) values ('Cement Mason', '2022-08-13');
+-- insert into mood (body, created_At) values ('Glazier', '2021-12-28');
+-- insert into mood (body, created_At) values ('Sheet Metal Worker', '2022-08-27');
+-- insert into mood (body, created_At) values ('Terrazzo', '2022-09-14');
+-- insert into mood (body, created_At) values ('Sheet Metal Worker', '2022-10-20');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-07-29');
+-- insert into mood (body, created_At) values ('Ironworker', '2021-11-29');
+-- insert into mood (body, created_At) values ('Cement Mason', '2022-10-01');
+-- insert into mood (body, created_At) values ('Concrete Finisher', '2022-10-24');
+-- insert into mood (body, created_At) values ('Terrazzo', '2022-06-13');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-04-21');
+-- insert into mood (body, created_At) values ('Refridgeration', '2022-11-02');
+-- insert into mood (body, created_At) values ('Plumber', '2022-09-04');
+-- insert into mood (body, created_At) values ('Landscaper', '2022-04-06');
+-- insert into mood (body, created_At) values ('Refridgeration', '2022-10-24');
+-- insert into mood (body, created_At) values ('Electrician', '2022-04-29');
+-- insert into mood (body, created_At) values ('Landscaper', '2022-03-24');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-06-05');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-01-31');
+-- insert into mood (body, created_At) values ('Terrazzo', '2022-11-21');
+-- insert into mood (body, created_At) values ('Laborer', '2022-10-19');
+-- insert into mood (body, created_At) values ('Glazier', '2022-01-30');
+-- insert into mood (body, created_At) values ('HVAC', '2022-01-05');
+-- insert into mood (body, created_At) values ('Pipelayer', '2022-03-28');
+-- insert into mood (body, created_At) values ('Waterproofer', '2021-12-19');
+-- insert into mood (body, created_At) values ('Brickmason', '2021-12-21');
+-- insert into mood (body, created_At) values ('Boilermaker', '2022-10-24');
+-- insert into mood (body, created_At) values ('Safety Officer', '2021-12-15');
+-- insert into mood (body, created_At) values ('Cement Mason', '2022-07-16');
+-- insert into mood (body, created_At) values ('Welder', '2022-01-22');
+-- insert into mood (body, created_At) values ('Concrete Finisher', '2022-02-04');
+-- insert into mood (body, created_At) values ('Painter', '2021-12-29');
+-- insert into mood (body, created_At) values ('Laborer', '2022-10-29');
+-- insert into mood (body, created_At) values ('Concrete Finisher', '2022-06-17');
+-- insert into mood (body, created_At) values ('Cement Mason', '2021-12-15');
+-- insert into mood (body, created_At) values ('Laborer', '2022-10-13');
+-- insert into mood (body, created_At) values ('Electrician', '2022-04-04');
+-- insert into mood (body, created_At) values ('Waterproofer', '2022-11-08');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-07-17');
+-- insert into mood (body, created_At) values ('Pipelayer', '2021-12-05');
+-- insert into mood (body, created_At) values ('Electrician', '2022-03-21');
+-- insert into mood (body, created_At) values ('Refridgeration', '2022-03-27');
+-- insert into mood (body, created_At) values ('Pipelayer', '2021-12-06');
+-- insert into mood (body, created_At) values ('Glazier', '2022-01-02');
+-- insert into mood (body, created_At) values ('Cement Mason', '2022-02-15');
+-- insert into mood (body, created_At) values ('Welder', '2022-01-09');
+-- insert into mood (body, created_At) values ('Ironworker', '2022-07-14');
+-- insert into mood (body, created_At) values ('Plumber', '2022-08-08');
+-- insert into mood (body, created_At) values ('Boilermaker', '2022-05-17');
+-- insert into mood (body, created_At) values ('Ironworker', '2022-01-22');
+-- insert into mood (body, created_At) values ('Laborer', '2022-03-24');
+-- insert into mood (body, created_At) values ('Electrician', '2022-02-12');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-05-06');
+-- insert into mood (body, created_At) values ('Millwright', '2022-03-12');
+-- insert into mood (body, created_At) values ('Laborer', '2022-03-26');
+-- insert into mood (body, created_At) values ('Refridgeration', '2022-05-25');
+-- insert into mood (body, created_At) values ('Ironworker', '2022-02-01');
+-- insert into mood (body, created_At) values ('Refridgeration', '2022-02-08');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-11-18');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-05-11');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-09-20');
+-- insert into mood (body, created_At) values ('Concrete Finisher', '2022-03-20');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-01-03');
+-- insert into mood (body, created_At) values ('HVAC', '2022-04-17');
+-- insert into mood (body, created_At) values ('Waterproofer', '2022-01-04');
+-- insert into mood (body, created_At) values ('Glazier', '2022-11-05');
+-- insert into mood (body, created_At) values ('Glazier', '2022-06-16');
+-- insert into mood (body, created_At) values ('Ironworker', '2022-11-26');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-06-01');
+-- insert into mood (body, created_At) values ('Brickmason', '2022-10-16');
+-- insert into mood (body, created_At) values ('Millwright', '2022-10-07');
+-- insert into mood (body, created_At) values ('Refridgeration', '2022-02-09');
+-- insert into mood (body, created_At) values ('Electrician', '2022-01-08');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-08-28');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-10-13');
+-- insert into mood (body, created_At) values ('Plumber', '2021-12-20');
+-- insert into mood (body, created_At) values ('Electrician', '2022-06-22');
+-- insert into mood (body, created_At) values ('Boilermaker', '2022-09-11');
+-- insert into mood (body, created_At) values ('Landscaper', '2022-04-24');
+-- insert into mood (body, created_At) values ('Equipment Operator', '2021-12-13');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-05-13');
+-- insert into mood (body, created_At) values ('Glazier', '2022-04-23');
+-- insert into mood (body, created_At) values ('Painter', '2022-06-28');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-01-20');
+-- insert into mood (body, created_At) values ('Brickmason', '2022-07-03');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-10-21');
+-- insert into mood (body, created_At) values ('Waterproofer', '2022-06-19');
+-- insert into mood (body, created_At) values ('Concrete Finisher', '2022-06-10');
+-- insert into mood (body, created_At) values ('Equipment Operator', '2022-05-28');
+-- insert into mood (body, created_At) values ('Brickmason', '2022-11-09');
+-- insert into mood (body, created_At) values ('Terrazzo', '2022-01-24');
+-- insert into mood (body, created_At) values ('Plasterers', '2021-12-03');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-03-05');
+-- insert into mood (body, created_At) values ('Boilermaker', '2022-01-17');
+-- insert into mood (body, created_At) values ('Plumber', '2021-12-15');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-10-17');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-04-21');
+-- insert into mood (body, created_At) values ('Landscaper', '2022-07-08');
+-- insert into mood (body, created_At) values ('Tile Setter', '2021-12-05');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-05-17');
+-- insert into mood (body, created_At) values ('Waterproofer', '2022-03-21');
+-- insert into mood (body, created_At) values ('Welder', '2022-09-18');
+-- insert into mood (body, created_At) values ('Safety Officer', '2022-01-18');
+-- insert into mood (body, created_At) values ('Waterproofer', '2022-11-01');
+-- insert into mood (body, created_At) values ('Equipment Operator', '2022-10-28');
+-- insert into mood (body, created_At) values ('Glazier', '2022-11-07');
+-- insert into mood (body, created_At) values ('Waterproofer', '2022-03-28');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-07-15');
+-- insert into mood (body, created_At) values ('Sheet Metal Worker', '2022-03-26');
+-- insert into mood (body, created_At) values ('Equipment Operator', '2022-01-22');
+-- insert into mood (body, created_At) values ('Concrete Finisher', '2022-05-28');
+-- insert into mood (body, created_At) values ('Boilermaker', '2022-04-20');
+-- insert into mood (body, created_At) values ('Brickmason', '2022-02-10');
+-- insert into mood (body, created_At) values ('Tile Setter', '2021-12-30');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-02-07');
+-- insert into mood (body, created_At) values ('Plumber', '2022-03-16');
+-- insert into mood (body, created_At) values ('Boilermaker', '2022-10-10');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-05-02');
+-- insert into mood (body, created_At) values ('Landscaper', '2022-10-02');
+-- insert into mood (body, created_At) values ('Linemen', '2022-08-25');
+-- insert into mood (body, created_At) values ('Electrician', '2021-12-02');
+-- insert into mood (body, created_At) values ('Ironworker', '2022-11-26');
+-- insert into mood (body, created_At) values ('Pipefitter', '2022-03-10');
+-- insert into mood (body, created_At) values ('Waterproofer', '2022-02-25');
+-- insert into mood (body, created_At) values ('Glazier', '2021-11-29');
+-- insert into mood (body, created_At) values ('Electrician', '2021-12-28');
+-- insert into mood (body, created_At) values ('Millwright', '2022-01-07');
+-- insert into mood (body, created_At) values ('Pipelayer', '2021-12-15');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-07-07');
+-- insert into mood (body, created_At) values ('Safety Officer', '2022-02-17');
+-- insert into mood (body, created_At) values ('Sheet Metal Worker', '2022-11-13');
+-- insert into mood (body, created_At) values ('Boilermaker', '2022-05-16');
+-- insert into mood (body, created_At) values ('Welder', '2022-10-27');
+-- insert into mood (body, created_At) values ('Ironworker', '2022-08-19');
+-- insert into mood (body, created_At) values ('Painter', '2022-02-20');
+-- insert into mood (body, created_At) values ('Concrete Finisher', '2022-01-31');
+-- insert into mood (body, created_At) values ('Brickmason', '2022-11-20');
+-- insert into mood (body, created_At) values ('Painter', '2022-02-15');
+-- insert into mood (body, created_At) values ('Terrazzo', '2022-09-23');
+-- insert into mood (body, created_At) values ('Landscaper', '2022-03-15');
+-- insert into mood (body, created_At) values ('Pipelayer', '2022-01-08');
+-- insert into mood (body, created_At) values ('Glazier', '2022-09-30');
+-- insert into mood (body, created_At) values ('Waterproofer', '2021-12-30');
+-- insert into mood (body, created_At) values ('Welder', '2022-02-14');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-10-03');
+-- insert into mood (body, created_At) values ('HVAC', '2022-03-10');
+-- insert into mood (body, created_At) values ('Refridgeration', '2022-08-30');
+-- insert into mood (body, created_At) values ('Cement Mason', '2022-07-10');
+-- insert into mood (body, created_At) values ('Electrician', '2022-09-26');
+-- insert into mood (body, created_At) values ('Pipefitter', '2022-04-22');
+-- insert into mood (body, created_At) values ('Safety Officer', '2022-04-21');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-07-29');
+-- insert into mood (body, created_At) values ('Ironworker', '2021-12-07');
+-- insert into mood (body, created_At) values ('Safety Officer', '2022-02-19');
+-- insert into mood (body, created_At) values ('Safety Officer', '2022-03-25');
+-- insert into mood (body, created_At) values ('Brickmason', '2022-02-19');
+-- insert into mood (body, created_At) values ('Boilermaker', '2022-05-06');
+-- insert into mood (body, created_At) values ('HVAC', '2022-10-16');
+-- insert into mood (body, created_At) values ('Cement Mason', '2022-04-04');
+-- insert into mood (body, created_At) values ('Boilermaker', '2022-06-03');
+-- insert into mood (body, created_At) values ('Welder', '2022-05-30');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-09-15');
+-- insert into mood (body, created_At) values ('Electrician', '2022-09-18');
+-- insert into mood (body, created_At) values ('Equipment Operator', '2021-12-08');
+-- insert into mood (body, created_At) values ('Landscaper', '2022-03-17');
+-- insert into mood (body, created_At) values ('Pipefitter', '2022-01-29');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2021-12-04');
+-- insert into mood (body, created_At) values ('Painter', '2022-10-11');
+-- insert into mood (body, created_At) values ('Boilermaker', '2022-07-16');
+-- insert into mood (body, created_At) values ('Concrete Finisher', '2022-02-19');
+-- insert into mood (body, created_At) values ('Pipelayer', '2022-06-16');
+-- insert into mood (body, created_At) values ('Brickmason', '2022-06-02');
+-- insert into mood (body, created_At) values ('Electrician', '2022-01-11');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-02-27');
+-- insert into mood (body, created_At) values ('Equipment Operator', '2022-02-09');
+-- insert into mood (body, created_At) values ('Plumber', '2022-05-23');
+-- insert into mood (body, created_At) values ('Cement Mason', '2021-12-09');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-08-22');
+-- insert into mood (body, created_At) values ('Ironworker', '2022-11-15');
+-- insert into mood (body, created_At) values ('Painter', '2022-09-29');
+-- insert into mood (body, created_At) values ('Painter', '2022-10-13');
+-- insert into mood (body, created_At) values ('Sheet Metal Worker', '2022-06-24');
+-- insert into mood (body, created_At) values ('HVAC', '2022-05-17');
+-- insert into mood (body, created_At) values ('Plumber', '2022-01-07');
+-- insert into mood (body, created_At) values ('Ironworker', '2022-06-21');
+-- insert into mood (body, created_At) values ('Pipefitter', '2022-10-29');
+-- insert into mood (body, created_At) values ('Laborer', '2022-08-05');
+-- insert into mood (body, created_At) values ('Equipment Operator', '2022-11-06');
+-- insert into mood (body, created_At) values ('Laborer', '2022-06-18');
+-- insert into mood (body, created_At) values ('Welder', '2022-02-11');
+-- insert into mood (body, created_At) values ('Electrician', '2022-03-11');
+-- insert into mood (body, created_At) values ('Brickmason', '2022-09-27');
+-- insert into mood (body, created_At) values ('Terrazzo', '2022-05-31');
+-- insert into mood (body, created_At) values ('Millwright', '2022-11-16');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2021-12-08');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-05-28');
+-- insert into mood (body, created_At) values ('Linemen', '2022-10-14');
+-- insert into mood (body, created_At) values ('HVAC', '2021-12-26');
+-- insert into mood (body, created_At) values ('Concrete Finisher', '2022-08-13');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-09-12');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-05-21');
+-- insert into mood (body, created_At) values ('Plumber', '2022-04-26');
+-- insert into mood (body, created_At) values ('Stucco Mason', '2022-02-07');
+-- insert into mood (body, created_At) values ('Refridgeration', '2022-10-07');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-05-01');
+-- insert into mood (body, created_At) values ('Electrician', '2022-10-09');
+-- insert into mood (body, created_At) values ('Electrician', '2022-04-05');
+-- insert into mood (body, created_At) values ('Refridgeration', '2022-10-02');
+-- insert into mood (body, created_At) values ('Ironworker', '2022-11-22');
+-- insert into mood (body, created_At) values ('Plasterers', '2022-07-07');
+-- insert into mood (body, created_At) values ('Millwright', '2022-01-21');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-07-20');
+-- insert into mood (body, created_At) values ('Tile Setter', '2022-11-22');
+-- insert into mood (body, created_At) values ('Carpenter', '2022-07-05');
+-- insert into mood (body, created_At) values ('HVAC', '2021-12-09');

@@ -49,6 +49,21 @@ public class MailService {
         return mailRepository.save(message);
     }
 
+    public void dummyMail(Long senderId, Long requesterId){
+        Member sender = memberRepository.findById(senderId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        Member receiver = memberRepository.findById(requesterId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        for(Long i = Long.valueOf(23); i<28; i++){
+            Mail mail = mailRepository.findById(i).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MAIL_EXISTS));
+            mail.setBody("으아아앙ㄴ응으으으아ㅏ아으ㅏ으ㅏ으ㅏ으ㅏ으ㅏㅇ");
+            mail.setSender(sender);
+            mail.setReceiver(receiver);
+            mailRepository.save(mail);
+        }
+    }
+
     public Mail findMessage(Long mailId){
         return mailRepository.findById(mailId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MAIL_EXISTS));

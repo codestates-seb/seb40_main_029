@@ -19,10 +19,10 @@ public class Mood extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long moodId;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String moodCode;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String paletteCode;
 
     @Column(length = 200)

@@ -41,6 +41,12 @@ public class MailController {
         return new ResponseEntity<>(new MultiResponseDto<>(response, point), HttpStatus.OK);
     }
 
+    @PatchMapping("/dummy/{sender-id}/{receiver-id}")
+    public void mainDummy(@PathVariable("sender-id") Long senderId,
+                          @PathVariable("receiver-id") Long receiverId){
+        mailService.dummyMail(senderId, receiverId);
+    }
+
     @PatchMapping("/{member-id}")
     public ResponseEntity<List<Mail>> convertMail(@PathVariable("member-id") Long memberId) {
         List<Mail> convert = mailService.convert(memberId);
