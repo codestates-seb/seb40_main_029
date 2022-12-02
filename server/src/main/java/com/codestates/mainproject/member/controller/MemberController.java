@@ -12,7 +12,7 @@ import com.codestates.mainproject.member.dto.*;
 import com.codestates.mainproject.member.entity.Friend;
 import com.codestates.mainproject.member.entity.Member;
 import com.codestates.mainproject.member.mapper.FriendMapper;
-import com.codestates.mainproject.member.mapper.MemberMapperImp;
+import com.codestates.mainproject.member.mapper.MemberMapper;
 import com.codestates.mainproject.member.service.MemberService;
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final FriendMapper friendMapper;
-    private final MemberMapperImp mapper;
+    private final MemberMapper mapper;
     private final JwtProvider jwtProvider;
 
     @Transactional
@@ -133,6 +133,11 @@ public class MemberController {
         log.info(response.getPalette() + " 팔레트를 선택하였습니다.");
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PatchMapping("/point/{member-id}")
+    public void patchPoint(@PathVariable("member-id") Long memberId){
+        memberService.setPointMember(memberId);
     }
 
     @GetMapping("/{member-id}")

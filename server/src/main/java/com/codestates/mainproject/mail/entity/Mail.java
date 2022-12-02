@@ -2,8 +2,6 @@ package com.codestates.mainproject.mail.entity;
 
 import com.codestates.mainproject.audit.Auditable;
 import com.codestates.mainproject.member.entity.Member;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,13 +14,12 @@ import javax.print.attribute.standard.DateTimeAtCreation;
 @Entity
 @Table
 @NoArgsConstructor
-
 public class Mail extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mailId;
 
-    @Column(nullable = false, length = 600)
+//    @Column(nullable = false, length = 600)
     private String body;
 
     @Column(nullable = false)

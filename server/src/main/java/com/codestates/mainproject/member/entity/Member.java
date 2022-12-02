@@ -1,5 +1,6 @@
 package com.codestates.mainproject.member.entity;
 
+import com.codestates.mainproject.mail.entity.Mail;
 import com.codestates.mainproject.member.role.Role;
 import com.codestates.mainproject.mood.entity.Mood;
 import com.codestates.mainproject.palette.entity.MemberPalette;
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -54,8 +56,11 @@ public class Member {
     private List<Mood> moodList = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "requester", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "respondent", cascade = CascadeType.ALL)
     private List<Friend> friends = new ArrayList<>();
+
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.PERSIST)
+    private List<Mail> mails = new ArrayList<>();
 
 
     public String getRoleKey() {
