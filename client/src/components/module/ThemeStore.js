@@ -129,6 +129,8 @@ export const ThemeStore = ({ pointRefresher }) => {
     // isMine();
   };
 
+  console.log('비활성화 조건 추가');
+
   return (
     <StoreModal>
       <TitleContainer>
@@ -147,7 +149,10 @@ export const ThemeStore = ({ pointRefresher }) => {
             size="long"
             fontsize="middle"
             onClick={() => handleSet(paletteCode, memberId)}
-            disabled={paletteCodeSelec == paletteCode}
+            disabled={
+              paletteCodeSelec == paletteCode &&
+              !myPalette.includes(paletteCode)
+            }
           >
             적용
           </Button>
