@@ -47,7 +47,7 @@ const Home = () => {
       navigate('/login');
       console.log('토큰 없음');
     }
-    onSilentRefresh();
+    // onSilentRefresh();
   }, []);
 
   useEffect(() => {
