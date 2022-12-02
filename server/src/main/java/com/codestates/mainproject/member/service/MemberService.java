@@ -37,6 +37,10 @@ public class MemberService {
         Member findMember = verifyEmail(member.getEmail())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
+        if(verifyDisplayName(member.getDisplayName()).isPresent()){
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+        }
+
         findMember.setDisplayName(member.getDisplayName());
 
         return memberRepository.save(findMember);
@@ -47,13 +51,16 @@ public class MemberService {
         if(verifyEmail(member.getEmail()).isPresent()){
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
         }
+        if(verifyDisplayName(member.getDisplayName()).isPresent()){
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+        }
 
         String basicCode = "P001";
         MoodPalette basicPalette = moodPaletteRepository.findById("P001").orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
 
         member.setPalette(basicPalette.getPaletteName());
         member.setRole(Role.USER);
-        member.setPoint(500);
+        member.setPoint(3000);
         member.getPalettes().add(new MemberPalette(basicPalette));
 
         return memberRepository.save(member);
@@ -64,7 +71,8 @@ public class MemberService {
     public Friend addFriend(FriendPostDto friend){
         if(friendRepository.findByRespondent_DisplayNameAndRequester_DisplayName(
                                                     friend.getRespondentDisplayName(),
-                                                    friend.getRequesterDisplayName()).isPresent()){
+                                                    friend.getRequesterDisplayName()).isPresent()
+        || friend.getRequesterDisplayName().equals(friend.getRespondentDisplayName())){
             throw new BusinessLogicException(ExceptionCode.FRIEND_EXISTS);
         }
         Member requester = verifyDisplayName(friend.getRequesterDisplayName()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
@@ -145,6 +153,13 @@ public class MemberService {
             } else continue;
         }
         throw new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND);
+    }
+
+    /* 특정 멤버에게 포인트 추가 (테스트용 메서드)*/
+    public void setPointMember(Long memberId){
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        member.setPoint(member.getPoint() + 10000);
+        memberRepository.save(member);
     }
 
 
