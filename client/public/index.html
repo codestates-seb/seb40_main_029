@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <!-- <meta name="referrer" content="no-referrer-when-downgrade" /> -->
     <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+    />
     <link rel="icon" href="%PUBLIC_URL%/omu2.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
@@ -32,12 +36,8 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>오무</title>
-    <script
-      src="https://accounts.google.com/gsi/client"
-      referrerpolicy="no-referrer-when-downgrade"
-      async
-      defer
-    ></script>
+    <!-- referrerpolicy="no-referrer-when-downgrade" -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
