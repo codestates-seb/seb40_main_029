@@ -15,7 +15,7 @@ const App = () => {
     // axios
     //   .get(
     //
-    //   )
+    //   )hi
     //   .then
     // res => dispatch(setPaletteCode(res.data.moodPaletteDetails.paletteCode))
     // dispatch(setPaletteCode('p006'))
