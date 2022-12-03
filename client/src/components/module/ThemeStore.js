@@ -129,7 +129,8 @@ export const ThemeStore = ({ pointRefresher }) => {
     // isMine();
   };
 
-  console.log('비활성화 조건 추가');
+  console.log('조건확인');
+  console.log(myPalette.includes(paletteCode));
 
   return (
     <StoreModal>
@@ -150,7 +151,7 @@ export const ThemeStore = ({ pointRefresher }) => {
             fontsize="middle"
             onClick={() => handleSet(paletteCode, memberId)}
             disabled={
-              !myPalette.includes(paletteCode) &&
+              myPalette.includes(paletteCode) == false &&
               paletteCodeSelec == paletteCode
             }
           >
