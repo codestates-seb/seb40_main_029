@@ -111,43 +111,47 @@ export const ThemeStore = ({ pointRefresher }) => {
   };
 
   const toRight = () => {
-    console.log('우클릭 조건');
     if (carouselIndex < lastIndex) {
-      // isMine();
+      console.log('인덱스');
       setIndex(carouselIndex + 1);
     } else {
-      // isMine();
+      console.log('인덱스');
       setIndex(0);
     }
     if (
       myPalette.includes(paletteCode) == false ||
       paletteCodeSelec == paletteCode
     ) {
+      console.log('비활성화');
       setDisable(true);
     } else if (
       myPalette.includes(paletteCode) == true &&
       paletteCodeSelec != paletteCode
     ) {
+      console.log('활성화');
       setDisable(false);
     }
   };
 
   const toLeft = () => {
-    console.log('좌클릭 조건');
     if (carouselIndex > 0) {
+      console.log('인덱스');
       setIndex(carouselIndex - 1);
     } else {
+      console.log('인덱스');
       setIndex(lastIndex);
     }
     if (
       myPalette.includes(paletteCode) == false ||
       paletteCodeSelec == paletteCode
     ) {
+      console.log('비활성화');
       setDisable(true);
     } else if (
       myPalette.includes(paletteCode) == true &&
       paletteCodeSelec != paletteCode
     ) {
+      console.log('활성화');
       setDisable(false);
     }
   };
