@@ -7,7 +7,7 @@ import Header from '../module/Header';
 import MoodSelector from '../module/MoodSelector';
 import GlobalModal from './GlobalModal';
 import { GetPoint } from '../../api/GetPointApi';
-import { memberIdSelector } from '../../redux/hooks';
+import { memberIdSelector, emailSelector } from '../../redux/hooks';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
@@ -24,6 +24,7 @@ const Home = () => {
   const navigate = useNavigate();
   const [userPoint, setUserPoint] = useState(0);
   const memberId = useSelector(memberIdSelector);
+  const email = useSelector(emailSelector);
   console.log(memberId);
   const accessToken = getCookie('accessToken');
 
@@ -46,6 +47,8 @@ const Home = () => {
     } else if (accessToken == undefined) {
       navigate('/login');
       console.log('토큰 없음');
+    } else if (memberId === -1 && email !== -1) {
+      navigate('/signup');
     }
     // onSilentRefresh();
   }, []);
