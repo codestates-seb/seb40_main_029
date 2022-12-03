@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import BookmarkHandle from './BookmarkHandle';
 import BookmarkItem from '../module/BookmarkItem';
 
