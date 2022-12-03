@@ -101,7 +101,7 @@ export const ThemeStore = ({ pointRefresher }) => {
         dispatch(setMyPalette(paletteCode));
         alert('팔레트 구매가 완료되었습니다');
         pointRefresher();
-        isMine();
+        SetPaletteCode('P00' + (carouselIndex + 1));
       }
     })();
   };
