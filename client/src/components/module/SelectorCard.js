@@ -28,6 +28,7 @@ const SelectorCard = ({
   setReason,
   moodId,
   moods,
+  submitHandler,
   lookbackRefresher,
   pointRefresher,
 }) => {
@@ -48,7 +49,7 @@ const SelectorCard = ({
         dispatch(setMood({ mood: moods[idx], reason }));
         lookbackRefresher();
         pointRefresher();
-        window.location.reload();
+        submitHandler();
       });
   };
 
