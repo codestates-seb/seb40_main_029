@@ -74,33 +74,43 @@ const SelectorCard = ({
     <Wrapper fade={fade}>
       <Selector>
         <LeftRightContainer>
-          <LeftRight darkmode={darkmode}>
+          <LeftRight darkmode={darkmode} fade={fade}>
             <FontAwesomeIcon icon={faChevronLeft} onClick={() => toLeft()} />
           </LeftRight>
         </LeftRightContainer>
-        <Mood darkmode={darkmode}>
-          <Type darkmode={darkmode}>{moods[idx]}</Type>
+        <Mood darkmode={darkmode} fade={fade}>
+          <Type darkmode={darkmode} fade={fade}>
+            {moods[idx]}
+          </Type>
         </Mood>
         <LeftRightContainer>
-          <LeftRight darkmode={darkmode}>
+          <LeftRight darkmode={darkmode} fade={fade}>
             <FontAwesomeIcon icon={faChevronRight} onClick={() => toRight()} />
           </LeftRight>
         </LeftRightContainer>
       </Selector>
-      <Today darkmode={darkmode}>{dateString}</Today>
+      <Today darkmode={darkmode} fade={fade}>
+        {dateString}
+      </Today>
       <InfoContainer>
         <Info
           placeholder="무슨 일이 있었나요? 생략해도 돼요."
           darkmode={darkmode}
+          fade={fade}
           value={reason}
           onChange={e => setReason(e.target.value)}
         ></Info>
         <ButtonContainer>
-          <Button darkmode={darkmode} onClick={() => setDarkmode(!darkmode)}>
+          <Button
+            darkmode={darkmode}
+            fade={fade}
+            onClick={() => setDarkmode(!darkmode)}
+          >
             <FontAwesomeIcon icon={faCircleHalfStroke} />
           </Button>
           <Button
             darkmode={darkmode}
+            fade={fade}
             onClick={() => (moodId ? edit() : submit())}
           >
             <FontAwesomeIcon icon={faPaperPlane} />
@@ -139,7 +149,15 @@ const LeftRight = styled.button`
   margin: 40px 0 20px 0;
   font-size: 50px;
   path {
-    color: ${({ darkmode }) => (darkmode ? '#333435' : 'white')};
+    color: ${({ darkmode, fade }) => {
+      if (fade) {
+        return '#f6f6f6';
+      }
+      if (darkmode) {
+        return '#333435';
+      }
+      return 'white';
+    }};
     transition: color 0.3s;
   }
 `;
@@ -153,7 +171,16 @@ const Mood = styled.div`
   -webkit-user-select: none;
   user-select: none;
   background-color: transparent;
-  border: 5px solid ${({ darkmode }) => (darkmode ? '#333435' : 'white')};
+  border: 5px solid
+    ${({ darkmode, fade }) => {
+      if (fade) {
+        return '#f6f6f6';
+      }
+      if (darkmode) {
+        return '#333435';
+      }
+      return 'white';
+    }};
   transition: border 0.3s;
   margin: 40px 20px 15px 20px;
 `;
@@ -164,7 +191,15 @@ const Type = styled.div`
   font-size: 40px;
   font-weight: 800;
   margin: 10px;
-  color: ${({ darkmode }) => (darkmode ? '#333435' : 'white')};
+  ${({ darkmode, fade }) => {
+    if (fade) {
+      return '#f6f6f6';
+    }
+    if (darkmode) {
+      return '#333435';
+    }
+    return 'white';
+  }};
   transition: color 0.3s;
 `;
 
@@ -172,7 +207,15 @@ const Today = styled.div`
   font-size: 18px;
   -webkit-user-select: none;
   user-select: none;
-  color: ${({ darkmode }) => (darkmode ? '#333435' : 'white')};
+  ${({ darkmode, fade }) => {
+    if (fade) {
+      return '#f6f6f6';
+    }
+    if (darkmode) {
+      return '#333435';
+    }
+    return 'white';
+  }};
   transition: color 0.3s;
 `;
 
@@ -199,13 +242,29 @@ const Info = styled.textarea`
     outline: none;
   }
   ::placeholder {
-    color: ${({ darkmode }) => (darkmode ? '#333435' : 'white')};
+    ${({ darkmode, fade }) => {
+      if (fade) {
+        return '#f6f6f6';
+      }
+      if (darkmode) {
+        return '#333435';
+      }
+      return 'white';
+    }};
     transition: color 0.3s;
   }
   ::-webkit-scrollbar {
     display: none;
   }
-  color: ${({ darkmode }) => (darkmode ? '#333435' : 'white')};
+  color: ${({ darkmode, fade }) => {
+    if (fade) {
+      return '#f6f6f6';
+    }
+    if (darkmode) {
+      return '#333435';
+    }
+    return 'white';
+  }};
   transition: color 0.3s;
 `;
 
@@ -237,7 +296,15 @@ const Button = styled.button`
   font-weight: 700;
 
   path {
-    color: ${({ darkmode }) => (darkmode ? '#333435' : 'white')};
+    color: ${({ darkmode, fade }) => {
+      if (fade) {
+        return '#f6f6f6';
+      }
+      if (darkmode) {
+        return '#333435';
+      }
+      return 'white';
+    }};
     transition: color 0.3s;
   }
 
