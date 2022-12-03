@@ -101,6 +101,7 @@ export const ThemeStore = ({ pointRefresher }) => {
         dispatch(setMyPalette(paletteCode));
         alert('팔레트 구매가 완료되었습니다');
         pointRefresher();
+        isMine();
       }
     })();
   };
@@ -109,6 +110,22 @@ export const ThemeStore = ({ pointRefresher }) => {
     SetPalette(paletteCode, memberId);
     dispatch(setPaletteCode(paletteCode));
     window.location.reload();
+  };
+
+  const isMine = () => {
+    if (
+      myPalette.includes(paletteCode) == false ||
+      paletteCodeSelec == paletteCode
+    ) {
+      // console.log('비활성화');
+      setDisable(true);
+    } else if (
+      myPalette.includes(paletteCode) == true &&
+      paletteCodeSelec != paletteCode
+    ) {
+      // console.log('활성화');
+      setDisable(false);
+    }
   };
 
   const toRight = () => {
@@ -137,19 +154,20 @@ export const ThemeStore = ({ pointRefresher }) => {
   }, [carouselIndex]);
 
   useEffect(() => {
-    if (
-      myPalette.includes(paletteCode) == false ||
-      paletteCodeSelec == paletteCode
-    ) {
-      // console.log('비활성화');
-      setDisable(true);
-    } else if (
-      myPalette.includes(paletteCode) == true &&
-      paletteCodeSelec != paletteCode
-    ) {
-      // console.log('활성화');
-      setDisable(false);
-    }
+    isMine();
+    // if (
+    //   myPalette.includes(paletteCode) == false ||
+    //   paletteCodeSelec == paletteCode
+    // ) {
+    //   // console.log('비활성화');
+    //   setDisable(true);
+    // } else if (
+    //   myPalette.includes(paletteCode) == true &&
+    //   paletteCodeSelec != paletteCode
+    // ) {
+    //   // console.log('활성화');
+    //   setDisable(false);
+    // }
   }, [paletteCode]);
 
   return (
