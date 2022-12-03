@@ -75,7 +75,7 @@ export const ThemeStore = ({ pointRefresher }) => {
   const paletteCodeSelec = useSelector(paletteCodeSelector);
   const myPalette = useSelector(myPaletteSelector);
   const [carouselIndex, setIndex] = useState(0);
-  const [disable, setDisable] = useState(false);
+  const [isdisabled, setDisable] = useState(false);
   const paletteCode = 'P00' + (carouselIndex + 1);
   const lastIndex = 5;
   const paletteName = [
@@ -118,22 +118,28 @@ export const ThemeStore = ({ pointRefresher }) => {
       // isMine();
       setIndex(0);
     }
+    if (
+      myPalette.includes(paletteCode) == false ||
+      paletteCodeSelec == paletteCode
+    ) {
+      setDisable(true);
+    }
   };
 
   const toLeft = () => {
+    console.log('우클릭 조건');
     if (carouselIndex > 0) {
       setIndex(carouselIndex - 1);
     } else {
       setIndex(lastIndex);
     }
-    // isMine();
+    if (
+      myPalette.includes(paletteCode) == false ||
+      paletteCodeSelec == paletteCode
+    ) {
+      setDisable(true);
+    }
   };
-
-  console.log('조건확인');
-  console.log(
-    myPalette.includes(paletteCode) === false &&
-      paletteCodeSelec === paletteCode
-  );
 
   return (
     <StoreModal>
@@ -153,10 +159,7 @@ export const ThemeStore = ({ pointRefresher }) => {
             size="long"
             fontsize="middle"
             onClick={() => handleSet(paletteCode, memberId)}
-            disabled={
-              myPalette.includes(paletteCode) === false &&
-              paletteCodeSelec === paletteCode
-            }
+            disabled={isdisabled}
           >
             적용
           </Button>
