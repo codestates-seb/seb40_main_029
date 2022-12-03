@@ -19,6 +19,10 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
   const displayName = useSelector(displayNameSelector);
   const { isOpen } = useSelector(selectModal);
   const [fade, setFade] = useState(false);
+  const [theSubit, setTheSubmit] = useState(1);
+  const submitHandler = () => {
+    setTheSubmit(theSubit * -1);
+  };
   // if (isOpen) {
   //   setFade(true);
   // }
@@ -60,7 +64,7 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
         setIdx(Number(res.data.moodPaletteDetails.moodCode[3]) - 1);
         setFade(true);
       });
-  }, [isOpen, displayName]);
+  }, [isOpen, displayName, theSubit]);
 
   const [idx, setIdx] = useState(0);
   const [darkmode, setDarkmode] = useState(false);
@@ -109,6 +113,7 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
           setMoodId={setMoodId}
           moodId={moodId}
           moods={moods}
+          submitHandler={submitHandler}
           lookbackRefresher={lookbackRefresher}
           pointRefresher={pointRefresher}
         />
