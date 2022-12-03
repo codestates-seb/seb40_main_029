@@ -111,6 +111,7 @@ export const ThemeStore = ({ pointRefresher }) => {
   };
 
   const toRight = () => {
+    console.log('우클릭 조건');
     if (carouselIndex < lastIndex) {
       // isMine();
       setIndex(carouselIndex + 1);
@@ -123,13 +124,16 @@ export const ThemeStore = ({ pointRefresher }) => {
       paletteCodeSelec == paletteCode
     ) {
       setDisable(true);
-    } else {
+    } else if (
+      myPalette.includes(paletteCode) == true &&
+      paletteCodeSelec != paletteCode
+    ) {
       setDisable(false);
     }
   };
 
   const toLeft = () => {
-    console.log('우클릭 조건');
+    console.log('좌클릭 조건');
     if (carouselIndex > 0) {
       setIndex(carouselIndex - 1);
     } else {
@@ -140,7 +144,10 @@ export const ThemeStore = ({ pointRefresher }) => {
       paletteCodeSelec == paletteCode
     ) {
       setDisable(true);
-    } else {
+    } else if (
+      myPalette.includes(paletteCode) == true &&
+      paletteCodeSelec != paletteCode
+    ) {
       setDisable(false);
     }
   };
