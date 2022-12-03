@@ -84,7 +84,7 @@ const CircleCarousel = ({ carouselIndex }) => {
           for (let i = 0; i < res.data.length; i += 8)
             paletteSet.push(res.data.slice(i, i + 8));
           setPalette({ ...palette, carousel: paletteSet });
-          console.log(palette.carousel);
+          // console.log(palette.carousel);
         });
       } catch (err) {
         throw err;
@@ -158,7 +158,7 @@ const CircleCarousel = ({ carouselIndex }) => {
       centerItem: palette.nextItem,
     });
     // prevNext(palette.centerItem);
-    console.log(palette);
+    // console.log(palette);
   };
 
   const prev = () => {
