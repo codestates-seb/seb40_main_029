@@ -77,7 +77,7 @@ export const ThemeStore = ({ pointRefresher }) => {
   const [carouselIndex, setIndex] = useState(0);
   const [isdisabled, setDisable] = useState(false);
   const [paletteCode, SetPaletteCode] = useState('P00' + (carouselIndex + 1));
-  // const paletteCode = 'P00' + (carouselIndex + 1);
+  const [button, setButton] = useState(-1);
   const lastIndex = 5;
   const paletteName = [
     '기본',
@@ -101,7 +101,7 @@ export const ThemeStore = ({ pointRefresher }) => {
         dispatch(setMyPalette(paletteCode));
         alert('팔레트 구매가 완료되었습니다');
         pointRefresher();
-        SetPaletteCode('P00' + (carouselIndex + 1));
+        setButton(button * -1);
       }
     })();
   };
@@ -168,7 +168,7 @@ export const ThemeStore = ({ pointRefresher }) => {
     //   // console.log('활성화');
     //   setDisable(false);
     // }
-  }, [paletteCode]);
+  }, [paletteCode, button]);
 
   return (
     <StoreModal>
