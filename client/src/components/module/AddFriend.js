@@ -84,6 +84,9 @@ const AddFriend = ({ setIsOpen, friends, setfriendRefresh }) => {
     if (friends.some(checkAlreadyAdd)) {
       alert('이미 추가한 친구예요!');
       return;
+    } else if (requesterDisplayName === respondentDisplayName) {
+      alert('내 기분은 왼쪽을 보면 알 수 있어요!');
+      return;
     }
     addFriend({ requesterDisplayName, respondentDisplayName });
     setfriendRefresh(refresh => refresh * -1);
