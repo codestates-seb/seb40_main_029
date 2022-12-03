@@ -97,6 +97,7 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
           darkmode={darkmode}
           palette={palette}
           idx={idx}
+          setIdx={setIdx}
           toLeft={toLeft}
           toRight={toRight}
           setDarkmode={setDarkmode}
@@ -105,6 +106,7 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
           paletteCode={paletteCode}
           reason={reason}
           setReason={setReason}
+          setMoodId={setMoodId}
           moodId={moodId}
           moods={moods}
           lookbackRefresher={lookbackRefresher}

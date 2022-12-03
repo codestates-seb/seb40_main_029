@@ -18,6 +18,7 @@ const SelectorCard = ({
   darkmode,
   palette,
   idx,
+  setIdx,
   toLeft,
   toRight,
   setDarkmode,
@@ -26,6 +27,7 @@ const SelectorCard = ({
   paletteCode,
   reason,
   setReason,
+  setMoodId,
   moodId,
   moods,
   lookbackRefresher,
@@ -45,6 +47,9 @@ const SelectorCard = ({
       .then(res => {
         // console.log(res.data);
         setFade(true);
+        setReason(res.data.body);
+        setMoodId(res.data.moodId);
+        setIdx(Number(res.data.moodPaletteDetails.moodCode[3]) - 1);
         dispatch(setMood({ mood: moods[idx], reason }));
         lookbackRefresher();
         pointRefresher();
