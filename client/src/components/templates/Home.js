@@ -20,7 +20,6 @@ const Browser = styled.div`
 `;
 const Home = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
-  const [openMoodCard, setOpenMoodCard] = useState(true);
   const navigate = useNavigate();
   const [userPoint, setUserPoint] = useState(0);
   const memberId = useSelector(memberIdSelector);
@@ -63,17 +62,14 @@ const Home = () => {
     <Browser>
       <Header userPoint={userPoint} />
       <ContentLayout>
-        {openMoodCard ? (
-          <MoodSelector
-            lookbackRefresher={lookbackRefresher}
-            pointRefresher={pointRefresher}
-          />
-        ) : null}
+        <MoodSelector
+          lookbackRefresher={lookbackRefresher}
+          pointRefresher={pointRefresher}
+        />
         <GlobalModal
           lookbackRefresh={lookbackRefresh}
           lookbackRefresher={lookbackRefresher}
           pointRefresher={pointRefresher}
-          setOpenMoodCard={setOpenMoodCard}
         />
       </ContentLayout>
     </Browser>

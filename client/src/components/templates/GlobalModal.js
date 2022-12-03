@@ -1,12 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Friend from './Friends';
 import Letter from './Letter';
-import modalSlice, { selectModal } from '../../redux/modalSlice';
+import { selectModal } from '../../redux/modalSlice';
 import TodoList from '../module/TodoList';
 import ThemeStore from '../module/ThemeStore';
 import GradientWall from '../module/GradientWall';
 import LookBack from '../module/LookBack';
-import MoodSelector from '../module/MoodSelector';
 
 const MODAL_TYPES = {
   LetterModal: 'LetterModal',
@@ -17,12 +16,7 @@ const MODAL_TYPES = {
   LookbackModal: 'LookbackModal',
 };
 
-function GlobalModal({
-  lookbackRefresh,
-  lookbackRefresher,
-  pointRefresher,
-  setOpenMoodCard,
-}) {
+function GlobalModal({ lookbackRefresh, lookbackRefresher, pointRefresher }) {
   const MODAL_COMPONENTS = [
     {
       type: MODAL_TYPES.LetterModal,
@@ -62,11 +56,6 @@ function GlobalModal({
   });
 
   const renderModal = () => {
-    // if (findModal.type === 'LookbackModal') {
-    //   setOpenMoodCard(false);
-    // } else {
-    //   setOpenMoodCard(true);
-    // }
     return findModal.component;
   };
   return <div>{renderModal()}</div>;
