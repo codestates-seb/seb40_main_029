@@ -17,7 +17,7 @@ export const postLoginToken = async idToken => {
     });
     // if (!response.ok) throw new Error('bad server condition');
   } catch (e) {
-    console.error('postLoginToken Error: ', e.message);
+    // console.error('postLoginToken Error: ', e.message);
     return false;
   }
 };

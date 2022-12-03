@@ -70,7 +70,7 @@ const TodoList = ({ lookbackRefresher, pointRefresher }) => {
 
   const lookBack = () => {
     axios.patch(URL + update + memberId).then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       const safe = [];
       for (const each of res.data) {
         const test = todoList.filter(ea => ea.todoId === each.todoId);

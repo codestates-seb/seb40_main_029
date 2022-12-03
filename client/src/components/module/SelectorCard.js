@@ -43,7 +43,7 @@ const SelectorCard = ({
     axios
       .post(URL + displayName, { paletteCode, moodCode, body }) // displayName
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         setFade(true);
         dispatch(setMood({ mood: moods[idx], reason }));
         lookbackRefresher();
@@ -53,7 +53,7 @@ const SelectorCard = ({
 
   const edit = () => {
     const moodCode = `m00${idx + 1}`;
-    console.log(moodId);
+    // console.log(moodId);
 
     const body = reason;
     axios

@@ -14,13 +14,13 @@ export const GetColors = async () => {
     }
     let colors = res.data.filter(notNull);
     colors = colors.map(x => x.moodPaletteDetails.colorCode); // null이 있는 애들이 있음
-    console.log(colors);
+    // console.log(colors);
     // 요약 {"a":2,"b":2,"c":1}
     let summary = {};
     colors.forEach(x => {
       summary[x] = (summary[x] || 0) + 1;
     });
-    console.log(summary);
+    // console.log(summary);
     const sorted = Object.entries(summary).sort((a, b) => b[1] - a[1]);
     const topColor = [];
     for (let el of sorted) {

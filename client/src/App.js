@@ -9,23 +9,6 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['Referrer-Policy'] = 'no-referrer-when-downgrade';
 
 const App = () => {
-  // const dispatch = useDispatch();
-  console.log('Merged!');
-
-  // useEffect(() => {
-  // axios
-  //   .get(
-  //
-  //   )hi
-  //   .then
-  // res => dispatch(setPaletteCode(res.data.moodPaletteDetails.paletteCode))
-  // dispatch(setPaletteCode('p006'))
-  // ();
-  // axios.get(
-  //
-  // );
-  // .then(res => console.log(res.data));
-  // }, []);
 
   return (
     <div className="App">
