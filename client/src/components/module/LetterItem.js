@@ -34,7 +34,6 @@ const LetterItem = ({ data, setMailRefresh }) => {
   const { mailId, senderDisplayName, createdAt, body, verifyMail } = data;
   const [isOpen, setIsOpen] = useState(false);
   const memberId = useSelector(memberIdSelector);
-  //날짜 형식
   let date = 0;
   const FormatDate = day => {
     const formatter = new Intl.RelativeTimeFormat('ko', { numeric: 'auto' });

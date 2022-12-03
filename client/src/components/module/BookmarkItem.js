@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Button from '../atoms/Button';
-// import BookmarkDelete from './BookmarkDelete';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 

@@ -1,10 +1,8 @@
 import styled from 'styled-components';
-import User from '../atoms/User';
 
 const Item = styled.label`
   display: block;
   border-bottom: 1px solid #ededed;
-
   input {
     display: none;
   }

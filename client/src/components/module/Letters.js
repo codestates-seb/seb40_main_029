@@ -13,7 +13,6 @@ import { useSelector } from 'react-redux';
 const ContentWrap = styled.div`
   overflow-y: scroll;
   height: 396px;
-  //스크롤바 보이지않도록 설정
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {

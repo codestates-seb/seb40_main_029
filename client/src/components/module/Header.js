@@ -13,7 +13,6 @@ const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding-top: 16px;
-  /* position: relative; */
 `;
 const HeaderTitle = styled.h1`
   line-height: 1.2;
@@ -26,7 +25,6 @@ const BookmarkWrapper = styled.div`
   margin-top: 4px;
   margin-left: 16px;
   display: flex;
-  /* display: none; */
 `;
 const GnbLayout = styled.div`
   position: absolute;
