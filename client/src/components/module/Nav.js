@@ -115,7 +115,7 @@ const Nav = () => {
 
   const handleLogout = async () => {
     const res = await LogoutApi();
-    console.log(res);
+    // console.log(res);
     if (res.status == 200) {
       // removeCookie('accessToken');
       // const accessToken = getCookie('accessToken');
@@ -129,7 +129,7 @@ const Nav = () => {
       //   expires: exdate,
       // });
       // removeCookie('accessToken');
-      console.log('쿠키 삭제');
+      // console.log('쿠키 삭제');
       navigate('/login');
     } else {
       alert('새로고침 후 다시 시도해주세요');

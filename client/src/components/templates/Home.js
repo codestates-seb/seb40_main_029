@@ -24,7 +24,7 @@ const Home = () => {
   const [userPoint, setUserPoint] = useState(0);
   const memberId = useSelector(memberIdSelector);
   const email = useSelector(emailSelector);
-  console.log(memberId);
+  // console.log(memberId);
   const accessToken = getCookie('accessToken');
 
   const [lookbackRefresh, setLookbackRefresh] = useState(-1);
@@ -38,14 +38,14 @@ const Home = () => {
   };
 
   useEffect(() => {
-    console.log(accessToken);
+    // console.log(accessToken);
     if (accessToken) {
       axios.defaults.headers.common['Authorization'] = accessToken;
       navigate('/');
-      console.log('토큰 있음');
+      // console.log('토큰 있음');
     } else if (accessToken == undefined) {
       navigate('/login');
-      console.log('토큰 없음');
+      // console.log('토큰 없음');
     } else if (memberId === -1 && email !== -1) {
       navigate('/signup');
     }

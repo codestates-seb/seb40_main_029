@@ -88,16 +88,16 @@ export const ThemeStore = ({ pointRefresher }) => {
     '비비드',
   ];
   const palettePoint = ['', '1000P', '500P', '1500P', '500P', '500'];
-  console.log('팔레트 코드' + paletteCode);
-  console.log(myPalette);
+  // console.log('팔레트 코드' + paletteCode);
+  // console.log(myPalette);
 
   const handleBuy = (paletteCode, memberId) => {
-    console.log(memberId);
+    // console.log(memberId);
     (async () => {
       const result = await BuyPalette(paletteCode, memberId);
       console.log(result);
       if (result) {
-        console.log('팔레트 구매');
+        // console.log('팔레트 구매');
         pointRefresher();
         dispatch(setMyPalette(paletteCode));
         alert('팔레트 구매가 완료되었습니다');
@@ -113,26 +113,26 @@ export const ThemeStore = ({ pointRefresher }) => {
 
   const toRight = () => {
     if (carouselIndex < lastIndex) {
-      console.log('인덱스');
+      // console.log('인덱스');
       setIndex(carouselIndex + 1);
     } else {
-      console.log('인덱스');
+      // console.log('인덱스');
       setIndex(0);
     }
   };
 
   const toLeft = () => {
     if (carouselIndex > 0) {
-      console.log('인덱스');
+      // console.log('인덱스');
       setIndex(carouselIndex - 1);
     } else {
-      console.log('인덱스');
+      // console.log('인덱스');
       setIndex(lastIndex);
     }
   };
 
   useEffect(() => {
-    console.log('팔레트 코드 업데이트');
+    // console.log('팔레트 코드 업데이트');
     SetPaletteCode('P00' + (carouselIndex + 1));
   }, [carouselIndex]);
 
@@ -141,13 +141,13 @@ export const ThemeStore = ({ pointRefresher }) => {
       myPalette.includes(paletteCode) == false ||
       paletteCodeSelec == paletteCode
     ) {
-      console.log('비활성화');
+      // console.log('비활성화');
       setDisable(true);
     } else if (
       myPalette.includes(paletteCode) == true &&
       paletteCodeSelec != paletteCode
     ) {
-      console.log('활성화');
+      // console.log('활성화');
       setDisable(false);
     }
   }, [paletteCode]);

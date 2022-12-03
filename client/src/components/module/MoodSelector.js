@@ -50,9 +50,9 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
     axios
       .get(URL + m + displayName) // displayName
       .then(res => {
-        console.log(res);
+        // console.log(res);
         if (res.data === '') {
-          console.log('no mooddata yet');
+          // console.log('no mooddata yet');
           return;
         }
         setReason(res.data.body);

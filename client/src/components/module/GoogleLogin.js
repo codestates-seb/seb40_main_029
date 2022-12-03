@@ -28,7 +28,7 @@ export default function GoogleLogin() {
   const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_DEPLOY_URL}/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
 
   const welcome = () => {
-    console.log('클릭!');
+    // console.log('클릭!');
   };
 
   // const getAccessToken = async authorizationCode => {
@@ -92,7 +92,7 @@ export default function GoogleLogin() {
         }
       );
       // window.google.accounts.id.prompt();
-      console.log(userEmail);
+      // console.log(userEmail);
     }
   }, []);
 

@@ -14,7 +14,7 @@ export default function LoginCallback() {
   // const isLoggedIn = useSelector(isLoggedInSelector);
   const userEmail = useSelector(emailSelector);
 
-  console.log(userEmail);
+  // console.log(userEmail);
 
   useEffect(() => {
     const urlParams = new URL(location.href).searchParams;
@@ -26,9 +26,9 @@ export default function LoginCallback() {
       })();
     }
   }, []);
-  console.log('응답 후');
-  console.log(result.email);
-  console.log(result.newUser);
+  // console.log('응답 후');
+  // console.log(result.email);
+  // console.log(result.newUser);
 
   useEffect(() => {
     var exdate = new Date();

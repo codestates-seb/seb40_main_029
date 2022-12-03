@@ -40,15 +40,15 @@ const LookBack = ({ lookbackRefresh }) => {
     axios.get(URL + m + displayName).then(res => {
       // displayName
       const data = res.data;
-      console.log(res.data);
+      // console.log(res.data);
       // console.log(data);
-      console.log(
-        res.data.filter(
-          each =>
-            dayjs(each.createdAt).format('YYYY') === '2021' &&
-            each.moodPaletteDetails !== null
-        )
-      );
+      // console.log(
+      //   res.data.filter(
+      //     each =>
+      //       dayjs(each.createdAt).format('YYYY') === '2021' &&
+      //       each.moodPaletteDetails !== null
+      //   )
+      // );
       setData(
         res.data
           .filter(each => each.moodPaletteDetails !== null)
@@ -153,8 +153,8 @@ const LookBack = ({ lookbackRefresh }) => {
       setViewDetails(!viewDetails);
     }
   };
-  console.log(selected);
-  console.log(selectedData);
+  // console.log(selected);
+  // console.log(selectedData);
 
   return (
     <LookBackModal>

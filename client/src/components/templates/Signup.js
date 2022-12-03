@@ -62,8 +62,8 @@ export default function Signup() {
   const [displayNameValue, displayNameBind] = useInput('');
   const [response, setResponse] = useState();
   const [warning, setWarning] = useState('');
-  console.log(displayNameValue);
-  console.log(emailValue);
+  // console.log(displayNameValue);
+  // console.log(emailValue);
 
   // useEffect(() => {
   //   if (response.displayName) {
@@ -82,7 +82,7 @@ export default function Signup() {
   function handleSignup(emailValue, displayNameValue) {
     (async () => {
       const res = await SignupApi(emailValue, displayNameValue);
-      console.log(res);
+      // console.log(res);
       if (res.status == 201) {
         dispatch(setMemberId(res.data.memberId));
         dispatch(setDisplayName(res.data.displayName));
@@ -91,7 +91,7 @@ export default function Signup() {
         setWarning('이미 사용중인 닉네임이에요');
       }
     })();
-    console.log('응답');
+    // console.log('응답');
     // console.log(response);
   }
 

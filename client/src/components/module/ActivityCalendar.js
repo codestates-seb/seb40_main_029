@@ -183,7 +183,7 @@ function ActivityCalendar({
               style={style}
               onClick={() => {
                 day.createdAt !== undefined ? setSelected(day.date) : null;
-                console.log(day);
+                // console.log(day);
               }}
               data-tip={dayjs(day.date).format('M월 D일')}
             ></rect>

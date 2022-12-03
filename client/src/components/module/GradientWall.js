@@ -93,7 +93,7 @@ const GradientWall = () => {
   useEffect(() => {
     let topArr;
     todayMonth = GetMonth();
-    console.log(typeof todayMonth);
+    // console.log(typeof todayMonth);
     const loadData = async () => {
       topArr = await GetColors();
       // {
@@ -109,7 +109,7 @@ const GradientWall = () => {
       setTopColors(['#E7AF8D', '#F0DCB1', '#BEB5BF', '#A2A987']);
     };
     loadData();
-    console.log(topColors);
+    // console.log(topColors);
   }, []);
 
   return (

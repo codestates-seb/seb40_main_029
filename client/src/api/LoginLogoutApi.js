@@ -28,10 +28,10 @@ export const onSilentRefresh = () => {
         httponly: true,
       });
       setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
-      console.log('액세스 토큰 재발급');
+      // console.log('액세스 토큰 재발급');
     })
     .catch(err => {
-      console.log('액세스 토근 재발급' + err);
+      // console.log('액세스 토근 재발급' + err);
     });
 };
 
@@ -45,10 +45,10 @@ export const getAccessToken = async authorizationCode => {
       code: authorizationCode,
     },
   };
-  console.log(getURL);
+  // console.log(getURL);
   return await axios.get(getURL + path, config).then(res => {
     if (res.data) {
-      console.log(res.data);
+      // console.log(res.data);
       // 액세스 토큰 받아서 api 요청시마다 전달
       // const { accessToken } = res.data;
       // console.log(accessToken);
@@ -87,6 +87,6 @@ export const LogoutApi = async () => {
     })
     .catch(err => {
       alert('잠시 후 다시 시도해주세요');
-      console.log('로그아웃 에러' + err);
+      // console.log('로그아웃 에러' + err);
     });
 };
