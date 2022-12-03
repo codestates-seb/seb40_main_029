@@ -9,7 +9,6 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.common['Referrer-Policy'] = 'no-referrer-when-downgrade';
 
 const App = () => {
-
   return (
     <div className="App">
       <Routes>
