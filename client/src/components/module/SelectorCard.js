@@ -191,7 +191,7 @@ const Type = styled.div`
   font-size: 40px;
   font-weight: 800;
   margin: 10px;
-  ${({ darkmode, fade }) => {
+  color: ${({ darkmode, fade }) => {
     if (fade) {
       return '#f6f6f6';
     }
@@ -207,7 +207,7 @@ const Today = styled.div`
   font-size: 18px;
   -webkit-user-select: none;
   user-select: none;
-  ${({ darkmode, fade }) => {
+  color: ${({ darkmode, fade }) => {
     if (fade) {
       return '#f6f6f6';
     }
@@ -236,13 +236,15 @@ const Info = styled.textarea`
   text-align: left;
   border: none;
   resize: none;
-  background-color: rgba(255, 255, 255, 0.05);
-  box-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25);
+  background-color: ${({ fade }) =>
+    fade ? '#f6f6f6' : 'rgba(255, 255, 255, 0.05)'};
+  box-shadow: ${({ fade }) =>
+    fade ? 'none' : '2px 2px 5px rgba(22, 27, 29, 0.25)'};
   :focus {
     outline: none;
   }
   ::placeholder {
-    ${({ darkmode, fade }) => {
+    color: ${({ darkmode, fade }) => {
       if (fade) {
         return '#f6f6f6';
       }
@@ -289,8 +291,10 @@ const Button = styled.button`
   align-items: center;
   flex-direction: column;
   border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.05);
-  box-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25);
+  background-color: ${({ fade }) =>
+    fade ? '#f6f6f6' : 'rgba(255, 255, 255, 0.05)'};
+  box-shadow: ${({ fade }) =>
+    fade ? 'none' : '2px 2px 5px rgba(22, 27, 29, 0.25)'};
   border: none;
   margin-right: 10px;
   font-weight: 700;

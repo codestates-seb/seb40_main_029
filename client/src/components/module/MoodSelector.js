@@ -50,14 +50,11 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
     axios
       .get(URL + m + displayName) // displayName
       .then(res => {
-        // console.log(res.data);
+        console.log(res);
         setReason(res.data.body);
         setMoodId(res.data.moodId);
         setIdx(Number(res.data.moodPaletteDetails.moodCode[3]) - 1);
         setFade(true);
-      })
-      .catch(err => {
-        console.log(err.response.status);
       });
   }, [isOpen, displayName]);
 
