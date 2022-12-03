@@ -123,6 +123,8 @@ export const ThemeStore = ({ pointRefresher }) => {
       paletteCodeSelec == paletteCode
     ) {
       setDisable(true);
+    } else {
+      setDisable(false);
     }
   };
 
@@ -138,6 +140,8 @@ export const ThemeStore = ({ pointRefresher }) => {
       paletteCodeSelec == paletteCode
     ) {
       setDisable(true);
+    } else {
+      setDisable(false);
     }
   };
 
