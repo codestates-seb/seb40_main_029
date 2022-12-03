@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreModal } from './Modal';
 import Button from '../atoms/Button';
@@ -76,7 +76,8 @@ export const ThemeStore = ({ pointRefresher }) => {
   const myPalette = useSelector(myPaletteSelector);
   const [carouselIndex, setIndex] = useState(0);
   const [isdisabled, setDisable] = useState(false);
-  const paletteCode = 'P00' + (carouselIndex + 1);
+  const [paletteCode, SetPaletteCode] = useState('P00' + (carouselIndex + 1));
+  // const paletteCode = 'P00' + (carouselIndex + 1);
   const lastIndex = 5;
   const paletteName = [
     '기본',
@@ -118,19 +119,6 @@ export const ThemeStore = ({ pointRefresher }) => {
       console.log('인덱스');
       setIndex(0);
     }
-    if (
-      myPalette.includes(paletteCode) == false ||
-      paletteCodeSelec == paletteCode
-    ) {
-      console.log('비활성화');
-      setDisable(true);
-    } else if (
-      myPalette.includes(paletteCode) == true &&
-      paletteCodeSelec != paletteCode
-    ) {
-      console.log('활성화');
-      setDisable(false);
-    }
   };
 
   const toLeft = () => {
@@ -141,6 +129,14 @@ export const ThemeStore = ({ pointRefresher }) => {
       console.log('인덱스');
       setIndex(lastIndex);
     }
+  };
+
+  useEffect(() => {
+    console.log('팔레트 코드 업데이트');
+    SetPaletteCode('P00' + (carouselIndex + 1));
+  }, [carouselIndex]);
+
+  useEffect(() => {
     if (
       myPalette.includes(paletteCode) == false ||
       paletteCodeSelec == paletteCode
@@ -154,7 +150,7 @@ export const ThemeStore = ({ pointRefresher }) => {
       console.log('활성화');
       setDisable(false);
     }
-  };
+  }, [paletteCode]);
 
   return (
     <StoreModal>
