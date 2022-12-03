@@ -51,6 +51,10 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
       .get(URL + m + displayName) // displayName
       .then(res => {
         console.log(res);
+        if (res.data === '') {
+          console.log('no mooddata yet');
+          return;
+        }
         setReason(res.data.body);
         setMoodId(res.data.moodId);
         setIdx(Number(res.data.moodPaletteDetails.moodCode[3]) - 1);
