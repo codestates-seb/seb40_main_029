@@ -95,7 +95,7 @@ export const ThemeStore = ({ pointRefresher }) => {
     // console.log(memberId);
     (async () => {
       const result = await BuyPalette(paletteCode, memberId);
-      console.log(result);
+      // console.log(result);
       if (result) {
         // console.log('팔레트 구매');
         pointRefresher();

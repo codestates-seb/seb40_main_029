@@ -19,7 +19,7 @@ export default function LoginCallback() {
   useEffect(() => {
     const urlParams = new URL(location.href).searchParams;
     const authorizationCode = urlParams.get('code');
-    console.log(authorizationCode);
+    // console.log(authorizationCode);
     if (authorizationCode) {
       (async () => {
         setResult(await getAccessToken(authorizationCode)); // 이메일과 newUser를 담은 객체
