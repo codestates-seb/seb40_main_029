@@ -43,6 +43,7 @@ const NavItem = styled.li`
   list-style: none;
   padding: 4px 8px;
   margin: 2px 0;
+  cursor: pointer;
   &:hover {
     background-color: #fff;
   }
