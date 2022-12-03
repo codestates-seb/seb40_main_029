@@ -44,7 +44,9 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
       }
       setPalette(arr);
     });
-
+    if (displayName === -1) {
+      return;
+    }
     axios
       .get(URL + m + displayName) // displayName
       .then(res => {
@@ -57,7 +59,7 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
       .catch(err => {
         console.log(err.response.status);
       });
-  }, [isOpen]);
+  }, [isOpen, displayName]);
 
   const [idx, setIdx] = useState(0);
   const [darkmode, setDarkmode] = useState(false);
