@@ -138,14 +138,24 @@
 ![letter](https://user-images.githubusercontent.com/85021536/205480805-37d4a47a-3569-41cb-b2ee-934229127cd7.gif)
 
 - 투두리스트 기능
-
-![투두 완료](https://user-images.githubusercontent.com/81802993/205482567-3d2dca79-64cc-49de-88d9-102696c39595.gif)
+    1. 투두 추가, 완료처리, 삭제
+        ![투두 완료](https://user-images.githubusercontent.com/81802993/205482567-3d2dca79-64cc-49de-88d9-102696c39595.gif)
+    2. 어제 완료 못한 투두 오늘 불러오기
+        ![어제 투두 불러오기](https://user-images.githubusercontent.com/81802993/205482742-9123751a-2d4b-4943-8ef4-89b404e58852.gif)
 
 - 색 테마 구매 기능
 
 - 월별 감정 기록
 
 - 연도별 감정 기록
+    1. 히트맵 캘린더, 파이차트, 무드 및 투두 돌이켜보기
+        ![1년치](https://user-images.githubusercontent.com/81802993/205482832-223e7da0-2d32-4d49-9d73-8f7e1e1f4261.gif)
+    2. 1년치 더미데이터: 연도 변경
+        ![1년치더미1](https://user-images.githubusercontent.com/81802993/205482842-5ceacbc2-18f4-410a-a182-ba4879b4fd8e.gif)
+    3. 1년치 더미데이터: 셀 선택으로 특정 일자 선택
+        ![1년치더미2](https://user-images.githubusercontent.com/81802993/205482847-fc0f0d38-1a95-4980-abb4-5d9c891411f7.gif)
+    4. 1년치 더미데이터ㅣ 과거 일자의 무드 및 투두 돌이켜보기
+        ![1년치더미3](https://user-images.githubusercontent.com/81802993/205482922-573e4899-8be1-4200-bf88-e2250ebee51a.gif)
 
 
 
