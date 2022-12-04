@@ -108,8 +108,12 @@
 
 ## 주요기능 시연
 - 구글 회원가입
-    
+    1. 로그인시 신규 유저 회원가입 페이지로 이동
+        ![회원가입](https://user-images.githubusercontent.com/103527404/205484257-44b3a866-7851-4548-9430-50788dedd65b.gif)
+
 - 구글 로그인 및 로그아웃
+    1. 로그인시 기존 유저 홈으로 라우팅
+        ![로그아웃 및 로그인](https://user-images.githubusercontent.com/103527404/205484260-c4063dd3-17e4-468c-b8c0-50ee0f4b7ec3.gif)
 
 - 오늘의 무드 기록
     
@@ -144,8 +148,14 @@
         ![어제 투두 불러오기](https://user-images.githubusercontent.com/81802993/205482742-9123751a-2d4b-4943-8ef4-89b404e58852.gif)
 
 - 색 테마 구매 기능
+    1. 색 테마 조회 
+        ![색테마1](https://user-images.githubusercontent.com/103527404/205484266-22b751e4-9ca3-4294-b80d-289ff3676646.gif)
+    2. 색 테마 구매 및 적용
+        ![색테마2](https://user-images.githubusercontent.com/103527404/205484271-c3b713ff-86e6-4aaa-a327-8b414d3d3418.gif)
 
 - 월별 감정 기록
+    1. 상위 4개 갑정 추출하여 시각화
+        ![한달기록](https://user-images.githubusercontent.com/103527404/205484318-3d7e6283-27ad-4926-acce-cfc8c4f8b7ec.gif)
 
 - 연도별 감정 기록
     1. 히트맵 캘린더, 파이차트, 무드 및 투두 돌이켜보기
