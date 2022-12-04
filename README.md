@@ -100,6 +100,8 @@
         - Todo CRUD 구현
         - Palette CRUD 구현
     - 예외처리
+        - AOP를 이용한 예외처리 로직 구현
+        - Custom Exception 클래스 구현
 
 ## 사용 스택 및 협업 툴
 ![MacBook Air - 1 (2)](https://user-images.githubusercontent.com/85021536/205480415-4eb7c9ba-241c-48f6-b470-7bf1f8a302b3.png)
