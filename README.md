@@ -106,6 +106,21 @@
 ## 사용 스택 및 협업 툴
 ![MacBook Air - 1 (2)](https://user-images.githubusercontent.com/85021536/205480415-4eb7c9ba-241c-48f6-b470-7bf1f8a302b3.png)
 
+## API Docs
+Mail -> https://documenter.getpostman.com/view/22570114/2s8YzMX5Hu
+
+Member -> https://documenter.getpostman.com/view/22570114/2s8YzMX5Hv
+
+Mood -> https://documenter.getpostman.com/view/22570114/2s8YzMX5Hw
+
+Todo -> https://documenter.getpostman.com/view/24751832/2s8YzMX5NK
+
+Palette -> https://documenter.getpostman.com/view/24751832/2s8YzMX5NL
+
+## ERD 설계
+![image](https://user-images.githubusercontent.com/105726931/205496221-1dbedf2b-01d3-4069-9624-7d3dac702758.png)
+
+
 ## 주요기능 시연
 - 구글 회원가입
     1. 로그인시 신규 유저 회원가입 페이지로 이동
