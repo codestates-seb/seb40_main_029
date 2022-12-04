@@ -111,11 +111,23 @@
     
 - 구글 로그인 및 로그아웃
 
+- 오늘의 무드 기록
+    
+    1. 무드 목록 순회
+        ![무드선택](https://user-images.githubusercontent.com/81802993/205482600-6c3d73ce-d960-4833-a2d9-1711be187192.gif)
+    2. 다크모드
+        ![다크모드](https://user-images.githubusercontent.com/81802993/205482612-928d08b8-c52b-4676-afb6-956e27252634.gif)
+    3. 무드등록
+        ![무드등록](https://user-images.githubusercontent.com/81802993/205482617-4981a257-8657-4bd4-b111-2753ed81c52d.gif)
+    4. 무드상세보기
+        ![무드상세보기](https://user-images.githubusercontent.com/81802993/205482671-c7b9acfb-0f9f-41a8-98bd-6f4e512a8c6b.gif)
+    5. 무드수정
+        ![무드수정](https://user-images.githubusercontent.com/81802993/205482676-766912ad-9984-4ee1-967c-0d8f0c09e71b.gif)
+
+
 - 북마크 기능
 
 ![bookmark](https://user-images.githubusercontent.com/85021536/205480786-113a57d7-dcf4-4877-8849-c2749f6be241.gif)
-
-- 오늘의 무드 기록
 
 - 친구 기능
 
@@ -126,6 +138,8 @@
 ![letter](https://user-images.githubusercontent.com/85021536/205480805-37d4a47a-3569-41cb-b2ee-934229127cd7.gif)
 
 - 투두리스트 기능
+
+![투두 완료](https://user-images.githubusercontent.com/81802993/205482567-3d2dca79-64cc-49de-88d9-102696c39595.gif)
 
 - 색 테마 구매 기능
 
