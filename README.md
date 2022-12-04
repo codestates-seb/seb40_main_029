@@ -17,7 +17,7 @@
 ## Team 슬로우컬러
 ![스크린샷 2022-12-04 오후 4 58 56](https://user-images.githubusercontent.com/85021536/205480337-0f0a5ace-ce9b-4b6d-b4d7-faee05b04bec.png)
 
-### **구예찬 (FE, 팀장)**
+### 구예찬 (FE, 팀장)
 
 - 기술스택: `React` `Styled-component` `Redux` `Axios` `Figma`
 - 역할
@@ -42,9 +42,9 @@
         - AWS S3, Route53, CloudFront를 이용한 https 배포
         - Github Action으로 CI/CD 도입
 
----
 
-### **고은서 (FE)**
+
+### 고은서 (FE)
 
 - 기술스택: `React` `Styled-component` `Redux` `Axios` `Figma`
 - 역할:
@@ -57,9 +57,9 @@
     - 로고, 디자인: 피그마
     - 재활용 가능한 컴포넌트 제작(atoms): 버튼, 인풋(text type), 레이아웃, 미니카드, 오버레이, 페이지네이션, 쉐도우박스, 유저 제작
 
----
 
-### **정예륜 (FE)**
+
+### 정예륜 (FE)
 
 - 기술스택 `React` `Styled-component` `Redux` `Axios` `Figma`
 - 역할
@@ -78,16 +78,16 @@
     - 월별 기록
         - 월별 데이터에서 가장 많이 기록된 색상 순으로 4가지를 추출 후 그라데이션으로 시각화
 
----
 
-### **정우철 (BE)**
+
+### 정우철 (BE)
 
 - 기술스택
 - 역할
 
----
 
-### **조민택 (BE)**
+
+### 조민택 (BE)
 
 - 기술스택 `Java` `Spring`  `Spring Security` `JPA`  `MySql` `Redis`
 - 역할
@@ -109,23 +109,29 @@
 ## 주요기능 시연
 - 구글 회원가입
     
-- **구글 로그인 및 로그아웃**
+- 구글 로그인 및 로그아웃
 
-- **북마크 기능**    
+- 북마크 기능
 
-- **오늘의 무드 기록**
+![bookmark](https://user-images.githubusercontent.com/85021536/205480786-113a57d7-dcf4-4877-8849-c2749f6be241.gif)
 
-- **친구 기능**
+- 오늘의 무드 기록
 
-- **편지 기능**
+- 친구 기능
 
-- **투두리스트 기능**
+![friend](https://user-images.githubusercontent.com/85021536/205480807-bf149ce3-0bdb-4937-bd8a-4f2cb43f8197.gif)
 
-- **색 테마 구매 기능**
+- 편지 기능
 
-- **월별 감정 기록**
+![letter](https://user-images.githubusercontent.com/85021536/205480805-37d4a47a-3569-41cb-b2ee-934229127cd7.gif)
 
-- **연도별 감정 기록**
+- 투두리스트 기능
+
+- 색 테마 구매 기능
+
+- 월별 감정 기록
+
+- 연도별 감정 기록
 
 
 
