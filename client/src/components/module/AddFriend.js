@@ -71,7 +71,7 @@ const AddFriend = ({ setIsOpen, friends, setfriendRefresh }) => {
   };
 
   const filteredMember = userList?.filter(member => {
-    return member.displayName.includes(keyword);
+    return member.displayName !== null && member.displayName.includes(keyword);
   });
   const checkAlreadyAdd = el => {
     if (el.respondentDisplayName === respondentDisplayName) {
