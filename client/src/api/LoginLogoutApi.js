@@ -42,7 +42,7 @@ export const getAccessToken = async authorizationCode => {
 
   let config = {
     params: {
-      code: authorizationCode,
+      code: encodeURI(authorizationCode),
     },
   };
   // console.log(getURL);
