@@ -28,8 +28,9 @@ export default function LoginCallback() {
     // console.log(authorizationCode);
     if (authorizationCode) {
       console.log('액세스토큰요청 값 확인');
-      console.log(getAccessToken(authorizationCode));
-
+      (async () => {
+        console.log(await getAccessToken(authorizationCode)); // 이메일과 newUser를 담은 객체
+      })();
       // (async () => {
       //   setResult(await getAccessToken(authorizationCode)); // 이메일과 newUser를 담은 객체
       // })();
