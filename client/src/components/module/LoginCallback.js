@@ -27,7 +27,6 @@ export default function LoginCallback() {
     const authorizationCode = urlParams.get('code');
     // console.log(authorizationCode);
     if (authorizationCode) {
-      console.log('액세스토큰요청 값 확인');
       // (async () => {
       //   console.log(await getAccessToken(authorizationCode)); // 이메일과 newUser를 담은 객체
       // })();
