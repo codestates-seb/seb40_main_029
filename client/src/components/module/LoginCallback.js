@@ -32,9 +32,6 @@ export default function LoginCallback() {
       })();
     }
   }, []);
-  // console.log('응답 후');
-  // console.log(result.email);
-  // console.log(result.newUser);
 
   useEffect(() => {
     var exdate = new Date();
@@ -55,10 +52,10 @@ export default function LoginCallback() {
     } else if (result.newUser == false) {
       dispatch(setMemberId(result.memberId));
       dispatch(setDisplayName(result.displayName));
-      dispatch(setPaletteCode(result.palette));
-      let arrList = result.paletteList.map(x => x.moodPalette.paletteCode);
-      console.log(arrList);
-      dispatch(setMyPaletteDevice(arrList));
+      // dispatch(setPaletteCode(result.palette));
+      // let arrList = result.paletteList.map(x => x.moodPalette.paletteCode);
+      // console.log(arrList);
+      // dispatch(setMyPaletteDevice(arrList));
       navigate('/');
     }
   }, [result]);
