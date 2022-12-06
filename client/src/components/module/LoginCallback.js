@@ -27,9 +27,12 @@ export default function LoginCallback() {
     const authorizationCode = urlParams.get('code');
     // console.log(authorizationCode);
     if (authorizationCode) {
-      (async () => {
-        setResult(await getAccessToken(authorizationCode)); // 이메일과 newUser를 담은 객체
-      })();
+      console.log('액세스토큰요청 값 확인');
+      console.log(getAccessToken(authorizationCode));
+
+      // (async () => {
+      //   setResult(await getAccessToken(authorizationCode)); // 이메일과 newUser를 담은 객체
+      // })();
     }
   }, []);
 
