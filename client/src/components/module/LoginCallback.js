@@ -53,7 +53,9 @@ export default function LoginCallback() {
       dispatch(setMemberId(result.memberId));
       dispatch(setDisplayName(result.displayName));
       dispatch(setPaletteCode(result.palette));
-      dispatch(setMyPaletteDevice(result.paletteList));
+      let arrList = result.paletteList.map(x => x.moodPalette.paletteCode);
+      console.log(arrList);
+      dispatch(setMyPaletteDevice(arrList));
       navigate('/');
     }
   }, [result]);
