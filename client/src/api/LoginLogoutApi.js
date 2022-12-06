@@ -67,8 +67,8 @@ export const getAccessToken = async authorizationCode => {
       // accessToken 만료하기 1분 전에 로그인 연장
       setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
 
-      return res;
-      // return res.data;
+      // return res;
+      return res.data;
     }
   });
 };
