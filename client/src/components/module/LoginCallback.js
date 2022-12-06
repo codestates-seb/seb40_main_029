@@ -5,7 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import { setcookie, getCookie } from '../../utils/cookie';
 import { getAccessToken } from '../../api/LoginLogoutApi';
 import { emailSelector } from '../../redux/hooks';
-import { setMemberId, setEmail, setDisplayName } from '../../redux/slice';
+import {
+  setMemberId,
+  setEmail,
+  setDisplayName,
+  setPaletteCode,
+  setMyPaletteDevice,
+} from '../../redux/slice';
 
 export default function LoginCallback() {
   const navigate = useNavigate();
@@ -44,12 +50,10 @@ export default function LoginCallback() {
     if (result.newUser == true) {
       navigate('/signup');
     } else if (result.newUser == false) {
-      // // 기존 유저 헤더 토큰 추가
-      // const { accessToken } = result;
-      // console.log(accessToken);
-      // axios.defaults.headers.common['Authorization'] = accessToken;
       dispatch(setMemberId(result.memberId));
       dispatch(setDisplayName(result.displayName));
+      dispatch(setPaletteCode(result.palette));
+      dispatch(setMyPaletteDevice(result.paletteList));
       navigate('/');
     }
   }, [result]);

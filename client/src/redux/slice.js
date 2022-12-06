@@ -32,6 +32,9 @@ const slice = createSlice({
     setMyPalette: (state, action) => {
       state.myPalette = [...state.myPalette, action.payload];
     },
+    setMyPaletteDevice: (state, action) => {
+      state.myPalette = action.payload;
+    },
     setMood: (state, action) => {
       state.today.mood = action.payload.mood;
       state.today.reason = action.payload.reason;
@@ -52,6 +55,7 @@ export const {
   setMoodId,
   setPaletteCode,
   setMyPalette,
+  setMyPaletteDevice,
   setMood,
   setReason,
 } = slice.actions;
