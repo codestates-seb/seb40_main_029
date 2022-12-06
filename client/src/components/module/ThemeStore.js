@@ -87,7 +87,7 @@ export const ThemeStore = ({ pointRefresher }) => {
     '모노',
     '비비드',
   ];
-  const palettePoint = ['', '1000P', '500P', '1500P', '500P', '500'];
+  const palettePoint = ['', '1000P', '500P', '1500P', '500P', '500P'];
   // console.log('팔레트 코드' + paletteCode);
   // console.log(myPalette);
 
