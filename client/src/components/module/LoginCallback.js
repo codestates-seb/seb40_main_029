@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { setcookie, getCookie } from '../../utils/cookie';
 import { getAccessToken } from '../../api/LoginLogoutApi';
 import { emailSelector } from '../../redux/hooks';
-import { setEmail } from '../../redux/slice';
+import { setEmail, setDisplayName } from '../../redux/slice';
 
 export default function LoginCallback() {
   const navigate = useNavigate();
@@ -48,6 +48,7 @@ export default function LoginCallback() {
       // const { accessToken } = result;
       // console.log(accessToken);
       // axios.defaults.headers.common['Authorization'] = accessToken;
+      dispatch(setDisplayName(result.displayName));
       navigate('/');
     }
   }, [result]);
