@@ -37,16 +37,9 @@ export default function LoginCallback() {
     }
   }, []);
 
-  console.log('로그인 결과');
-  console.log(result);
-  console.log(result.accessToken);
-
   useEffect(() => {
     var exdate = new Date();
     exdate.setMinutes(exdate.getMinutes() + 60);
-    console.log('로그인 결과');
-    console.log(result);
-    console.log(result.accessToken);
     setcookie('accessToken', result.accessToken, {
       expires: exdate,
       path: '/',
