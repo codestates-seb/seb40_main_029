@@ -108,7 +108,6 @@ const GradientWall = () => {
       // setTopColors(['#E7AF8D', '#F0DCB1', '#BEB5BF', '#A2A987']);
     };
     loadData();
-    // console.log(topColors);
   }, []);
 
   return (
