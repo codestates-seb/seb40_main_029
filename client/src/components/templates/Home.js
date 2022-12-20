@@ -44,7 +44,8 @@ const Home = () => {
       navigate('/');
       // console.log('토큰 있음');
     } else if (accessToken == undefined) {
-      navigate('/login');
+      // navigate('/login');
+      navigate('/');
       // console.log('토큰 없음');
     } else if (memberId === -1 && email !== -1) {
       navigate('/signup');
