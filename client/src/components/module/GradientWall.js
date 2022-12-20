@@ -9,7 +9,6 @@ import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
 import ReactTooltip from 'react-tooltip';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { closeModal } from '../../redux/modalSlice';
-import { GetColors } from '../../api/GradientApi';
 import dayjs from 'dayjs';
 
 const Contain = styled.div`
