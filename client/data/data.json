@@ -36572,5 +36572,23 @@
         "createdAt": "2022-12-31"
       }
     ]
-  ]
+  ],
+  "mails": [
+    {
+        "mailId": 1,
+        "body": "테스트",
+        "senderId": 2,
+        "receiverId": 1,
+        "verifyMail": false,
+        "createdAt": "2022-11-17T22:17:29.414926"
+    },
+    {
+        "mailId": 2,
+        "body": "테스트222",
+        "senderId": 2,
+        "receiverId": 1,
+        "verifyMail": false,
+        "createdAt": "2022-11-17T22:38:30.601357"
+    }
+]
 }
