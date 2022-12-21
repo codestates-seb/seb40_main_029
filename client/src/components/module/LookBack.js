@@ -406,103 +406,103 @@ const Contents = styled.div`
 
 export default LookBack;
 
-const d1 = new Date('2021-01-01');
-const d2 = new Date('2022-12-31');
-const getDatesInRange = (startDate, endDate) => {
-  const date = new Date(startDate.getTime());
+// const d1 = new Date('2021-01-01');
+// const d2 = new Date('2022-12-31');
+// const getDatesInRange = (startDate, endDate) => {
+//   const date = new Date(startDate.getTime());
 
-  const moods = [];
-  const todos = [];
+//   const moods = [];
+//   const todos = [];
 
-  let todoId = 1;
-  let moodId = 1;
+//   let todoId = 1;
+//   let moodId = 1;
 
-  const todos_nom = [
-    '할 일 AAAA',
-    '마트에서 장보기',
-    '블로그 작성하기',
-    '밀린 메일 답장하기',
-    '할 일 BBBB',
-    '할 일 CCCC',
-    '코드 리뷰',
-    '일기 쓰기',
-    '할 일 DDDD',
-    '알고리즘 문제 풀기',
-    '책 읽기',
-    '스트레칭 및 가벼운 운동',
-    '할 일 EEEE',
-  ];
+//   const todos_nom = [
+//     '할 일 AAAA',
+//     '마트에서 장보기',
+//     '블로그 작성하기',
+//     '밀린 메일 답장하기',
+//     '할 일 BBBB',
+//     '할 일 CCCC',
+//     '코드 리뷰',
+//     '일기 쓰기',
+//     '할 일 DDDD',
+//     '알고리즘 문제 풀기',
+//     '책 읽기',
+//     '스트레칭 및 가벼운 운동',
+//     '할 일 EEEE',
+//   ];
 
-  const body_nom = [
-    '',
-    '이런이런 일이 있었음...',
-    '이런이런 일이 있었음... 저런저런 일도 있었음...',
-    '이런이런 일이 있었고... 저런저런 일도 있어서... 이러저러한 이유로 나의 심경은 이러했음...',
-  ];
+//   const body_nom = [
+//     '',
+//     '이런이런 일이 있었음...',
+//     '이런이런 일이 있었음... 저런저런 일도 있었음...',
+//     '이런이런 일이 있었고... 저런저런 일도 있어서... 이러저러한 이유로 나의 심경은 이러했음...',
+//   ];
 
-  const list = {
-    1: '기쁨',
-    2: '슬픔',
-    3: '분노',
-    4: '설렘',
-    5: '걱정',
-    6: '평온',
-    7: '예민',
-    8: '희망',
-  };
+//   const list = {
+//     1: '기쁨',
+//     2: '슬픔',
+//     3: '분노',
+//     4: '설렘',
+//     5: '걱정',
+//     6: '평온',
+//     7: '예민',
+//     8: '희망',
+//   };
 
-  const colorList = {
-    1: 'E7AF8D',
-    2: 'B0AEBA',
-    3: 'CD686D',
-    4: 'E08890',
-    5: 'A2A987',
-    6: 'F0DCB1',
-    7: 'BEB5BF',
-    8: 'A9C0C5',
-  };
+//   const colorList = {
+//     1: 'E7AF8D',
+//     2: 'B0AEBA',
+//     3: 'CD686D',
+//     4: 'E08890',
+//     5: 'A2A987',
+//     6: 'F0DCB1',
+//     7: 'BEB5BF',
+//     8: 'A9C0C5',
+//   };
 
-  while (date <= endDate) {
-    const numbers_of_todo = Math.floor(Math.random() * 14) + 0;
-    const selected = [true, false];
-    const day = dayjs(date).format('YYYY-MM-DD');
+//   while (date <= endDate) {
+//     const numbers_of_todo = Math.floor(Math.random() * 14) + 0;
+//     const selected = [true, false];
+//     const day = dayjs(date).format('YYYY-MM-DD');
 
-    if (numbers_of_todo !== 0) {
-      for (let i = 0; i < numbers_of_todo; i++) {
-        const obj = {
-          todoId,
-          title: todos_nom[Math.floor(Math.random() * todos_nom.length)],
-          selected: selected[Math.floor(Math.random() * selected.length)],
-          createdAt: day,
-        };
-        todos.push(obj);
-        todoId++;
-      }
-    }
+//     if (numbers_of_todo !== 0) {
+//       for (let i = 0; i < numbers_of_todo; i++) {
+//         const obj = {
+//           todoId,
+//           title: todos_nom[Math.floor(Math.random() * todos_nom.length)],
+//           selected: selected[Math.floor(Math.random() * selected.length)],
+//           createdAt: day,
+//         };
+//         todos.push(obj);
+//         todoId++;
+//       }
+//     }
 
-    const mood = Math.floor(Math.random() * 8) + 1;
-    const mood_obj = {
-      body: body_nom[Math.floor(Math.random() * body_nom.length)],
-      createdAt: day,
-      memberId: 1,
-      moodId,
-      moodPaletteDetails: {
-        mood: list[mood],
-        moodCode: 'm00' + mood,
-        colorCode: colorList[mood],
-      },
-    };
+//     const mood = Math.floor(Math.random() * 8) + 1;
+//     const mood_obj = {
+//       body: body_nom[Math.floor(Math.random() * body_nom.length)],
+//       createdAt: day,
+//       memberId: 1,
+//       moodId,
+//       moodPaletteDetails: {
+//         mood: list[mood],
+//         moodCode: 'm00' + mood,
+//         colorCode: colorList[mood],
+//       },
+//     };
 
-    moods.push(mood_obj);
-    moodId++;
-    date.setDate(date.getDate() + 1);
-  }
+//     moods.push(mood_obj);
+//     moodId++;
+//     date.setDate(date.getDate() + 1);
+//   }
 
-  return { moods, todos };
-};
+//   return { moods, todos };
+// };
 
-const { moods, todos } = getDatesInRange(d1, d2);
-axios.post('http://localhost:4000/' + 'moods', moods);
-axios.post('http://localhost:4000/' + 'todos', todos);
-console.log(moods);
-console.log(todos);
+// const { moods, todos } = getDatesInRange(d1, d2);
+// axios.post('jsonURL' + 'moods', moods);
+// axios.post('jsonURL' + 'todos', todos);
+// console.log(moods);
+// console.log(todos);
