@@ -21,23 +21,84 @@
       "selected": false
     }
   ],
-  "friends": [
+  "members": [
     {
-      "id": 1,
+      "memberId": 1,
+      "email": "email1@test.com",
+      "displayName": "회원2",
+      "palette": "basic",
+      "point": 580,
+      "role": "USER",
+      "palettes": [
+        {
+          "memberPaletteId": 1,
+          "moodPalette": {
+            "paletteCode": "P001",
+            "paletteName": "basic"
+          }
+        }
+      ],
+      "friends": [
+        "회원3"
+      ]
+    },
+    {
       "memberId": 2,
-      "username": "은서"
+      "email": "email2@test.com",
+      "displayName": "회원1",
+      "palette": "basic",
+      "point": 580,
+      "role": "USER",
+      "palettes": [
+        {
+          "memberPaletteId": 2,
+          "moodPalette": {
+            "paletteCode": "P001",
+            "paletteName": "basic"
+          }
+        }
+      ],
+      "friends": [
+        "회원2"
+      ]
     },
     {
-      "id": 2,
       "memberId": 3,
-      "username": "민택",
-      "mood": "슬픔"
+      "email": "email3@test.com",
+      "displayName": "회원3",
+      "palette": "basic",
+      "point": 580,
+      "role": "USER",
+      "palettes": [
+        {
+          "memberPaletteId": 3,
+          "moodPalette": {
+            "paletteCode": "P001",
+            "paletteName": "basic"
+          }
+        }
+      ],
+      "friends": []
     },
     {
-      "id": 3,
-      "memberId": 4,
-      "username": "우철",
-      "mood": "분노"
+      "memberId": 13,
+      "email": "eunseogo48@gmail.com",
+      "displayName": "설기언니",
+      "palette": "basic",
+      "point": 5000,
+      "role": "USER",
+      "palettes": [
+        {
+          "memberPaletteId": 3,
+          "moodPalette": {
+            "paletteCode": "P001",
+            "paletteName": "basic"
+          }
+        }
+      ],
+      "friends": [
+        "회원2"
+      ]
     }
   ],
   "palette": [
@@ -5592,7 +5653,6 @@
           "moodCode": "m006"
         }
       },
-
       {
         "body": "이런이런 일이 있었고... 저런저런 일도 있어서... 이러저러한 이유로 나의 심경은 이러했음...",
         "createdAt": "2023-03-16",
@@ -5613,7 +5673,6 @@
           "moodCode": "m004"
         }
       },
-
       {
         "body": "이런이런 일이 있었고... 저런저런 일도 있어서... 이러저러한 이유로 나의 심경은 이러했음...",
         "createdAt": "2023-05-06",
@@ -36579,5 +36638,71 @@
         "createdAt": "2022-12-31"
       }
     ]
+  ],
+  "mails": [
+    {
+      "mailId": 1,
+      "body": "테스트",
+      "senderId": 2,
+      "receiverId": 13,
+      "verifyMail": false,
+      "createdAt": "2022-11-17T22:17:29.414926"
+    },
+    {
+      "mailId": 2,
+      "body": "테스트222",
+      "senderId": 2,
+      "receiverId": 13,
+      "verifyMail": false,
+      "createdAt": "2022-11-17T22:38:30.601357"
+    },
+    {
+      "mailId": 2,
+      "body": "테스트33",
+      "senderId": 2,
+      "receiverId": 13,
+      "verifyMail": false,
+      "createdAt": "2022-11-20T22:38:30.601357"
+    },
+    {
+      "mailId": 2,
+      "body": "테스트4",
+      "senderId": 2,
+      "receiverId": 13,
+      "verifyMail": false,
+      "createdAt": "2022-12-10T22:38:30.601357"
+    },
+    {
+      "mailId": 2,
+      "body": "테스트5",
+      "senderId": 2,
+      "receiverId": 13,
+      "verifyMail": false,
+      "createdAt": "2022-12-19T22:38:30.601357"
+    }
+  ],
+  "friend": [
+    {
+      "respondentId": 2,
+      "respondentDisplayName": "회원2",
+      "respondentMoodPaletteDetails": {
+        "moodPaletteDetailsId": 9,
+        "paletteCode": "P002",
+        "moodCode": "m001",
+        "colorCode": "CE7E5D",
+        "mood": "happy"
+      }
+    },
+    {
+      "respondentId": 3,
+      "respondentDisplayName": "회원3",
+      "respondentMoodPaletteDetails": {
+        "moodPaletteDetailsId": 17,
+        "paletteCode": "P003",
+        "moodCode": "m001",
+        "colorCode": "E7AF8D",
+        "mood": "happy"
+      }
+    }
   ]
 }
