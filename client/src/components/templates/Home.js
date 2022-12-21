@@ -37,20 +37,20 @@ const Home = () => {
     setPointRefresh(pointRefresh * -1);
   };
 
-  useEffect(() => {
-    // console.log(accessToken);
-    if (accessToken) {
-      axios.defaults.headers.common['Authorization'] = accessToken;
-      navigate('/');
-      // console.log('토큰 있음');
-    } else if (accessToken == undefined) {
-      navigate('/login');
-      // console.log('토큰 없음');
-    } else if (memberId === -1 && email !== -1) {
-      navigate('/signup');
-    }
-    // onSilentRefresh();
-  }, []);
+  // useEffect(() => {
+  //   // console.log(accessToken);
+  //   if (accessToken) {
+  //     axios.defaults.headers.common['Authorization'] = accessToken;
+  //     navigate('/');
+  //     // console.log('토큰 있음');
+  //   } else if (accessToken == undefined) {
+  //     navigate('/login');
+  //     // console.log('토큰 없음');
+  //   } else if (memberId === -1 && email !== -1) {
+  //     navigate('/signup');
+  //   }
+  //   // onSilentRefresh();
+  // }, []);
 
   useEffect(() => {
     (async () => {
