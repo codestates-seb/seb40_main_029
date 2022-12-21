@@ -14,6 +14,7 @@ import {
 import ReactTooltip from 'react-tooltip';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../redux/modalSlice';
+import { TooltipBtn } from '../atoms/TooltipBtn';
 
 const Blueprint = styled.div`
   display: flex;
@@ -44,6 +45,7 @@ const Todo = styled(Blueprint)`
 
 const Mail = styled(Blueprint)`
   width: 650px;
+  /* width: 30rem; */
   height: 500px;
   position: relative;
 `;
@@ -76,7 +78,7 @@ const Title = styled.div`
   font-weight: 600;
   margin: 8px 0 0 8px;
   > svg {
-    margin-left: 8px;
+    margin-left: 16px;
     font-size: 20px;
   }
 `;
@@ -146,6 +148,10 @@ const MailModal = ({ children }) => {
         <Title>
           편지함
           <FontAwesomeIcon icon={faEnvelope} />
+          <TooltipBtn
+            info="오른쪽 아래 + 버튼을 눌러서 친구에게 편지를 보낼 수 있어요."
+            place="right"
+          />
         </Title>
         <Button onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />

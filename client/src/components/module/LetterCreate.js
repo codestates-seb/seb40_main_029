@@ -9,6 +9,7 @@ import { getFriends } from '../../api/FriendDataApi';
 import { sendMail } from '../../api/MailDataApi';
 import { memberIdSelector, displayNameSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
+import { TooltipBtn } from '../atoms/TooltipBtn';
 
 const PopUp = styled.div`
   z-index: 2;
@@ -21,6 +22,9 @@ const Title = styled.div`
   justify-content: space-between;
   border-bottom: 1px solid black;
   align-items: center;
+  div {
+    display: flex;
+  }
 `;
 const LetterBox = styled.form`
   display: flex;
@@ -107,7 +111,10 @@ const LetterCreate = ({ setIsOpen, pointRefresher }) => {
         <CenterLayout>
           <ShadowBox>
             <Title>
-              <h3>편지쓰기</h3>
+              <div>
+                <h3>편지쓰기</h3>
+                <TooltipBtn info="종이비행기를 누르면 편지가 다음날 친구의 편지함으로 도착해요!" />
+              </div>
               <FontAwesomeIcon
                 icon={faXmark}
                 onClick={() => {
