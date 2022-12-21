@@ -33,6 +33,7 @@ public class TodoController {
         Todo todo = mapper.todoPostDtoToTodo(postDto);
         Todo saveTodo = todoService.createdTodo(todo, memberId);
         TodoResponseDto response = mapper.todoToTodoResponseDto(saveTodo);
+        log.info("Todo 등록에 성공하였습니다.");
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -46,6 +47,7 @@ public class TodoController {
         Todo updateTodo = todoService.updateTodo(todo, todoId, memberId);
 
         TodoResponseDto response = mapper.todoToTodoResponseDto(updateTodo);
+        log.info("Todo 내용을 변경하였습니다.");
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -56,6 +58,7 @@ public class TodoController {
         Todo updateTodo = todoService.seletedTodo(todoId, memberId);
         TodoResponseDto response = mapper.todoToTodoResponseDto(updateTodo);
         long point = memberService.memberPoint(memberId);
+        log.info("Todo가 완료처리 되었습니다.");
 
         return new ResponseEntity<>(new MultiResponseDto<>(response, point), HttpStatus.OK);
     }
@@ -64,6 +67,7 @@ public class TodoController {
     public ResponseEntity<List<TodoResponseDto>> TodoRenewal(@PathVariable("member-id") Long memberId){
         List<Todo> todos = todoService.renewalTodo(memberId);
         List<TodoResponseDto> response = mapper.todosToTodoResponseDtos(todos);
+        log.info("Todo가 업데이트 되었습니다.");
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -73,6 +77,7 @@ public class TodoController {
                                                     @PathVariable("todo-id") Long todoId){
         Todo findTodo = todoService.findTodo(memberId, todoId);
         TodoResponseDto response = mapper.todoToTodoResponseDto(findTodo);
+        log.info("Todo를 불러옵니다.");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -80,6 +85,7 @@ public class TodoController {
     public ResponseEntity<List<TodoResponseDto>> getTodayTodo(@PathVariable("member-id") Long memberId){
         List<Todo> todoList = todoService.findTodoList(memberId);
         List<TodoResponseDto> response = mapper.todosToTodoResponseDtos(todoList);
+        log.info("오늘 등록한 Todo리스트를 불러옵니다.");
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -88,6 +94,7 @@ public class TodoController {
     public ResponseEntity<List<TodoResponseDto>> getAllTodo(@PathVariable("member-id") Long memberId){
         List<Todo> todoList = todoService.findAllTodoList(memberId);
         List<TodoResponseDto> response = mapper.todosToTodoResponseDtos(todoList);
+        log.info("현재까지 등록한 Todo리스트를 불러옵니다.");
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -96,10 +103,12 @@ public class TodoController {
     public void eraseTodo(@PathVariable("member-id") Long memberId,
                            @PathVariable("todo-id") Long todoId){
         todoService.deleteTodo(todoId, memberId);
+        log.info("Todo를 삭제하였습니다.");
     }
 
     @DeleteMapping("/{member-id}")
     public void eraseTodos(@PathVariable("member-id") Long memberId){
         todoService.deleteTodoList(memberId);
+        log.info("모든 Todo를 삭제하였습니다.");
     }
 }

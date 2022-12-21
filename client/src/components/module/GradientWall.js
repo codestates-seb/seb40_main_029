@@ -9,7 +9,6 @@ import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
 import ReactTooltip from 'react-tooltip';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { closeModal } from '../../redux/modalSlice';
-import { GetColors } from '../../api/GradientApi';
 import dayjs from 'dayjs';
 
 const Contain = styled.div`
@@ -68,23 +67,23 @@ const GradientWall = () => {
     return 1 + now.getMonth();
   };
 
-  // async function GetColors() {
-  //   const jsonServer = 'http://localhost:4000/moods'; // client 폴더에서 json-server ./data/dataMonth.json --port 4000 실행
-  //   return await axios.get(jsonServer).then(res => {
-  //     let colors = res.data[0].map(x => x.moodPaletteDetails.colorCode);
-  //     // 요약 {"a":2,"b":2,"c":1}
-  //     const summary = {};
-  //     colors.forEach(x => {
-  //       summary[x] = (summary[x] || 0) + 1;
-  //     });
-  //     const sorted = Object.entries(summary).sort((a, b) => b[1] - a[1]);
-  //     const topColor = [];
-  //     for (let el of sorted) {
-  //       topColor.push(el[0]);
-  //     }
-  //     return topColor; // 많은 색 부터 순서대로 있는 배열
-  //   });
-  // }
+  async function GetColors() {
+    const jsonServer = 'http://localhost:4000/moods'; // client 폴더에서 json-server ./data/dataMonth.json --port 4000 실행
+    return await axios.get(jsonServer).then(res => {
+      let colors = res.data[0].map(x => x.moodPaletteDetails.colorCode);
+      // 요약 {"a":2,"b":2,"c":1}
+      const summary = {};
+      colors.forEach(x => {
+        summary[x] = (summary[x] || 0) + 1;
+      });
+      const sorted = Object.entries(summary).sort((a, b) => b[1] - a[1]);
+      const topColor = [];
+      for (let el of sorted) {
+        topColor.push(el[0]);
+      }
+      return topColor; // 많은 색 부터 순서대로 있는 배열
+    });
+  }
 
   const handleCloseModal = () => {
     dispatch(closeModal());
@@ -93,23 +92,21 @@ const GradientWall = () => {
   useEffect(() => {
     let topArr;
     todayMonth = GetMonth();
-    // console.log(typeof todayMonth);
     const loadData = async () => {
       topArr = await GetColors();
-      // {
-      //   topArr
-      //     ? setTopColors([
-      //         `#${topArr[0]}`,
-      //         `#${topArr[1]}`,
-      //         `#${topArr[2]}`,
-      //         `#${topArr[3]}`,
-      //       ])
-      //     : setTopColors(['#E7AF8D', '#F0DCB1', '#BEB5BF', '#A2A987']);
-      // }
-      setTopColors(['#E7AF8D', '#F0DCB1', '#BEB5BF', '#A2A987']);
+      {
+        topArr
+          ? setTopColors([
+              `#${topArr[0]}`,
+              `#${topArr[1]}`,
+              `#${topArr[2]}`,
+              `#${topArr[3]}`,
+            ])
+          : setTopColors(['#E7AF8D', '#F0DCB1', '#BEB5BF', '#A2A987']);
+      }
+      // setTopColors(['#E7AF8D', '#F0DCB1', '#BEB5BF', '#A2A987']);
     };
     loadData();
-    // console.log(topColors);
   }, []);
 
   return (

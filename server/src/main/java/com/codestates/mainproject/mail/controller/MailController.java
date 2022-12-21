@@ -37,15 +37,25 @@ public class MailController {
         Mail message = mailService.write(postDto);
         MailResponseDto response = mapper.mailToMailResponseDto(message);
         long point = memberService.memberDisplayNamePoint(postDto.getSenderName());
+        log.info(postDto.getSenderName() + "님이 " + postDto.getReceiverName() + "님에게 편지를 작성했습니다.");
 
         return new ResponseEntity<>(new MultiResponseDto<>(response, point), HttpStatus.OK);
     }
 
     @PatchMapping("/dummy/{sender-id}/{receiver-id}")
-    public void mainDummy(@PathVariable("sender-id") Long senderId,
+    public void mailDummy(@PathVariable("sender-id") Long senderId,
                           @PathVariable("receiver-id") Long receiverId){
         mailService.dummyMail(senderId, receiverId);
     }
+
+    @PatchMapping("/dummy/{mail-id}")
+    public void mailOneDummy(@PathVariable("mail-id") Long mailId,
+                          @RequestBody MailPostDto dto){
+
+        mailService.dummyOneMail(dto, mailId);
+    }
+
+
 
     @PatchMapping("/{member-id}")
     public ResponseEntity<List<Mail>> convertMail(@PathVariable("member-id") Long memberId) {
@@ -59,7 +69,7 @@ public class MailController {
         Mail message = mailService.findMessage(mailId); // mailId를 식별자로 해서 DB에서 데이터를 가져온다.
         log.info("{}", message);
         MailResponseDto response = mapper.mailToMailResponseDto(message);
-
+        log.info("메일 조회에 성공하였습니다.");
         return new ResponseEntity<>(response, HttpStatus.OK); // ResponseEntity 객체를 생성해서 response를 반환해준다.
     }
 
@@ -71,6 +81,7 @@ public class MailController {
                 .map(mail -> mapper.mailToMailResponseDto(mail))
                 .collect(Collectors.toList());
 
+        log.info("우편함 조회에 성공하였습니다.");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -79,6 +90,7 @@ public class MailController {
         Mail mail = mailService.verifyMessage(mailId);
         MailResponseDto response = mapper.mailToMailResponseDto(mail);
 
+        log.info("메일을 확인하였습니다.");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

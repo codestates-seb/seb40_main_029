@@ -31,6 +31,6 @@ public class Todo extends Auditable {
 
 
     @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+//    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 }

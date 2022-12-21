@@ -101,13 +101,20 @@ public class MoodService {
 
         Member member = memberRepository.findByDisplayName(displayName)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        Mood findMood = moodRepository.findByMember_MemberIdAndCreatedAtBetween(member.getMemberId(), startDateTime, endDateTime)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MOOD_EXISTS));
-        MoodPaletteDetails moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(findMood.getMoodCode(), findMood.getPaletteCode())
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
-        findMood.setMoodPaletteDetails(moodPaletteDetails);
-
-        return findMood;
+        if (moodRepository.findByMember_MemberIdAndCreatedAtBetween(member.getMemberId(), startDateTime, endDateTime).isEmpty()){
+            return null;
+        } else {
+            Mood findMood = moodRepository.findByMember_MemberIdAndCreatedAtBetween(member.getMemberId(), startDateTime, endDateTime)
+                    .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MOOD_EXISTS));
+            if(moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(findMood.getMoodCode(), findMood.getPaletteCode()).isEmpty()){
+                return findMood;
+            }else {
+                MoodPaletteDetails moodPaletteDetails = moodPaletteDetailsRepository.findByMoodCodeAndPaletteCode(findMood.getMoodCode(), findMood.getPaletteCode())
+                        .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PALETTE_NOT_FOUND));
+                findMood.setMoodPaletteDetails(moodPaletteDetails);
+                return findMood;
+            }
+        }
     }
 
     /*전체 무드 조회 */

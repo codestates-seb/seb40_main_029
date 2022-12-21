@@ -14,7 +14,7 @@ import { paletteCodeSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
 import { memberIdSelector, displayNameSelector } from '../../redux/hooks';
 
-const URL = `${process.env.REACT_APP_BASIC_URL}/`;
+const URL = `${process.env.REACT_APP_JSON_URL}/`;
 const p = 'palette/';
 const m = 'mood/';
 const t = 'todo/';
@@ -451,6 +451,17 @@ export default LookBack;
 //     8: '희망',
 //   };
 
+//   const colorList = {
+//     1: 'E7AF8D',
+//     2: 'B0AEBA',
+//     3: 'CD686D',
+//     4: 'E08890',
+//     5: 'A2A987',
+//     6: 'F0DCB1',
+//     7: 'BEB5BF',
+//     8: 'A9C0C5',
+//   };
+
 //   while (date <= endDate) {
 //     const numbers_of_todo = Math.floor(Math.random() * 14) + 0;
 //     const selected = [true, false];
@@ -478,6 +489,7 @@ export default LookBack;
 //       moodPaletteDetails: {
 //         mood: list[mood],
 //         moodCode: 'm00' + mood,
+//         colorCode: colorList[mood],
 //       },
 //     };
 
@@ -490,11 +502,7 @@ export default LookBack;
 // };
 
 // const { moods, todos } = getDatesInRange(d1, d2);
-// axios.post(URL + 'moods', moods);
-// axios.post(URL + 'todos', todos);
+// axios.post('jsonURL' + 'moods', moods);
+// axios.post('jsonURL' + 'todos', todos);
 // console.log(moods);
 // console.log(todos);
-
-/*
-
-*/
