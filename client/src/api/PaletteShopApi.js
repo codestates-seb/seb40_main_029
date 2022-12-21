@@ -3,9 +3,10 @@ import { useSelector } from 'react-redux';
 import { memberIdSelector } from '../redux/hooks';
 
 axios.defaults.withCredentials = true;
+// const API_URL = process.env.REACT_APP_BASIC_URL;
+const API_URL = process.env.REACT_APP_JSON_URL;
 
 export const PaletteList = async () => {
-  const API_URL = process.env.REACT_APP_BASIC_URL;
   const path = '/palette';
   try {
     // 팔레트가 담긴 배열
@@ -30,7 +31,7 @@ export const BuyPalette = async (paletteCode, memberId) => {
   const path = `/members/buy/${memberId}/${paletteCode}`;
 
   try {
-    const result = await axios.patch(process.env.REACT_APP_BASIC_URL + path);
+    const result = await axios.patch(API_URL + path);
     // console.log(result);
     if (result.status == 200) {
       return true;
@@ -48,7 +49,7 @@ export const SetPalette = async (paletteCode, memberId) => {
   const path = `/members/choice/${memberId}/${paletteCode}`;
 
   try {
-    const result = await axios.patch(process.env.REACT_APP_BASIC_URL + path);
+    const result = await axios.patch(API_URL + path);
     // console.log(result);
   } catch (err) {
     throw err;

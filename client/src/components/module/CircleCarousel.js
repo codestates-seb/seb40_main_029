@@ -74,7 +74,8 @@ const CircleCarousel = ({ carouselIndex }) => {
 
   useEffect(() => {
     const loadData = async () => {
-      const API_URL = process.env.REACT_APP_BASIC_URL;
+      // const API_URL = process.env.REACT_APP_BASIC_URL;
+      const API_URL = process.env.REACT_APP_JSON_URL;
       const path = '/palette';
       try {
         // 팔레트가 담긴 배열
