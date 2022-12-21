@@ -32,7 +32,7 @@ const Letters = ({ setIsOpen, isOpen }) => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllMails(memberId);
-      setMails(data);
+      setMails(data.slice().reverse());
     };
     fetchData();
   }, [mailRefresh]);
