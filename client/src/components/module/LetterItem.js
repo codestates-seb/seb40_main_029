@@ -10,6 +10,7 @@ const LetterHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 0.9rem;
 `;
 const LetterBody = styled.div`
   margin: 16px 0;
@@ -23,14 +24,13 @@ const DeleteBtn = styled.span`
   }
 `;
 const Alarm = styled.span`
-  font-size: 13px;
   padding-left: 8px;
 `;
 const DetailDate = styled.span`
   font-size: 13px;
   opacity: 0.5;
 `;
-const LetterItem = ({ data, setMailRefresh }) => {
+const LetterItem = ({ data, setMailRefresh, setCurrentMail, currentMail }) => {
   const { mailId, senderDisplayName, createdAt, body, verifyMail } = data;
   const [isOpen, setIsOpen] = useState(false);
   const memberId = useSelector(memberIdSelector);
@@ -53,9 +53,14 @@ const LetterItem = ({ data, setMailRefresh }) => {
   FormatDetailDate(createdAt);
 
   const handleOpenLetter = () => {
-    setIsOpen(!isOpen);
-    readMail(memberId, mailId);
-    setMailRefresh(refresh => refresh * -1);
+    // setIsOpen(!isOpen);
+    if (currentMail !== mailId) {
+      setCurrentMail(mailId);
+      readMail(memberId, mailId);
+      setMailRefresh(refresh => refresh * -1);
+    } else if (currentMail === mailId) {
+      setCurrentMail(0);
+    }
   };
   const handleMailDelete = () => {
     const fetchData = async () => {
@@ -74,7 +79,7 @@ const LetterItem = ({ data, setMailRefresh }) => {
           </div>
           <DetailDate>{date}</DetailDate>
         </LetterHeader>
-        {isOpen ? (
+        {currentMail === mailId ? (
           <>
             <DetailDate>{detailDate}</DetailDate>
             <LetterBody>{body}</LetterBody>
