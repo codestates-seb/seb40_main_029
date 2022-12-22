@@ -78,7 +78,7 @@ export const ThemeStore = ({ pointRefresher }) => {
   const paletteCodeSelec = useSelector(paletteCodeSelector);
   const myPalette = useSelector(myPaletteSelector);
   const [carouselIndex, setIndex] = useState(0);
-  const [isdisabled, setDisable] = useState(false);
+  const [applyBtnIsdisabled, setapplyBtnIsdisabled] = useState(false);
   const [paletteCode, SetPaletteCode] = useState('P00' + (carouselIndex + 1));
   const [refresher, setRefresher] = useState(-1);
   const lastIndex = 5;
@@ -120,41 +120,47 @@ export const ThemeStore = ({ pointRefresher }) => {
   };
 
   const isMine = () => {
-    if (
+    // 내 팔레트에 포함하고 있지 않거나 또는 이미 적용한 팔레트일 때 적용 버튼 비활성화
+    const condition1 =
       myPalette.includes(paletteCode) == false ||
-      paletteCodeSelec == paletteCode
-    ) {
-      setDisable(true);
-    } else if (
+      paletteCodeSelec == paletteCode;
+    // 내 팔레트에 포함하고 있고 내가 적용한 팔레트가 아닐 때 적용 버튼 활성화
+    const condition2 =
       myPalette.includes(paletteCode) == true &&
-      paletteCodeSelec != paletteCode
-    ) {
-      setDisable(false);
-    }
+      paletteCodeSelec != paletteCode;
+    const isDisabled = condition1 ? true : condition2 ? false : null;
+    setapplyBtnIsdisabled(isDisabled);
+
+    // if (
+    //   myPalette.includes(paletteCode) == false ||
+    //   paletteCodeSelec == paletteCode // 내 팔레트에 포함하고 있지 않거나 또는 이미 적용한 팔레트일 때 적용 버튼 비활성화
+    // ) {
+    //   setapplyBtnIsdisabled(true);
+    // } else if (
+    //   myPalette.includes(paletteCode) == true &&
+    //   paletteCodeSelec != paletteCode // 내 팔레트에 포함하고 있고 내가 적용한 팔레트가 아닐 때 적용 버튼 활성화
+    // ) {
+    //   setapplyBtnIsdisabled(false);
+    // }
   };
 
   const toRight = () => {
     if (carouselIndex < lastIndex) {
-      // console.log('인덱스');
       setIndex(carouselIndex + 1);
     } else {
-      // console.log('인덱스');
       setIndex(0);
     }
   };
 
   const toLeft = () => {
     if (carouselIndex > 0) {
-      // console.log('인덱스');
       setIndex(carouselIndex - 1);
     } else {
-      // console.log('인덱스');
       setIndex(lastIndex);
     }
   };
 
   useEffect(() => {
-    // console.log('팔레트 코드 업데이트');
     SetPaletteCode('P00' + (carouselIndex + 1));
   }, [carouselIndex]);
 
@@ -180,7 +186,7 @@ export const ThemeStore = ({ pointRefresher }) => {
             size="long"
             fontsize="middle"
             onClick={() => handleSet(paletteCode, memberId)}
-            disabled={isdisabled}
+            disabled={applyBtnIsdisabled}
           >
             적용
           </Button>
