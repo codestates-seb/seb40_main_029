@@ -1,24 +1,24 @@
-import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StoreModal } from './Modal';
+import styled from 'styled-components';
 import Button from '../atoms/Button';
-import CircleCarousel from './CircleCarousel';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faChevronRight,
-  faChevronLeft,
-} from '@fortawesome/free-solid-svg-icons';
-import { BuyPalette, SetPalette } from '../../api/PaletteShopApi';
 import {
   memberIdSelector,
   paletteCodeSelector,
   myPaletteSelector,
 } from '../../redux/hooks';
 import { setMyPalette, setPaletteCode } from '../../redux/slice';
+import { BuyPalette, SetPalette } from '../../api/PaletteShopApi';
+import { StoreModal } from './Modal';
+import CircleCarousel from './CircleCarousel';
 import { showToast } from '../atoms/Toast';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faChevronRight,
+  faChevronLeft,
+} from '@fortawesome/free-solid-svg-icons';
 
 const TitleContainer = styled.div`
   margin: 5px;
@@ -80,7 +80,7 @@ export const ThemeStore = ({ pointRefresher }) => {
   const [carouselIndex, setIndex] = useState(0);
   const [isdisabled, setDisable] = useState(false);
   const [paletteCode, SetPaletteCode] = useState('P00' + (carouselIndex + 1));
-  const [button, setButton] = useState(-1);
+  const [refresher, setRefresher] = useState(-1);
   const lastIndex = 5;
   const paletteName = [
     '기본',
@@ -91,7 +91,6 @@ export const ThemeStore = ({ pointRefresher }) => {
     '비비드',
   ];
   const palettePoint = ['0P', '1000P', '500P', '1500P', '500P', '500P'];
-  // console.log('팔레트 코드' + paletteCode);
 
   const handleBuy = (paletteCode, memberId) => {
     (async () => {
@@ -105,11 +104,11 @@ export const ThemeStore = ({ pointRefresher }) => {
       notify();
       // const result = await BuyPalette(paletteCode, memberId);
       // if (result) {
-      //   dispatch(setMyPalette(paletteCode));
       //   // alert('팔레트 구매가 완료되었습니다');
       //   Toast('팔레트 구매가 완료되었습니다');
       //   pointRefresher();
-      //   setButton(button * -1);
+      //   dispatch(setMyPalette(paletteCode));
+      //   setRefresher(refresher * -1);
       // }
     })();
   };
@@ -117,7 +116,7 @@ export const ThemeStore = ({ pointRefresher }) => {
   const handleSet = (paletteCode, memberId) => {
     SetPalette(paletteCode, memberId);
     dispatch(setPaletteCode(paletteCode));
-    window.location.reload();
+    setRefresher(refresher * -1);
   };
 
   const isMine = () => {
@@ -161,7 +160,7 @@ export const ThemeStore = ({ pointRefresher }) => {
 
   useEffect(() => {
     isMine();
-  }, [paletteCode, button]);
+  }, [paletteCode, refresher]);
 
   return (
     <StoreModal>

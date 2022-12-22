@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import axios from 'axios';
 import ReactTooltip from 'react-tooltip';
 import dayjs from 'dayjs';
 import { topFourColors } from '../../api/MontlyLookbackApi';
