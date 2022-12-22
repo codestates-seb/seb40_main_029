@@ -24,7 +24,7 @@ const DeleteBtn = styled.span`
   }
 `;
 const Alarm = styled.span`
-  padding-left: 8px;
+  padding: 0 8px;
 `;
 const DetailDate = styled.span`
   font-size: 13px;

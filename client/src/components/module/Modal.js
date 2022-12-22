@@ -45,7 +45,7 @@ const Todo = styled(Blueprint)`
 
 const Mail = styled(Blueprint)`
   width: 650px;
-  /* width: 30rem; */
+  width: 100%;
   height: 500px;
   position: relative;
 `;

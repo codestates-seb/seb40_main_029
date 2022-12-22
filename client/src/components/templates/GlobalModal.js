@@ -58,7 +58,7 @@ function GlobalModal({ lookbackRefresh, lookbackRefresher, pointRefresher }) {
   const renderModal = () => {
     return findModal.component;
   };
-  return <div>{renderModal()}</div>;
+  return <div style={{ display: 'flex' }}>{renderModal()}</div>;
 }
 
 export default GlobalModal;
