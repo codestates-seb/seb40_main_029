@@ -7,6 +7,8 @@ import ShadowBox from '../atoms/ShadowBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { CenterLayout, RightBottomLayout } from '../atoms/Layouts';
+import { TooltipBtn } from '../atoms/TooltipBtn';
+import { useState } from 'react';
 
 const PopUp = styled.div`
   z-index: 2;
@@ -20,6 +22,9 @@ const Title = styled.h3`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+  div {
+    display: flex;
+  }
 `;
 const InputWraper = styled.form`
   display: flex;
@@ -44,27 +49,54 @@ const InputWraper = styled.form`
     width: 100px;
   }
 `;
+const Validation = styled.p`
+  font-size: 13px;
+  color: tomato;
+  text-align: end;
+  padding-right: 16px;
+  margin-top: -8px;
+  margin-bottom: 8px;
+`;
 
 const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
   const [bookName, bookNameBind, nameReset] = useInput('');
   const [bookUrl, bookUrlBind, urlReset] = useInput('');
-
+  const [validation, setValidation] = useState();
   const handleBookmarkClose = () => {
     setAddBtnIsOpen(false);
   };
+  const urlRegex = new RegExp(
+    '^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$',
+    'i'
+  );
+
+  useEffect(() => {
+    const urlValidation = () => {
+      urlRegex.test(bookUrl) ? setValidation(true) : setValidation(false);
+    };
+    urlValidation();
+  }, [bookUrl]);
+
   const handleBookmarkSubmit = e => {
     e.preventDefault();
-    if (booksArr.length < 10) {
+    if (booksArr.length < 10 && validation) {
       setBookmarkArr([
         ...booksArr,
         {
-          name: `${bookName}`,
-          url: bookUrl.includes('http') ? `${bookUrl}` : `https://${bookUrl}`,
+          name: bookName,
+          url: bookUrl,
         },
       ]);
       nameReset();
       urlReset();
       alert('북마크를 추가했어요!');
+    } else if (!validation) {
+      alert('유효한 url이 아닙니다.');
     } else {
       alert('북마크는 열개까지만 등록할 수 있어요!');
     }
@@ -72,13 +104,15 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
   useEffect(() => {
     localStorage.setItem('bookmark', JSON.stringify(booksArr));
   }, [booksArr]);
-
   return (
     <PopUp>
       <CenterLayout>
         <ShadowBox>
           <Title>
-            북마크 추가
+            <div>
+              북마크 추가
+              <TooltipBtn info="즐겨찾는 사이트의 이름과 url을 저장해보세요!" />
+            </div>
             <FontAwesomeIcon icon={faXmark} onClick={handleBookmarkClose} />
           </Title>
           <InputWraper>
@@ -100,8 +134,15 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
                 color="#f6f6f6"
               />
             </label>
+            {validation || !bookUrlBind.value.length ? null : (
+              <Validation>유효한 url이 아닙니다.</Validation>
+            )}
             <RightBottomLayout>
-              <Button size="long" onClick={handleBookmarkSubmit}>
+              <Button
+                size="long"
+                onClick={handleBookmarkSubmit}
+                disabled={!(bookName && bookUrl)}
+              >
                 저장
               </Button>
             </RightBottomLayout>
