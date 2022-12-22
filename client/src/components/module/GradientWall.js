@@ -1,15 +1,15 @@
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import ReactTooltip from 'react-tooltip';
+import dayjs from 'dayjs';
+import { closeModal } from '../../redux/modalSlice';
 import { TWallpaper } from '@twallpaper/react';
 import '@twallpaper/react/css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
-import ReactTooltip from 'react-tooltip';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { closeModal } from '../../redux/modalSlice';
-import dayjs from 'dayjs';
 
 const Contain = styled.div`
   position: relative;
