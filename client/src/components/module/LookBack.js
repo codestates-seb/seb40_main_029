@@ -177,12 +177,6 @@ const LookBack = ({ lookbackRefresh }) => {
                 blockMargin={5}
                 blockSize={11}
               />
-              {/* <Calendar
-            data={data}
-            palette={palette}
-            setSelected={setSelected}
-            year={year}
-          /> */}
 
               <LeftRightContainer>
                 <LeftRight>

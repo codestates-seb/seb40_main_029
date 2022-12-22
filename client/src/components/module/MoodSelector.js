@@ -51,19 +51,15 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
     if (displayName === -1) {
       return;
     }
-    axios
-      .get(URL + m + displayName) // displayName
-      .then(res => {
-        // console.log(res);
-        if (res.data === '') {
-          // console.log('no mooddata yet');
-          return;
-        }
-        setReason(res.data.body);
-        setMoodId(res.data.moodId);
-        setIdx(Number(res.data.moodPaletteDetails.moodCode[3]) - 1);
-        setFade(true);
-      });
+    axios.get(URL + m + displayName).then(res => {
+      if (res.data === '') {
+        return;
+      }
+      setReason(res.data.body);
+      setMoodId(res.data.moodId);
+      setIdx(Number(res.data.moodPaletteDetails.moodCode[3]) - 1);
+      setFade(true);
+    });
   }, [isOpen, displayName, theSubit]);
 
   const [idx, setIdx] = useState(0);
@@ -117,13 +113,6 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
           lookbackRefresher={lookbackRefresher}
           pointRefresher={pointRefresher}
         />
-        {/* <MoodCard
-          fade={fade}
-          setFade={setFade}
-          color={palette[idx]}
-          id={moods[idx]}
-          reason={reason}
-        /> */}
         <CardContainer fade={fade}>
           <Mood
             color={palette[idx]}
@@ -148,42 +137,6 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
 };
 
 export default MoodSelector;
-
-// <Wrapper>
-//   <Selector>
-//     <LeftRightContainer>
-//       <LeftRight darkmode={darkmode}>
-//         <FontAwesomeIcon icon={faChevronLeft} onClick={() => toLeft()} />
-//       </LeftRight>
-//     </LeftRightContainer>
-//     <Mood darkmode={darkmode}>
-//       <Type darkmode={darkmode}>{palet[idx][1]}</Type>
-//     </Mood>
-//     <LeftRightContainer>
-//       <LeftRight darkmode={darkmode}>
-//         <FontAwesomeIcon
-//           icon={faChevronRight}
-//           onClick={() => toRight()}
-//         />
-//       </LeftRight>
-//     </LeftRightContainer>
-//   </Selector>
-//   <Today darkmode={darkmode}>{dateString}</Today>
-//   <InfoContainer>
-//     <Info
-//       placeholder="무슨 일이 있었나요? 생략해도 돼요."
-//       darkmode={darkmode}
-//     ></Info>
-//     <ButtonContainer>
-//       <Button darkmode={darkmode} onClick={() => setDarkmode(!darkmode)}>
-//         <FontAwesomeIcon icon={faCircleHalfStroke} />
-//       </Button>
-//       <Button darkmode={darkmode} onClick={() => {}}>
-//         <FontAwesomeIcon icon={faPaperPlane} />
-//       </Button>
-//     </ButtonContainer>
-//   </InfoContainer>
-// </Wrapper>
 
 const Slider = styled.div`
   transform: ${({ fade }) =>
@@ -216,7 +169,6 @@ const CardContainer = styled.div`
   width: 320px;
   height: 430px;
   background-color: white;
-  /* opacity: ${({ fade }) => (fade ? 1 : 0)}; */
   transition: opacity 0.3s;
 `;
 
@@ -228,8 +180,8 @@ const Mood = styled.div`
 `;
 
 const Info = styled.div`
-  width: 100%;
-  margin: 10px auto auto 16px;
+  width: 95%;
+  margin: 10px 16px auto 16px;
   padding: 10px;
   text-align: left;
 `;
