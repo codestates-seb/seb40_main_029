@@ -52,7 +52,7 @@ const ButtonContain = styled.span`
   opacity: 0.4;
 `;
 
-const GradientWall = () => {
+const MonthlyLookback = () => {
   const dispatch = useDispatch();
   const [topColors, setTopColors] = useState();
   const option = {
@@ -128,4 +128,4 @@ const GradientWall = () => {
   );
 };
 
-export default GradientWall;
+export default MonthlyLookback;
