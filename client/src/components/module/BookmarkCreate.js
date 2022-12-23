@@ -89,7 +89,7 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
         ...booksArr,
         {
           name: bookName,
-          url: bookUrl,
+          url: bookUrl.includes('http') ? bookUrl : `https://${bookUrl}`,
         },
       ]);
       nameReset();
