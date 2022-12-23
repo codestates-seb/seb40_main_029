@@ -13,7 +13,7 @@ import { displayNameSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { TooltipBtn } from '../atoms/TooltipBtn';
 const PopUp = styled.div`
   z-index: 2;
   button {
@@ -25,6 +25,9 @@ const Title = styled.h3`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  div {
+    display: flex;
+  }
 `;
 const FilterBox = styled.div`
   display: flex;
@@ -97,7 +100,10 @@ const AddFriend = ({ setIsOpen, friends, setfriendRefresh }) => {
       <CenterLayout>
         <ShadowBox>
           <Title>
-            친구찾기
+            <div>
+              친구찾기
+              <TooltipBtn info="친구 무드카드로 친구의 기분을 색으로 볼 수 있어요!" />
+            </div>
             <FontAwesomeIcon icon={faXmark} onClick={CloseModal} />
           </Title>
           <FilterBox>
