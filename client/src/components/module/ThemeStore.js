@@ -106,6 +106,7 @@ export const ThemeStore = ({ pointRefresher }) => {
 
   const handleSet = (paletteCode, memberId) => {
     SetPalette(paletteCode, memberId);
+    toast('팔레트 적용이 완료되었습니다');
     dispatch(setPaletteCode(paletteCode));
     setRefresher(refresher * -1);
   };
