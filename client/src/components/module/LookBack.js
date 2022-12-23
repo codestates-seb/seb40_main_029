@@ -20,35 +20,36 @@ const m = 'mood/';
 const t = 'todo/';
 
 // memberId, displayname 필요
+const dum = [
+  '#F7B0BE',
+  '#2178AE',
+  '#ED8E83',
+  '#EF3C23',
+  '#F15A42',
+  '#FAC92C',
+  '#CFE5CC',
+  '#1B4793',
+];
 
 const LookBack = ({ lookbackRefresh }) => {
   const paletteCode = useSelector(paletteCodeSelector);
   const memberId = useSelector(memberIdSelector);
   const displayName = useSelector(displayNameSelector);
-  // const displayName = '회원1';
   const [palette, setPalette] = useState([]);
 
   useEffect(() => {
-    axios.get(URL + p + paletteCode).then(res => {
-      const arr = [];
-      for (const each of res.data) {
-        arr.push('#' + each.colorCode);
-      }
-      setPalette(arr);
-    });
+    // axios.get(URL + p + paletteCode).then(res => {
+    //   // const arr = [];
+    //   // for (const each of res.data) {
+    //   //   arr.push('#' + each.colorCode);
+    //   // }
+    //   // setPalette(arr);
+    //   setPalette(res.data.map(each => '#' + each.colorCode));
+    // });
+    setPalette(dum.map(each => each));
 
-    axios.get(URL + m + displayName).then(res => {
-      // displayName
-      const data = res.data;
-      // console.log(res.data);
-      // console.log(data);
-      // console.log(
-      //   res.data.filter(
-      //     each =>
-      //       dayjs(each.createdAt).format('YYYY') === '2021' &&
-      //       each.moodPaletteDetails !== null
-      //   )
-      // );
+    // axios.get(URL + m + displayName).then(res => {   <--- 이걸 살려야 함
+    axios.get(URL + 'moods').then(res => {
       setData(
         res.data
           .filter(each => each.moodPaletteDetails !== null)
@@ -57,18 +58,14 @@ const LookBack = ({ lookbackRefresh }) => {
             each.count =
               details !== null ? Number(details.moodCode[3]) * 50 - 25 : 0;
             each.date = dayjs(each.createdAt).format('YYYY-MM-DD');
-            // value, day
             return each;
           })
       );
-      handleSetPieData(data, Number(year), palette);
+      handleSetPieData(res.data, Number(year), palette);
     });
 
     axios.get(URL + t + memberId).then(res => {
-      // memberId
-      const data = res.data;
-
-      setTodoData(data);
+      setTodoData(res.data);
     });
   }, [lookbackRefresh]);
 
@@ -81,7 +78,6 @@ const LookBack = ({ lookbackRefresh }) => {
   const [year, setYear] = useState(today.getFullYear());
 
   const withoutDup = data.filter(e => e.date === selected);
-  // const selectedData = data.find(e => e.date === selected);
   const selectedData = withoutDup.pop();
   const selectedTodoData = todoData.filter(
     e => dayjs(e.createdAt).format('YYYY-MM-DD') === selected
@@ -92,20 +88,16 @@ const LookBack = ({ lookbackRefresh }) => {
     const year = Number(dayjs(each.date).format('YYYY'));
     extent.includes(year) ? null : extent.push(year);
   }
-
   extent.sort((a, b) => a - b);
 
   const handleSetYear = num => {
     const max = extent[extent.length - 1];
     const min = extent[0];
     const output = year + num;
-
     if (output < min || output > max) {
       return;
     }
-
     handleSetPieData(data, output);
-
     return setYear(output);
   };
 
@@ -140,7 +132,6 @@ const LookBack = ({ lookbackRefresh }) => {
           label: moodsKeys[i],
           value: moodsValues[i],
           code: moodsKeys.indexOf(moodsKeys[i]),
-          // color: palette[i],
         });
       }
     }
@@ -153,8 +144,6 @@ const LookBack = ({ lookbackRefresh }) => {
       setViewDetails(!viewDetails);
     }
   };
-  // console.log(selected);
-  // console.log(selectedData);
 
   return (
     <LookBackModal>

@@ -151,14 +151,11 @@ const LeftRight = styled.button`
   margin: 40px 0 20px 0;
   font-size: 50px;
   path {
-    color: ${({ darkmode, fade }) => {
-      if (fade) {
-        return '#f6f6f6';
-      }
+    color: ${({ darkmode }) => {
       if (darkmode) {
         return '#333435';
       }
-      return 'white';
+      return '#f6f6f6';
     }};
     transition: color 0.3s;
   }
@@ -174,14 +171,11 @@ const Mood = styled.div`
   user-select: none;
   background-color: transparent;
   border: 5px solid
-    ${({ darkmode, fade }) => {
-      if (fade) {
-        return '#f6f6f6';
-      }
+    ${({ darkmode }) => {
       if (darkmode) {
         return '#333435';
       }
-      return 'white';
+      return '#f6f6f6';
     }};
   transition: border 0.3s;
   margin: 40px 20px 15px 20px;
@@ -193,14 +187,11 @@ const Type = styled.div`
   font-size: 40px;
   font-weight: 800;
   margin: 10px;
-  color: ${({ darkmode, fade }) => {
-    if (fade) {
-      return '#f6f6f6';
-    }
+  color: ${({ darkmode }) => {
     if (darkmode) {
       return '#333435';
     }
-    return 'white';
+    return '#f6f6f6';
   }};
   transition: color 0.3s;
 `;
@@ -209,14 +200,11 @@ const Today = styled.div`
   font-size: 18px;
   -webkit-user-select: none;
   user-select: none;
-  color: ${({ darkmode, fade }) => {
-    if (fade) {
-      return '#f6f6f6';
-    }
+  color: ${({ darkmode }) => {
     if (darkmode) {
       return '#333435';
     }
-    return 'white';
+    return '#f6f6f6';
   }};
   transition: color 0.3s;
 `;
@@ -246,28 +234,22 @@ const Info = styled.textarea`
     outline: none;
   }
   ::placeholder {
-    color: ${({ darkmode, fade }) => {
-      if (fade) {
-        return '#f6f6f6';
-      }
+    color: ${({ darkmode }) => {
       if (darkmode) {
         return '#333435';
       }
-      return 'white';
+      return '#f6f6f6';
     }};
     transition: color 0.3s;
   }
   ::-webkit-scrollbar {
     display: none;
   }
-  color: ${({ darkmode, fade }) => {
-    if (fade) {
-      return '#f6f6f6';
-    }
+  color: ${({ darkmode }) => {
     if (darkmode) {
       return '#333435';
     }
-    return 'white';
+    return '#f6f6f6';
   }};
   transition: color 0.3s;
 `;
@@ -302,14 +284,11 @@ const Button = styled.button`
   font-weight: 700;
 
   path {
-    color: ${({ darkmode, fade }) => {
-      if (fade) {
-        return '#f6f6f6';
-      }
+    color: ${({ darkmode }) => {
       if (darkmode) {
         return '#333435';
       }
-      return 'white';
+      return '#f6f6f6';
     }};
     transition: color 0.3s;
   }
