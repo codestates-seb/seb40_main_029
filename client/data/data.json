@@ -38,9 +38,7 @@
           }
         }
       ],
-      "friends": [
-        "회원3"
-      ]
+      "friends": ["회원3"]
     },
     {
       "memberId": 2,
@@ -58,9 +56,7 @@
           }
         }
       ],
-      "friends": [
-        "회원2"
-      ]
+      "friends": ["회원2"]
     },
     {
       "memberId": 3,
@@ -96,9 +92,7 @@
           }
         }
       ],
-      "friends": [
-        "회원2"
-      ]
+      "friends": ["회원2"]
     }
   ],
   "palette": [

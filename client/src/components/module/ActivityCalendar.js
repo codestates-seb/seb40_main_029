@@ -14,6 +14,8 @@ import {
 import styled from 'styled-components';
 import styles from './styles.module.css';
 import tinycolor from 'tinycolor2';
+import { toast } from 'react-toastify';
+import dayjs from 'dayjs';
 
 function ActivityCalendar({
   palette,
@@ -163,7 +165,15 @@ function ActivityCalendar({
               key={day.date}
               style={style}
               onClick={() => {
-                day.createdAt !== undefined ? setSelected(day.date) : null;
+                day.createdAt !== undefined
+                  ? (setSelected(day.date),
+                    toast(
+                      `${dayjs(day.date).format('YYYY')}년 ${dayjs(
+                        day.date
+                      ).format('M')}월 ${dayjs(day.date).format('D')}일의 기록`
+                    ))
+                  : null;
+                // MMMM-DD-YY
               }}
             ></Rect>
           );
