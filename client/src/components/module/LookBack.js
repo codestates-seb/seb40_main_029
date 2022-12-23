@@ -71,6 +71,7 @@ const LookBack = ({ lookbackRefresh }) => {
 
   const today = new Date();
   const [data, setData] = useState([]);
+  console.log(data);
   const [todoData, setTodoData] = useState([]);
   const [pieData, setPieData] = useState([]);
   const [selected, setSelected] = useState(dayjs(today).format('YYYY-MM-DD'));
