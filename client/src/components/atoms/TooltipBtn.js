@@ -20,7 +20,12 @@ const Info = styled.div`
 export const TooltipBtn = ({ info, place }) => {
   return (
     <>
-      <Info data-tip={info}>
+      <Info
+        data-tip={info}
+        onMouseOver={() => {
+          ReactTooltip.rebuild();
+        }}
+      >
         <FontAwesomeIcon icon={faCircleQuestion} size="sm" />
       </Info>
       <ReactTooltip event="click" eventOff="mouseout" place={place} />
