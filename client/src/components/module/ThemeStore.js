@@ -11,8 +11,7 @@ import { setMyPalette, setPaletteCode } from '../../redux/slice';
 import { BuyPalette, SetPalette } from '../../api/PaletteShopApi';
 import { StoreModal } from './Modal';
 import CircleCarousel from './CircleCarousel';
-import { showToast } from '../atoms/Toast';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -93,23 +92,15 @@ export const ThemeStore = ({ pointRefresher }) => {
   const palettePoint = ['0P', '1000P', '500P', '1500P', '500P', '500P'];
 
   const handleBuy = (paletteCode, memberId) => {
+    toast('팔레트 구매가 완료되었습니다');
     (async () => {
-      console.log('토스트');
-      const notify = () =>
-        toast('Fetching the Model Do not Close', {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 60000,
-        });
-
-      notify();
-      // const result = await BuyPalette(paletteCode, memberId);
-      // if (result) {
-      //   // alert('팔레트 구매가 완료되었습니다');
-      //   Toast('팔레트 구매가 완료되었습니다');
-      //   pointRefresher();
-      //   dispatch(setMyPalette(paletteCode));
-      //   setRefresher(refresher * -1);
-      // }
+      const result = await BuyPalette(paletteCode, memberId);
+      if (result) {
+        pointRefresher();
+        toast('팔레트 구매가 완료되었습니다');
+        dispatch(setMyPalette(paletteCode));
+        setRefresher(refresher * -1);
+      }
     })();
   };
 
@@ -120,11 +111,11 @@ export const ThemeStore = ({ pointRefresher }) => {
   };
 
   const isMine = () => {
-    // 내 팔레트에 포함하고 있지 않거나 또는 이미 적용한 팔레트일 때 적용 버튼 비활성화
+    // 내 팔레트에 포함하고 있지 않거나 또는 이미 적용한 팔레트일 때 적용 버튼 비활성화(true)
     const condition1 =
       myPalette.includes(paletteCode) == false ||
       paletteCodeSelec == paletteCode;
-    // 내 팔레트에 포함하고 있고 내가 적용한 팔레트가 아닐 때 적용 버튼 활성화
+    // 내 팔레트에 포함하고 있고 내가 적용한 팔레트가 아닐 때 적용 버튼 활성화(false)
     const condition2 =
       myPalette.includes(paletteCode) == true &&
       paletteCodeSelec != paletteCode;
