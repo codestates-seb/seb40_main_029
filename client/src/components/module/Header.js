@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { moodSelector, paletteCodeSelector } from '../../redux/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
+import { TooltipBtn } from '../atoms/TooltipBtn';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -93,6 +94,7 @@ function Header({ userPoint }) {
           </HeaderTitle>
           <BookmarkWrapper>
             <Bookmark />
+            <TooltipBtn info="별을 클릭해 북마크를 만들고, 손을 클릭해 북마크 리스트를 열고 닫을 수 있어요!" />
           </BookmarkWrapper>
         </div>
         <GnbLayout ref={ref}>
