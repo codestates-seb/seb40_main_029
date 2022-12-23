@@ -11,7 +11,7 @@ import {
   MIN_DISTANCE_MONTH_LABELS,
   NAMESPACE,
 } from './utils';
-
+import styled from 'styled-components';
 import styles from './styles.module.css';
 import tinycolor from 'tinycolor2';
 
@@ -149,7 +149,7 @@ function ActivityCalendar({
               : '#eeeeee';
 
           return (
-            <rect
+            <Rect
               // {...getEventHandlers(day)}
               x={0}
               y={textHeight + (blockSize + blockMargin) * dayIndex}
@@ -165,7 +165,7 @@ function ActivityCalendar({
               onClick={() => {
                 day.createdAt !== undefined ? setSelected(day.date) : null;
               }}
-            ></rect>
+            ></Rect>
           );
         })
       )
@@ -247,3 +247,7 @@ ActivityCalendar.defaultProps = {
 };
 
 export default ActivityCalendar;
+
+const Rect = styled.rect`
+  pointer-events: all;
+`;

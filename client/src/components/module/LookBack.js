@@ -44,6 +44,7 @@ const LookBack = ({ lookbackRefresh }) => {
     //   //   arr.push('#' + each.colorCode);
     //   // }
     //   // setPalette(arr);
+
     //   setPalette(res.data.map(each => '#' + each.colorCode));
     // });
     setPalette(dum.map(each => each));
@@ -71,7 +72,6 @@ const LookBack = ({ lookbackRefresh }) => {
 
   const today = new Date();
   const [data, setData] = useState([]);
-  console.log(data);
   const [todoData, setTodoData] = useState([]);
   const [pieData, setPieData] = useState([]);
   const [selected, setSelected] = useState(dayjs(today).format('YYYY-MM-DD'));
@@ -183,7 +183,9 @@ const LookBack = ({ lookbackRefresh }) => {
                 <LeftRight>
                   <FontAwesomeIcon
                     icon={faChevronRight}
-                    onClick={() => handleSetYear(1)}
+                    onClick={() => {
+                      handleSetYear(1);
+                    }}
                   />
                   <Spacer />
                 </LeftRight>
