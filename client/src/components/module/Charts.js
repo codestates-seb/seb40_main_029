@@ -1,13 +1,6 @@
-import styled from 'styled-components';
-import { ResponsiveCalendar } from '@nivo/calendar';
 import { ResponsivePie } from '@nivo/pie';
-import { BasicTooltip } from '@nivo/tooltip';
-import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
 
 const Pie = ({ pieData, palette }) => {
-  // const [pieData, setPieData] = useState([]);
-
   return (
     <ResponsivePie
       data={pieData.map(each => {
@@ -16,6 +9,7 @@ const Pie = ({ pieData, palette }) => {
       })}
       colors={{ datum: 'data.color' }}
       margin={{ top: 15, right: 15, bottom: 15, left: 15 }}
+      sortByValue={true}
       padAngle={2}
       innerRadius={0.3}
       cornerRadius={1}

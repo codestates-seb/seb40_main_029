@@ -24,6 +24,7 @@ const Letters = ({ setIsOpen, isOpen }) => {
   const [mailRefresh, setMailRefresh] = useState(0);
   const limit = 4;
   const [page, setPage] = useState(1);
+  const [currentMail, setCurrentMail] = useState(0);
   const offset = (page - 1) * limit;
   const handleLetterCreate = () => {
     setIsOpen(!isOpen);
@@ -32,10 +33,11 @@ const Letters = ({ setIsOpen, isOpen }) => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllMails(memberId);
-      setMails(data);
+      setMails(data.slice().reverse());
     };
     fetchData();
   }, [mailRefresh]);
+
   return (
     <>
       <MailModal>
@@ -47,6 +49,8 @@ const Letters = ({ setIsOpen, isOpen }) => {
                   key={i}
                   data={mail}
                   setMailRefresh={setMailRefresh}
+                  setCurrentMail={setCurrentMail}
+                  currentMail={currentMail}
                 />
               );
             })
