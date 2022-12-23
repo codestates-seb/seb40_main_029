@@ -107,7 +107,10 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
       ]);
       nameReset();
       urlReset();
-      alert('북마크를 추가했어요!');
+      toast('북마크를 추가했어요!');
+    } else if (!validation || !nameValidation) {
+      !validation ? toast('유효한 url이 아닙니다.') : null;
+      !nameValidation ? toast('중복된 북마크 이름이 있습니다.') : null;
     } else {
       toast('북마크는 열개까지만 등록할 수 있어요!');
     }
@@ -136,9 +139,9 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
                 color="#f6f6f6"
               />
             </label>
-            {nameValidation ? null : (
+            {/* {nameValidation ? null : (
               <Validation>같은 이름을 가진 북마크가 있어요!</Validation>
-            )}
+            )} */}
             <label htmlFor="url">
               <span>URL</span>
               <Input
@@ -149,7 +152,7 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
               />
             </label>
             {validation || !bookUrlBind.value.length ? null : (
-              <Validation>유효한 url이 아니예요!</Validation>
+              <Validation>유효한 URL이 아니예요!</Validation>
             )}
             <RightBottomLayout>
               <Button
