@@ -92,7 +92,6 @@ export const ThemeStore = ({ pointRefresher }) => {
   const palettePoint = ['0P', '1000P', '500P', '1500P', '500P', '500P'];
 
   const handleBuy = (paletteCode, memberId) => {
-    toast('팔레트 구매가 완료되었습니다');
     (async () => {
       const result = await BuyPalette(paletteCode, memberId);
       if (result) {

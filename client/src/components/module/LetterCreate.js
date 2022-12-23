@@ -10,6 +10,8 @@ import { sendMail } from '../../api/MailDataApi';
 import { memberIdSelector, displayNameSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
 import { TooltipBtn } from '../atoms/TooltipBtn';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PopUp = styled.div`
   z-index: 2;
@@ -87,7 +89,7 @@ const LetterCreate = ({ setIsOpen, pointRefresher }) => {
   const handleSendLetter = e => {
     e.preventDefault();
     if (letterBody.length > 300) {
-      alert('300자 이하로만 편지를 보낼 수 있어요!');
+      toast('300자 이하로만 편지를 보낼 수 있어요!');
       setLetterBody('');
       return;
     }
@@ -98,11 +100,11 @@ const LetterCreate = ({ setIsOpen, pointRefresher }) => {
         receiverName: friend,
       });
       setLetterBody('');
-      alert(`${friend}에게 편지를 보냈습니다.(-60포인트)`);
+      toast(`${friend}에게 편지를 보냈습니다.(-60포인트)`);
       pointRefresher();
       setIsOpen(false);
     } else if (friend === '') {
-      alert('편지를 보낼 친구를 선택하세요.');
+      toast('편지를 보낼 친구를 선택하세요');
     }
   };
   return (
