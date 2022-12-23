@@ -97,10 +97,10 @@ const Nav = () => {
       })
     );
   };
-  const handleGradientModal = () => {
+  const handleMonthlyModal = () => {
     dispatch(
       openModal({
-        modalType: 'GradientModal',
+        modalType: 'MonthlyModal',
         isOpen: true,
       })
     );
@@ -166,7 +166,7 @@ const Nav = () => {
             <FontSize14>색상테마</FontSize14>
           </NavItem>
 
-          <NavItem onClick={handleGradientModal}>
+          <NavItem onClick={handleMonthlyModal}>
             <DarkIcon>
               <FontAwesomeIcon icon={faCalendarDays} size="lg" />
             </DarkIcon>

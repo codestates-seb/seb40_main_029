@@ -4,7 +4,7 @@ import Letter from './Letter';
 import { selectModal } from '../../redux/modalSlice';
 import TodoList from '../module/TodoList';
 import ThemeStore from '../module/ThemeStore';
-import GradientWall from '../module/GradientWall';
+import MonthlyLookback from '../module/MonthlyLookback';
 import LookBack from '../module/LookBack';
 
 const MODAL_TYPES = {
@@ -12,7 +12,7 @@ const MODAL_TYPES = {
   TodoModal: 'TodoModal',
   FriendModal: 'FriendModal',
   ThemeModal: 'ThemeModal',
-  GradientModal: 'GradientModal',
+  MonthlyModal: 'MonthlyModal',
   LookbackModal: 'LookbackModal',
 };
 
@@ -40,8 +40,8 @@ function GlobalModal({ lookbackRefresh, lookbackRefresher, pointRefresher }) {
       component: <ThemeStore pointRefresher={pointRefresher} />,
     },
     {
-      type: MODAL_TYPES.GradientModal,
-      component: <GradientWall />,
+      type: MODAL_TYPES.MonthlyModal,
+      component: <MonthlyLookback />,
     },
     {
       type: MODAL_TYPES.LookbackModal,
