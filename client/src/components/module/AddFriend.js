@@ -13,7 +13,7 @@ import { displayNameSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { TooltipBtn } from '../atoms/TooltipBtn';
 const PopUp = styled.div`
   z-index: 2;
   button {
@@ -25,6 +25,9 @@ const Title = styled.h3`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  div {
+    display: flex;
+  }
 `;
 const FilterBox = styled.div`
   display: flex;
@@ -61,6 +64,8 @@ const AddFriend = ({ setIsOpen, friends, setfriendRefresh }) => {
   const [userList, setUserList] = useState([]);
   const [keyword, bindKeyword] = useInput('');
   const [respondentDisplayName, setRespondentDisplayName] = useState('');
+  const requesterDisplayName = useSelector(displayNameSelector);
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllMembers();
@@ -73,24 +78,18 @@ const AddFriend = ({ setIsOpen, friends, setfriendRefresh }) => {
   };
 
   const filteredMember = userList?.filter(member => {
-    return member.displayName !== null && member.displayName.includes(keyword);
+    const friendsNameArr = friends.map(friend => {
+      return friend.respondentDisplayName;
+    });
+    return (
+      member.displayName !== null &&
+      member.displayName !== requesterDisplayName && //본인아이디 배제
+      !friendsNameArr.includes(member.displayName) && //이미 추가된 친구 배제
+      member.displayName.includes(keyword) //키워드
+    );
   });
-  const checkAlreadyAdd = el => {
-    if (el.respondentDisplayName === respondentDisplayName) {
-      return true;
-    }
-  };
 
-  const requesterDisplayName = useSelector(displayNameSelector);
   const handleAddFriend = () => {
-    if (friends.some(checkAlreadyAdd)) {
-      toast('이미 추가한 친구예요!');
-      return;
-    }
-    if (requesterDisplayName === respondentDisplayName) {
-      toast('내 기분은 왼쪽을 보면 알 수 있어요!');
-      return;
-    }
     addFriend({ requesterDisplayName, respondentDisplayName });
     setfriendRefresh(refresh => refresh * -1);
     toast('친구를 추가했어요!');
@@ -101,7 +100,10 @@ const AddFriend = ({ setIsOpen, friends, setfriendRefresh }) => {
       <CenterLayout>
         <ShadowBox>
           <Title>
-            친구찾기
+            <div>
+              친구찾기
+              <TooltipBtn info="친구 무드카드로 친구의 기분을 색으로 볼 수 있어요!" />
+            </div>
             <FontAwesomeIcon icon={faXmark} onClick={CloseModal} />
           </Title>
           <FilterBox>
@@ -131,7 +133,11 @@ const AddFriend = ({ setIsOpen, friends, setfriendRefresh }) => {
               : null}
           </FriendListBox>
           <RightBottomLayout>
-            <Button size="long" onClick={handleAddFriend}>
+            <Button
+              size="long"
+              onClick={handleAddFriend}
+              disabled={!respondentDisplayName}
+            >
               친구추가
             </Button>
           </RightBottomLayout>

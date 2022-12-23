@@ -194,6 +194,10 @@ const FriendModal = ({ children }) => {
         <Title>
           친구
           <FontAwesomeIcon icon={faUserGroup} />
+          <TooltipBtn
+            info="+ 버튼을 눌러서 친구의 무드카드를 얻어보세요."
+            place="right"
+          />
         </Title>
         <Button onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
