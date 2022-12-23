@@ -16,6 +16,9 @@ import {
   myPaletteSelector,
 } from '../../redux/hooks';
 import { setMyPalette, setPaletteCode } from '../../redux/slice';
+import { showToast } from '../atoms/Toast';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TitleContainer = styled.div`
   margin: 5px;
@@ -89,20 +92,25 @@ export const ThemeStore = ({ pointRefresher }) => {
   ];
   const palettePoint = ['0P', '1000P', '500P', '1500P', '500P', '500P'];
   // console.log('팔레트 코드' + paletteCode);
-  // console.log(myPalette);
 
   const handleBuy = (paletteCode, memberId) => {
-    // console.log(memberId);
     (async () => {
-      const result = await BuyPalette(paletteCode, memberId);
-      // console.log(result);
-      if (result) {
-        // console.log('팔레트 구매');
-        dispatch(setMyPalette(paletteCode));
-        alert('팔레트 구매가 완료되었습니다');
-        pointRefresher();
-        setButton(button * -1);
-      }
+      console.log('토스트');
+      const notify = () =>
+        toast('Fetching the Model Do not Close', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 60000,
+        });
+
+      notify();
+      // const result = await BuyPalette(paletteCode, memberId);
+      // if (result) {
+      //   dispatch(setMyPalette(paletteCode));
+      //   // alert('팔레트 구매가 완료되었습니다');
+      //   Toast('팔레트 구매가 완료되었습니다');
+      //   pointRefresher();
+      //   setButton(button * -1);
+      // }
     })();
   };
 
@@ -117,13 +125,11 @@ export const ThemeStore = ({ pointRefresher }) => {
       myPalette.includes(paletteCode) == false ||
       paletteCodeSelec == paletteCode
     ) {
-      // console.log('비활성화');
       setDisable(true);
     } else if (
       myPalette.includes(paletteCode) == true &&
       paletteCodeSelec != paletteCode
     ) {
-      // console.log('활성화');
       setDisable(false);
     }
   };
@@ -155,19 +161,6 @@ export const ThemeStore = ({ pointRefresher }) => {
 
   useEffect(() => {
     isMine();
-    // if (
-    //   myPalette.includes(paletteCode) == false ||
-    //   paletteCodeSelec == paletteCode
-    // ) {
-    //   // console.log('비활성화');
-    //   setDisable(true);
-    // } else if (
-    //   myPalette.includes(paletteCode) == true &&
-    //   paletteCodeSelec != paletteCode
-    // ) {
-    //   // console.log('활성화');
-    //   setDisable(false);
-    // }
   }, [paletteCode, button]);
 
   return (
