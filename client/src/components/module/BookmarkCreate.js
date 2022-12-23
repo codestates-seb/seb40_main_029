@@ -62,6 +62,8 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
   const [bookName, bookNameBind, nameReset] = useInput('');
   const [bookUrl, bookUrlBind, urlReset] = useInput('');
   const [validation, setValidation] = useState();
+  const [nameValidation, setNameValidation] = useState();
+
   const handleBookmarkClose = () => {
     setAddBtnIsOpen(false);
   };
@@ -80,7 +82,16 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
       urlRegex.test(bookUrl) ? setValidation(true) : setValidation(false);
     };
     urlValidation();
-  }, [bookUrl]);
+    const bookNames = booksArr.map(book => {
+      return book.name;
+    });
+    const bookNameValidation = () => {
+      bookNames.includes(bookName)
+        ? setNameValidation(false)
+        : setNameValidation(true);
+    };
+    bookNameValidation();
+  }, [bookUrl, bookName]);
 
   const handleBookmarkSubmit = e => {
     e.preventDefault();
@@ -125,6 +136,9 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
                 color="#f6f6f6"
               />
             </label>
+            {nameValidation ? null : (
+              <Validation>같은 이름을 가진 북마크가 있어요!</Validation>
+            )}
             <label htmlFor="url">
               <span>URL</span>
               <Input
@@ -135,7 +149,7 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
               />
             </label>
             {validation || !bookUrlBind.value.length ? null : (
-              <Validation>유효한 url이 아닙니다.</Validation>
+              <Validation>유효한 url이 아니예요!</Validation>
             )}
             <RightBottomLayout>
               <Button
