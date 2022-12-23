@@ -95,7 +95,7 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
 
   const handleBookmarkSubmit = e => {
     e.preventDefault();
-    if (booksArr.length < 10 && validation) {
+    if (booksArr.length < 10 && validation && nameValidation) {
       setBookmarkArr([
         ...booksArr,
         {
@@ -106,8 +106,9 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
       nameReset();
       urlReset();
       alert('북마크를 추가했어요!');
-    } else if (!validation) {
-      alert('유효한 url이 아닙니다.');
+    } else if (!validation || !nameValidation) {
+      !validation ? alert('유효한 url이 아닙니다.') : null;
+      !nameValidation ? alert('중복된 북마크 이름이 있습니다.') : null;
     } else {
       alert('북마크는 열개까지만 등록할 수 있어요!');
     }
