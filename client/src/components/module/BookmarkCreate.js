@@ -7,6 +7,8 @@ import ShadowBox from '../atoms/ShadowBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { CenterLayout, RightBottomLayout } from '../atoms/Layouts';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { TooltipBtn } from '../atoms/TooltipBtn';
 import { useState } from 'react';
 
@@ -106,11 +108,8 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
       nameReset();
       urlReset();
       alert('북마크를 추가했어요!');
-    } else if (!validation || !nameValidation) {
-      !validation ? alert('유효한 url이 아닙니다.') : null;
-      !nameValidation ? alert('중복된 북마크 이름이 있습니다.') : null;
     } else {
-      alert('북마크는 열개까지만 등록할 수 있어요!');
+      toast('북마크는 열개까지만 등록할 수 있어요!');
     }
   };
   useEffect(() => {

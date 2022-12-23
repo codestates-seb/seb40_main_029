@@ -25,6 +25,7 @@ const App = () => {
         autoClose={2000}
         closeOnClick={true}
         hideProgressBar={true}
+        pauseOnHover={false}
         icon={<FontAwesomeIcon icon={faCircleCheck} />}
       />
     </div>
