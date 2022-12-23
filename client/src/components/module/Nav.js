@@ -14,7 +14,9 @@ import { useDispatch } from 'react-redux';
 import { useCookies } from 'react-cookie';
 import { openModal } from '../../redux/modalSlice';
 import { LogoutApi } from '../../api/LoginLogoutApi';
-import { getCookie, setcookie, removeCookie } from '../../utils/cookie';
+import { setcookie } from '../../utils/cookie';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Bubble = styled.nav`
   max-width: 120px;
@@ -97,10 +99,10 @@ const Nav = () => {
       })
     );
   };
-  const handleGradientModal = () => {
+  const handleMonthlyModal = () => {
     dispatch(
       openModal({
-        modalType: 'GradientModal',
+        modalType: 'MonthlyModal',
         isOpen: true,
       })
     );
@@ -133,7 +135,7 @@ const Nav = () => {
       // console.log('쿠키 삭제');
       navigate('/login');
     } else {
-      alert('새로고침 후 다시 시도해주세요');
+      toast('새로고침 후 다시 시도해주세요');
     }
   };
 
@@ -166,7 +168,7 @@ const Nav = () => {
             <FontSize14>색상테마</FontSize14>
           </NavItem>
 
-          <NavItem onClick={handleGradientModal}>
+          <NavItem onClick={handleMonthlyModal}>
             <DarkIcon>
               <FontAwesomeIcon icon={faCalendarDays} size="lg" />
             </DarkIcon>

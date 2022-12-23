@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { memberIdSelector } from '../redux/hooks';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 axios.defaults.withCredentials = true;
 // const API_URL = process.env.REACT_APP_BASIC_URL;
@@ -36,7 +36,7 @@ export const BuyPalette = async (paletteCode, memberId) => {
     if (result.status == 200) {
       return true;
     } else if (result.status == 204) {
-      alert('아쉽지만 포인트가 부족해요');
+      toast('아쉽지만 포인트가 부족해요');
       return false;
     }
   } catch (err) {
