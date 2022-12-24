@@ -11,13 +11,11 @@ axios.defaults.withCredentials = true; // 쿠키 사용하기 위해 필수
 
 const Contain = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  min-height: 100vh;
+  /* align-items: center; */
+  /* justify-content: center; */
 
   #signInDiv {
-    margin-top: 20px;
+    margin-right: 15px;
   }
 `;
 
@@ -76,7 +74,7 @@ export default function GoogleLogin() {
 
   // 신규 구글 로그인 라이브러리 사용
   useEffect(() => {
-    if (window.google) {
+    if (window) {
       window.google.accounts.id.initialize({
         client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
         // 로그인 할 경우 호출되는 함수
@@ -87,8 +85,9 @@ export default function GoogleLogin() {
         document.getElementById('signInDiv'),
         {
           theme: 'outline',
-          size: 'large',
-          width: '250',
+          size: 'medium',
+          width: '100',
+          text: 'signin',
         }
       );
       // window.google.accounts.id.prompt();
@@ -98,7 +97,7 @@ export default function GoogleLogin() {
 
   return (
     <Contain>
-      <Logo width="170" height="170" />
+      {/* <Logo width="170" height="170" /> */}
       <div id="signInDiv"></div>
     </Contain>
   );

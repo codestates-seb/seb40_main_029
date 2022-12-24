@@ -3,11 +3,13 @@ import Nav from './Nav';
 import { useEffect, useRef, useState } from 'react';
 import Bookmark from './Bookmark';
 import User from '../atoms/User';
+import { getCookie } from '../../utils/cookie';
 import { getSpecificPalette } from '../../api/FriendDataApi';
 import { useSelector } from 'react-redux';
 import { moodSelector, paletteCodeSelector } from '../../redux/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
+import GoogleLogin from './GoogleLogin';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -31,6 +33,11 @@ const GnbLayout = styled.div`
   right: 0;
   min-width: 120px;
 `;
+const Contain = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 const Point = styled.span`
   margin-right: 16px;
   font-size: 14px;
@@ -50,6 +57,7 @@ function Header({ userPoint }) {
   const [palette, setPalette] = useState([]);
   const userMood = useSelector(moodSelector);
   const userPalette = useSelector(paletteCodeSelector);
+  const accessToken = getCookie('accessToken');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -96,13 +104,26 @@ function Header({ userPoint }) {
           </BookmarkWrapper>
         </div>
         <GnbLayout ref={ref}>
-          <User onClick={onClick} color={userMoodColor?.colorCode}>
-            USERNAME
-          </User>
-          <Point>
-            <FontAwesomeIcon icon={faSackDollar} />
-            {userPoint}
-          </Point>
+          {accessToken ? (
+            <>
+              <User onClick={onClick} color={userMoodColor?.colorCode}>
+                USERNAME
+              </User>
+              <Point>
+                <FontAwesomeIcon icon={faSackDollar} />
+                {userPoint}
+              </Point>
+            </>
+          ) : (
+            <>
+              <Contain>
+                <User onClick={onClick} color={userMoodColor?.colorCode}>
+                  USERNAME
+                </User>
+                <GoogleLogin />
+              </Contain>
+            </>
+          )}
           {isOpen ? <Nav /> : null}
         </GnbLayout>
       </HeaderWrapper>
