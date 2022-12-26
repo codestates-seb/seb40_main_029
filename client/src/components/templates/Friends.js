@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ContentLayout } from '../atoms/Layouts';
 import FriendCard from '../module/FriendCard';
 import { FriendModal } from '../module/Modal';
 import { getFriends } from '../../api/FriendDataApi';
@@ -40,46 +39,44 @@ const Friends = () => {
 
   return (
     <>
-      <ContentLayout>
-        <FriendModal>
-          <CardLayout>
-            {friends
-              ? friends.slice(offset, offset + limit).map(friend => {
-                  return (
-                    <FriendCard
-                      key={friend.respondentId}
-                      friend={friend}
-                      setfriendRefresh={setfriendRefresh}
-                    />
-                  );
-                })
-              : null}
-          </CardLayout>
-          <RightBottomLayout>
-            <Button size="circle" onClick={handleFindFriend}>
-              +
-            </Button>
-          </RightBottomLayout>
-          <footer>
-            <Pagination
-              total={friends.length}
-              limit={limit}
-              page={page}
-              setPage={setPage}
-            />
-          </footer>
-        </FriendModal>
-        {isOpen ? (
-          <>
-            <AddFriend
-              setIsOpen={setIsOpen}
-              friends={friends}
-              setfriendRefresh={setfriendRefresh}
-            />
-            <Overlay />
-          </>
-        ) : null}
-      </ContentLayout>
+      <FriendModal>
+        <CardLayout>
+          {friends
+            ? friends.slice(offset, offset + limit).map(friend => {
+                return (
+                  <FriendCard
+                    key={friend.respondentId}
+                    friend={friend}
+                    setfriendRefresh={setfriendRefresh}
+                  />
+                );
+              })
+            : null}
+        </CardLayout>
+        <RightBottomLayout>
+          <Button size="circle" onClick={handleFindFriend}>
+            +
+          </Button>
+        </RightBottomLayout>
+        <footer>
+          <Pagination
+            total={friends.length}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+          />
+        </footer>
+      </FriendModal>
+      {isOpen ? (
+        <>
+          <AddFriend
+            setIsOpen={setIsOpen}
+            friends={friends}
+            setfriendRefresh={setfriendRefresh}
+          />
+          <Overlay />
+        </>
+      ) : null}
     </>
   );
 };

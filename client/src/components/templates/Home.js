@@ -12,11 +12,13 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { onSilentRefresh } from '../../api/LoginLogoutApi';
+import { selectModal } from '../../redux/modalSlice';
 
 const Browser = styled.div`
   position: relative;
-  max-width: 1440px;
+  max-width: 1140px;
   margin: 0 auto;
+  padding: 0 20px;
 
   //mobile 767px 이하일때
   @media screen and (max-width: 767px) {
@@ -26,10 +28,8 @@ const Browser = styled.div`
   @media screen and (min-width: 768px) and (max-width: 1023px) {
     max-width: 1023px;
   }
-  //desktop 1024px 이상일때
-  @media screen and (min-width: 1024px) {
-  }
 `;
+
 const Home = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
   const navigate = useNavigate();
@@ -38,6 +38,9 @@ const Home = () => {
   const email = useSelector(emailSelector);
   // console.log(memberId);
   const accessToken = getCookie('accessToken');
+
+  const { modalType } = useSelector(selectModal);
+  const [hidenCard, setHidenCard] = useState(false);
 
   const [lookbackRefresh, setLookbackRefresh] = useState(-1);
   const lookbackRefresher = () => {
@@ -48,6 +51,14 @@ const Home = () => {
   const pointRefresher = () => {
     setPointRefresh(pointRefresh * -1);
   };
+
+  useEffect(() => {
+    if (modalType === 'LookbackModal' || modalType === 'MonthlyModal') {
+      setHidenCard(true);
+    } else {
+      setHidenCard(false);
+    }
+  }, [modalType]);
 
   // useEffect(() => {
   //   // console.log(accessToken);
@@ -74,11 +85,17 @@ const Home = () => {
     <Browser>
       <Header userPoint={userPoint} />
       <ContentLayout>
-        <MoodSelector
-          lookbackRefresher={lookbackRefresher}
-          pointRefresher={pointRefresher}
-        />
+        {hidenCard ? null : (
+          <div>
+            {/* <div style={{ width: '50%', display: 'flex', justifyContent: 'end' }}> */}
+            <MoodSelector
+              lookbackRefresher={lookbackRefresher}
+              pointRefresher={pointRefresher}
+            />
+          </div>
+        )}
         <GlobalModal
+          setHidenCard={setHidenCard}
           lookbackRefresh={lookbackRefresh}
           lookbackRefresher={lookbackRefresher}
           pointRefresher={pointRefresher}

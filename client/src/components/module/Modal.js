@@ -26,6 +26,8 @@ const Blueprint = styled.div`
   margin-left: 16px;
   transition: all 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
   animation: slideIn 0.5s;
+  width: 100%;
+
   @keyframes slideIn {
     0% {
       transform: translateX(100%);
@@ -36,27 +38,32 @@ const Blueprint = styled.div`
       opacity: 1;
     }
   }
+  //tablet 768px 이상일때
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    width: 100%;
+  }
+  //desktop 1024px 이상일때
+  @media screen and (min-width: 1024px) {
+    /* width: 70%; */
+  }
 `;
 
 const Todo = styled(Blueprint)`
-  width: 650px;
   height: 500px;
 `;
 
 const Mail = styled(Blueprint)`
-  width: 650px;
-  width: 100%;
   height: 500px;
   position: relative;
 `;
 
 const Store = styled(Blueprint)`
-  width: 720px;
+  width: 100%;
   height: 500px;
 `;
 
 const Calendar = styled(Blueprint)`
-  width: 1000px;
+  width: 100%;
   height: 600px;
 `;
 
@@ -208,10 +215,11 @@ const FriendModal = ({ children }) => {
   );
 };
 
-const LookBackModal = ({ children }) => {
+const LookBackModal = ({ children, setHidenCard }) => {
   const dispatch = useDispatch();
   const handleCloseModal = () => {
     dispatch(closeModal());
+    setHidenCard(false);
   };
   return (
     <Calendar>
