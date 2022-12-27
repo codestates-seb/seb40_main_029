@@ -104,7 +104,7 @@ export const ThemeStore = ({ pointRefresher }) => {
 
   const onBuyClick = () => {
     {
-      accessToken ? handleBuy(paletteCode, memberId) : setPopup(true);
+      accessToken ? handleBuy(paletteCode, memberId) : setPopup(!popup);
       toast('먼저 로그인해주세요', {
         className: 'toast-login',
         onClose: () => setPopup(false),

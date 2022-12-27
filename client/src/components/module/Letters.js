@@ -9,6 +9,10 @@ import styled from 'styled-components';
 import Pagination from '../atoms/Pagination';
 import { memberIdSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
+import Overlay from '../atoms/Overlay';
+import { getCookie } from '../../utils/cookie';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ContentWrap = styled.div`
   overflow-y: scroll;
@@ -26,8 +30,16 @@ const Letters = ({ setIsOpen, isOpen }) => {
   const [page, setPage] = useState(1);
   const [currentMail, setCurrentMail] = useState(0);
   const offset = (page - 1) * limit;
+  const [popup, setPopup] = useState(false);
+  const accessToken = getCookie('accessToken');
   const handleLetterCreate = () => {
-    setIsOpen(!isOpen);
+    {
+      accessToken ? setIsOpen(!isOpen) : setPopup(!popup);
+      toast('먼저 로그인해주세요', {
+        className: 'toast-login',
+        onClose: () => setPopup(false),
+      });
+    }
   };
   const memberId = useSelector(memberIdSelector);
   useEffect(() => {
@@ -40,6 +52,7 @@ const Letters = ({ setIsOpen, isOpen }) => {
 
   return (
     <>
+      {popup && <Overlay />}
       <MailModal>
         <ContentWrap>
           {mails ? (
