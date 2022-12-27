@@ -18,7 +18,6 @@ export const PaletteList = async () => {
       // console.log(paletteSet);
       const temp = {};
       temp.carousel = paletteSet;
-      // console.log(temp);
       return temp;
     });
   } catch (err) {

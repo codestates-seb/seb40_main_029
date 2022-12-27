@@ -1,13 +1,8 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
 import Button from '../atoms/Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faChevronRight,
-  faChevronLeft,
-} from '@fortawesome/free-solid-svg-icons';
-import { PaletteList } from '../../api/PaletteShopApi';
+import { PaletteList } from '../../api/ThemeStoreApi';
 
 const CarouselContainer = styled.div`
   position: absolute;
@@ -32,7 +27,6 @@ const Carousel = styled.div`
   box-shadow: 2px 0px 4px 4px rgba(22, 27, 29, 0.1);
   border-radius: 50%;
   transition: 0.5s;
-  /* transform: rotate(15deg); */
   transform-origin: center center;
   ::before {
     /* content: “”; */
@@ -85,85 +79,38 @@ const CircleCarousel = ({ carouselIndex }) => {
           for (let i = 0; i < res.data.length; i += 8)
             paletteSet.push(res.data.slice(i, i + 8));
           setPalette({ ...palette, carousel: paletteSet });
-          // console.log(palette.carousel);
         });
       } catch (err) {
         throw err;
       }
     };
     loadData();
-    // const loadData = async () => {
-    //   const result = await PaletteList();
-    //   console.log('결과');
-    //   console.log(result);
-    //   if (isCancelled) {
-    //     return;
-    //   }
-
-    //   setPalette({ ...palette, result });
-    // };
-    // loadData();
-
-    // PaletteList().then(res => {
-    //   let temp = {};
-    //   temp.carousel = res;
-    //   console.log(temp);
-    // });
-    // .then(res => {
-    //   console.log('객체');
-    //   console.log(res);
-    // let temp = {};
-    // temp.carousel = res.data;
-
-    // setPalette(...palette, paletteSet);
-    // console.log(palette);
   }, []);
 
-  // const getIdItems = side => {
-  //   // true = next, false = prev
-  //   const { nextItem, prevItem, lastItem, centerItem } = palette;
-
-  //   if (side == true) {
-  //     setPalette({ ...palette, centerItem: nextItem });
-  //     () => prevNext(centerItem);
+  // const prevNext = itemId => {
+  //   if (itemId === palette.lastItem) {
+  //     setPalette({ ...palette, nextItem: 0, prevItem: palette.lastItem - 1 });
+  //   } else if (itemId === 0) {
+  //     setPalette({ ...palette, prevItem: palette.lastItem, nextItem: 1 });
   //   } else {
-  //     setPalette({ ...palette, centerItem: prevItem });
-  //     () => prevNext(centerItem);
+  //     setPalette({
+  //       ...palette,
+  //       nextItem: palette.centerItem + 1,
+  //       prevItem: palette.centerItem - 1,
+  //     });
   //   }
-
-  const prevNext = itemId => {
-    if (itemId === palette.lastItem) {
-      setPalette({ ...palette, nextItem: 0, prevItem: palette.lastItem - 1 });
-    } else if (itemId === 0) {
-      setPalette({ ...palette, prevItem: palette.lastItem, nextItem: 1 });
-    } else {
-      setPalette({
-        ...palette,
-        nextItem: palette.centerItem + 1,
-        prevItem: palette.centerItem - 1,
-      });
-    }
-  };
-  //   console.log(palette);
   // };
 
   const next = () => {
-    // getIdItems(true);
-    // setPalette({ ...palette, centerItem: palette.nextItem });
-    // console.log('돼');
-    // prevNext(palette.centerItem);
     setPalette({
       ...palette,
       carouselDeg: palette.carouselDeg - 45,
       itemDeg: palette.itemDeg + 45,
       centerItem: palette.nextItem,
     });
-    // prevNext(palette.centerItem);
-    // console.log(palette);
   };
 
   const prev = () => {
-    // getIdItems(false);
     setPalette({
       ...palette,
       carouselDeg: palette.carouselDeg + 45,
@@ -171,6 +118,7 @@ const CircleCarousel = ({ carouselIndex }) => {
     });
   };
 
+  console.log(palette.carousel);
   return (
     <CarouselContainer>
       <CarouselBtnContainer>
@@ -203,15 +151,3 @@ const CircleCarousel = ({ carouselIndex }) => {
 };
 
 export default CircleCarousel;
-
-// {palette.carousel &&
-//   palette.carousel[{ index }].map((item, index) => (
-//     <ItemCarousel
-//       key={item.id}
-//       id={item.id}
-//       color={item.color}
-//       style={{ transform: `rotate(calc(360deg / 8 * ${item.id}))` }}
-//     >
-//       {item.name}
-//     </ItemCarousel>
-//   ))}

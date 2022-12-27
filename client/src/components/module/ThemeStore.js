@@ -9,7 +9,7 @@ import {
   myPaletteSelector,
 } from '../../redux/hooks';
 import { setMyPalette, setPaletteCode } from '../../redux/slice';
-import { BuyPalette, SetPalette } from '../../api/PaletteShopApi';
+import { BuyPalette, SetPalette } from '../../api/ThemeStoreApi';
 import { getCookie } from '../../utils/cookie';
 import { StoreModal } from './Modal';
 import CircleCarousel from './CircleCarousel';
