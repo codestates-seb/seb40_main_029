@@ -11,6 +11,7 @@ import AddFriend from '../module/AddFriend';
 import Pagination from '../atoms/Pagination';
 import { memberIdSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
+import { getCookie } from '../../utils/cookie';
 
 const CardLayout = styled.div`
   display: flex;
@@ -27,6 +28,7 @@ const Friends = () => {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   const memberId = useSelector(memberIdSelector);
+  const accessToken = getCookie('accessToken');
   useEffect(() => {
     const fetchData = async () => {
       const data = await getFriends(memberId);
@@ -35,7 +37,11 @@ const Friends = () => {
     fetchData();
   }, [friendRefresh]);
   const handleFindFriend = () => {
-    setIsOpen(!isOpen);
+    console.log(accessToken);
+    {
+      accessToken ? setIsOpen(!isOpen) : setIsOpen(!isOpen);
+      console.log('팝');
+    }
   };
 
   return (

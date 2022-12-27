@@ -38,6 +38,9 @@ const Contain = styled.div`
   align-items: center;
   justify-content: center;
 `;
+const LoginBtnContain = styled.div`
+  z-index: 5;
+`;
 const Point = styled.span`
   margin-right: 16px;
   font-size: 14px;
@@ -120,7 +123,9 @@ function Header({ userPoint }) {
                 <User onClick={onClick} color={userMoodColor?.colorCode}>
                   USERNAME
                 </User>
-                <GoogleLogin />
+                <LoginBtnContain>
+                  <GoogleLogin />
+                </LoginBtnContain>
               </Contain>
             </>
           )}

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Button from '../atoms/Button';
+import Overlay from '../atoms/Overlay';
 import {
   memberIdSelector,
   paletteCodeSelector,
@@ -9,6 +10,7 @@ import {
 } from '../../redux/hooks';
 import { setMyPalette, setPaletteCode } from '../../redux/slice';
 import { BuyPalette, SetPalette } from '../../api/PaletteShopApi';
+import { getCookie } from '../../utils/cookie';
 import { StoreModal } from './Modal';
 import CircleCarousel from './CircleCarousel';
 import { toast } from 'react-toastify';
@@ -66,11 +68,6 @@ const CarouselContainer = styled.div`
   overflow: hidden;
 `;
 
-const CarouselBtnContainer = styled.div`
-  padding-top: 50px;
-  padding-left: 40px;
-`;
-
 export const ThemeStore = ({ pointRefresher }) => {
   const dispatch = useDispatch();
   const memberId = useSelector(memberIdSelector);
@@ -90,6 +87,8 @@ export const ThemeStore = ({ pointRefresher }) => {
     '비비드',
   ];
   const palettePoint = ['0P', '1000P', '500P', '1500P', '500P', '500P'];
+  const accessToken = getCookie('accessToken');
+  const [popup, setPopup] = useState(false);
 
   const handleBuy = (paletteCode, memberId) => {
     (async () => {
@@ -103,11 +102,31 @@ export const ThemeStore = ({ pointRefresher }) => {
     })();
   };
 
+  const onBuyClick = () => {
+    {
+      accessToken ? handleBuy(paletteCode, memberId) : setPopup(true);
+      toast('먼저 로그인해주세요', {
+        className: 'toast-login',
+        onClose: () => setPopup(false),
+      });
+    }
+  };
+
   const handleSet = (paletteCode, memberId) => {
     SetPalette(paletteCode, memberId);
     toast('팔레트 적용이 완료되었습니다');
     dispatch(setPaletteCode(paletteCode));
     setRefresher(refresher * -1);
+  };
+
+  const onSetClick = () => {
+    {
+      accessToken ? handleSet(paletteCode, memberId) : setPopup(true);
+      toast('먼저 로그인해주세요', {
+        className: 'toast-login',
+        onClose: () => setPopup(false),
+      });
+    }
   };
 
   const isMine = () => {
@@ -122,6 +141,7 @@ export const ThemeStore = ({ pointRefresher }) => {
     const isDisabled = condition1 ? true : condition2 ? false : null;
     setapplyBtnIsdisabled(isDisabled);
 
+    // 리팩토링 전 코드
     // if (
     //   myPalette.includes(paletteCode) == false ||
     //   paletteCodeSelec == paletteCode // 내 팔레트에 포함하고 있지 않거나 또는 이미 적용한 팔레트일 때 적용 버튼 비활성화
@@ -168,15 +188,16 @@ export const ThemeStore = ({ pointRefresher }) => {
           <Button
             size="long"
             fontsize="middle"
-            onClick={() => handleBuy(paletteCode, memberId)}
+            onClick={onBuyClick}
             disabled={myPalette.includes(paletteCode)}
           >
             구매
           </Button>
+          {popup && <Overlay />}
           <Button
             size="long"
             fontsize="middle"
-            onClick={() => handleSet(paletteCode, memberId)}
+            onClick={onSetClick}
             disabled={applyBtnIsdisabled}
           >
             적용
