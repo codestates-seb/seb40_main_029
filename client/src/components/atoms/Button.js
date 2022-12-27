@@ -10,6 +10,7 @@ const SIZES = {
   long: css`
     --button-padding: 10px 16px;
     --button-radius: 30px;
+    --button-max-width: 100px;
   `,
 };
 
@@ -50,11 +51,14 @@ const Btn = styled.button`
   background-color: inherit;
   box-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25), -2px -2px 5px #faf8ff;
   width: var(--button-width);
+  max-width: var(--button-max-width);
   height: var(--button-height);
   border: none;
   margin-right: 10px;
-  /* font-weight: 700; */
   font-size: var(--button-font-size);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   &:hover,
   &:active {
