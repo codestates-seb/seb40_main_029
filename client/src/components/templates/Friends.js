@@ -12,6 +12,8 @@ import Pagination from '../atoms/Pagination';
 import { memberIdSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
 import { getCookie } from '../../utils/cookie';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CardLayout = styled.div`
   display: flex;
@@ -22,6 +24,7 @@ const CardLayout = styled.div`
 
 const Friends = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [popup, setPopup] = useState(false);
   const [friends, setFriends] = useState([]);
   const [friendRefresh, setfriendRefresh] = useState(0);
   const limit = 8;
@@ -37,15 +40,18 @@ const Friends = () => {
     fetchData();
   }, [friendRefresh]);
   const handleFindFriend = () => {
-    console.log(accessToken);
     {
-      accessToken ? setIsOpen(!isOpen) : setIsOpen(!isOpen);
-      console.log('팝');
+      accessToken ? setIsOpen(!isOpen) : setPopup(!popup);
+      toast('먼저 로그인해주세요', {
+        className: 'toast-login',
+        onClose: () => setPopup(false),
+      });
     }
   };
 
   return (
     <>
+      {popup && <Overlay />}
       <ContentLayout>
         <FriendModal>
           <CardLayout>

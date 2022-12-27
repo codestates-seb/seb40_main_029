@@ -181,6 +181,7 @@ export const ThemeStore = ({ pointRefresher }) => {
 
   return (
     <StoreModal>
+      {popup && <Overlay />}
       <TitleContainer>
         <Point>{palettePoint[carouselIndex]}</Point>
         <PaletteName>{paletteName[carouselIndex]}</PaletteName>
@@ -193,7 +194,6 @@ export const ThemeStore = ({ pointRefresher }) => {
           >
             구매
           </Button>
-          {popup && <Overlay />}
           <Button
             size="long"
             fontsize="middle"
