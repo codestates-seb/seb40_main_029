@@ -10,16 +10,17 @@ export const PaletteList = async () => {
   const path = '/palette';
   try {
     // 팔레트가 담긴 배열
-    await axios.get(API_URL + path).then(res => {
-      // console.log(res.data);
-      const paletteSet = [];
-      for (let i = 0; i < res.data.length; i += 8)
-        paletteSet.push(res.data.slice(i, i + 8));
-      // console.log(paletteSet);
-      const temp = {};
-      temp.carousel = paletteSet;
-      return temp;
-    });
+    const result = await axios.get(API_URL + path);
+    const paletteSet = [];
+    for (let i = 0; i < result.data.length; i += 8) {
+      paletteSet.push(result.data.slice(i, i + 8));
+    }
+
+    // const temp = {};
+    // temp.carousel = paletteSet;
+    // console.log('api');
+    // console.log(temp);
+    return paletteSet;
   } catch (err) {
     throw err;
   }

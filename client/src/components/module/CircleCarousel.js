@@ -56,7 +56,7 @@ const ItemCarousel = styled.div`
   box-shadow: 1px -2px 2px 1px rgba(22, 27, 29, 0.2);
 `;
 
-const CircleCarousel = ({ carouselIndex }) => {
+const CircleCarousel = ({ carouselIndex, paletteInfo, setPaletteInfo }) => {
   const [palette, setPalette] = useState({
     carouselDeg: 17,
     itemDeg: -17,
@@ -67,39 +67,40 @@ const CircleCarousel = ({ carouselIndex }) => {
   });
 
   useEffect(() => {
+    // const loadData = async () => {
+    //   // const API_URL = process.env.REACT_APP_BASIC_URL;
+    //   const API_URL = process.env.REACT_APP_JSON_URL;
+    //   const path = '/palette';
+    //   try {
+    //     // 팔레트가 담긴 배열
+    //     await axios.get(API_URL + path).then(res => {
+    //       // console.log(res.data);
+    //       const paletteSet = [];
+    //       for (let i = 0; i < res.data.length; i += 8)
+    //         paletteSet.push(res.data.slice(i, i + 8));
+    //       setPalette({ ...palette, carousel: paletteSet });
+    //     });
+    //   } catch (err) {
+    //     throw err;
+    //   }
+    // };
+    let paletteSet;
     const loadData = async () => {
-      // const API_URL = process.env.REACT_APP_BASIC_URL;
-      const API_URL = process.env.REACT_APP_JSON_URL;
-      const path = '/palette';
-      try {
-        // 팔레트가 담긴 배열
-        await axios.get(API_URL + path).then(res => {
-          // console.log(res.data);
-          const paletteSet = [];
-          for (let i = 0; i < res.data.length; i += 8)
-            paletteSet.push(res.data.slice(i, i + 8));
-          setPalette({ ...palette, carousel: paletteSet });
-        });
-      } catch (err) {
-        throw err;
+      paletteSet = await PaletteList();
+      setPalette({ ...palette, carousel: paletteSet });
+      console.log(paletteSet);
+      const paletteDetail = [];
+      for (let i = 0; i < paletteSet.length; i++) {
+        const el = {};
+        el.paletteName = paletteSet[i][0].paletteName;
+        el.palettePrice = paletteSet[i][0].price;
+        paletteDetail.push(el);
       }
+      console.log(paletteDetail);
+      setPaletteInfo(paletteDetail);
     };
     loadData();
   }, []);
-
-  // const prevNext = itemId => {
-  //   if (itemId === palette.lastItem) {
-  //     setPalette({ ...palette, nextItem: 0, prevItem: palette.lastItem - 1 });
-  //   } else if (itemId === 0) {
-  //     setPalette({ ...palette, prevItem: palette.lastItem, nextItem: 1 });
-  //   } else {
-  //     setPalette({
-  //       ...palette,
-  //       nextItem: palette.centerItem + 1,
-  //       prevItem: palette.centerItem - 1,
-  //     });
-  //   }
-  // };
 
   const next = () => {
     setPalette({
@@ -118,7 +119,6 @@ const CircleCarousel = ({ carouselIndex }) => {
     });
   };
 
-  console.log(palette.carousel);
   return (
     <CarouselContainer>
       <CarouselBtnContainer>
