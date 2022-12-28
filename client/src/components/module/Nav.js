@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -13,10 +14,10 @@ import {
   faFilm,
 } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { useCookies } from 'react-cookie';
 import { openModal } from '../../redux/modalSlice';
 import { LogoutApi } from '../../api/LoginLogoutApi';
-import { setcookie } from '../../utils/cookie';
+import { getCookie, setcookie } from '../../utils/cookie';
+import Overlay from '../atoms/Overlay';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setDisplayName } from '../../redux/slice';
@@ -69,7 +70,8 @@ const Nav = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const displayName = useSelector(displayNameSelector);
-  // const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
+  const [popup, setPopup] = useState(false);
+  const accessToken = getCookie('accessToken');
 
   const handleLetterModal = () => {
     dispatch(
@@ -104,20 +106,36 @@ const Nav = () => {
     );
   };
   const handleMonthlyModal = () => {
-    dispatch(
-      openModal({
-        modalType: 'MonthlyModal',
-        isOpen: true,
-      })
-    );
+    {
+      accessToken
+        ? dispatch(
+            openModal({
+              modalType: 'MonthlyModal',
+              isOpen: true,
+            })
+          )
+        : setPopup(true);
+      toast('먼저 로그인해주세요', {
+        className: 'toast-login',
+        onClose: () => setPopup(false),
+      });
+    }
   };
   const handleLookbackModal = () => {
-    dispatch(
-      openModal({
-        modalType: 'LookbackModal',
-        isOpen: true,
-      })
-    );
+    {
+      accessToken
+        ? dispatch(
+            openModal({
+              modalType: 'LookbackModal',
+              isOpen: true,
+            })
+          )
+        : setPopup(true);
+      toast('먼저 로그인해주세요', {
+        className: 'toast-login',
+        onClose: () => setPopup(false),
+      });
+    }
   };
 
   const handleLogout = async () => {
@@ -136,6 +154,7 @@ const Nav = () => {
 
   return (
     <>
+      {popup && <Overlay />}
       <Bubble>
         <ul>
           <NavItem onClick={handleFriendModal}>
@@ -162,7 +181,6 @@ const Nav = () => {
             </DarkIcon>
             <FontSize14>색상테마</FontSize14>
           </NavItem>
-
           <NavItem onClick={handleMonthlyModal}>
             <DarkIcon>
               <FontAwesomeIcon icon={faCalendarDays} size="lg" />
