@@ -31,7 +31,7 @@ const dum = [
   '#1B4793',
 ];
 
-const LookBack = ({ lookbackRefresh }) => {
+const LookBack = ({ lookbackRefresh, setHidenCard }) => {
   const paletteCode = useSelector(paletteCodeSelector);
   const memberId = useSelector(memberIdSelector);
   const displayName = useSelector(displayNameSelector);
@@ -147,7 +147,7 @@ const LookBack = ({ lookbackRefresh }) => {
   };
 
   return (
-    <LookBackModal>
+    <LookBackModal setHidenCard={setHidenCard}>
       <Wrapper>
         {data.length === 0 ? (
           <article>

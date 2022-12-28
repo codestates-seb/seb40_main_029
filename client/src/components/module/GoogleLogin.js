@@ -11,66 +11,18 @@ axios.defaults.withCredentials = true; // 쿠키 사용하기 위해 필수
 
 const Contain = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  min-height: 100vh;
 
   #signInDiv {
-    margin-top: 20px;
+    margin-right: 15px;
   }
 `;
 
 export default function GoogleLogin() {
-  // const isLoggedIn = useSelector(isLoggedInSelector000);
   const userEmail = useSelector(emailSelector);
   const display = useSelector(displayNameSelector);
-  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_DEPLOY_URL}/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
-
-  const welcome = () => {
-    // console.log('클릭!');
-  };
-
-  // const getAccessToken = async authorizationCode => {
-  //   // const getURL = `${process.env.REACT_APP_BASIC_URL}?code=${authorizationCode}`;
-
-  //   // const getURL = 'https://521a-211-58-204-152.jp.ngrok.io/oauth/google'; 이거
-  //   // const params = { code: authorizationCode };
-  //   let config = {
-  //     params: {
-  //       code: authorizationCode,
-  //     },
-  //   };
-  //   console.log(getURL);
-  //   await axios.get(getURL, config).then(res => {
-  //     if (res.data) {
-  //       console.log(res.data);
-  //       // 액세스 토큰 받아서 api 요청시마다 전달
-  //       const { accessToken } = res.data;
-  //       console.log(accessToken);
-  //       console.log(res.data.refreshToken);
-  //       axios.defaults.headers.common['Authorization'] = accessToken;
-  //       // 리프레시 토큰 쿠키에 저장
-  //       setCookie('refreshToken', res.data.refreshToken, {
-  //         path: '/',
-  //         // HttpOnly: true,
-  //         secure: true,
-  //         sameSite: 'none',
-  //       });
-  //       // 라우팅
-  //       if (res.data.newUser) {
-  //         navigate('/signup');
-  //       } else {
-  //         navigate('/');
-  //       }
-  //     }
-  //   });
-
-  //   console.log(getCookie('refreshToken'));
-  // };
+  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_LOCAL_URL}/login/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
 
   function oAuthHandler() {
-    welcome();
     window.location.replace(GOOGLE_LOGIN_URL);
   }
 
@@ -87,18 +39,17 @@ export default function GoogleLogin() {
         document.getElementById('signInDiv'),
         {
           theme: 'outline',
-          size: 'large',
-          width: '250',
+          size: 'medium',
+          width: '100',
+          text: 'signin',
         }
       );
-      // window.google.accounts.id.prompt();
-      // console.log(userEmail);
     }
   }, []);
 
   return (
     <Contain>
-      <Logo width="170" height="170" />
+      {/* <Logo width="170" height="170" /> */}
       <div id="signInDiv"></div>
     </Contain>
   );

@@ -16,7 +16,12 @@ const MODAL_TYPES = {
   LookbackModal: 'LookbackModal',
 };
 
-function GlobalModal({ lookbackRefresh, lookbackRefresher, pointRefresher }) {
+function GlobalModal({
+  setHidenCard,
+  lookbackRefresh,
+  lookbackRefresher,
+  pointRefresher,
+}) {
   const MODAL_COMPONENTS = [
     {
       type: MODAL_TYPES.LetterModal,
@@ -41,11 +46,16 @@ function GlobalModal({ lookbackRefresh, lookbackRefresher, pointRefresher }) {
     },
     {
       type: MODAL_TYPES.MonthlyModal,
-      component: <MonthlyLookback />,
+      component: <MonthlyLookback setHidenCard={setHidenCard} />,
     },
     {
       type: MODAL_TYPES.LookbackModal,
-      component: <LookBack lookbackRefresh={lookbackRefresh} />,
+      component: (
+        <LookBack
+          setHidenCard={setHidenCard}
+          lookbackRefresh={lookbackRefresh}
+        />
+      ),
     },
   ];
   const { modalType, isOpen } = useSelector(selectModal);
@@ -58,7 +68,7 @@ function GlobalModal({ lookbackRefresh, lookbackRefresher, pointRefresher }) {
   const renderModal = () => {
     return findModal.component;
   };
-  return <div style={{ display: 'flex' }}>{renderModal()}</div>;
+  return <div style={{ display: 'flex', width: '100%' }}>{renderModal()}</div>;
 }
 
 export default GlobalModal;

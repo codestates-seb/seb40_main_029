@@ -53,7 +53,7 @@ const ButtonContain = styled.span`
   opacity: 0.4;
 `;
 
-const MonthlyLookback = () => {
+const MonthlyLookback = ({ setHidenCard }) => {
   const dispatch = useDispatch();
   const [topColors, setTopColors] = useState();
   const currentMonth = dayjs(new Date()).format('MM');
@@ -84,20 +84,50 @@ const MonthlyLookback = () => {
 
   const handleCloseModal = () => {
     dispatch(closeModal());
+    setHidenCard(false);
   };
 
   useEffect(() => {
     const loadData = async () => {
       const topColorArr = await topFourColors(displayName);
       {
-        topColorArr
-          ? setTopColors([
-              `#${topColorArr[0]}`,
-              `#${topColorArr[1]}`,
-              `#${topColorArr[2]}`,
-              `#${topColorArr[3]}`,
-            ])
-          : setTopColors(['#E7AF8D', '#F0DCB1', '#BEB5BF', '#A2A987']); // 값이 안들어왔을 경우 보여지는 임의의 색상
+        if (topColorArr.length >= 4) {
+          setTopColors([
+            `${palettes[code][topColorArr[0]]}`,
+            `${palettes[code][topColorArr[1]]}`,
+            `${palettes[code][topColorArr[2]]}`,
+            `${palettes[code][topColorArr[3]]}`,
+          ]);
+          return;
+        }
+        if (topColorArr.length === 3) {
+          setTopColors([
+            `${palettes[code][topColorArr[0]]}`,
+            `${palettes[code][topColorArr[1]]}`,
+            `${palettes[code][topColorArr[2]]}`,
+            `${palettes[code][topColorArr[0]]}`,
+          ]);
+          return;
+        }
+        if (topColorArr.length === 2) {
+          setTopColors([
+            `${palettes[code][topColorArr[0]]}`,
+            `${palettes[code][topColorArr[0]]}`,
+            `${palettes[code][topColorArr[1]]}`,
+            `${palettes[code][topColorArr[1]]}`,
+          ]);
+          return;
+        }
+        if (topColorArr.length === 1) {
+          setTopColors([
+            `${palettes[code][topColorArr[0]]}`,
+            `${palettes[code][topColorArr[0]]}`,
+            `${palettes[code][topColorArr[0]]}`,
+            `${palettes[code][topColorArr[0]]}`,
+          ]);
+          return;
+        }
+        setTopColors(['#E7AF8D', '#F0DCB1', '#BEB5BF', '#A2A987']); // 값이 안들어왔을 경우 보여지는 임의의 색상
       }
     };
     loadData();

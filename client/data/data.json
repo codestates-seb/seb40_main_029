@@ -100,7 +100,9 @@
       "paletteCode": "P001",
       "moodCode": "m001",
       "colorCode": "f7b0be",
-      "mood": "happy"
+      "mood": "happy",
+      "paletteKorName": "기본",
+      "palettePrice": "0"
     },
     {
       "paletteCode": "P001",
@@ -148,7 +150,9 @@
       "paletteCode": "P002",
       "moodCode": "m001",
       "colorCode": "CE7E5D",
-      "mood": "happy"
+      "mood": "happy",
+      "paletteKorName": "테라코타",
+      "palettePrice": "1000"
     },
     {
       "paletteCode": "P002",
@@ -196,7 +200,9 @@
       "paletteCode": "P003",
       "moodCode": "m001",
       "colorCode": "E7AF8D",
-      "mood": "happy"
+      "mood": "happy",
+      "paletteKorName": "빈티지",
+      "palettePrice": "500"
     },
     {
       "paletteCode": "P003",
@@ -244,7 +250,9 @@
       "paletteCode": "P004",
       "moodCode": "m001",
       "colorCode": "C66157",
-      "mood": "happy"
+      "mood": "happy",
+      "paletteKorName": "크리스마스",
+      "palettePrice": "1500"
     },
     {
       "paletteCode": "P004",
@@ -292,7 +300,9 @@
       "paletteCode": "P005",
       "moodCode": "m001",
       "colorCode": "E4E4E4",
-      "mood": "happy"
+      "mood": "happy",
+      "paletteKorName": "모노",
+      "palettePrice": "500"
     },
     {
       "paletteCode": "P005",
@@ -340,7 +350,9 @@
       "paletteCode": "P006",
       "moodCode": "m001",
       "colorCode": "E4E4E4",
-      "mood": "happy"
+      "mood": "happy",
+      "paletteKorName": "비비드",
+      "palettePrice": "500"
     },
     {
       "paletteCode": "P006",
