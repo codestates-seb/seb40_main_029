@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import Button from '../atoms/Button';
 import { PaletteList } from '../../api/ThemeStoreApi';
 
@@ -67,37 +66,17 @@ const CircleCarousel = ({ carouselIndex, paletteInfo, setPaletteInfo }) => {
   });
 
   useEffect(() => {
-    // const loadData = async () => {
-    //   // const API_URL = process.env.REACT_APP_BASIC_URL;
-    //   const API_URL = process.env.REACT_APP_JSON_URL;
-    //   const path = '/palette';
-    //   try {
-    //     // 팔레트가 담긴 배열
-    //     await axios.get(API_URL + path).then(res => {
-    //       // console.log(res.data);
-    //       const paletteSet = [];
-    //       for (let i = 0; i < res.data.length; i += 8)
-    //         paletteSet.push(res.data.slice(i, i + 8));
-    //       setPalette({ ...palette, carousel: paletteSet });
-    //     });
-    //   } catch (err) {
-    //     throw err;
-    //   }
-    // };
-    let paletteSet;
     const loadData = async () => {
-      paletteSet = await PaletteList();
-      setPalette({ ...palette, carousel: paletteSet });
-      console.log(paletteSet);
-      const paletteDetail = [];
-      for (let i = 0; i < paletteSet.length; i++) {
+      const paletteInfo = await PaletteList();
+      setPalette({ ...palette, carousel: paletteInfo });
+      const paletteInfoArr = [];
+      for (let i = 0; i < paletteInfo.length; i++) {
         const el = {};
-        el.paletteName = paletteSet[i][0].paletteName;
-        el.palettePrice = paletteSet[i][0].price;
-        paletteDetail.push(el);
+        el.paletteName = paletteInfo[i][0].paletteName;
+        el.palettePrice = paletteInfo[i][0].price;
+        paletteInfoArr.push(el);
       }
-      console.log(paletteDetail);
-      setPaletteInfo(paletteDetail);
+      setPaletteInfo(paletteInfoArr);
     };
     loadData();
   }, []);

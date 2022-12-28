@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import Button from '../atoms/Button';
-import Overlay from '../atoms/Overlay';
+import { getCookie } from '../../utils/cookie';
 import {
   memberIdSelector,
   paletteCodeSelector,
   myPaletteSelector,
 } from '../../redux/hooks';
 import { setMyPalette, setPaletteCode } from '../../redux/slice';
-import { BuyPalette, SetPalette, PaletteList } from '../../api/ThemeStoreApi';
-import { getCookie } from '../../utils/cookie';
+import { BuyPalette, SetPalette } from '../../api/ThemeStoreApi';
 import { StoreModal } from './Modal';
 import CircleCarousel from './CircleCarousel';
+import Button from '../atoms/Button';
+import Overlay from '../atoms/Overlay';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -77,20 +77,10 @@ export const ThemeStore = ({ pointRefresher }) => {
   const [applyBtnIsdisabled, setapplyBtnIsdisabled] = useState(false);
   const [paletteCode, SetPaletteCode] = useState('P00' + (carouselIndex + 1));
   const [refresher, setRefresher] = useState(-1);
-  const lastIndex = 5;
   const [paletteInfo, setPaletteInfo] = useState(-1);
-  // const paletteName = [
-  //   '기본',
-  //   '테라코타',
-  //   '빈티지',
-  //   '크리스마스',
-  //   '모노',
-  //   '비비드',
-  // ];
-  // const palettePoint = ['0P', '1000P', '500P', '1500P', '500P', '500P'];
-  const accessToken = getCookie('accessToken');
   const [popup, setPopup] = useState(false);
-  const [paletteSet, setPaletteSet] = useState([]);
+  const accessToken = getCookie('accessToken');
+  const lastIndex = 5;
 
   const handleBuy = (paletteCode, memberId) => {
     (async () => {
@@ -185,8 +175,12 @@ export const ThemeStore = ({ pointRefresher }) => {
     <StoreModal>
       {popup && <Overlay />}
       <TitleContainer>
-        <Point>{paletteInfo[carouselIndex].palettePrice}</Point>
-        <PaletteName>{paletteInfo[carouselIndex].paletteName}</PaletteName>
+        {Array.isArray(paletteInfo) && (
+          <>
+            <Point>{paletteInfo[carouselIndex].palettePrice}</Point>
+            <PaletteName>{paletteInfo[carouselIndex].paletteName}</PaletteName>
+          </>
+        )}
         <BtnContainer>
           <Button
             size="long"
