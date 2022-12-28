@@ -22,13 +22,11 @@ const Carousel = styled.div`
   left: 180px;
   width: 364px;
   height: 364px;
-  /* background-color: #ffffff; */
   box-shadow: 2px 0px 4px 4px rgba(22, 27, 29, 0.1);
   border-radius: 50%;
   transition: 0.5s;
   transform-origin: center center;
   ::before {
-    /* content: “”; */
     position: absolute;
     width: 50%;
     height: 100%;
@@ -72,8 +70,8 @@ const CircleCarousel = ({ carouselIndex, paletteInfo, setPaletteInfo }) => {
       const paletteInfoArr = [];
       for (let i = 0; i < paletteInfo.length; i++) {
         const el = {};
-        el.paletteName = paletteInfo[i][0].paletteName;
-        el.palettePrice = paletteInfo[i][0].price;
+        el.paletteName = paletteInfo[i][0].paletteKorName;
+        el.palettePrice = paletteInfo[i][0].palettePrice;
         paletteInfoArr.push(el);
       }
       setPaletteInfo(paletteInfoArr);

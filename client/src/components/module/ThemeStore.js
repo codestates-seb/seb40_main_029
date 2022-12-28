@@ -177,7 +177,7 @@ export const ThemeStore = ({ pointRefresher }) => {
       <TitleContainer>
         {Array.isArray(paletteInfo) && (
           <>
-            <Point>{paletteInfo[carouselIndex].palettePrice}</Point>
+            <Point>{`${paletteInfo[carouselIndex].palettePrice}P`}</Point>
             <PaletteName>{paletteInfo[carouselIndex].paletteName}</PaletteName>
           </>
         )}

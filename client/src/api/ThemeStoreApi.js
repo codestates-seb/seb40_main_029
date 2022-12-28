@@ -15,11 +15,6 @@ export const PaletteList = async () => {
     for (let i = 0; i < result.data.length; i += 8) {
       paletteSet.push(result.data.slice(i, i + 8));
     }
-
-    // const temp = {};
-    // temp.carousel = paletteSet;
-    // console.log('api');
-    // console.log(temp);
     return paletteSet;
   } catch (err) {
     throw err;
