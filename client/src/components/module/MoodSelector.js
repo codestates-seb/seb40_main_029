@@ -18,7 +18,7 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
   const paletteCode = useSelector(paletteCodeSelector);
   const displayName = useSelector(displayNameSelector);
   const { isOpen } = useSelector(selectModal);
-  const [fade, setFade] = useState(true);
+  const [fade, setFade] = useState(false);
   const [theSubit, setTheSubmit] = useState(1);
   const submitHandler = () => {
     setTheSubmit(theSubit * -1);
@@ -122,7 +122,9 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
           />
           <Info>
             <Type>{moods[idx]}</Type>
-            <Hexcode>{palette[idx]}</Hexcode>
+            <Hexcode onClick={() => handleViewDetails()}>
+              {palette[idx]}
+            </Hexcode>
             <Contents
               onClick={() => handleViewDetails()}
               viewDetails={viewDetails}
@@ -153,12 +155,26 @@ const SelectorContainer = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   align-items: center;
-  width: ${({ fade }) => (fade ? '340px' : '840px')};
   height: 460px;
   background-color: ${({ color, fade }) => (fade ? '#f6f6f6' : color)};
   transition: background-color 0.3s, opacity 0.3s, width 0.3s;
   animation-timing-function: ease-in-out;
   overflow: hidden;
+
+  @media screen and (max-width: 767px) {
+    /* width: 192px; // 0.6
+    height: 258px; */
+    width: ${({ fade }) => (fade ? '212px' : '504px')};
+  }
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    /* width: 256px; // 0.8
+    height: 344px; */
+    width: ${({ fade }) => (fade ? '276px' : '672px')};
+  }
+  //desktop 1024px 이상일때
+  @media screen and (min-width: 1024px) {
+    width: ${({ fade }) => (fade ? '340px' : '840px')};
+  }
 `;
 
 const CardContainer = styled.div`
@@ -166,10 +182,37 @@ const CardContainer = styled.div`
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
-  width: 320px;
-  height: 430px;
   background-color: white;
   transition: opacity 0.3s;
+  background-color: white;
+
+  transition: all 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  animation: slideIn 0.5s;
+
+  @keyframes slideIn {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 192px; // 0.6
+    height: 258px;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    width: 256px; // 0.8
+    height: 344px;
+  }
+  //desktop 1024px 이상일때
+  @media screen and (min-width: 1024px) {
+    width: 320px;
+    height: 430px;
+  }
 `;
 
 const Mood = styled.div`
@@ -177,13 +220,40 @@ const Mood = styled.div`
   height: 300px;
   margin: 10px 10px 0 10px;
   background-color: ${({ color }) => color};
+
+  @media screen and (max-width: 767px) {
+    width: 170px; // 0.6
+    height: 180px;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    width: 235px; // 0.8
+    height: 240px;
+  }
+  //desktop 1024px 이상일때
+  @media screen and (min-width: 1024px) {
+    width: 300px;
+    height: 300px;
+  }
 `;
 
 const Info = styled.div`
   width: 95%;
-  margin: 10px 16px auto 16px;
-  padding: 10px;
+
   text-align: left;
+
+  @media screen and (max-width: 767px) {
+    margin: 6px 9.6px auto 9.6px;
+    padding: 6px;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    margin: 8px 12.8px auto 12.8px;
+    padding: 8px;
+  }
+  //desktop 1024px 이상일때
+  @media screen and (min-width: 1024px) {
+    margin: 10px 16px auto 16px;
+    padding: 10px;
+  }
 `;
 
 const Type = styled.div`
@@ -195,19 +265,34 @@ const Type = styled.div`
 
 const Hexcode = styled.div`
   /* height: 36px; */
-  font-size: 18px;
   font-weight: 300;
+  font-size: 18px;
 `;
 const Contents = styled.div`
-  height: ${({ viewDetails }) =>
-    viewDetails ? '354px' : '44px'}; //460 - 94 - 10
-  font-size: 18px;
-  line-height: 22px;
   font-weight: 300;
   white-space: pre-line;
   overflow-y: scroll;
   transition: height 1s;
   animation-timing-function: ease-in-out;
+  @media screen and (max-width: 767px) {
+    height: ${({ viewDetails }) =>
+      viewDetails ? '210px' : '4px'}; //460 - 94 - 10
+    font-size: 18px;
+    line-height: 22px;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    height: ${({ viewDetails }) =>
+      viewDetails ? '280px' : '24px'}; //460 - 94 - 10
+    font-size: 18px;
+    line-height: 22px;
+  }
+  //desktop 1024px 이상일때
+  @media screen and (min-width: 1024px) {
+    height: ${({ viewDetails }) =>
+      viewDetails ? '354px' : '44px'}; //460 - 94 - 10
+    font-size: 18px;
+    line-height: 22px;
+  }
   ::-webkit-scrollbar {
     display: none;
   }
