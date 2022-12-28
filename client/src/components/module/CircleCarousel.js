@@ -56,7 +56,7 @@ const ItemCarousel = styled.div`
 `;
 
 const CircleCarousel = ({ carouselIndex, paletteInfo, setPaletteInfo }) => {
-  const [palette, setPalette] = useState({
+  const [carouselDetail, setCarouselDetail] = useState({
     carouselDeg: 17,
     itemDeg: -17,
     centerItem: 0,
@@ -68,7 +68,7 @@ const CircleCarousel = ({ carouselIndex, paletteInfo, setPaletteInfo }) => {
   useEffect(() => {
     const loadData = async () => {
       const paletteInfo = await PaletteList();
-      setPalette({ ...palette, carousel: paletteInfo });
+      setCarouselDetail({ ...carouselDetail, carousel: paletteInfo });
       const paletteInfoArr = [];
       for (let i = 0; i < paletteInfo.length; i++) {
         const el = {};
@@ -82,19 +82,19 @@ const CircleCarousel = ({ carouselIndex, paletteInfo, setPaletteInfo }) => {
   }, []);
 
   const next = () => {
-    setPalette({
-      ...palette,
-      carouselDeg: palette.carouselDeg - 45,
-      itemDeg: palette.itemDeg + 45,
-      centerItem: palette.nextItem,
+    setCarouselDetail({
+      ...carouselDetail,
+      carouselDeg: carouselDetail.carouselDeg - 45,
+      itemDeg: carouselDetail.itemDeg + 45,
+      centerItem: carouselDetail.nextItem,
     });
   };
 
   const prev = () => {
-    setPalette({
-      ...palette,
-      carouselDeg: palette.carouselDeg + 45,
-      itemDeg: palette.itemDeg - 45,
+    setCarouselDetail({
+      ...carouselDetail,
+      carouselDeg: carouselDetail.carouselDeg + 45,
+      itemDeg: carouselDetail.itemDeg - 45,
     });
   };
 
@@ -108,10 +108,12 @@ const CircleCarousel = ({ carouselIndex, paletteInfo, setPaletteInfo }) => {
           prev
         </Button>
       </CarouselBtnContainer>
-      {palette.carousel && (
-        <Carousel style={{ transform: `rotate(${palette.carouselDeg}deg)` }}>
-          {palette.carousel[carouselIndex] &&
-            palette.carousel[carouselIndex].map((item, index) => (
+      {carouselDetail.carousel && (
+        <Carousel
+          style={{ transform: `rotate(${carouselDetail.carouselDeg}deg)` }}
+        >
+          {carouselDetail.carousel[carouselIndex] &&
+            carouselDetail.carousel[carouselIndex].map((item, index) => (
               <ItemCarousel
                 key={index}
                 id={index}
