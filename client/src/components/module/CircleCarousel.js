@@ -22,7 +22,7 @@ const Carousel = styled.div`
   left: 180px;
   width: 364px;
   height: 364px;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   box-shadow: 2px 0px 4px 4px rgba(22, 27, 29, 0.1);
   border-radius: 50%;
   transition: 0.5s;
