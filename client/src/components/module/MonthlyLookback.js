@@ -53,7 +53,7 @@ const ButtonContain = styled.span`
   opacity: 0.4;
 `;
 
-const MonthlyLookback = () => {
+const MonthlyLookback = ({ setHidenCard }) => {
   const dispatch = useDispatch();
   const [topColors, setTopColors] = useState();
   const currentMonth = dayjs(new Date()).format('MM');
@@ -84,6 +84,7 @@ const MonthlyLookback = () => {
 
   const handleCloseModal = () => {
     dispatch(closeModal());
+    setHidenCard(false);
   };
 
   useEffect(() => {

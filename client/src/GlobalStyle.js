@@ -30,4 +30,7 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
+	.toast-login {
+	  top: 3em !important;
+	}
 `;
