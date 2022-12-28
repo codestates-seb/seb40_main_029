@@ -11,9 +11,11 @@ import {
   MIN_DISTANCE_MONTH_LABELS,
   NAMESPACE,
 } from './utils';
-
+import styled from 'styled-components';
 import styles from './styles.module.css';
 import tinycolor from 'tinycolor2';
+import { toast } from 'react-toastify';
+import dayjs from 'dayjs';
 
 function ActivityCalendar({
   palette,
@@ -149,7 +151,7 @@ function ActivityCalendar({
               : '#eeeeee';
 
           return (
-            <rect
+            <Rect
               // {...getEventHandlers(day)}
               x={0}
               y={textHeight + (blockSize + blockMargin) * dayIndex}
@@ -163,9 +165,17 @@ function ActivityCalendar({
               key={day.date}
               style={style}
               onClick={() => {
-                day.createdAt !== undefined ? setSelected(day.date) : null;
+                day.createdAt !== undefined
+                  ? (setSelected(day.date),
+                    toast(
+                      `${dayjs(day.date).format('YYYY')}년 ${dayjs(
+                        day.date
+                      ).format('M')}월 ${dayjs(day.date).format('D')}일의 기록`
+                    ))
+                  : null;
+                // MMMM-DD-YY
               }}
-            ></rect>
+            ></Rect>
           );
         })
       )
@@ -247,3 +257,7 @@ ActivityCalendar.defaultProps = {
 };
 
 export default ActivityCalendar;
+
+const Rect = styled.rect`
+  pointer-events: all;
+`;

@@ -47,7 +47,6 @@ const TodoList = ({ lookbackRefresher, pointRefresher }) => {
 
   const completeTodo = todoId => {
     axios.patch(URL + selected + memberId + todoId).then(res => {
-      // console.log(res);
       const newTodoList = todoList.filter(
         each => each.todoId !== res.data.data.todoId
       );
@@ -65,12 +64,10 @@ const TodoList = ({ lookbackRefresher, pointRefresher }) => {
   const deleteTodo = todoId => {
     axios.delete(URL + memberId + todoId).then(() => lookbackRefresher());
     setTodoList(todoList.filter(each => each.todoId !== todoId));
-    // setTodoList(todoList.filter(e => e.id !== id));
   };
 
   const lookBack = () => {
     axios.patch(URL + update + memberId).then(res => {
-      // console.log(res.data);
       const safe = [];
       for (const each of res.data) {
         const test = todoList.filter(ea => ea.todoId === each.todoId);

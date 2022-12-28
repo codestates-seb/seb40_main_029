@@ -44,6 +44,7 @@ const LookBack = ({ lookbackRefresh, setHidenCard }) => {
     //   //   arr.push('#' + each.colorCode);
     //   // }
     //   // setPalette(arr);
+
     //   setPalette(res.data.map(each => '#' + each.colorCode));
     // });
     setPalette(dum.map(each => each));
@@ -177,18 +178,14 @@ const LookBack = ({ lookbackRefresh, setHidenCard }) => {
                 blockMargin={5}
                 blockSize={11}
               />
-              {/* <Calendar
-            data={data}
-            palette={palette}
-            setSelected={setSelected}
-            year={year}
-          /> */}
 
               <LeftRightContainer>
                 <LeftRight>
                   <FontAwesomeIcon
                     icon={faChevronRight}
-                    onClick={() => handleSetYear(1)}
+                    onClick={() => {
+                      handleSetYear(1);
+                    }}
                   />
                   <Spacer />
                 </LeftRight>
