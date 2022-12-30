@@ -1,18 +1,13 @@
-import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import Input from '../atoms/Input';
 import useInput from '../../utils/useInput';
-import {
-  isLoggedInSelector,
-  displayNameSelector,
-  emailSelector,
-} from '../../redux/hooks';
+import { emailSelector } from '../../redux/hooks';
 import { setMemberId, setDisplayName } from '../../redux/slice';
 import { SignupApi } from '../../api/SignupApi';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
-import React, { useCallback } from 'react';
 
 const Container = styled.div`
   display: flex;
@@ -39,9 +34,18 @@ const Button = styled.button`
   box-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25), -2px -2px 5px #faf8ff;
   border: none;
 
-  &:hover {
-    box-shadow: inset 2px 2px 5px rgba(22, 27, 29, 0.25),
-      inset -2px -2px 5px #faf8ff;
+  &:hover,
+  &:active {
+    &:not([disabled]) {
+      box-shadow: inset 2px 2px 5px rgba(22, 27, 29, 0.25),
+        inset -2px -2px 5px #faf8ff;
+    }
+  }
+
+  &[disabled] {
+    cursor: default;
+    opacity: 0.5;
+    background: #dc3545 #025ce2;
   }
 `;
 
@@ -59,30 +63,40 @@ export default function Signup() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailValue = useSelector(emailSelector);
-  const [displayNameValue, displayNameBind] = useInput('');
-  const [response, setResponse] = useState();
+  const [displayNameValue, displayNameBind, displayNameReset, displayNameInit] =
+    useInput('');
   const [warning, setWarning] = useState('');
-  // console.log(displayNameValue);
-  // console.log(emailValue);
+  const [btnDisabled, setBtnDisabled] = useState(false);
 
-  // useEffect(() => {
-  //   if (response.displayName) {
-  //     console.log('1번');
-  //     setDisplayName(dispatch(response.displayName)), navigate('/');
-  //   } else {
-  //     console.log('2번');
-  //     setWarning(response.data);
-  //   }
-  // }, [response]);
+  useEffect(() => {
+    const specialCheck = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+    const blank = /[\s]/g;
+    const len = displayNameValue.length;
 
-  // const welcome = useCallback(() => {
-  //   console.log('클릭!');
-  // }, []);
+    if (specialCheck.test(displayNameValue)) {
+      setWarning('특수문자를 사용할 수 없어요 :(');
+      setBtnDisabled(true);
+    } else if (blank.test(displayNameValue)) {
+      setWarning('공백을 포함할 수 없어요 :(');
+      setBtnDisabled(true);
+    } else if (len >= 10) {
+      setWarning('10자를 넘길 수 없어요 :(');
+      setBtnDisabled(true);
+    } else {
+      setWarning();
+      setBtnDisabled(false);
+    }
+  }, [displayNameValue]);
+
+  function handleInputLength(max) {
+    if (displayNameValue.length > max) {
+      displayNameInit(displayNameValue.substr(0, max));
+    }
+  }
 
   function handleSignup(emailValue, displayNameValue) {
     (async () => {
       const res = await SignupApi(emailValue, displayNameValue);
-      // console.log(res);
       if (res.status == 201) {
         dispatch(setMemberId(res.data.memberId));
         dispatch(setDisplayName(res.data.displayName));
@@ -91,21 +105,24 @@ export default function Signup() {
         setWarning('이미 사용중인 닉네임이에요');
       }
     })();
-    // console.log('응답');
-    // console.log(response);
   }
 
   return (
     <Container>
       <InputContainer>
         <InputHeader>닉네임을 입력해주세요</InputHeader>
-        <Input value={displayNameBind} border="shadow" />
+        <Input
+          value={displayNameBind}
+          border="shadow"
+          oninput={handleInputLength(10)}
+        />
         <Button
           size="long"
           fontSize="little"
           onClick={() => {
             handleSignup(emailValue, displayNameValue);
           }}
+          disabled={btnDisabled}
         >
           시작하기
         </Button>
@@ -117,33 +134,3 @@ export default function Signup() {
     </Container>
   );
 }
-// const checkDisplayName = async (e) => {
-//   e.preventDefault();
-
-//   try {
-//     const res = await axios.post("user/register/nickname", {nickname});
-
-//     const { result } = res.data;
-
-//     if (!result) {
-//         setNicknameMsg("이미 등록된 닉네임입니다. 다시 입력해주세요.");
-//         setCheckNickname(false);
-//    } else {
-//       setNicknameMsg("사용 가능한 닉네임입니다.😊");
-//       setCheckNickname(true);
-//     }
-
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
-
-// 앞에 정리한 유효성 검사를 한번에 묶어주고
-// const isAllValid = isEmailValid && isPwdValid && isConfirmPwd && isNicknameValid && isAccepted && checkMail && checkNickname;
-
-// // return 부분에서 disabled 값으로 제어해주었다.
-// <ResisterStyled.FootBtnBox>
-// <ResisterStyled.FootButton onClick={onSubmit} type="submit" disabled={!isAllValid}>
-// 	가입하기
-// </ResisterStyled.FootButton>
-// </ResisterStyled.FootBtnBox>
