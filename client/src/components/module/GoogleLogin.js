@@ -1,11 +1,9 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { emailSelector, displayNameSelector } from '../../redux/hooks';
-import { ReactComponent as Logo } from '../../assets/logo.svg';
 
 axios.defaults.withCredentials = true; // 쿠키 사용하기 위해 필수
 
@@ -45,7 +43,7 @@ export default function GoogleLogin() {
         }
       );
     }
-  }, []);
+  }, [window.google]);
 
   return (
     <Contain>
