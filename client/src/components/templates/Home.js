@@ -8,6 +8,7 @@ import GlobalModal from './GlobalModal';
 import { GetPoint } from '../../api/GetPointApi';
 import { memberIdSelector } from '../../redux/hooks';
 import { selectModal } from '../../redux/modalSlice';
+import Mobile from './Mobile';
 
 const Browser = styled.div`
   position: relative;
@@ -26,6 +27,7 @@ const Browser = styled.div`
 `;
 
 const Home = () => {
+  const [mobile, setMobile] = useState();
   const [userPoint, setUserPoint] = useState(0);
   const memberId = useSelector(memberIdSelector);
 
@@ -56,26 +58,48 @@ const Home = () => {
     })();
   }, [pointRefresh]);
 
+  const handleResize = () => {
+    let width = window.innerWidth;
+    if (550 >= width) {
+      setMobile(true);
+    } else {
+      setMobile(false);
+    }
+  };
+  useEffect(() => {
+    if (550 >= window.innerWidth) {
+      setMobile(true);
+    }
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <Browser>
       <Header userPoint={userPoint} />
-      <ContentLayout>
-        {hidenCard ? null : (
-          <div>
-            {/* <div style={{ width: '50%', display: 'flex', justifyContent: 'end' }}> */}
-            <MoodSelector
-              lookbackRefresher={lookbackRefresher}
-              pointRefresher={pointRefresher}
-            />
-          </div>
-        )}
-        <GlobalModal
-          setHidenCard={setHidenCard}
-          lookbackRefresh={lookbackRefresh}
-          lookbackRefresher={lookbackRefresher}
-          pointRefresher={pointRefresher}
-        />
-      </ContentLayout>
+      {mobile ? (
+        <ContentLayout>
+          <Mobile />
+        </ContentLayout>
+      ) : (
+        <ContentLayout>
+          {hidenCard ? null : (
+            <div>
+              <MoodSelector
+                lookbackRefresher={lookbackRefresher}
+                pointRefresher={pointRefresher}
+              />
+            </div>
+          )}
+          <GlobalModal
+            setHidenCard={setHidenCard}
+            lookbackRefresh={lookbackRefresh}
+            lookbackRefresher={lookbackRefresher}
+            pointRefresher={pointRefresher}
+          />
+        </ContentLayout>
+      )}
     </Browser>
   );
 };
