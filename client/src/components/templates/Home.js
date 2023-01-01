@@ -58,7 +58,7 @@ const Home = () => {
 
   return (
     <Browser>
-      <Header userPoint={userPoint} />
+      <Header userPoint={userPoint} setHidenCard={setHidenCard} />
       <ContentLayout>
         {hidenCard ? null : (
           <div>
