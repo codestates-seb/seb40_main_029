@@ -23,25 +23,7 @@ const EditBtn = styled.span`
   }
 `;
 
-const FriendCard = ({ friend, setfriendRefresh }) => {
-  const [palette, setPalette] = useState([]);
-  const getPaletteCode = useSelector(paletteCodeSelector);
-  const paletteCode = getPaletteCode ? getPaletteCode : 'P001';
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getSpecificPalette(paletteCode);
-      setPalette(data);
-    };
-    fetchData();
-  }, []);
-
-  const friendsColor = palette?.find(mycolor => {
-    if (friend.respondentMoodPaletteDetails) {
-      return mycolor.mood === friend.respondentMoodPaletteDetails.mood;
-    }
-  });
-
+const FriendCard = ({ friend, setfriendRefresh, friendsColor }) => {
   const handleDeleteFriend = () => {
     const friendId = friend.respondentId;
     const fetchData = async () => {

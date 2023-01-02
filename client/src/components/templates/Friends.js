@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import FriendCard from '../module/FriendCard';
 import { FriendModal } from '../module/Modal';
-import { getFriends } from '../../api/FriendDataApi';
+import { getFriends, getSpecificPalette } from '../../api/FriendDataApi';
 import { RightBottomLayout } from '../atoms/Layouts';
 import Button from '../atoms/Button';
 import Overlay from '../atoms/Overlay';
@@ -10,6 +10,7 @@ import AddFriend from '../module/AddFriend';
 import Pagination from '../atoms/Pagination';
 import { memberIdSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
+import { paletteCodeSelector } from '../../redux/hooks';
 import { getCookie } from '../../utils/cookie';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -75,6 +76,17 @@ const Friends = () => {
     };
   }, []);
 
+  const [palette, setPalette] = useState([]);
+  const getPaletteCode = useSelector(paletteCodeSelector);
+  const paletteCode = getPaletteCode ? getPaletteCode : 'P001';
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getSpecificPalette(paletteCode);
+      setPalette(data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       {popup && <Overlay />}
@@ -87,6 +99,11 @@ const Friends = () => {
                     key={friend.respondentId}
                     friend={friend}
                     setfriendRefresh={setfriendRefresh}
+                    friendsColor={palette?.find(color => {
+                      return (
+                        color.mood === friend.respondentMoodPaletteDetails.mood
+                      );
+                    })}
                   />
                 );
               })
