@@ -38,14 +38,6 @@ const Blueprint = styled.div`
       opacity: 1;
     }
   }
-  //tablet 768px 이상일때
-  @media screen and (min-width: 768px) and (max-width: 1023px) {
-    width: 100%;
-  }
-  //desktop 1024px 이상일때
-  @media screen and (min-width: 1024px) {
-    /* width: 70%; */
-  }
 `;
 
 const Todo = styled(Blueprint)`

@@ -15,15 +15,6 @@ const Browser = styled.div`
   max-width: 1140px;
   margin: 0 auto;
   padding: 0 20px;
-
-  //mobile 767px 이하일때
-  @media screen and (max-width: 767px) {
-    max-width: 767px;
-  }
-  //tablet 768px 이상일때
-  @media screen and (min-width: 768px) and (max-width: 1023px) {
-    max-width: 1023px;
-  }
 `;
 
 const Home = () => {
