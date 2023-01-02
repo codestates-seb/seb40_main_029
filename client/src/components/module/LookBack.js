@@ -14,7 +14,7 @@ import { paletteCodeSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
 import { memberIdSelector, displayNameSelector } from '../../redux/hooks';
 
-const URL = `${process.env.REACT_APP_JSON_URL}/`;
+const URL = `${process.env.REACT_APP_BASIC_URL}/`;
 const p = 'palette/';
 const m = 'mood/';
 const t = 'todo/';
@@ -38,19 +38,19 @@ const LookBack = ({ lookbackRefresh, setHidenCard }) => {
   const [palette, setPalette] = useState([]);
 
   useEffect(() => {
-    // axios.get(URL + p + paletteCode).then(res => {
-    //   // const arr = [];
-    //   // for (const each of res.data) {
-    //   //   arr.push('#' + each.colorCode);
-    //   // }
-    //   // setPalette(arr);
+    axios.get(URL + p + paletteCode).then(res => {
+      // const arr = [];
+      // for (const each of res.data) {
+      //   arr.push('#' + each.colorCode);
+      // }
+      // setPalette(arr);
 
-    //   setPalette(res.data.map(each => '#' + each.colorCode));
-    // });
-    setPalette(dum.map(each => each));
+      setPalette(res.data.map(each => '#' + each.colorCode));
+    });
+    // setPalette(dum.map(each => each));
 
-    // axios.get(URL + m + displayName).then(res => {   <--- 이걸 살려야 함
-    axios.get(URL + 'moods').then(res => {
+    axios.get(URL + m + displayName).then(res => {
+      // axios.get(URL + 'moods').then(res => { <--- for tests
       setData(
         res.data
           .filter(each => each.moodPaletteDetails !== null)
