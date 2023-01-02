@@ -34,12 +34,19 @@ const BookmarkItem = ({ book, booksArr, setBookmarkArr }) => {
     localStorage.setItem('bookmark', JSON.stringify(filteredData));
     setBookmarkArr(filteredData);
   };
+  const handleOpenLink = url => {
+    window.open(url, '_blank');
+  };
 
   return (
     <>
       <BookItem>
-        <Button size="long" fontsize="middle">
-          <Anchor href={url}>{name}</Anchor>
+        <Button
+          size="long"
+          fontsize="middle"
+          onClick={() => handleOpenLink(url)}
+        >
+          {name}
         </Button>
         <EditBtn onClick={bookmarkDelete}>
           <FontAwesomeIcon icon={faDeleteLeft} />
