@@ -66,7 +66,7 @@ const DarkIcon = styled.span`
     }
   }
 `;
-const Nav = ({ setHidenCard }) => {
+const Nav = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const displayName = useSelector(displayNameSelector);
@@ -124,13 +124,12 @@ const Nav = ({ setHidenCard }) => {
   const handleLookbackModal = () => {
     {
       accessToken
-        ? (setHidenCard(true),
-          dispatch(
+        ? dispatch(
             openModal({
               modalType: 'LookbackModal',
               isOpen: true,
             })
-          ))
+          )
         : setPopup(true);
       toast('먼저 로그인해주세요', {
         className: 'toast-login',
