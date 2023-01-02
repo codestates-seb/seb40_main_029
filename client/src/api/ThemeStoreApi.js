@@ -3,8 +3,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 axios.defaults.withCredentials = true;
-// const API_URL = process.env.REACT_APP_BASIC_URL;
-const API_URL = process.env.REACT_APP_JSON_URL;
+const API_URL = process.env.REACT_APP_BASIC_URL;
+// const API_URL = process.env.REACT_APP_JSON_URL;
 
 export const PaletteList = async () => {
   const path = '/palette';

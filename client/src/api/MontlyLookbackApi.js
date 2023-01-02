@@ -2,8 +2,8 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 
 export const topFourColors = async displayName => {
-  // const URL = process.env.REACT_APP_BASIC_URL;
-  const URL = process.env.REACT_APP_JSON_URL; // client 폴더에서 json-server ./data/dataMonth.json --port 4000 실행
+  const URL = process.env.REACT_APP_BASIC_URL;
+  // const URL = process.env.REACT_APP_JSON_URL; // client 폴더에서 json-server ./data/dataMonth.json --port 4000 실행
   const currentMonth = dayjs(new Date()).format('MM');
   const path = `/mood/month/${displayName}/${currentMonth}`;
   function notNull(res) {
