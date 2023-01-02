@@ -276,7 +276,7 @@ const Contents = styled.div`
   animation-timing-function: ease-in-out;
   @media screen and (max-width: 767px) {
     height: ${({ viewDetails }) =>
-      viewDetails ? '210px' : '4px'}; //460 - 94 - 10
+      viewDetails ? '210px' : '2px'}; //460 - 94 - 10
     font-size: 18px;
     line-height: 22px;
   }
