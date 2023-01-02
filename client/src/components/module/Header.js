@@ -57,7 +57,7 @@ const Point = styled.span`
   }
 `;
 
-function Header({ userPoint, setHidenCard }) {
+function Header({ userPoint }) {
   const [palette, setPalette] = useState([]);
   const userMood = useSelector(moodSelector);
   const userPalette = useSelector(paletteCodeSelector);
@@ -131,7 +131,7 @@ function Header({ userPoint, setHidenCard }) {
               </Contain>
             </>
           )}
-          {isOpen ? <Nav setHidenCard={setHidenCard} /> : null}
+          {isOpen ? <Nav /> : null}
         </GnbLayout>
       </HeaderWrapper>
     </>
