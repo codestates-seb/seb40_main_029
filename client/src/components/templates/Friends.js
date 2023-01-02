@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import FriendCard from '../module/FriendCard';
 import { FriendModal } from '../module/Modal';
-import { getFriends } from '../../api/FriendDataApi';
+import { getFriends, getSpecificPalette } from '../../api/FriendDataApi';
 import { RightBottomLayout } from '../atoms/Layouts';
 import Button from '../atoms/Button';
 import Overlay from '../atoms/Overlay';
@@ -10,6 +10,7 @@ import AddFriend from '../module/AddFriend';
 import Pagination from '../atoms/Pagination';
 import { memberIdSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
+import { paletteCodeSelector } from '../../redux/hooks';
 import { getCookie } from '../../utils/cookie';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,6 +20,14 @@ const CardLayout = styled.div`
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+  @media screen and (max-width: 860px) {
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `;
 
 const Friends = () => {
@@ -26,7 +35,19 @@ const Friends = () => {
   const [popup, setPopup] = useState(false);
   const [friends, setFriends] = useState([]);
   const [friendRefresh, setfriendRefresh] = useState(0);
-  const limit = 8;
+  const [limit, setLimit] = useState(0);
+  const handleLimit = () => {
+    const width = window.innerWidth;
+    if (width >= 860) {
+      setLimit(8);
+    }
+    if (width < 860) {
+      setLimit(6);
+    }
+    if (width < 665) {
+      setLimit(4);
+    }
+  };
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   const memberId = useSelector(memberIdSelector);
@@ -47,6 +68,24 @@ const Friends = () => {
       });
     }
   };
+  useEffect(() => {
+    window.innerWidth ? handleLimit() : 0;
+    window.addEventListener('resize', handleLimit);
+    return () => {
+      window.removeEventListener('resize', handleLimit);
+    };
+  }, []);
+
+  const [palette, setPalette] = useState([]);
+  const getPaletteCode = useSelector(paletteCodeSelector);
+  const paletteCode = getPaletteCode ? getPaletteCode : 'P001';
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getSpecificPalette(paletteCode);
+      setPalette(data);
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -60,6 +99,11 @@ const Friends = () => {
                     key={friend.respondentId}
                     friend={friend}
                     setfriendRefresh={setfriendRefresh}
+                    friendsColor={palette?.find(color => {
+                      return (
+                        color.mood === friend.respondentMoodPaletteDetails.mood
+                      );
+                    })}
                   />
                 );
               })
