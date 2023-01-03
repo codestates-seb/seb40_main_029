@@ -1,13 +1,7 @@
-import styled from 'styled-components';
-import axios from 'axios';
 import { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import Button from '../atoms/Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faChevronRight,
-  faChevronLeft,
-} from '@fortawesome/free-solid-svg-icons';
-import { PaletteList } from '../../api/PaletteShopApi';
+import { PaletteList } from '../../api/ThemeStoreApi';
 
 const CarouselContainer = styled.div`
   position: absolute;
@@ -28,14 +22,11 @@ const Carousel = styled.div`
   left: 180px;
   width: 364px;
   height: 364px;
-  background-color: #ffffff;
   box-shadow: 2px 0px 4px 4px rgba(22, 27, 29, 0.1);
   border-radius: 50%;
   transition: 0.5s;
-  /* transform: rotate(15deg); */
   transform-origin: center center;
   ::before {
-    /* content: “”; */
     position: absolute;
     width: 50%;
     height: 100%;
@@ -62,8 +53,8 @@ const ItemCarousel = styled.div`
   box-shadow: 1px -2px 2px 1px rgba(22, 27, 29, 0.2);
 `;
 
-const CircleCarousel = ({ carouselIndex }) => {
-  const [palette, setPalette] = useState({
+const CircleCarousel = ({ carouselIndex, paletteInfo, setPaletteInfo }) => {
+  const [carouselDetail, setCarouselDetail] = useState({
     carouselDeg: 17,
     itemDeg: -17,
     centerItem: 0,
@@ -74,99 +65,34 @@ const CircleCarousel = ({ carouselIndex }) => {
 
   useEffect(() => {
     const loadData = async () => {
-      const API_URL = process.env.REACT_APP_BASIC_URL;
-      const path = '/palette';
-      try {
-        // 팔레트가 담긴 배열
-        await axios.get(API_URL + path).then(res => {
-          // console.log(res.data);
-          const paletteSet = [];
-          for (let i = 0; i < res.data.length; i += 8)
-            paletteSet.push(res.data.slice(i, i + 8));
-          setPalette({ ...palette, carousel: paletteSet });
-          // console.log(palette.carousel);
-        });
-      } catch (err) {
-        throw err;
+      const paletteInfo = await PaletteList();
+      setCarouselDetail({ ...carouselDetail, carousel: paletteInfo });
+      const paletteInfoArr = [];
+      for (let i = 0; i < paletteInfo.length; i++) {
+        const el = {};
+        el.paletteName = paletteInfo[i][0].paletteKorName;
+        el.palettePrice = paletteInfo[i][0].palettePrice;
+        paletteInfoArr.push(el);
       }
+      setPaletteInfo(paletteInfoArr);
     };
     loadData();
-    // const loadData = async () => {
-    //   const result = await PaletteList();
-    //   console.log('결과');
-    //   console.log(result);
-    //   if (isCancelled) {
-    //     return;
-    //   }
-
-    //   setPalette({ ...palette, result });
-    // };
-    // loadData();
-
-    // PaletteList().then(res => {
-    //   let temp = {};
-    //   temp.carousel = res;
-    //   console.log(temp);
-    // });
-    // .then(res => {
-    //   console.log('객체');
-    //   console.log(res);
-    // let temp = {};
-    // temp.carousel = res.data;
-
-    // setPalette(...palette, paletteSet);
-    // console.log(palette);
   }, []);
 
-  // const getIdItems = side => {
-  //   // true = next, false = prev
-  //   const { nextItem, prevItem, lastItem, centerItem } = palette;
-
-  //   if (side == true) {
-  //     setPalette({ ...palette, centerItem: nextItem });
-  //     () => prevNext(centerItem);
-  //   } else {
-  //     setPalette({ ...palette, centerItem: prevItem });
-  //     () => prevNext(centerItem);
-  //   }
-
-  const prevNext = itemId => {
-    if (itemId === palette.lastItem) {
-      setPalette({ ...palette, nextItem: 0, prevItem: palette.lastItem - 1 });
-    } else if (itemId === 0) {
-      setPalette({ ...palette, prevItem: palette.lastItem, nextItem: 1 });
-    } else {
-      setPalette({
-        ...palette,
-        nextItem: palette.centerItem + 1,
-        prevItem: palette.centerItem - 1,
-      });
-    }
-  };
-  //   console.log(palette);
-  // };
-
   const next = () => {
-    // getIdItems(true);
-    // setPalette({ ...palette, centerItem: palette.nextItem });
-    // console.log('돼');
-    // prevNext(palette.centerItem);
-    setPalette({
-      ...palette,
-      carouselDeg: palette.carouselDeg - 45,
-      itemDeg: palette.itemDeg + 45,
-      centerItem: palette.nextItem,
+    setCarouselDetail({
+      ...carouselDetail,
+      carouselDeg: carouselDetail.carouselDeg - 45,
+      itemDeg: carouselDetail.itemDeg + 45,
+      centerItem: carouselDetail.nextItem,
     });
-    // prevNext(palette.centerItem);
-    // console.log(palette);
   };
 
   const prev = () => {
-    // getIdItems(false);
-    setPalette({
-      ...palette,
-      carouselDeg: palette.carouselDeg + 45,
-      itemDeg: palette.itemDeg - 45,
+    setCarouselDetail({
+      ...carouselDetail,
+      carouselDeg: carouselDetail.carouselDeg + 45,
+      itemDeg: carouselDetail.itemDeg - 45,
     });
   };
 
@@ -180,10 +106,12 @@ const CircleCarousel = ({ carouselIndex }) => {
           prev
         </Button>
       </CarouselBtnContainer>
-      {palette.carousel && (
-        <Carousel style={{ transform: `rotate(${palette.carouselDeg}deg)` }}>
-          {palette.carousel[carouselIndex] &&
-            palette.carousel[carouselIndex].map((item, index) => (
+      {carouselDetail.carousel && (
+        <Carousel
+          style={{ transform: `rotate(${carouselDetail.carouselDeg}deg)` }}
+        >
+          {carouselDetail.carousel[carouselIndex] &&
+            carouselDetail.carousel[carouselIndex].map((item, index) => (
               <ItemCarousel
                 key={index}
                 id={index}
@@ -202,15 +130,3 @@ const CircleCarousel = ({ carouselIndex }) => {
 };
 
 export default CircleCarousel;
-
-// {palette.carousel &&
-//   palette.carousel[{ index }].map((item, index) => (
-//     <ItemCarousel
-//       key={item.id}
-//       id={item.id}
-//       color={item.color}
-//       style={{ transform: `rotate(calc(360deg / 8 * ${item.id}))` }}
-//     >
-//       {item.name}
-//     </ItemCarousel>
-//   ))}

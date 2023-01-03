@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { displayNameSelector } from '../../redux/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import {
@@ -11,10 +14,13 @@ import {
   faFilm,
 } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { useCookies } from 'react-cookie';
 import { openModal } from '../../redux/modalSlice';
 import { LogoutApi } from '../../api/LoginLogoutApi';
-import { getCookie, setcookie, removeCookie } from '../../utils/cookie';
+import { getCookie, setcookie } from '../../utils/cookie';
+import Overlay from '../atoms/Overlay';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { setDisplayName } from '../../redux/slice';
 
 const Bubble = styled.nav`
   max-width: 120px;
@@ -63,7 +69,9 @@ const DarkIcon = styled.span`
 const Nav = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
+  const displayName = useSelector(displayNameSelector);
+  const [popup, setPopup] = useState(false);
+  const accessToken = getCookie('accessToken');
 
   const handleLetterModal = () => {
     dispatch(
@@ -97,48 +105,56 @@ const Nav = () => {
       })
     );
   };
-  const handleGradientModal = () => {
-    dispatch(
-      openModal({
-        modalType: 'GradientModal',
-        isOpen: true,
-      })
-    );
+  const handleMonthlyModal = () => {
+    {
+      accessToken
+        ? dispatch(
+            openModal({
+              modalType: 'MonthlyModal',
+              isOpen: true,
+            })
+          )
+        : setPopup(true);
+      toast('먼저 로그인해주세요', {
+        className: 'toast-login',
+        onClose: () => setPopup(false),
+      });
+    }
   };
   const handleLookbackModal = () => {
-    dispatch(
-      openModal({
-        modalType: 'LookbackModal',
-        isOpen: true,
-      })
-    );
+    {
+      accessToken
+        ? dispatch(
+            openModal({
+              modalType: 'LookbackModal',
+              isOpen: true,
+            })
+          )
+        : setPopup(true);
+      toast('먼저 로그인해주세요', {
+        className: 'toast-login',
+        onClose: () => setPopup(false),
+      });
+    }
   };
 
   const handleLogout = async () => {
+    setcookie('accessToken', 0, { maxAge: 0, path: '/' }); // 테스트용
+    dispatch(setDisplayName('익명의 사용자')); // 테스트용
+    navigate('/'); // 테스트용
     const res = await LogoutApi();
-    // console.log(res);
     if (res.status == 200) {
-      // removeCookie('accessToken');
-      // const accessToken = getCookie('accessToken');
-      // console.log(accessToken);
-      // const exdate = new Date();
-      // exdate.setFullYear(exdate.getFullYear() - 1);
       setcookie('accessToken', 0, { maxAge: 0, path: '/' });
-
-      // console.log(exdate);
-      // setCookie('accessToken', accessToken, {
-      //   expires: exdate,
-      // });
-      // removeCookie('accessToken');
-      // console.log('쿠키 삭제');
-      navigate('/login');
+      dispatch(setDisplayName('익명의 사용자'));
+      navigate('/');
     } else {
-      alert('새로고침 후 다시 시도해주세요');
+      toast('새로고침 후 다시 시도해주세요');
     }
   };
 
   return (
     <>
+      {popup && <Overlay />}
       <Bubble>
         <ul>
           <NavItem onClick={handleFriendModal}>
@@ -165,8 +181,7 @@ const Nav = () => {
             </DarkIcon>
             <FontSize14>색상테마</FontSize14>
           </NavItem>
-
-          <NavItem onClick={handleGradientModal}>
+          <NavItem onClick={handleMonthlyModal}>
             <DarkIcon>
               <FontAwesomeIcon icon={faCalendarDays} size="lg" />
             </DarkIcon>

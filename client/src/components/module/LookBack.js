@@ -20,35 +20,37 @@ const m = 'mood/';
 const t = 'todo/';
 
 // memberId, displayname 필요
+const dum = [
+  '#F7B0BE',
+  '#2178AE',
+  '#ED8E83',
+  '#EF3C23',
+  '#F15A42',
+  '#FAC92C',
+  '#CFE5CC',
+  '#1B4793',
+];
 
-const LookBack = ({ lookbackRefresh }) => {
+const LookBack = ({ lookbackRefresh, setHidenCard }) => {
   const paletteCode = useSelector(paletteCodeSelector);
   const memberId = useSelector(memberIdSelector);
   const displayName = useSelector(displayNameSelector);
-  // const displayName = '회원1';
   const [palette, setPalette] = useState([]);
 
   useEffect(() => {
     axios.get(URL + p + paletteCode).then(res => {
-      const arr = [];
-      for (const each of res.data) {
-        arr.push('#' + each.colorCode);
-      }
-      setPalette(arr);
+      // const arr = [];
+      // for (const each of res.data) {
+      //   arr.push('#' + each.colorCode);
+      // }
+      // setPalette(arr);
+
+      setPalette(res.data.map(each => '#' + each.colorCode));
     });
+    // setPalette(dum.map(each => each));
 
     axios.get(URL + m + displayName).then(res => {
-      // displayName
-      const data = res.data;
-      // console.log(res.data);
-      // console.log(data);
-      // console.log(
-      //   res.data.filter(
-      //     each =>
-      //       dayjs(each.createdAt).format('YYYY') === '2021' &&
-      //       each.moodPaletteDetails !== null
-      //   )
-      // );
+      // axios.get(URL + 'moods').then(res => { <--- for tests
       setData(
         res.data
           .filter(each => each.moodPaletteDetails !== null)
@@ -57,18 +59,14 @@ const LookBack = ({ lookbackRefresh }) => {
             each.count =
               details !== null ? Number(details.moodCode[3]) * 50 - 25 : 0;
             each.date = dayjs(each.createdAt).format('YYYY-MM-DD');
-            // value, day
             return each;
           })
       );
-      handleSetPieData(data, Number(year), palette);
+      handleSetPieData(res.data, Number(year), palette);
     });
 
     axios.get(URL + t + memberId).then(res => {
-      // memberId
-      const data = res.data;
-
-      setTodoData(data);
+      setTodoData(res.data);
     });
   }, [lookbackRefresh]);
 
@@ -81,7 +79,6 @@ const LookBack = ({ lookbackRefresh }) => {
   const [year, setYear] = useState(today.getFullYear());
 
   const withoutDup = data.filter(e => e.date === selected);
-  // const selectedData = data.find(e => e.date === selected);
   const selectedData = withoutDup.pop();
   const selectedTodoData = todoData.filter(
     e => dayjs(e.createdAt).format('YYYY-MM-DD') === selected
@@ -92,20 +89,16 @@ const LookBack = ({ lookbackRefresh }) => {
     const year = Number(dayjs(each.date).format('YYYY'));
     extent.includes(year) ? null : extent.push(year);
   }
-
   extent.sort((a, b) => a - b);
 
   const handleSetYear = num => {
     const max = extent[extent.length - 1];
     const min = extent[0];
     const output = year + num;
-
     if (output < min || output > max) {
       return;
     }
-
     handleSetPieData(data, output);
-
     return setYear(output);
   };
 
@@ -140,7 +133,6 @@ const LookBack = ({ lookbackRefresh }) => {
           label: moodsKeys[i],
           value: moodsValues[i],
           code: moodsKeys.indexOf(moodsKeys[i]),
-          // color: palette[i],
         });
       }
     }
@@ -153,11 +145,9 @@ const LookBack = ({ lookbackRefresh }) => {
       setViewDetails(!viewDetails);
     }
   };
-  // console.log(selected);
-  // console.log(selectedData);
 
   return (
-    <LookBackModal>
+    <LookBackModal setHidenCard={setHidenCard}>
       <Wrapper>
         {data.length === 0 ? (
           <article>
@@ -188,18 +178,14 @@ const LookBack = ({ lookbackRefresh }) => {
                 blockMargin={5}
                 blockSize={11}
               />
-              {/* <Calendar
-            data={data}
-            palette={palette}
-            setSelected={setSelected}
-            year={year}
-          /> */}
 
               <LeftRightContainer>
                 <LeftRight>
                   <FontAwesomeIcon
                     icon={faChevronRight}
-                    onClick={() => handleSetYear(1)}
+                    onClick={() => {
+                      handleSetYear(1);
+                    }}
                   />
                   <Spacer />
                 </LeftRight>
@@ -451,6 +437,17 @@ export default LookBack;
 //     8: '희망',
 //   };
 
+//   const colorList = {
+//     1: 'E7AF8D',
+//     2: 'B0AEBA',
+//     3: 'CD686D',
+//     4: 'E08890',
+//     5: 'A2A987',
+//     6: 'F0DCB1',
+//     7: 'BEB5BF',
+//     8: 'A9C0C5',
+//   };
+
 //   while (date <= endDate) {
 //     const numbers_of_todo = Math.floor(Math.random() * 14) + 0;
 //     const selected = [true, false];
@@ -478,6 +475,7 @@ export default LookBack;
 //       moodPaletteDetails: {
 //         mood: list[mood],
 //         moodCode: 'm00' + mood,
+//         colorCode: colorList[mood],
 //       },
 //     };
 
@@ -490,11 +488,7 @@ export default LookBack;
 // };
 
 // const { moods, todos } = getDatesInRange(d1, d2);
-// axios.post(URL + 'moods', moods);
-// axios.post(URL + 'todos', todos);
+// axios.post('jsonURL' + 'moods', moods);
+// axios.post('jsonURL' + 'todos', todos);
 // console.log(moods);
 // console.log(todos);
-
-/*
-
-*/

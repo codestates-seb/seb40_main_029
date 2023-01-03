@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   memberId: -1,
-  displayName: -1,
+  displayName: '익명의 사용자',
   email: '',
   moodId: -1,
   paletteCode: 'P001', // 적용한 팔레트

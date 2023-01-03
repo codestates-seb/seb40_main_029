@@ -14,6 +14,7 @@ import {
 import ReactTooltip from 'react-tooltip';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../redux/modalSlice';
+import { TooltipBtn } from '../atoms/TooltipBtn';
 
 const Blueprint = styled.div`
   display: flex;
@@ -25,6 +26,8 @@ const Blueprint = styled.div`
   margin-left: 16px;
   transition: all 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
   animation: slideIn 0.5s;
+  width: 100%;
+
   @keyframes slideIn {
     0% {
       transform: translateX(100%);
@@ -38,23 +41,21 @@ const Blueprint = styled.div`
 `;
 
 const Todo = styled(Blueprint)`
-  width: 650px;
   height: 500px;
 `;
 
 const Mail = styled(Blueprint)`
-  width: 650px;
   height: 500px;
   position: relative;
 `;
 
 const Store = styled(Blueprint)`
-  width: 720px;
+  width: 100%;
   height: 500px;
 `;
 
 const Calendar = styled(Blueprint)`
-  width: 1000px;
+  width: 100%;
   height: 600px;
 `;
 
@@ -76,7 +77,7 @@ const Title = styled.div`
   font-weight: 600;
   margin: 8px 0 0 8px;
   > svg {
-    margin-left: 8px;
+    margin-left: 16px;
     font-size: 20px;
   }
 `;
@@ -146,6 +147,10 @@ const MailModal = ({ children }) => {
         <Title>
           편지함
           <FontAwesomeIcon icon={faEnvelope} />
+          <TooltipBtn
+            info="오른쪽 아래 + 버튼을 눌러서 친구에게 편지를 보낼 수 있어요."
+            place="right"
+          />
         </Title>
         <Button onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
@@ -188,6 +193,10 @@ const FriendModal = ({ children }) => {
         <Title>
           친구
           <FontAwesomeIcon icon={faUserGroup} />
+          <TooltipBtn
+            info="+ 버튼을 눌러서 친구의 무드카드를 얻어보세요."
+            place="right"
+          />
         </Title>
         <Button onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
@@ -198,10 +207,11 @@ const FriendModal = ({ children }) => {
   );
 };
 
-const LookBackModal = ({ children }) => {
+const LookBackModal = ({ children, setHidenCard }) => {
   const dispatch = useDispatch();
   const handleCloseModal = () => {
     dispatch(closeModal());
+    setHidenCard(false);
   };
   return (
     <Calendar>

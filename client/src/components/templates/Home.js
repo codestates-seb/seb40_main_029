@@ -1,31 +1,29 @@
-import axios from 'axios';
-import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { getCookie } from '../../utils/cookie';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 import { ContentLayout } from '../atoms/Layouts';
 import Header from '../module/Header';
 import MoodSelector from '../module/MoodSelector';
 import GlobalModal from './GlobalModal';
 import { GetPoint } from '../../api/GetPointApi';
-import { memberIdSelector, emailSelector } from '../../redux/hooks';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
-import { onSilentRefresh } from '../../api/LoginLogoutApi';
+import { memberIdSelector } from '../../redux/hooks';
+import { selectModal } from '../../redux/modalSlice';
+import Mobile from './Mobile';
 
 const Browser = styled.div`
   position: relative;
-  max-width: 1440px;
+  max-width: 1140px;
   margin: 0 auto;
+  padding: 0 20px;
 `;
+
 const Home = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
-  const navigate = useNavigate();
+  const [mobile, setMobile] = useState();
   const [userPoint, setUserPoint] = useState(0);
   const memberId = useSelector(memberIdSelector);
-  const email = useSelector(emailSelector);
-  // console.log(memberId);
-  const accessToken = getCookie('accessToken');
+
+  const { modalType } = useSelector(selectModal);
+  const [hidenCard, setHidenCard] = useState(false);
 
   const [lookbackRefresh, setLookbackRefresh] = useState(-1);
   const lookbackRefresher = () => {
@@ -38,19 +36,12 @@ const Home = () => {
   };
 
   useEffect(() => {
-    // console.log(accessToken);
-    if (accessToken) {
-      axios.defaults.headers.common['Authorization'] = accessToken;
-      navigate('/');
-      // console.log('토큰 있음');
-    } else if (accessToken == undefined) {
-      navigate('/login');
-      // console.log('토큰 없음');
-    } else if (memberId === -1 && email !== -1) {
-      navigate('/signup');
+    if (modalType === 'LookbackModal' || modalType === 'MonthlyModal') {
+      setHidenCard(true);
+    } else {
+      setHidenCard(false);
     }
-    // onSilentRefresh();
-  }, []);
+  }, [modalType]);
 
   useEffect(() => {
     (async () => {
@@ -58,20 +49,48 @@ const Home = () => {
     })();
   }, [pointRefresh]);
 
+  const handleResize = () => {
+    let width = window.innerWidth;
+    if (550 >= width) {
+      setMobile(true);
+    } else {
+      setMobile(false);
+    }
+  };
+  useEffect(() => {
+    if (550 >= window.innerWidth) {
+      setMobile(true);
+    }
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <Browser>
       <Header userPoint={userPoint} />
-      <ContentLayout>
-        <MoodSelector
-          lookbackRefresher={lookbackRefresher}
-          pointRefresher={pointRefresher}
-        />
-        <GlobalModal
-          lookbackRefresh={lookbackRefresh}
-          lookbackRefresher={lookbackRefresher}
-          pointRefresher={pointRefresher}
-        />
-      </ContentLayout>
+      {mobile ? (
+        <ContentLayout>
+          <Mobile />
+        </ContentLayout>
+      ) : (
+        <ContentLayout>
+          {hidenCard ? null : (
+            <div>
+              <MoodSelector
+                lookbackRefresher={lookbackRefresher}
+                pointRefresher={pointRefresher}
+              />
+            </div>
+          )}
+          <GlobalModal
+            setHidenCard={setHidenCard}
+            lookbackRefresh={lookbackRefresh}
+            lookbackRefresher={lookbackRefresher}
+            pointRefresher={pointRefresher}
+          />
+        </ContentLayout>
+      )}
     </Browser>
   );
 };

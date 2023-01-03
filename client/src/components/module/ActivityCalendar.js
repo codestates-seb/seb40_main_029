@@ -1,9 +1,5 @@
-import React, { useEffect } from 'react';
 import parseISO from 'date-fns/parseISO';
 import getDay from 'date-fns/getDay';
-import getYear from 'date-fns/getYear';
-import ReactTooltip from 'react-tooltip';
-import dayjs from 'dayjs';
 import {
   DEFAULT_LABELS,
   DEFAULT_WEEKDAY_LABELS,
@@ -15,20 +11,11 @@ import {
   MIN_DISTANCE_MONTH_LABELS,
   NAMESPACE,
 } from './utils';
-
+import styled from 'styled-components';
 import styles from './styles.module.css';
 import tinycolor from 'tinycolor2';
-
-// const palette = [
-//   '#EE8242',
-//   '#9FC1EE',
-//   '#EE8686',
-//   '#E6AACB',
-//   '#D2CCC2',
-//   '#FFE27A',
-//   '#6868AC',
-//   '#A7CF99',
-// ];
+import { toast } from 'react-toastify';
+import dayjs from 'dayjs';
 
 function ActivityCalendar({
   palette,
@@ -58,7 +45,6 @@ function ActivityCalendar({
   if (data.length === 0) return null;
 
   const weeks = groupByWeeks(data, weekStart, year);
-  // console.log(weeks);
   const textHeight = hideMonthLabels ? 0 : fontSize + 2 * blockMargin;
   const theme = getTheme(themeProp, color);
   const labels = Object.assign({}, DEFAULT_LABELS, labelsProp);
@@ -158,16 +144,14 @@ function ActivityCalendar({
                 animationDelay: `${weekIndex * 20 + dayIndex * 20}ms`,
               }
             : undefined;
-          // fill={palette[Number(data.moodPaletteDetails.moodCode[3])]}
 
           const color =
             day.createdAt !== undefined
               ? palette[Number(day.moodPaletteDetails.moodCode[3]) - 1]
               : '#eeeeee';
-          // console.log(day);
 
           return (
-            <rect
+            <Rect
               // {...getEventHandlers(day)}
               x={0}
               y={textHeight + (blockSize + blockMargin) * dayIndex}
@@ -178,15 +162,20 @@ function ActivityCalendar({
               ry={blockRadius}
               className={styles.block}
               data-date={day.date}
-              // data-tip={children ? getTooltipMessage(day) : undefined}
               key={day.date}
               style={style}
               onClick={() => {
-                day.createdAt !== undefined ? setSelected(day.date) : null;
-                // console.log(day);
+                day.createdAt !== undefined
+                  ? (setSelected(day.date),
+                    toast(
+                      `${dayjs(day.date).format('YYYY')}년 ${dayjs(
+                        day.date
+                      ).format('M')}월 ${dayjs(day.date).format('D')}일의 기록`
+                    ))
+                  : null;
+                // MMMM-DD-YY
               }}
-              data-tip={dayjs(day.date).format('M월 D일')}
-            ></rect>
+            ></Rect>
           );
         })
       )
@@ -268,3 +257,7 @@ ActivityCalendar.defaultProps = {
 };
 
 export default ActivityCalendar;
+
+const Rect = styled.rect`
+  pointer-events: all;
+`;

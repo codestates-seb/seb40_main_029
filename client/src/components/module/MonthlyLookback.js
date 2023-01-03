@@ -1,16 +1,16 @@
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import ReactTooltip from 'react-tooltip';
+import dayjs from 'dayjs';
+import { topFourColors } from '../../api/MontlyLookbackApi';
+import { displayNameSelector } from '../../redux/hooks';
+import { closeModal } from '../../redux/modalSlice';
 import { TWallpaper } from '@twallpaper/react';
 import '@twallpaper/react/css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
-import ReactTooltip from 'react-tooltip';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { closeModal } from '../../redux/modalSlice';
-import { GetColors } from '../../api/GradientApi';
-import dayjs from 'dayjs';
 
 const Contain = styled.div`
   position: relative;
@@ -53,19 +53,15 @@ const ButtonContain = styled.span`
   opacity: 0.4;
 `;
 
-const GradientWall = () => {
+const MonthlyLookback = ({ setHidenCard }) => {
   const dispatch = useDispatch();
   const [topColors, setTopColors] = useState();
+  const currentMonth = dayjs(new Date()).format('MM');
+  const displayName = useSelector(displayNameSelector);
   const option = {
     fps: 60,
     tails: 30,
     colors: topColors,
-  };
-  let todayMonth = '11';
-
-  const GetMonth = () => {
-    const now = new Date(); // 현재 날짜 및 시간
-    return 1 + now.getMonth();
   };
 
   // async function GetColors() {
@@ -88,36 +84,59 @@ const GradientWall = () => {
 
   const handleCloseModal = () => {
     dispatch(closeModal());
+    setHidenCard(false);
   };
 
   useEffect(() => {
-    let topArr;
-    todayMonth = GetMonth();
-    // console.log(typeof todayMonth);
     const loadData = async () => {
-      topArr = await GetColors();
-      // {
-      //   topArr
-      //     ? setTopColors([
-      //         `#${topArr[0]}`,
-      //         `#${topArr[1]}`,
-      //         `#${topArr[2]}`,
-      //         `#${topArr[3]}`,
-      //       ])
-      //     : setTopColors(['#E7AF8D', '#F0DCB1', '#BEB5BF', '#A2A987']);
-      // }
-      setTopColors(['#E7AF8D', '#F0DCB1', '#BEB5BF', '#A2A987']);
+      const topColorArr = await topFourColors(displayName);
+      {
+        if (topColorArr.length >= 4) {
+          setTopColors([
+            `${palettes[code][topColorArr[0]]}`,
+            `${palettes[code][topColorArr[1]]}`,
+            `${palettes[code][topColorArr[2]]}`,
+            `${palettes[code][topColorArr[3]]}`,
+          ]);
+          return;
+        }
+        if (topColorArr.length === 3) {
+          setTopColors([
+            `${palettes[code][topColorArr[0]]}`,
+            `${palettes[code][topColorArr[1]]}`,
+            `${palettes[code][topColorArr[2]]}`,
+            `${palettes[code][topColorArr[0]]}`,
+          ]);
+          return;
+        }
+        if (topColorArr.length === 2) {
+          setTopColors([
+            `${palettes[code][topColorArr[0]]}`,
+            `${palettes[code][topColorArr[0]]}`,
+            `${palettes[code][topColorArr[1]]}`,
+            `${palettes[code][topColorArr[1]]}`,
+          ]);
+          return;
+        }
+        if (topColorArr.length === 1) {
+          setTopColors([
+            `${palettes[code][topColorArr[0]]}`,
+            `${palettes[code][topColorArr[0]]}`,
+            `${palettes[code][topColorArr[0]]}`,
+            `${palettes[code][topColorArr[0]]}`,
+          ]);
+          return;
+        }
+        setTopColors(['#E7AF8D', '#F0DCB1', '#BEB5BF', '#A2A987']); // 값이 안들어왔을 경우 보여지는 임의의 색상
+      }
     };
     loadData();
-    // console.log(topColors);
   }, []);
 
   return (
     <>
       <Contain>
-        <MonthlyColor>
-          {'당신의 ' + dayjs(new Date()).format('MM') + '월'}
-        </MonthlyColor>
+        <MonthlyColor>{`당신의 ${currentMonth}월`}</MonthlyColor>
         <Info data-tip="이번 달 가장 많이 기록한 감정 4가지가 나와요">
           <FontAwesomeIcon icon={faCircleQuestion} />
         </Info>
@@ -131,4 +150,4 @@ const GradientWall = () => {
   );
 };
 
-export default GradientWall;
+export default MonthlyLookback;

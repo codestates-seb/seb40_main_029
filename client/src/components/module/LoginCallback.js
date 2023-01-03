@@ -20,8 +20,6 @@ export default function LoginCallback() {
   // const isLoggedIn = useSelector(isLoggedInSelector);
   const userEmail = useSelector(emailSelector);
 
-  // console.log(userEmail);
-
   useEffect(() => {
     const urlParams = new URL(location.href).searchParams;
     const authorizationCode = urlParams.get('code');

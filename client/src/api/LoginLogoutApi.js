@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { Navigate } from 'react-router';
-// import { useCookies } from 'react-cookie';
 import { setcookie, getCookie } from '../utils/cookie';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const onSilentRefresh = () => {
   const JWT_EXPIRY_TIME = 1 * 3600 * 1000; // 만료 시간 (1시간 밀리 초로 표현)
@@ -87,7 +87,6 @@ export const LogoutApi = async () => {
       return res;
     })
     .catch(err => {
-      alert('잠시 후 다시 시도해주세요');
-      // console.log('로그아웃 에러' + err);
+      toast('잠시 후 다시 시도해주세요');
     });
 };

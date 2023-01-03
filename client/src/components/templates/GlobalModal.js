@@ -4,7 +4,7 @@ import Letter from './Letter';
 import { selectModal } from '../../redux/modalSlice';
 import TodoList from '../module/TodoList';
 import ThemeStore from '../module/ThemeStore';
-import GradientWall from '../module/GradientWall';
+import MonthlyLookback from '../module/MonthlyLookback';
 import LookBack from '../module/LookBack';
 
 const MODAL_TYPES = {
@@ -12,11 +12,16 @@ const MODAL_TYPES = {
   TodoModal: 'TodoModal',
   FriendModal: 'FriendModal',
   ThemeModal: 'ThemeModal',
-  GradientModal: 'GradientModal',
+  MonthlyModal: 'MonthlyModal',
   LookbackModal: 'LookbackModal',
 };
 
-function GlobalModal({ lookbackRefresh, lookbackRefresher, pointRefresher }) {
+function GlobalModal({
+  setHidenCard,
+  lookbackRefresh,
+  lookbackRefresher,
+  pointRefresher,
+}) {
   const MODAL_COMPONENTS = [
     {
       type: MODAL_TYPES.LetterModal,
@@ -40,12 +45,17 @@ function GlobalModal({ lookbackRefresh, lookbackRefresher, pointRefresher }) {
       component: <ThemeStore pointRefresher={pointRefresher} />,
     },
     {
-      type: MODAL_TYPES.GradientModal,
-      component: <GradientWall />,
+      type: MODAL_TYPES.MonthlyModal,
+      component: <MonthlyLookback setHidenCard={setHidenCard} />,
     },
     {
       type: MODAL_TYPES.LookbackModal,
-      component: <LookBack lookbackRefresh={lookbackRefresh} />,
+      component: (
+        <LookBack
+          setHidenCard={setHidenCard}
+          lookbackRefresh={lookbackRefresh}
+        />
+      ),
     },
   ];
   const { modalType, isOpen } = useSelector(selectModal);
@@ -58,7 +68,7 @@ function GlobalModal({ lookbackRefresh, lookbackRefresher, pointRefresher }) {
   const renderModal = () => {
     return findModal.component;
   };
-  return <div>{renderModal()}</div>;
+  return <div style={{ display: 'flex', width: '100%' }}>{renderModal()}</div>;
 }
 
 export default GlobalModal;

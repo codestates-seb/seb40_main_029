@@ -9,6 +9,9 @@ import { getFriends } from '../../api/FriendDataApi';
 import { sendMail } from '../../api/MailDataApi';
 import { memberIdSelector, displayNameSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
+import { TooltipBtn } from '../atoms/TooltipBtn';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PopUp = styled.div`
   z-index: 2;
@@ -21,6 +24,9 @@ const Title = styled.div`
   justify-content: space-between;
   border-bottom: 1px solid black;
   align-items: center;
+  div {
+    display: flex;
+  }
 `;
 const LetterBox = styled.form`
   display: flex;
@@ -83,7 +89,7 @@ const LetterCreate = ({ setIsOpen, pointRefresher }) => {
   const handleSendLetter = e => {
     e.preventDefault();
     if (letterBody.length > 300) {
-      alert('300자 이하로만 편지를 보낼 수 있어요!');
+      toast('300자 이하로만 편지를 보낼 수 있어요!');
       setLetterBody('');
       return;
     }
@@ -94,11 +100,11 @@ const LetterCreate = ({ setIsOpen, pointRefresher }) => {
         receiverName: friend,
       });
       setLetterBody('');
-      alert(`${friend}에게 편지를 보냈습니다.(-60포인트)`);
+      toast(`${friend}에게 편지를 보냈습니다.(-60포인트)`);
       pointRefresher();
       setIsOpen(false);
     } else if (friend === '') {
-      alert('편지를 보낼 친구를 선택하세요.');
+      toast('편지를 보낼 친구를 선택하세요');
     }
   };
   return (
@@ -107,7 +113,10 @@ const LetterCreate = ({ setIsOpen, pointRefresher }) => {
         <CenterLayout>
           <ShadowBox>
             <Title>
-              <h3>편지쓰기</h3>
+              <div>
+                <h3>편지쓰기</h3>
+                <TooltipBtn info="종이비행기를 누르면 편지가 다음날 친구의 편지함으로 도착해요!" />
+              </div>
               <FontAwesomeIcon
                 icon={faXmark}
                 onClick={() => {
