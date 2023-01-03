@@ -45,6 +45,6 @@ jobs:
         run: |
           aws s3 sync \
             --region ap-northeast-2 \
-            build s3://5mu.shop \
+            build s3://omu-deploy \
             --delete
         working-directory: ./client
