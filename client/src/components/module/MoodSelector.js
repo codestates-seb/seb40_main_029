@@ -18,7 +18,7 @@ const MoodSelector = ({ lookbackRefresher, pointRefresher }) => {
   const paletteCode = useSelector(paletteCodeSelector);
   const displayName = useSelector(displayNameSelector);
   const { isOpen } = useSelector(selectModal);
-  const [fade, setFade] = useState(true);
+  const [fade, setFade] = useState(false);
   const [theSubit, setTheSubmit] = useState(1);
   const submitHandler = () => {
     setTheSubmit(theSubit * -1);
