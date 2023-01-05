@@ -34,6 +34,8 @@ export default function LoginCallback() {
     }
   }, []);
 
+  console.log(result);
+
   useEffect(() => {
     var exdate = new Date();
     exdate.setMinutes(exdate.getMinutes() + 60);
