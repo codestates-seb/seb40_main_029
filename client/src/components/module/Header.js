@@ -6,7 +6,11 @@ import User from '../atoms/User';
 import { getCookie } from '../../utils/cookie';
 import { getSpecificPalette } from '../../api/FriendDataApi';
 import { useSelector } from 'react-redux';
-import { moodSelector, paletteCodeSelector } from '../../redux/hooks';
+import {
+  moodSelector,
+  paletteCodeSelector,
+  displayNameSelector,
+} from '../../redux/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import { TooltipBtn } from '../atoms/TooltipBtn';
@@ -61,7 +65,7 @@ function Header({ userPoint }) {
   const [palette, setPalette] = useState([]);
   const userMood = useSelector(moodSelector);
   const userPalette = useSelector(paletteCodeSelector);
-  const displayName = useSelector(displayName);
+  const displayName = useSelector(displayNameSelector);
   const accessToken = getCookie('accessToken');
 
   useEffect(() => {
