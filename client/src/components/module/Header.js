@@ -61,6 +61,7 @@ function Header({ userPoint }) {
   const [palette, setPalette] = useState([]);
   const userMood = useSelector(moodSelector);
   const userPalette = useSelector(paletteCodeSelector);
+  const displayName = useSelector(displayName);
   const accessToken = getCookie('accessToken');
 
   useEffect(() => {
@@ -112,7 +113,7 @@ function Header({ userPoint }) {
           {accessToken ? (
             <>
               <User onClick={onClick} color={userMoodColor?.colorCode}>
-                USERNAME
+                {displayName}
               </User>
               <Point>
                 <FontAwesomeIcon icon={faSackDollar} />
@@ -123,7 +124,7 @@ function Header({ userPoint }) {
             <>
               <Contain>
                 <User onClick={onClick} color={userMoodColor?.colorCode}>
-                  USERNAME
+                  {displayName}
                 </User>
                 <LoginBtnContain>
                   <GoogleLogin />

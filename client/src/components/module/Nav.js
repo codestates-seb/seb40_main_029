@@ -139,9 +139,9 @@ const Nav = () => {
   };
 
   const handleLogout = async () => {
-    setcookie('accessToken', 0, { maxAge: 0, path: '/' }); // 테스트용
-    dispatch(setDisplayName('익명의 사용자')); // 테스트용
-    navigate('/'); // 테스트용
+    // setcookie('accessToken', 0, { maxAge: 0, path: '/' }); // 테스트용
+    // dispatch(setDisplayName('익명의 사용자')); // 테스트용
+    // navigate('/'); // 테스트용
     const res = await LogoutApi();
     if (res.status == 200) {
       setcookie('accessToken', 0, { maxAge: 0, path: '/' });
