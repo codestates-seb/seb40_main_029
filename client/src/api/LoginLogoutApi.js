@@ -84,6 +84,7 @@ export const LogoutApi = async () => {
       },
     })
     .then(res => {
+      location.reload();
       return res;
     })
     .catch(err => {
