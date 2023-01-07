@@ -96,11 +96,13 @@ export const ThemeStore = ({ pointRefresher }) => {
 
   const onBuyClick = () => {
     {
-      accessToken ? handleBuy(paletteCode, memberId) : setPopup(!popup);
-      toast('먼저 로그인해주세요', {
-        className: 'toast-login',
-        onClose: () => setPopup(false),
-      });
+      accessToken
+        ? handleBuy(paletteCode, memberId)
+        : (setPopup(!popup),
+          toast('먼저 로그인해주세요', {
+            className: 'toast-login',
+            onClose: () => setPopup(false),
+          }));
     }
   };
 
@@ -113,11 +115,13 @@ export const ThemeStore = ({ pointRefresher }) => {
 
   const onSetClick = () => {
     {
-      accessToken ? handleSet(paletteCode, memberId) : setPopup(true);
-      toast('먼저 로그인해주세요', {
-        className: 'toast-login',
-        onClose: () => setPopup(false),
-      });
+      accessToken
+        ? handleSet(paletteCode, memberId)
+        : (setPopup(true),
+          toast('먼저 로그인해주세요', {
+            className: 'toast-login',
+            onClose: () => setPopup(false),
+          }));
     }
   };
 
