@@ -68,16 +68,16 @@ export default function Signup() {
     useInput('');
   const [warning, setWarning] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(false);
-  const accessToken = getCookie('accessToken');
+  // const accessToken = getCookie('accessToken');
 
   useEffect(() => {
     const specialCheck = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
     const blank = /[\s]/g;
     const len = displayNameValue.length;
 
-    if (accessToken) {
-      axios.defaults.headers.common['Authorization'] = accessToken;
-    }
+    // if (accessToken) {
+    //   axios.defaults.headers.common['Authorization'] = accessToken;
+    // }
 
     if (specialCheck.test(displayNameValue)) {
       setWarning('특수문자를 사용할 수 없어요 :(');
