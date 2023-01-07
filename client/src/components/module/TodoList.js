@@ -6,6 +6,12 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { memberIdSelector } from '../../redux/hooks';
 import Todos from './Todos';
+import { getCookie } from '../../utils/cookie';
+
+const accessToken = getCookie('accessToken');
+const headers = {
+  Authorization:`Bearer ${accessToken}`
+}
 
 const URL = `${process.env.REACT_APP_BASIC_URL}/todo/`;
 const selected = 'selected/';
@@ -19,7 +25,7 @@ const TodoList = ({ lookbackRefresher, pointRefresher }) => {
   const [todoValue, todoBind, todoReset] = useInput('');
 
   useEffect(() => {
-    axios.get(URL + today + memberId).then(res => {
+    axios.get(URL + today + memberId, {headers}).then(res => {
       const newTodoList = res.data.filter(each => each.selected === false);
       const doneList = res.data.filter(each => each.selected === true);
 
@@ -31,7 +37,7 @@ const TodoList = ({ lookbackRefresher, pointRefresher }) => {
     if (todoValue === '') {
       return;
     }
-    axios.post(URL + memberId, { title: todoValue }).then(res => {
+    axios.post(URL + memberId, { title: todoValue }, {headers}).then(res => {
       const newTodoList = todoList.filter(each => each.selected === false);
       const doneList = todoList.filter(each => each.selected === true);
       newTodoList.push({
@@ -46,7 +52,7 @@ const TodoList = ({ lookbackRefresher, pointRefresher }) => {
   };
 
   const completeTodo = todoId => {
-    axios.patch(URL + selected + memberId + todoId).then(res => {
+    axios.patch(URL + selected + memberId + todoId, {headers}).then(res => {
       const newTodoList = todoList.filter(
         each => each.todoId !== res.data.data.todoId
       );
@@ -62,12 +68,12 @@ const TodoList = ({ lookbackRefresher, pointRefresher }) => {
   };
 
   const deleteTodo = todoId => {
-    axios.delete(URL + memberId + todoId).then(() => lookbackRefresher());
+    axios.delete(URL + memberId + todoId, {headers}).then(() => lookbackRefresher());
     setTodoList(todoList.filter(each => each.todoId !== todoId));
   };
 
   const lookBack = () => {
-    axios.patch(URL + update + memberId).then(res => {
+    axios.patch(URL + update + memberId, {headers}).then(res => {
       const safe = [];
       for (const each of res.data) {
         const test = todoList.filter(ea => ea.todoId === each.todoId);
