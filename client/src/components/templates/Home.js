@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getCookie } from '../../utils/cookie';
 import { ContentLayout } from '../atoms/Layouts';
 import Header from '../module/Header';
 import MoodSelector from '../module/MoodSelector';
