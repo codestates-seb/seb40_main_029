@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { getCookie } from '../../utils/cookie';
 import Input from '../atoms/Input';
 import useInput from '../../utils/useInput';
 import { emailSelector } from '../../redux/hooks';
