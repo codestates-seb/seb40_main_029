@@ -61,11 +61,13 @@ const Friends = () => {
   }, [friendRefresh]);
   const handleFindFriend = () => {
     {
-      accessToken ? setIsOpen(!isOpen) : setPopup(!popup);
-      toast('먼저 로그인해주세요', {
-        className: 'toast-login',
-        onClose: () => setPopup(false),
-      });
+      accessToken
+        ? setIsOpen(!isOpen)
+        : (setPopup(!popup),
+          toast('먼저 로그인해주세요', {
+            className: 'toast-login',
+            onClose: () => setPopup(false),
+          }));
     }
   };
   useEffect(() => {

@@ -114,11 +114,11 @@ const Nav = () => {
               isOpen: true,
             })
           )
-        : setPopup(true);
-      toast('먼저 로그인해주세요', {
-        className: 'toast-login',
-        onClose: () => setPopup(false),
-      });
+        : (setPopup(true),
+          toast('먼저 로그인해주세요', {
+            className: 'toast-login',
+            onClose: () => setPopup(false),
+          }));
     }
   };
   const handleLookbackModal = () => {
@@ -130,11 +130,11 @@ const Nav = () => {
               isOpen: true,
             })
           )
-        : setPopup(true);
-      toast('먼저 로그인해주세요', {
-        className: 'toast-login',
-        onClose: () => setPopup(false),
-      });
+        : (setPopup(true),
+          toast('먼저 로그인해주세요', {
+            className: 'toast-login',
+            onClose: () => setPopup(false),
+          }));
     }
   };
 

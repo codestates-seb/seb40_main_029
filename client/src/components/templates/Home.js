@@ -21,9 +21,9 @@ const Home = () => {
   const [mobile, setMobile] = useState();
   const [userPoint, setUserPoint] = useState(0);
   const memberId = useSelector(memberIdSelector);
-
   const { modalType } = useSelector(selectModal);
   const [hidenCard, setHidenCard] = useState(false);
+  const accessToken = getCookie('accessToken');
 
   const [lookbackRefresh, setLookbackRefresh] = useState(-1);
   const lookbackRefresher = () => {
@@ -58,6 +58,9 @@ const Home = () => {
     }
   };
   useEffect(() => {
+    if (accessToken) {
+      axios.defaults.headers.common['Authorization'] = accessToken;
+    }
     if (550 >= window.innerWidth) {
       setMobile(true);
     }
