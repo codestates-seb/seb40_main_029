@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getCookie } from '../../utils/cookie';
 import { ContentLayout } from '../atoms/Layouts';
 import Header from '../module/Header';
 import MoodSelector from '../module/MoodSelector';
@@ -10,6 +9,7 @@ import { GetPoint } from '../../api/GetPointApi';
 import { memberIdSelector } from '../../redux/hooks';
 import { selectModal } from '../../redux/modalSlice';
 import Mobile from './Mobile';
+import { getCookie } from '../../utils/cookie';
 
 const Browser = styled.div`
   position: relative;
