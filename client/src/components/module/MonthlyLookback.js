@@ -93,37 +93,37 @@ const MonthlyLookback = ({ setHidenCard }) => {
       {
         if (topColorArr.length >= 4) {
           setTopColors([
-            `${palettes[code][topColorArr[0]]}`,
-            `${palettes[code][topColorArr[1]]}`,
-            `${palettes[code][topColorArr[2]]}`,
-            `${palettes[code][topColorArr[3]]}`,
+            `${topColorArr[0]}`,
+            `${topColorArr[1]}`,
+            `${topColorArr[2]}`,
+            `${topColorArr[3]}`,
           ]);
           return;
         }
         if (topColorArr.length === 3) {
           setTopColors([
-            `${palettes[code][topColorArr[0]]}`,
-            `${palettes[code][topColorArr[1]]}`,
-            `${palettes[code][topColorArr[2]]}`,
-            `${palettes[code][topColorArr[0]]}`,
+            `${topColorArr[0]}`,
+            `${topColorArr[1]}`,
+            `${topColorArr[2]}`,
+            `${topColorArr[0]}`,
           ]);
           return;
         }
         if (topColorArr.length === 2) {
           setTopColors([
-            `${palettes[code][topColorArr[0]]}`,
-            `${palettes[code][topColorArr[0]]}`,
-            `${palettes[code][topColorArr[1]]}`,
-            `${palettes[code][topColorArr[1]]}`,
+            `${topColorArr[0]}`,
+            `${topColorArr[0]}`,
+            `${topColorArr[1]}`,
+            `${topColorArr[1]}`,
           ]);
           return;
         }
         if (topColorArr.length === 1) {
           setTopColors([
-            `${palettes[code][topColorArr[0]]}`,
-            `${palettes[code][topColorArr[0]]}`,
-            `${palettes[code][topColorArr[0]]}`,
-            `${palettes[code][topColorArr[0]]}`,
+            `${topColorArr[0]}`,
+            `${topColorArr[0]}`,
+            `${topColorArr[0]}`,
+            `${topColorArr[0]}`,
           ]);
           return;
         }
