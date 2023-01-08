@@ -60,16 +60,15 @@ const Friends = () => {
     fetchData();
   }, [friendRefresh]);
   const handleFindFriend = () => {
-    setIsOpen(!isOpen);
-    // {
-    //   accessToken
-    //     ? setIsOpen(!isOpen)
-    //     : (setPopup(!popup),
-    //       toast('먼저 로그인해주세요', {
-    //         className: 'toast-login',
-    //         onClose: () => setPopup(false),
-    //       }));
-    // }
+    {
+      accessToken
+        ? setIsOpen(!isOpen)
+        : (setPopup(!popup),
+          toast('먼저 로그인해주세요', {
+            className: 'toast-login',
+            onClose: () => setPopup(false),
+          }));
+    }
   };
   useEffect(() => {
     window.innerWidth ? handleLimit() : 0;
