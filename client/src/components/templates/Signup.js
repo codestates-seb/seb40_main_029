@@ -76,9 +76,9 @@ export default function Signup() {
     const blank = /[\s]/g;
     const len = displayNameValue.length;
 
-    if (accessToken) {
-      axios.defaults.headers.common['Authorization'] = accessToken;
-    }
+    // if (accessToken) {
+    //   axios.defaults.headers.common['Authorization'] = accessToken;
+    // }
 
     if (specialCheck.test(displayNameValue)) {
       setWarning('특수문자를 사용할 수 없어요 :(');
