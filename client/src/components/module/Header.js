@@ -127,9 +127,7 @@ function Header({ userPoint }) {
           ) : (
             <>
               <Contain>
-                <User onClick={onClick} color={userMoodColor?.colorCode}>
-                  {displayName}
-                </User>
+                <User onClick={onClick} color={userMoodColor?.colorCode}></User>
                 <LoginBtnContain>
                   <GoogleLogin />
                 </LoginBtnContain>
