@@ -41,9 +41,9 @@ const LookBack = ({ lookbackRefresh, setHidenCard }) => {
 
   const windowResize = debounce(() => {
     if (window.innerWidth > 1024) {
-      setStyle({ margin: 3, size: 7 });
-    } else {
       setStyle({ margin: 5, size: 11 });
+    } else {
+      setStyle({ margin: 3, size: 7 });
     }
   }, 500);
 
