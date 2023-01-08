@@ -21,6 +21,7 @@ import modal from './modalSlice';
 
 const persistConfig = {
   key: 'root',
+  blacklist: ['modal'],
   version: 1,
   storage,
 };

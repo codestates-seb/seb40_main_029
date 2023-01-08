@@ -13,6 +13,7 @@ import ActivityCalendar from './ActivityCalendar';
 import { paletteCodeSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
 import { memberIdSelector, displayNameSelector } from '../../redux/hooks';
+import { debounce } from 'lodash';
 
 const URL = `${process.env.REACT_APP_BASIC_URL}/`;
 const p = 'palette/';
@@ -36,6 +37,22 @@ const LookBack = ({ lookbackRefresh, setHidenCard }) => {
   const memberId = useSelector(memberIdSelector);
   const displayName = useSelector(displayNameSelector);
   const [palette, setPalette] = useState([]);
+  const [style, setStyle] = useState({ margin: 5, size: 11 });
+
+  const windowResize = debounce(() => {
+    if (window.innerWidth > 1024) {
+      setStyle({ margin: 3, size: 7 });
+    } else {
+      setStyle({ margin: 5, size: 11 });
+    }
+  }, 500);
+
+  useEffect(() => {
+    window.addEventListener('resize', windowResize);
+    return () => {
+      window.removeEventListener('resize', windowResize);
+    };
+  }, []);
 
   useEffect(() => {
     axios.get(URL + p + paletteCode).then(res => {
@@ -175,8 +192,8 @@ const LookBack = ({ lookbackRefresh, setHidenCard }) => {
                 )}
                 setSelected={setSelected}
                 showWeekdayLabels={true}
-                blockMargin={5}
-                blockSize={11}
+                blockMargin={style.margin}
+                blockSize={style.size}
               />
 
               <LeftRightContainer>
