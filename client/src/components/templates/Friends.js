@@ -34,7 +34,7 @@ const Friends = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [popup, setPopup] = useState(false);
   const [friends, setFriends] = useState([]);
-  const [friendRefresh, setfriendRefresh] = useState(0);
+  const [friendRefresh, setfriendRefresh] = useState(1);
   const [limit, setLimit] = useState(0);
   const handleLimit = () => {
     const width = window.innerWidth;

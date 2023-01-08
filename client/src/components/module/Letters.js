@@ -25,7 +25,7 @@ const ContentWrap = styled.div`
 `;
 const Letters = ({ setIsOpen, isOpen }) => {
   const [mails, setMails] = useState([]);
-  const [mailRefresh, setMailRefresh] = useState(0);
+  const [mailRefresh, setMailRefresh] = useState(1);
   const limit = 4;
   const [page, setPage] = useState(1);
   const [currentMail, setCurrentMail] = useState(0);

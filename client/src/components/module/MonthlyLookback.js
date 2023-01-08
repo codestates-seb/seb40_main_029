@@ -93,37 +93,37 @@ const MonthlyLookback = ({ setHidenCard }) => {
       {
         if (topColorArr.length >= 4) {
           setTopColors([
-            `${palettes[code][topColorArr[0]]}`,
-            `${palettes[code][topColorArr[1]]}`,
-            `${palettes[code][topColorArr[2]]}`,
-            `${palettes[code][topColorArr[3]]}`,
+            `${topColorArr[0]}`,
+            `${topColorArr[1]}`,
+            `${topColorArr[2]}`,
+            `${topColorArr[3]}`,
           ]);
           return;
         }
         if (topColorArr.length === 3) {
           setTopColors([
-            `${palettes[code][topColorArr[0]]}`,
-            `${palettes[code][topColorArr[1]]}`,
-            `${palettes[code][topColorArr[2]]}`,
-            `${palettes[code][topColorArr[0]]}`,
+            `${topColorArr[0]}`,
+            `${topColorArr[1]}`,
+            `${topColorArr[2]}`,
+            `${topColorArr[0]}`,
           ]);
           return;
         }
         if (topColorArr.length === 2) {
           setTopColors([
-            `${palettes[code][topColorArr[0]]}`,
-            `${palettes[code][topColorArr[0]]}`,
-            `${palettes[code][topColorArr[1]]}`,
-            `${palettes[code][topColorArr[1]]}`,
+            `${topColorArr[0]}`,
+            `${topColorArr[0]}`,
+            `${topColorArr[1]}`,
+            `${topColorArr[1]}`,
           ]);
           return;
         }
         if (topColorArr.length === 1) {
           setTopColors([
-            `${palettes[code][topColorArr[0]]}`,
-            `${palettes[code][topColorArr[0]]}`,
-            `${palettes[code][topColorArr[0]]}`,
-            `${palettes[code][topColorArr[0]]}`,
+            `${topColorArr[0]}`,
+            `${topColorArr[0]}`,
+            `${topColorArr[0]}`,
+            `${topColorArr[0]}`,
           ]);
           return;
         }
@@ -137,7 +137,7 @@ const MonthlyLookback = ({ setHidenCard }) => {
     <>
       <Contain>
         <MonthlyColor>{`당신의 ${currentMonth}월`}</MonthlyColor>
-        <Info data-tip="이번 달 가장 많이 기록한 감정 4가지가 나와요">
+        <Info data-tip="이번 달 가장 많이 기록한 감정 4가지가 나와요! 저장된 값이 없을 경우 임의의 그라데이션이 보여져요">
           <FontAwesomeIcon icon={faCircleQuestion} />
         </Info>
         <ReactTooltip event="click" eventOff="mouseout" place="right" />

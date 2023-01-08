@@ -21,7 +21,7 @@ const Browser = styled.div`
 
 const Home = () => {
   const [mobile, setMobile] = useState();
-  const [userPoint, setUserPoint] = useState(0);
+  const [userPoint, setUserPoint] = useState(1);
   const memberId = useSelector(memberIdSelector);
   const { modalType } = useSelector(selectModal);
   const [hidenCard, setHidenCard] = useState(false);
