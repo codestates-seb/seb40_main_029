@@ -45,7 +45,7 @@ const LookBack = ({ lookbackRefresh, setHidenCard }) => {
     } else {
       setStyle({ margin: 3, size: 7 });
     }
-  }, 500);
+  }, 100);
 
   useEffect(() => {
     window.addEventListener('resize', windowResize);
