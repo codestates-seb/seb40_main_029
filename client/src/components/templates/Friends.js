@@ -34,7 +34,7 @@ const Friends = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [popup, setPopup] = useState(false);
   const [friends, setFriends] = useState([]);
-  const [friendRefresh, setfriendRefresh] = useState(0);
+  const [friendRefresh, setfriendRefresh] = useState(1);
   const [limit, setLimit] = useState(0);
   const handleLimit = () => {
     const width = window.innerWidth;
@@ -60,15 +60,16 @@ const Friends = () => {
     fetchData();
   }, [friendRefresh]);
   const handleFindFriend = () => {
-    {
-      accessToken
-        ? setIsOpen(!isOpen)
-        : (setPopup(!popup),
-          toast('먼저 로그인해주세요', {
-            className: 'toast-login',
-            onClose: () => setPopup(false),
-          }));
-    }
+    setIsOpen(!isOpen);
+    // {
+    //   accessToken
+    //     ? setIsOpen(!isOpen)
+    //     : (setPopup(!popup),
+    //       toast('먼저 로그인해주세요', {
+    //         className: 'toast-login',
+    //         onClose: () => setPopup(false),
+    //       }));
+    // }
   };
   useEffect(() => {
     window.innerWidth ? handleLimit() : 0;
