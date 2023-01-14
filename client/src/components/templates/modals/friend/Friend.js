@@ -1,34 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { memberIdSelector } from '../../../redux/hooks';
-import { paletteCodeSelector } from '../../../redux/hooks';
-import { getFriends, getSpecificPalette } from '../../../api/FriendDataApi';
-import { getCookie } from '../../../utils/cookie';
-import { RightBottomLayout } from '../../atoms/layout/Layouts';
-import Button from '../../atoms/button/commonButton/Button';
-import Overlay from '../../atoms/overlay/Overlay';
-import Pagination from '../../atoms/pagination/Pagination';
-import { FriendModal } from '../../module/modal/Modal';
-import AddFriend from '../../module/friend/create/AddFriend';
-import FriendCard from '../../module/friend/card/FriendCard';
+import { memberIdSelector } from '../../../../redux/hooks';
+import { paletteCodeSelector } from '../../../../redux/hooks';
+import { getFriends, getSpecificPalette } from '../../../../api/FriendDataApi';
+import { getCookie } from '../../../../utils/cookie';
+import { RightBottomLayout } from '../../../atoms/layout/Layouts';
+import Button from '../../../atoms/button/commonButton/Button';
+import Overlay from '../../../atoms/overlay/Overlay';
+import Pagination from '../../../atoms/pagination/Pagination';
+import { FriendModal } from '../../../module/modal/Modal';
+import AddFriend from '../../../module/friend/create/AddFriend';
+import FriendCard from '../../../module/friend/card/FriendCard';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import styled from 'styled-components';
-
-const CardLayout = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-  @media screen and (max-width: 860px) {
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-`;
+import * as Style from './Style';
 
 const Friends = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -93,7 +78,7 @@ const Friends = () => {
     <>
       {popup && <Overlay />}
       <FriendModal>
-        <CardLayout>
+        <Style.CardLayout>
           {friends
             ? friends.slice(offset, offset + limit).map(friend => {
                 return (
@@ -110,7 +95,7 @@ const Friends = () => {
                 );
               })
             : null}
-        </CardLayout>
+        </Style.CardLayout>
         <RightBottomLayout>
           <Button size="circle" onClick={handleFindFriend}>
             +

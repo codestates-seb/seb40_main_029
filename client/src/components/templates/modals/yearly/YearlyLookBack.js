@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { paletteCodeSelector } from '../../../redux/hooks';
-import { memberIdSelector, displayNameSelector } from '../../../redux/hooks';
+import { paletteCodeSelector } from '../../../../redux/hooks';
+import { memberIdSelector, displayNameSelector } from '../../../../redux/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronRight,
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import dayjs from 'dayjs';
-import { LookBackModal } from '../../module/modal/Modal';
-import { Pie } from '../../module/yearly/Charts';
-import ActivityCalendar from '../../module/yearly/ActivityCalendar';
+import { LookBackModal } from '../../../module/modal/Modal';
+import { Pie } from '../../../module/yearly/Charts';
+import ActivityCalendar from '../../../module/yearly/ActivityCalendar';
 import { debounce } from 'lodash';
 import styled from 'styled-components';
 

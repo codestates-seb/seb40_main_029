@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { memberIdSelector } from '../../../redux/hooks';
+import { memberIdSelector } from '../../../../redux/hooks';
 import axios from 'axios';
-import useInput from '../../../utils/useInput';
-import { TodoModal } from '../../module/modal/Modal';
-import Todos from '../../module/todo/Todos';
+import useInput from '../../../../utils/useInput';
+import { TodoModal } from '../../../module/modal/Modal';
+import Todos from '../../../module/todo/Todos';
 import styled from 'styled-components';
 
 const URL = `${process.env.REACT_APP_BASIC_URL}/todo/`;

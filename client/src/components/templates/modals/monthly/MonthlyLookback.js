@@ -4,54 +4,13 @@ import ReactTooltip from 'react-tooltip';
 import dayjs from 'dayjs';
 import '@twallpaper/react/css';
 import { TWallpaper } from '@twallpaper/react';
-import { topFourColors } from '../../../api/MontlyLookbackApi';
-import { displayNameSelector } from '../../../redux/hooks';
-import { closeModal } from '../../../redux/modalSlice';
+import { topFourColors } from '../../../../api/MontlyLookbackApi';
+import { displayNameSelector } from '../../../../redux/hooks';
+import { closeModal } from '../../../../redux/modalSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import styled from 'styled-components';
-
-const Contain = styled.div`
-  position: relative;
-  z-index: 50;
-  width: 100%;
-  height: 100%;
-`;
-
-const MonthlyColor = styled.h1`
-  position: fixed;
-  top: 0px;
-  left: 50px;
-  opacity: 0.2;
-  font-size: 40px;
-  letter-spacing: 0.7rem;
-`;
-
-const Button = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  opacity: 0.3;
-  padding: 0 7px;
-`;
-
-const Info = styled(Button)`
-  position: fixed;
-  font-size: 17px;
-  top: 57px;
-  left: 310px;
-  cursor: pointer;
-`;
-
-const ButtonContain = styled.span`
-  position: fixed;
-  top: 30px;
-  right: 30px;
-  cursor: pointer;
-  opacity: 0.4;
-`;
+import * as Style from './Style';
 
 const MonthlyLookback = ({ setHidenCard }) => {
   const dispatch = useDispatch();
@@ -135,17 +94,17 @@ const MonthlyLookback = ({ setHidenCard }) => {
 
   return (
     <>
-      <Contain>
-        <MonthlyColor>{`당신의 ${currentMonth}월`}</MonthlyColor>
-        <Info data-tip="이번 달 가장 많이 기록한 감정 4가지가 나와요! 저장된 값이 없을 경우 임의의 그라데이션이 보여져요">
+      <Style.Contain>
+        <Style.MonthlyColor>{`당신의 ${currentMonth}월`}</Style.MonthlyColor>
+        <Style.Info data-tip="이번 달 가장 많이 기록한 감정 4가지가 나와요! 저장된 값이 없을 경우 임의의 그라데이션이 보여져요">
           <FontAwesomeIcon icon={faCircleQuestion} />
-        </Info>
+        </Style.Info>
         <ReactTooltip event="click" eventOff="mouseout" place="right" />
         {topColors && <TWallpaper options={option} />}
-        <ButtonContain onClick={handleCloseModal}>
+        <Style.ButtonContain onClick={handleCloseModal}>
           <FontAwesomeIcon icon={faXmark} size="lg" />
-        </ButtonContain>
-      </Contain>
+        </Style.ButtonContain>
+      </Style.Contain>
     </>
   );
 };

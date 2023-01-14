@@ -1,23 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { ContentLayout } from '../../atoms/layout/Layouts';
-import Header from '../../module/header/headerOrganism/Header';
-import MoodSelector from '../../module/mood/MoodSelector';
-import GlobalModal from '../modals/GlobalModal';
-import Mobile from './Mobile';
-import { GetPoint } from '../../../api/GetPointApi';
-import { memberIdSelector } from '../../../redux/hooks';
-import { selectModal } from '../../../redux/modalSlice';
-import { getCookie } from '../../../utils/cookie';
-import styled from 'styled-components';
-
-const Browser = styled.div`
-  position: relative;
-  max-width: 1140px;
-  margin: 0 auto;
-  padding: 0 20px;
-`;
+import { ContentLayout } from '../../../atoms/layout/Layouts';
+import Header from '../../../module/header/headerOrganism/Header';
+import MoodSelector from '../../../module/mood/MoodSelector';
+import GlobalModal from '../../modals/handleModal/GlobalModal';
+import Mobile from '../mobileAlert/MobileAlert';
+import { GetPoint } from '../../../../api/GetPointApi';
+import { memberIdSelector } from '../../../../redux/hooks';
+import { selectModal } from '../../../../redux/modalSlice';
+import { getCookie } from '../../../../utils/cookie';
+import * as Style from './Style';
 
 const Home = () => {
   const [mobile, setMobile] = useState();
@@ -72,7 +65,7 @@ const Home = () => {
     };
   }, []);
   return (
-    <Browser>
+    <Style.Browser>
       <Header userPoint={userPoint} />
       {mobile ? (
         <ContentLayout>
@@ -96,7 +89,7 @@ const Home = () => {
           />
         </ContentLayout>
       )}
-    </Browser>
+    </Style.Browser>
   );
 };
 

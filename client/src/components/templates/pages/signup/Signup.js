@@ -1,64 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { emailSelector } from '../../../redux/hooks';
-import { setMemberId, setDisplayName } from '../../../redux/slice';
+import { emailSelector } from '../../../../redux/hooks';
+import { setMemberId, setDisplayName } from '../../../../redux/slice';
 import { useNavigate } from 'react-router-dom';
-import { SignupApi } from '../../../api/SignupApi';
-import useInput from '../../../utils/useInput';
-import { getCookie } from '../../../utils/cookie';
-import Input from '../../atoms/input/Input';
-import { ReactComponent as Logo } from '../../../assets/logo.svg';
-import styled from 'styled-components';
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-`;
-
-const InputContainer = styled.div`
-  margin-right: 10%;
-`;
-
-const InputHeader = styled.h3`
-  margin-left: 5px;
-`;
-
-const Button = styled.button`
-  margin-left: 10px;
-  padding: 5px 15px;
-  height: 28px;
-  border-radius: 30px;
-  font-size: 14px;
-  background-color: inherit;
-  box-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25), -2px -2px 5px #faf8ff;
-  border: none;
-
-  &:hover,
-  &:active {
-    &:not([disabled]) {
-      box-shadow: inset 2px 2px 5px rgba(22, 27, 29, 0.25),
-        inset -2px -2px 5px #faf8ff;
-    }
-  }
-
-  &[disabled] {
-    cursor: default;
-    opacity: 0.5;
-    background: #dc3545 #025ce2;
-  }
-`;
-
-const Warning = styled.h5`
-  margin-left: 5px;
-  font-weight: 200;
-  color: red;
-`;
-
-const LogoContainer = styled.div`
-  margin: 10px;
-`;
+import { SignupApi } from '../../../../api/SignupApi';
+import useInput from '../../../../utils/useInput';
+import { getCookie } from '../../../../utils/cookie';
+import Input from '../../../atoms/input/Input';
+import { ReactComponent as Logo } from '../../../../assets/logo.svg';
+import * as Style from './Style';
 
 export default function Signup() {
   const dispatch = useDispatch();
@@ -114,15 +64,15 @@ export default function Signup() {
   }
 
   return (
-    <Container>
-      <InputContainer>
-        <InputHeader>닉네임을 입력해주세요</InputHeader>
+    <Style.Container>
+      <Style.InputContainer>
+        <Style.InputHeader>닉네임을 입력해주세요</Style.InputHeader>
         <Input
           value={displayNameBind}
           border="shadow"
           oninput={handleInputLength(10)}
         />
-        <Button
+        <Style.Button
           size="long"
           fontSize="little"
           onClick={() => {
@@ -131,12 +81,12 @@ export default function Signup() {
           disabled={btnDisabled}
         >
           시작하기
-        </Button>
-        <Warning>{warning}</Warning>
-      </InputContainer>
-      <LogoContainer>
+        </Style.Button>
+        <Style.Warning>{warning}</Style.Warning>
+      </Style.InputContainer>
+      <Style.LogoContainer>
         <Logo width="170" height="170" />
-      </LogoContainer>
-    </Container>
+      </Style.LogoContainer>
+    </Style.Container>
   );
 }

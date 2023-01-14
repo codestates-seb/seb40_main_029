@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
-import { selectModal } from '../../../redux/modalSlice';
-import FriendModal from './Friend';
-import LetterModal from './Letter';
-import TodoModal from './TodoList';
-import ThemeModal from './ThemeStore';
-import MonthlyLookback from './MonthlyLookback';
-import YearlyLookBack from './YearlyLookBack';
+import { selectModal } from '../../../../redux/modalSlice';
+import FriendModal from '../friend/Friend';
+import LetterModal from '../letter/Letter';
+import TodoModal from '../todo/TodoList';
+import ThemeModal from '../theme/ThemeStore';
+import MonthlyLookback from '../monthly/MonthlyLookback';
+import YearlyLookBack from '../yearly/YearlyLookBack';
 
 const MODAL_TYPES = {
   LetterModal: 'LetterModal',
