@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Nav from './Nav';
 import { useEffect, useRef, useState } from 'react';
 import Bookmark from './Bookmark';
-import User from '../atoms/User';
+import Username from '../atoms/username/Username';
 import { getCookie } from '../../utils/cookie';
 import { getSpecificPalette } from '../../api/FriendDataApi';
 import { useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ import {
 } from '../../redux/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
-import { TooltipBtn } from '../atoms/TooltipBtn';
+import TooltipButton from '../atoms/button/tooltipButton/TooltipButton';
 import GoogleLogin from './GoogleLogin';
 
 const HeaderWrapper = styled.div`
@@ -110,15 +110,15 @@ function Header({ userPoint }) {
           </HeaderTitle>
           <BookmarkWrapper>
             <Bookmark />
-            <TooltipBtn info="별을 클릭해 북마크를 만들고, 손을 클릭해 북마크 리스트를 열고 닫을 수 있어요!" />
+            <TooltipButton info="별을 클릭해 북마크를 만들고, 손을 클릭해 북마크 리스트를 열고 닫을 수 있어요!" />
           </BookmarkWrapper>
         </div>
         <GnbLayout ref={ref}>
           {accessToken ? (
             <>
-              <User onClick={onClick} color={userMoodColor?.colorCode}>
+              <Username onClick={onClick} color={userMoodColor?.colorCode}>
                 {displayName}
-              </User>
+              </Username>
               <Point>
                 <FontAwesomeIcon icon={faSackDollar} />
                 {userPoint}
@@ -127,7 +127,7 @@ function Header({ userPoint }) {
           ) : (
             <>
               <Contain>
-                <User onClick={onClick}></User>
+                <Username onClick={onClick}></Username>
                 <LoginBtnContain>
                   <GoogleLogin />
                 </LoginBtnContain>

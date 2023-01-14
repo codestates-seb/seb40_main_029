@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { CenterLayout } from '../atoms/Layouts';
+import { CenterLayout } from '../atoms/layout/Layouts';
 
 const CardContainer = styled.div`
   display: flex;

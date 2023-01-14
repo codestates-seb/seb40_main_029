@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Button from '../atoms/Button';
+import Button from '../atoms/button/commonButton/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faStar,
@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import BookmarkCreate from './BookmarkCreate';
-import Overlay from '../atoms/Overlay';
+import Overlay from '../atoms/overlay/Overlay';
 
 const LightIcon = styled.span`
   svg {

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
-import { ContentLayout } from '../atoms/Layouts';
+import { ContentLayout } from '../atoms/layout/Layouts';
 import Header from '../module/Header';
 import MoodSelector from '../module/MoodSelector';
 import GlobalModal from './GlobalModal';

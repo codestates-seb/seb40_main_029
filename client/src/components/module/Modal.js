@@ -14,7 +14,7 @@ import {
 import ReactTooltip from 'react-tooltip';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../redux/modalSlice';
-import { TooltipBtn } from '../atoms/TooltipBtn';
+import TooltipButton from '../atoms/button/tooltipButton/TooltipButton';
 
 const Blueprint = styled.div`
   display: flex;
@@ -147,7 +147,7 @@ const MailModal = ({ children }) => {
         <Title>
           편지함
           <FontAwesomeIcon icon={faEnvelope} />
-          <TooltipBtn
+          <TooltipButton
             info="오른쪽 아래 + 버튼을 눌러서 친구에게 편지를 보낼 수 있어요."
             place="right"
           />
@@ -193,7 +193,7 @@ const FriendModal = ({ children }) => {
         <Title>
           친구
           <FontAwesomeIcon icon={faUserGroup} />
-          <TooltipBtn
+          <TooltipButton
             info="+ 버튼을 눌러서 친구의 무드카드를 얻어보세요."
             place="right"
           />

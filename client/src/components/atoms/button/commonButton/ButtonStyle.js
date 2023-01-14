@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-const SIZES = {
+export const SIZES = {
   circle: css`
     --button-padding: 10px;
     --button-radius: 50%;
@@ -14,7 +14,7 @@ const SIZES = {
   `,
 };
 
-const FONTSIZES = {
+export const FONTSIZES = {
   little: css`
     --button-font-size: 11px;
   `,
@@ -26,23 +26,7 @@ const FONTSIZES = {
   `,
 };
 
-function Button({ size, fontsize, children, onClick, disabled }) {
-  const sizeStyle = SIZES[size];
-  const fontSizeStyle = FONTSIZES[fontsize];
-
-  return (
-    <Btn
-      sizeStyle={sizeStyle}
-      fontSizeStyle={fontSizeStyle}
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {children}
-    </Btn>
-  );
-}
-
-const Btn = styled.button`
+export const Btn = styled.button`
   ${props => props.sizeStyle}
   ${props => props.fontSizeStyle}
 
@@ -74,5 +58,3 @@ const Btn = styled.button`
     background: #dc3545 #025ce2;
   }
 `;
-
-export default Button;

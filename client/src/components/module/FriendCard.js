@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { deleteFriend, getSpecificPalette } from '../../api/FriendDataApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
-import MiniCard from '../atoms/MiniCard';
+import MiniCard from '../atoms/minicard/MiniCard';
 import { useSelector } from 'react-redux';
 import { paletteCodeSelector } from '../../redux/hooks';
 

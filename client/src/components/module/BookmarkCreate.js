@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import Input from '../atoms/Input';
-import Button from '../atoms/Button';
+import Input from '../atoms/input/Input';
+import Button from '../atoms/button/commonButton/Button';
 import { useEffect } from 'react';
 import useInput from '../../utils/useInput';
-import ShadowBox from '../atoms/ShadowBox';
+import ContentBox from '../atoms/contentBox/ContentBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { CenterLayout, RightBottomLayout } from '../atoms/Layouts';
+import { CenterLayout, RightBottomLayout } from '../atoms/layout/Layouts';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { TooltipBtn } from '../atoms/TooltipBtn';
+import TooltipButton from '../atoms/button/tooltipButton/TooltipButton';
 import { useState } from 'react';
 
 const PopUp = styled.div`
@@ -121,11 +121,11 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
   return (
     <PopUp>
       <CenterLayout>
-        <ShadowBox>
+        <ContentBox>
           <Title>
             <div>
               북마크 추가
-              <TooltipBtn info="즐겨찾는 사이트의 이름과 url을 저장해보세요!" />
+              <TooltipButton info="즐겨찾는 사이트의 이름과 url을 저장해보세요!" />
             </div>
             <FontAwesomeIcon icon={faXmark} onClick={handleBookmarkClose} />
           </Title>
@@ -164,7 +164,7 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
               </Button>
             </RightBottomLayout>
           </InputWraper>
-        </ShadowBox>
+        </ContentBox>
       </CenterLayout>
     </PopUp>
   );

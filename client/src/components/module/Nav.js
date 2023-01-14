@@ -17,7 +17,7 @@ import { useDispatch } from 'react-redux';
 import { openModal } from '../../redux/modalSlice';
 import { LogoutApi } from '../../api/LoginLogoutApi';
 import { getCookie, setcookie } from '../../utils/cookie';
-import Overlay from '../atoms/Overlay';
+import Overlay from '../atoms/overlay/Overlay';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setDisplayName } from '../../redux/slice';

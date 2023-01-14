@@ -1,15 +1,15 @@
-import Button from '../atoms/Button';
-import ShadowBox from '../atoms/ShadowBox';
+import Button from '../atoms/button/commonButton/Button';
+import ContentBox from '../atoms/contentBox/ContentBox';
 import LetterItem from './LetterItem';
 import { MailModal } from './Modal';
 import { useEffect, useState } from 'react';
 import { getAllMails } from '../../api/MailDataApi';
-import { RightBottomLayout } from '../atoms/Layouts';
+import { RightBottomLayout } from '../atoms/layout/Layouts';
 import styled from 'styled-components';
-import Pagination from '../atoms/Pagination';
+import Pagination from '../atoms/pagination/Pagination';
 import { memberIdSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
-import Overlay from '../atoms/Overlay';
+import Overlay from '../atoms/overlay/Overlay';
 import { getCookie } from '../../utils/cookie';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -70,7 +70,7 @@ const Letters = ({ setIsOpen, isOpen }) => {
               );
             })
           ) : (
-            <ShadowBox>받은 편지가 없습니다.</ShadowBox>
+            <ContentBox>받은 편지가 없습니다.</ContentBox>
           )}
           <RightBottomLayout>
             <Button size="circle" onClick={handleLetterCreate}>

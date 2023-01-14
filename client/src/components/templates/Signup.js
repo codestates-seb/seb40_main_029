@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-import Input from '../atoms/Input';
+import Input from '../atoms/input/Input';
 import useInput from '../../utils/useInput';
 import { emailSelector } from '../../redux/hooks';
 import { setMemberId, setDisplayName } from '../../redux/slice';

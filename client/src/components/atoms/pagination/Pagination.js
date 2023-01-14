@@ -1,31 +1,10 @@
-import styled from 'styled-components';
-import { ContentLayout } from './Layouts';
+import { ContentLayout } from '../layout/Layouts';
+import * as Style from './PaginationStyle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronRight,
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
-
-const Pages = styled.nav`
-  position: absolute;
-  bottom: 0;
-  margin-bottom: 16px;
-`;
-
-const Page = styled.button`
-  border: none;
-  padding: 4px;
-  margin: 2px;
-  background-color: inherit;
-
-  border-radius: 5px;
-  &:hover {
-    background-color: #f4f4f4;
-  }
-  &.active {
-    background-color: #e3e3e3;
-  }
-`;
 
 const Pagination = ({ total, limit, page, setPage }) => {
   const numPages = Math.ceil(total / limit);
@@ -33,28 +12,28 @@ const Pagination = ({ total, limit, page, setPage }) => {
     <>
       {numPages > 1 ? (
         <ContentLayout>
-          <Pages>
-            <Page onClick={() => setPage(page - 1)} disabled={page === 1}>
+          <Style.Pages>
+            <Style.Page onClick={() => setPage(page - 1)} disabled={page === 1}>
               <FontAwesomeIcon icon={faChevronLeft} />
-            </Page>
+            </Style.Page>
             {Array(numPages)
               .fill()
               .map((_, i) => (
-                <Page
+                <Style.Page
                   key={i + 1}
                   onClick={() => setPage(i + 1)}
                   className={i + 1 === page ? 'active' : null}
                 >
                   {i + 1}
-                </Page>
+                </Style.Page>
               ))}
-            <Page
+            <Style.Page
               onClick={() => setPage(page + 1)}
               disabled={page === numPages}
             >
               <FontAwesomeIcon icon={faChevronRight} />
-            </Page>
-          </Pages>
+            </Style.Page>
+          </Style.Pages>
         </ContentLayout>
       ) : null}
     </>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Button from '../atoms/Button';
+import Button from '../atoms/button/commonButton/Button';
 import { PaletteList } from '../../api/ThemeStoreApi';
 
 const CarouselContainer = styled.div`

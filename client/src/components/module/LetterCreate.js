@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import Button from '../atoms/Button';
+import Button from '../atoms/button/commonButton/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { CenterLayout, RightBottomLayout } from '../atoms/Layouts';
-import ShadowBox from '../atoms/ShadowBox';
+import { CenterLayout, RightBottomLayout } from '../atoms/layout/Layouts';
+import ContentBox from '../atoms/contentBox/ContentBox';
 import { useEffect, useState } from 'react';
 import { getFriends } from '../../api/FriendDataApi';
 import { sendMail } from '../../api/MailDataApi';
 import { memberIdSelector, displayNameSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
-import { TooltipBtn } from '../atoms/TooltipBtn';
+import TooltipButton from '../atoms/button/tooltipButton/TooltipButton';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -111,11 +111,11 @@ const LetterCreate = ({ setIsOpen, pointRefresher }) => {
     <>
       <PopUp>
         <CenterLayout>
-          <ShadowBox>
+          <ContentBox>
             <Title>
               <div>
                 <h3>편지쓰기</h3>
-                <TooltipBtn info="종이비행기를 누르면 편지가 다음날 친구의 편지함으로 도착해요!" />
+                <TooltipButton info="종이비행기를 누르면 편지가 다음날 친구의 편지함으로 도착해요!" />
               </div>
               <FontAwesomeIcon
                 icon={faXmark}
@@ -160,7 +160,7 @@ const LetterCreate = ({ setIsOpen, pointRefresher }) => {
                 <FontAwesomeIcon icon={faPaperPlane} />
               </Button>
             </RightBottomLayout>
-          </ShadowBox>
+          </ContentBox>
         </CenterLayout>
       </PopUp>
     </>

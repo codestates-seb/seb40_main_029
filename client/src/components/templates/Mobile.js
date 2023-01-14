@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { CenterLayout } from '../atoms/Layouts';
-import Overlay from '../atoms/Overlay';
-import ShadowBox from '../atoms/ShadowBox';
+import { CenterLayout } from '../atoms/layout/Layouts';
+import Overlay from '../atoms/overlay/Overlay';
+import ContentBox from '../atoms/contentBox/ContentBox';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 
 const MobilePopUp = styled.div`
@@ -28,7 +28,7 @@ const Mobile = () => {
     <MobilePopUp className="mobilePopup">
       <Overlay />
       <PopUp>
-        <ShadowBox>
+        <ContentBox>
           <LogoBox>
             <Logo />
           </LogoBox>
@@ -36,7 +36,7 @@ const Mobile = () => {
             550px 이하 브라우저에서는
             <br /> 서비스를 이용할 수 없어요.
           </h3>
-        </ShadowBox>
+        </ContentBox>
       </PopUp>
     </MobilePopUp>
   );

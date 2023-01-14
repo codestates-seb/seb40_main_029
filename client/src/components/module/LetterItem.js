@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import ShadowBox from '../atoms/ShadowBox';
+import ContentBox from '../atoms/contentBox/ContentBox';
 import { deleteMail, readMail } from '../../api/MailDataApi';
-import { RightBottomLayout } from '../atoms/Layouts';
+import { RightBottomLayout } from '../atoms/layout/Layouts';
 import { memberIdSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
 
@@ -71,7 +71,7 @@ const LetterItem = ({ data, setMailRefresh, setCurrentMail, currentMail }) => {
   };
   return (
     <>
-      <ShadowBox onClick={handleOpenLetter}>
+      <ContentBox onClick={handleOpenLetter}>
         <LetterHeader>
           <div>
             <span>{senderDisplayName}</span>
@@ -88,7 +88,7 @@ const LetterItem = ({ data, setMailRefresh, setCurrentMail, currentMail }) => {
             </RightBottomLayout>
           </>
         ) : null}
-      </ShadowBox>
+      </ContentBox>
     </>
   );
 };

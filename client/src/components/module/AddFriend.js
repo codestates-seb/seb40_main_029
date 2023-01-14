@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import ShadowBox from '../atoms/ShadowBox';
+import ContentBox from '../atoms/contentBox/ContentBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { CenterLayout, RightBottomLayout } from '../atoms/Layouts';
-import Input from '../atoms/Input';
+import { CenterLayout, RightBottomLayout } from '../atoms/layout/Layouts';
+import Input from '../atoms/input/Input';
 import FriendItem from './FriendItem';
-import Button from '../atoms/Button';
+import Button from '../atoms/button/commonButton/Button';
 import { useEffect, useState } from 'react';
 import { addFriend, getAllMembers } from '../../api/FriendDataApi';
 import useInput from '../../utils/useInput';
@@ -13,7 +13,8 @@ import { displayNameSelector } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { TooltipBtn } from '../atoms/TooltipBtn';
+import TooltipButton from '../atoms/button/tooltipButton/TooltipButton';
+
 const PopUp = styled.div`
   z-index: 2;
   button {
@@ -98,11 +99,11 @@ const AddFriend = ({ setIsOpen, friends, setfriendRefresh }) => {
   return (
     <PopUp>
       <CenterLayout>
-        <ShadowBox>
+        <ContentBox>
           <Title>
             <div>
               친구찾기
-              <TooltipBtn info="친구 무드카드로 친구의 기분을 색으로 볼 수 있어요!" />
+              <TooltipButton info="친구 무드카드로 친구의 기분을 색으로 볼 수 있어요!" />
             </div>
             <FontAwesomeIcon icon={faXmark} onClick={CloseModal} />
           </Title>
@@ -141,7 +142,7 @@ const AddFriend = ({ setIsOpen, friends, setfriendRefresh }) => {
               친구추가
             </Button>
           </RightBottomLayout>
-        </ShadowBox>
+        </ContentBox>
       </CenterLayout>
     </PopUp>
   );
