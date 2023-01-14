@@ -1,14 +1,15 @@
-import { Routes, Route, Link } from 'react-router-dom';
-import Home from './components/templates/Home';
-import Login from './components/templates/Login';
-import Signup from './components/templates/Signup';
-import LoginCallback from './components/module/LoginCallback';
+import { Routes, Route } from 'react-router-dom';
+import Home from './components/templates/pages/Home';
+import Login from './components/templates/pages/Login';
+import Signup from './components/templates/pages/Signup';
+import LoginCallback from './components/module/login/LoginCallback';
 import axios from 'axios';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['Referrer-Policy'] = 'no-referrer-when-downgrade';
 
