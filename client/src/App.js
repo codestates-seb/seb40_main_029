@@ -1,8 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from './components/templates/pages/Home';
-import Login from './components/templates/pages/Login';
-import Signup from './components/templates/pages/Signup';
-import LoginCallback from './components/module/login/LoginCallback';
+import Router from './components/router/Router';
 import axios from 'axios';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,12 +15,7 @@ const App = () => {
       <GoogleOAuthProvider
         clientId={`${process.env.REACT_APP_GOOGLE_CLIENT_ID}`}
       >
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/login/callback" element={<LoginCallback />} />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
+        <Router />
         <ToastContainer
           position={'top-right'}
           autoClose={2000}
