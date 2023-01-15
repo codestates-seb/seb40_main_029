@@ -6,13 +6,15 @@ export interface InputProps {
   border?: string;
   color?: string;
   name?: string;
+  id?: string;
 }
 
-const Input = ({ placeholder, value, size, border, color }: InputProps) => {
+const Input = ({ id, placeholder, value, size, border, color }: InputProps) => {
   const sizeStyle = Style.SIZES[size];
   const borderStyle = Style.BORDER[border];
   return (
     <Style.InputItem
+      id={id}
       sizeStyle={sizeStyle}
       borderStyle={borderStyle}
       color={color}

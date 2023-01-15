@@ -57,7 +57,10 @@ const AddFriend = ({ setIsOpen, friends, setfriendRefresh }) => {
           <Style.Title>
             <div>
               친구찾기
-              <TooltipButton info="친구 무드카드로 친구의 기분을 색으로 볼 수 있어요!" />
+              <TooltipButton
+                info="친구 무드카드로 친구의 기분을 색으로 볼 수 있어요!"
+                place="top"
+              />
             </div>
             <FontAwesomeIcon icon={faXmark} onClick={CloseModal} />
           </Style.Title>
@@ -68,13 +71,13 @@ const AddFriend = ({ setIsOpen, friends, setfriendRefresh }) => {
                 id="nickname"
                 border="shadow"
                 color="#f6f6f6"
-                placeHolder="친구를 팔로잉해보세요!"
+                placeholder="친구를 팔로잉해보세요!"
                 value={bindKeyword}
               />
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </Style.InputBox>
           </Style.FilterBox>
-          <Style.FriendListBox label="followFriend">
+          <Style.FriendListBox>
             {filteredMember
               ? filteredMember.map((member, i) => {
                   return (

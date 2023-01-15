@@ -1,6 +1,6 @@
 import * as Style from './MiniCardStyle';
 
-const MiniCard = ({ color, contents, mood }) => {
+const MiniCard = ({ color, contents, mood, onClick, icon }) => {
   return (
     <Style.Card>
       <Style.MoodPic color={color}></Style.MoodPic>
