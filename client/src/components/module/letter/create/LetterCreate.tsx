@@ -61,7 +61,10 @@ const LetterCreate = ({ setIsOpen, pointRefresher }) => {
             <Style.Title>
               <div>
                 <h3>편지쓰기</h3>
-                <TooltipButton info="종이비행기를 누르면 편지가 다음날 친구의 편지함으로 도착해요!" />
+                <TooltipButton
+                  info="종이비행기를 누르면 편지가 다음날 친구의 편지함으로 도착해요!"
+                  place="top"
+                />
               </div>
               <FontAwesomeIcon
                 icon={faXmark}
@@ -93,8 +96,6 @@ const LetterCreate = ({ setIsOpen, pointRefresher }) => {
               </div>
               <label htmlFor="body">내용</label>
               <Style.Textarea
-                border="transparent"
-                size="long"
                 name="body"
                 value={letterBody}
                 onChange={handleTextarea}

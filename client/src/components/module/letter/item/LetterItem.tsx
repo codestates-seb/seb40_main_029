@@ -15,8 +15,10 @@ const LetterItem = ({ data, setMailRefresh, setCurrentMail, currentMail }) => {
     const formatter = new Intl.RelativeTimeFormat('ko', { numeric: 'auto' });
     const sendDay = new Date(day);
     const today = new Date();
-    const base = Math.ceil((sendDay - today) / (1000 * 60 * 60 * 24));
-    date = formatter.format(base > -1 ? -1 : base, 'day');
+    const base = Math.ceil(
+      (sendDay.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+    );
+    date = Number(formatter.format(base > -1 ? -1 : base, 'day'));
   };
   FormatDate(createdAt);
 
@@ -24,7 +26,7 @@ const LetterItem = ({ data, setMailRefresh, setCurrentMail, currentMail }) => {
   const FormatDetailDate = day => {
     const formatter = new Intl.DateTimeFormat('ko');
     const sendDay = new Date(day);
-    detailDate = formatter.format(sendDay);
+    detailDate = Number(formatter.format(sendDay));
   };
   FormatDetailDate(createdAt);
 
