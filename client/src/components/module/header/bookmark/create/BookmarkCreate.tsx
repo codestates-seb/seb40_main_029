@@ -17,8 +17,8 @@ import * as Style from './BookmarkCreateStyle';
 const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
   const [bookName, bookNameBind, nameReset] = useInput('');
   const [bookUrl, bookUrlBind, urlReset] = useInput('');
-  const [validation, setValidation] = useState();
-  const [nameValidation, setNameValidation] = useState();
+  const [validation, setValidation] = useState(false);
+  const [nameValidation, setNameValidation] = useState(false);
 
   const handleBookmarkClose = () => {
     setAddBtnIsOpen(false);
@@ -35,7 +35,11 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
 
   useEffect(() => {
     const urlValidation = () => {
-      urlRegex.test(bookUrl) ? setValidation(true) : setValidation(false);
+      if (urlRegex.test(bookUrl)) {
+        setValidation(true);
+      } else {
+        setValidation(false);
+      }
     };
     urlValidation();
     const bookNames = booksArr.map(book => {
@@ -79,7 +83,10 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
           <Style.Title>
             <div>
               북마크 추가
-              <TooltipButton info="즐겨찾는 사이트의 이름과 url을 저장해보세요!" />
+              <TooltipButton
+                info="즐겨찾는 사이트의 이름과 url을 저장해보세요!"
+                place={top}
+              />
             </div>
             <FontAwesomeIcon icon={faXmark} onClick={handleBookmarkClose} />
           </Style.Title>
@@ -93,9 +100,6 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
                 color="#f6f6f6"
               />
             </label>
-            {/* {nameValidation ? null : (
-              <Validation>같은 이름을 가진 북마크가 있어요!</Validation>
-            )} */}
             <label htmlFor="url">
               <span>URL</span>
               <Input

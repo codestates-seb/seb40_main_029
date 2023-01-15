@@ -4,7 +4,13 @@ import { useSelector } from 'react-redux';
 import { displayNameSelector } from '../../../redux/hooks';
 import * as Style from './UsernameStyle';
 
-const Username = ({ onClick, children, color }) => {
+interface UsernameProps {
+  onClick: React.MouseEventHandler;
+  children?: string;
+  color?: string;
+}
+
+const Username = ({ onClick, children, color }: UsernameProps) => {
   const displayName = useSelector(displayNameSelector);
   return (
     <Style.Username onClick={onClick} color={color}>

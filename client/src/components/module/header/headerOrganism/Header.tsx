@@ -42,7 +42,7 @@ function Header({ userPoint }) {
   const onClick = () => {
     setIsOpen(!isOpen);
   };
-  const ref = useRef();
+  const ref = useRef<HTMLInputElement>();
   const clickOut = e => {
     if (isOpen && ref.current && !ref.current.contains(e.target)) {
       setIsOpen(false);
@@ -65,7 +65,10 @@ function Header({ userPoint }) {
           </Style.HeaderTitle>
           <Style.BookmarkWrapper>
             <Bookmark />
-            <TooltipButton info="별을 클릭해 북마크를 만들고, 손을 클릭해 북마크 리스트를 열고 닫을 수 있어요!" />
+            <TooltipButton
+              info="별을 클릭해 북마크를 만들고, 손을 클릭해 북마크 리스트를 열고 닫을 수 있어요!"
+              place="right"
+            />
           </Style.BookmarkWrapper>
         </div>
         <Style.GnbLayout ref={ref}>
@@ -82,7 +85,7 @@ function Header({ userPoint }) {
           ) : (
             <>
               <Style.Contain>
-                <Username onClick={onClick}></Username>
+                <Username onClick={onClick} />
                 <Style.LoginBtnContain>
                   <GoogleLogin />
                 </Style.LoginBtnContain>

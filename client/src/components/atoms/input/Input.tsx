@@ -5,6 +5,7 @@ export interface InputProps {
   size?: string;
   border?: string;
   color?: string;
+  name?: string;
 }
 
 const Input = ({ placeholder, value, size, border, color }: InputProps) => {

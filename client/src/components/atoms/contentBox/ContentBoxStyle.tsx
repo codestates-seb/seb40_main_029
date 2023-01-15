@@ -1,13 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const SIZES = {
-  long: css`
-    --contentBox-height: 100%;
-  `,
-};
-
-export const Box = styled.div<{ sizeStyle: string }>`
-  ${props => props.sizeStyle};
+export const Box = styled.div`
   margin: 16px;
   border-radius: 10px;
   padding: 16px 30px;
