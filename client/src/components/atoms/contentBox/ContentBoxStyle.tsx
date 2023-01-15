@@ -6,7 +6,7 @@ export const SIZES = {
   `,
 };
 
-export const Box = styled.div`
+export const Box = styled.div<{ sizeStyle: string }>`
   ${props => props.sizeStyle};
   margin: 16px;
   border-radius: 10px;

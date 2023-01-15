@@ -26,7 +26,12 @@ export const FONTSIZES = {
   `,
 };
 
-export const Btn = styled.button`
+interface ButtonStyleProps {
+  sizeStyle;
+  fontSizeStyle;
+}
+
+export const Button = styled.button<ButtonStyleProps>`
   ${props => props.sizeStyle}
   ${props => props.fontSizeStyle}
 

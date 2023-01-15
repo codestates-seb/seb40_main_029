@@ -17,7 +17,7 @@ const Pagination = ({ total, limit, page, setPage }) => {
               <FontAwesomeIcon icon={faChevronLeft} />
             </Style.Page>
             {Array(numPages)
-              .fill()
+              .fill(undefined)
               .map((_, i) => (
                 <Style.Page
                   key={i + 1}

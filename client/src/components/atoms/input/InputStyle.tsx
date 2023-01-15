@@ -15,7 +15,12 @@ export const BORDER = {
   `,
 };
 
-export const InputItem = styled.input`
+interface InputStyleProps {
+  sizeStyle: string;
+  borderStyle: string;
+}
+
+export const InputItem = styled.input<InputStyleProps>`
   ${props => props.sizeStyle};
   ${props => props.borderStyle};
   height: var(--input-height);
