@@ -1,4 +1,4 @@
-import Router from './components/router/Router';
+import Router from './router/Router';
 import axios from 'axios';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
