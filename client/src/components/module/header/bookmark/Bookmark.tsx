@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import BookmarkHandle from '../edit/BookmarkEdit';
-import BookmarkItem from '../item/BookmarkItem';
-import * as Style from './BookmarkStyle';
-import { BookItemType } from '../BookmarkType';
+import BookmarkHandle from './edit/BookmarkEdit';
+import BookmarkItem from './item/BookmarkItem';
+import * as Style from './organism/BookmarkStyle';
+import { BookItemType } from './BookmarkType';
 
 const Bookmark = () => {
   const [booksArr, setBookmarkArr] = useState<BookItemType[]>(
