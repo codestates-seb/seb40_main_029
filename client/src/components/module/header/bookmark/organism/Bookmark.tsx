@@ -2,9 +2,10 @@ import { useState } from 'react';
 import BookmarkHandle from '../edit/BookmarkEdit';
 import BookmarkItem from '../item/BookmarkItem';
 import * as Style from './BookmarkStyle';
+import { BookItemType } from '../BookmarkType';
 
 const Bookmark = () => {
-  const [booksArr, setBookmarkArr] = useState(
+  const [booksArr, setBookmarkArr] = useState<BookItemType[]>(
     JSON.parse(localStorage.getItem('bookmark')) || []
   );
   const [minBooks, setMinbooks] = useState(true);
@@ -14,7 +15,7 @@ const Bookmark = () => {
   return (
     <Style.BookmarkBox>
       {booksArr
-        ? minBooksList.map((book, i) => {
+        ? minBooksList.map((book, i: number) => {
             return (
               <BookmarkItem
                 key={i}

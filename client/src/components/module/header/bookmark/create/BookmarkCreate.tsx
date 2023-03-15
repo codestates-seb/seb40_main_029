@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Button from '../../../../atoms/button/commonButton/Button';
@@ -13,8 +13,17 @@ import TooltipButton from '../../../../atoms/button/tooltipButton/TooltipButton'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Style from './BookmarkCreateStyle';
+import { BookmarkProps } from '../BookmarkType';
 
-const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
+export interface BookmarkSetType extends BookmarkProps {
+  setAddBtnIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const BookmarkCreate = ({
+  setAddBtnIsOpen,
+  booksArr,
+  setBookmarkArr,
+}: BookmarkSetType) => {
   const [bookName, bookNameBind, nameReset] = useInput('');
   const [bookUrl, bookUrlBind, urlReset] = useInput('');
   const [validation, setValidation] = useState(false);
@@ -53,7 +62,7 @@ const BookmarkCreate = ({ setAddBtnIsOpen, booksArr, setBookmarkArr }) => {
     bookNameValidation();
   }, [bookUrl, bookName]);
 
-  const handleBookmarkSubmit = e => {
+  const handleBookmarkSubmit: MouseEventHandler<HTMLButtonElement> = e => {
     e.preventDefault();
     if (booksArr.length < 10 && validation && nameValidation) {
       setBookmarkArr([

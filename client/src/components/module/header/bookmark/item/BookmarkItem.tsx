@@ -2,9 +2,11 @@ import Button from '../../../../atoms/button/commonButton/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import * as Style from './BookmarkItemStyle';
+import { BookmarkProps } from '../BookmarkType';
 
-const BookmarkItem = ({ book, booksArr, setBookmarkArr }) => {
+const BookmarkItem = ({ book, booksArr, setBookmarkArr }: BookmarkProps) => {
   const { url, name } = book;
+
   const bookmarkDelete = () => {
     const filteredData = booksArr.filter(book => {
       return book.name !== name;
@@ -12,7 +14,7 @@ const BookmarkItem = ({ book, booksArr, setBookmarkArr }) => {
     localStorage.setItem('bookmark', JSON.stringify(filteredData));
     setBookmarkArr(filteredData);
   };
-  const handleOpenLink = url => {
+  const handleOpenLink = (url: string) => {
     window.open(url, '_blank');
   };
 
