@@ -14,8 +14,14 @@ import { faXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Style from './Style';
+import { Friend } from '../FriendType';
 
-const AddFriend = ({ setIsOpen, friends, setfriendRefresh }) => {
+interface AddFriendType {
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  friends: Friend[];
+}
+
+const AddFriend = ({ setIsOpen, friends, setfriendRefresh }: AddFriendType) => {
   const [userList, setUserList] = useState([]);
   const [keyword, bindKeyword] = useInput('');
   const [respondentDisplayName, setRespondentDisplayName] = useState('');

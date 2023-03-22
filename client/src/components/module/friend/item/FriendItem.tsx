@@ -1,14 +1,19 @@
 import * as Style from './Style';
+import { UserType } from '../../../../types/UserType';
 
-const FriendItem = ({ member, setRespondentDisplayName }) => {
-  const onClick = async () => {
-    await setRespondentDisplayName(member.displayName);
+interface FriendItemType {
+  member: UserType;
+  setRespondentDisplayName: React.Dispatch<React.SetStateAction<string>>;
+}
+const FriendItem = ({ member, setRespondentDisplayName }: FriendItemType) => {
+  const onClick = () => {
+    setRespondentDisplayName(member.displayName);
   };
   return (
-    <Style.Item htmlFor={member?.memberId}>
+    <Style.Item htmlFor={member?.displayName}>
       <input
         type="radio"
-        id={member?.memberId}
+        id={member?.displayName}
         value={member?.displayName}
         name="followFriend"
         onClick={onClick}
