@@ -1,9 +1,10 @@
 import * as Style from './InputStyle';
+
 export interface InputProps {
   placeholder?: string;
-  value;
-  size?: string;
-  border?: string;
+  value: string[];
+  size?: 'long';
+  border?: 'shadow' | 'transparent';
   color?: string;
   name?: string;
   id?: string;

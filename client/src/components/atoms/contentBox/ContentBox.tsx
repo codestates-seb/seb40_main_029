@@ -1,7 +1,7 @@
 import * as Style from './ContentBoxStyle';
 
 interface ContentBoxProps {
-  children: any;
+  children: React.ReactNode;
   onClick?: React.MouseEventHandler;
 }
 

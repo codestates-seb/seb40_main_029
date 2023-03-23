@@ -6,7 +6,13 @@ import {
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
 
-const Pagination = ({ total, limit, page, setPage }) => {
+interface PaginationType {
+  total: number; //총 컨텐츠 개수
+  limit: number; //최대 컨텐츠 개수
+  page: number; //페이지 개수
+  setPage: React.Dispatch<React.SetStateAction<number>>; //페이지 개수 세팅
+}
+const Pagination = ({ total, limit, page, setPage }: PaginationType) => {
   const numPages = Math.ceil(total / limit);
   return (
     <>

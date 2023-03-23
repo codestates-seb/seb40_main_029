@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 
 export const SIZES = {
   long: css`
@@ -16,8 +16,8 @@ export const BORDER = {
 };
 
 interface InputStyleProps {
-  sizeStyle: string;
-  borderStyle: string;
+  sizeStyle: FlattenSimpleInterpolation;
+  borderStyle: FlattenSimpleInterpolation;
 }
 
 export const InputItem = styled.input<InputStyleProps>`

@@ -1,6 +1,15 @@
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import * as Style from './MiniCardStyle';
 
-const MiniCard = ({ color, contents, mood, onClick, icon }) => {
+interface CardType {
+  color: string;
+  contents: React.ReactNode;
+  mood: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  icon?: IconDefinition;
+}
+
+const MiniCard = ({ color, contents, mood, onClick, icon }: CardType) => {
   return (
     <Style.Card>
       <Style.MoodPic color={color}></Style.MoodPic>
