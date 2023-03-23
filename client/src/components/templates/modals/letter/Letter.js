@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Letters from '../../../module/letter/Organism/Letters';
+import Letters from '../../../module/letter/Letters';
 import LetterCreate from '../../../module/letter/create/LetterCreate';
 import Overlay from '../../../atoms/overlay/Overlay';
 

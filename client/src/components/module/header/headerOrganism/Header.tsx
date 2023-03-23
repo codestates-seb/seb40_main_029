@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Username from '../../../atoms/username/Username';
 import TooltipButton from '../../../atoms/button/tooltipButton/TooltipButton';
-import Bookmark from '../bookmark/organism/Bookmark';
+import Bookmark from '../bookmark/Bookmark';
 import Nav from '../gnb/Nav';
 import GoogleLogin from '../login/GoogleLogin';
 import { getCookie } from '../../../../utils/cookie';
