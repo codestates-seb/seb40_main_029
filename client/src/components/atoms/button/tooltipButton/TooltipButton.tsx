@@ -3,7 +3,11 @@ import ReactTooltip from 'react-tooltip';
 import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
 import * as Style from './TooltipButtonStyle';
 
-const TooltipButton = ({ info, place }) => {
+interface TooltipProps {
+  info: string;
+  place: 'top' | 'right' | 'bottom' | 'left';
+}
+const TooltipButton = ({ info, place }: TooltipProps) => {
   return (
     <>
       <Style.Info

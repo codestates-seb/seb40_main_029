@@ -1,5 +1,4 @@
-import styled, { css } from 'styled-components';
-
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 export const SIZES = {
   circle: css`
     --button-padding: 10px;
@@ -27,8 +26,8 @@ export const FONTSIZES = {
 };
 
 interface ButtonStyleProps {
-  sizeStyle;
-  fontSizeStyle;
+  sizeStyle?: FlattenSimpleInterpolation;
+  fontSizeStyle?: FlattenSimpleInterpolation;
 }
 
 export const Button = styled.button<ButtonStyleProps>`
