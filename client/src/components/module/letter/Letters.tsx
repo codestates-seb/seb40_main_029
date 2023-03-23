@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { memberIdSelector } from '../../../../redux/hooks';
-import { getCookie } from '../../../../utils/cookie';
-import { getAllMails } from '../../../../api/MailDataApi';
-import Button from '../../../atoms/button/commonButton/Button';
-import ContentBox from '../../../atoms/contentBox/ContentBox';
-import { RightBottomLayout } from '../../../atoms/layout/Layouts';
-import Pagination from '../../../atoms/pagination/Pagination';
-import Overlay from '../../../atoms/overlay/Overlay';
-import LetterItem from '../item/LetterItem';
-import { MailModal } from '../../modal/Modal';
+import { memberIdSelector } from '../../../redux/hooks';
+import { getCookie } from '../../../utils/cookie';
+import { getAllMails } from '../../../api/MailDataApi';
+import Button from '../../atoms/button/commonButton/Button';
+import ContentBox from '../../atoms/contentBox/ContentBox';
+import { RightBottomLayout } from '../../atoms/layout/Layouts';
+import Pagination from '../../atoms/pagination/Pagination';
+import Overlay from '../../atoms/overlay/Overlay';
+import LetterItem from './item/LetterItem';
+import { MailModal } from '../modal/Modal';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Style from './Style';
+import { ModalType } from '../../../types/ModalTypes';
 
-const Letters = ({ setIsOpen, isOpen }) => {
+const Letters = ({ setIsOpen, isOpen }: ModalType) => {
   const [mails, setMails] = useState([]);
   const [mailRefresh, setMailRefresh] = useState(1);
   const limit = 4;
@@ -53,7 +54,7 @@ const Letters = ({ setIsOpen, isOpen }) => {
               return (
                 <LetterItem
                   key={i}
-                  data={mail}
+                  mail={mail}
                   setMailRefresh={setMailRefresh}
                   setCurrentMail={setCurrentMail}
                   currentMail={currentMail}
