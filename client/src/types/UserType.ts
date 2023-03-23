@@ -64,7 +64,7 @@ export interface UserType {
   displayName: string;
   palette: SettedPalette;
   point: number;
-  role: 'USER';
+  role: 'USER' | 'ADMIN';
   palettes: Palette[];
-  friends: string[]; //프렌드타입에서 디스플레이네임 pick해오기
+  friends: string[];
 }
