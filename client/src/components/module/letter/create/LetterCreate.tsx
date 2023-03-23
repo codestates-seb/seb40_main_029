@@ -12,8 +12,10 @@ import TooltipButton from '../../../atoms/button/tooltipButton/TooltipButton';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Style from './Style';
+import { ModalType } from '../../../../types/ModalTypes';
 
-const LetterCreate = ({ setIsOpen, pointRefresher }) => {
+type LetterCreateType = Pick<ModalType, 'setIsOpen'>;
+const LetterCreate = ({ setIsOpen, pointRefresher }: LetterCreateType) => {
   const [friends, setFriends] = useState([]);
   const [friend, setFriend] = useState('');
   const [letterBody, setLetterBody] = useState('');

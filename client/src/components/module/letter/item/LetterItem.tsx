@@ -5,13 +5,25 @@ import { deleteMail, readMail } from '../../../../api/MailDataApi';
 import ContentBox from '../../../atoms/contentBox/ContentBox';
 import { RightBottomLayout } from '../../../atoms/layout/Layouts';
 import * as Style from './Style';
+import { Mail } from '../Mail';
+type CurremtMail = Pick<Mail, 'mailId'>;
+interface LetterPropsType {
+  mail: Mail;
+  setCurrentMail: React.Dispatch<React.SetStateAction<CurremtMail>>;
+  currentMail: CurremtMail;
+}
 
-const LetterItem = ({ data, setMailRefresh, setCurrentMail, currentMail }) => {
-  const { mailId, senderDisplayName, createdAt, body, verifyMail } = data;
+const LetterItem = ({
+  mail,
+  setMailRefresh,
+  setCurrentMail,
+  currentMail,
+}: LetterPropsType) => {
+  const { mailId, senderDisplayName, createdAt, body, verifyMail } = mail;
   const [isOpen, setIsOpen] = useState(false);
   const memberId = useSelector(memberIdSelector);
   let date = 0;
-  const FormatDate = day => {
+  const FormatDate = (day: Date) => {
     const formatter = new Intl.RelativeTimeFormat('ko', { numeric: 'auto' });
     const sendDay = new Date(day);
     const today = new Date();
@@ -23,7 +35,7 @@ const LetterItem = ({ data, setMailRefresh, setCurrentMail, currentMail }) => {
   FormatDate(createdAt);
 
   let detailDate = 0;
-  const FormatDetailDate = day => {
+  const FormatDetailDate = (day: Date) => {
     const formatter = new Intl.DateTimeFormat('ko');
     const sendDay = new Date(day);
     detailDate = Number(formatter.format(sendDay));
