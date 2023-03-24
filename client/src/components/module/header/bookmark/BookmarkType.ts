@@ -9,3 +9,7 @@ export interface BookmarkState {
 export interface BookmarkProps extends BookmarkState {
   book?: BookItemType;
 }
+export interface EditBookProps extends BookmarkProps {
+  minBooks: boolean;
+  setMinbooks: React.Dispatch<React.SetStateAction<boolean>>;
+}

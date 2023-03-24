@@ -9,14 +9,14 @@ import { useState } from 'react';
 import BookmarkCreate from '../create/BookmarkCreate';
 import Overlay from '../../../../atoms/overlay/Overlay';
 import * as Style from './BookmarkEditStyle';
-import { BookmarkProps } from '../BookmarkType';
+import { EditBookProps } from '../BookmarkType';
 
 const BookmarkEdit = ({
   booksArr,
   setBookmarkArr,
   minBooks,
   setMinbooks,
-}: BookmarkProps) => {
+}: EditBookProps) => {
   const [addBtnIsOpen, setAddBtnIsOpen] = useState<boolean>(false);
   const onClickAddBtn = () => {
     setAddBtnIsOpen(!addBtnIsOpen);
