@@ -25,7 +25,7 @@ export interface Friend {
  * @property {string} friend - 친구 닉네임
  * @property {string} friendsColor - 친구의 무드컬러 @memo 컬러코드가 따로 있는데 왜 굳이 또 find를 써가면서 뽑았을까? 데이터가 바뀌었던건지?
  */
-export interface FriendCard {
+export interface FriendCardType {
   friend: Friend;
   friendsColor: Pick<
     Friend,

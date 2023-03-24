@@ -9,9 +9,13 @@ import MiniCard from '../../../atoms/minicard/MiniCard';
 import { useSelector } from 'react-redux';
 import { paletteCodeSelector } from '../../../../redux/hooks';
 import * as Style from './Style';
-import { FriendCard } from '../FriendType';
+import { FriendCardType } from '../FriendType';
 
-const FriendCard = ({ friend, setfriendRefresh, friendsColor }: FriendCard) => {
+const FriendCard = ({
+  friend,
+  setfriendRefresh,
+  friendsColor,
+}: FriendCardType) => {
   const handleDeleteFriend = () => {
     const friendId = friend.respondentId;
     const fetchData = async () => {
