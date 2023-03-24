@@ -1,22 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
-import Username from '../../../atoms/username/Username';
-import TooltipButton from '../../../atoms/button/tooltipButton/TooltipButton';
-import Bookmark from '../bookmark/Bookmark';
-import Nav from '../gnb/Nav';
-import GoogleLogin from '../login/GoogleLogin';
-import { getCookie } from '../../../../utils/cookie';
-import { getSpecificPalette } from '../../../../api/FriendDataApi';
+import Username from '../../atoms/username/Username';
+import TooltipButton from '../../atoms/button/tooltipButton/TooltipButton';
+import Bookmark from './bookmark/Bookmark';
+import Nav from './gnb/Nav';
+import GoogleLogin from './login/GoogleLogin';
+import { getCookie } from '../../../utils/cookie';
+import { getSpecificPalette } from '../../../api/FriendDataApi';
 import { useSelector } from 'react-redux';
 import {
   moodSelector,
   paletteCodeSelector,
   displayNameSelector,
-} from '../../../../redux/hooks';
+} from '../../../redux/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import * as Style from './HeaderStyle';
+import { UserType } from '../../../types/UserType';
 
-function Header({ userPoint }) {
+type UserPoint = Pick<UserType, 'point'>;
+
+function Header({ point }: UserPoint) {
   const [palette, setPalette] = useState([]);
   const userMood = useSelector(moodSelector);
   const userPalette = useSelector(paletteCodeSelector);
@@ -42,9 +45,9 @@ function Header({ userPoint }) {
   const onClick = () => {
     setIsOpen(!isOpen);
   };
-  const ref = useRef<HTMLInputElement>();
-  const clickOut = e => {
-    if (isOpen && ref.current && !ref.current.contains(e.target)) {
+  const ref = useRef<HTMLDivElement>();
+  const clickOut = (e: MouseEvent) => {
+    if (isOpen && ref.current && !ref.current.contains(e.target as Node)) {
       setIsOpen(false);
     }
   };
@@ -79,7 +82,7 @@ function Header({ userPoint }) {
               </Username>
               <Style.Point>
                 <FontAwesomeIcon icon={faSackDollar} />
-                {userPoint}
+                {point}
               </Style.Point>
             </>
           ) : (
