@@ -94,7 +94,7 @@ const BookmarkCreate = ({
               북마크 추가
               <TooltipButton
                 info="즐겨찾는 사이트의 이름과 url을 저장해보세요!"
-                place={top}
+                place="top"
               />
             </div>
             <FontAwesomeIcon icon={faXmark} onClick={handleBookmarkClose} />

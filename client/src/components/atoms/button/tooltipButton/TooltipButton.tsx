@@ -2,12 +2,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactTooltip from 'react-tooltip';
 import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
 import * as Style from './TooltipButtonStyle';
+import { TooltipProps } from 'react-tooltip';
 
-interface TooltipProps {
-  info: string;
-  place: 'top' | 'right' | 'bottom' | 'left';
+interface TooltipButtonProps extends TooltipProps {
+  info: string; //사용법 안내문
 }
-const TooltipButton = ({ info, place }: TooltipProps) => {
+const TooltipButton = ({ info, place }: TooltipButtonProps) => {
   return (
     <>
       <Style.Info
