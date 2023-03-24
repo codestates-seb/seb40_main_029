@@ -27,14 +27,14 @@ const LetterCreate = ({ setIsOpen, pointRefresher }: LetterCreateType) => {
     };
     fetchData();
   }, []);
-  const handleSelect = e => {
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFriend(e.target.value);
   };
-  const handleTextarea = e => {
+  const handleTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setLetterBody(e.target.value);
   };
   const senderName = useSelector(displayNameSelector);
-  const handleSendLetter = e => {
+  const handleSendLetter = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (letterBody.length > 300) {
       toast('300자 이하로만 편지를 보낼 수 있어요!');

@@ -6,11 +6,11 @@ import ContentBox from '../../../atoms/contentBox/ContentBox';
 import { RightBottomLayout } from '../../../atoms/layout/Layouts';
 import * as Style from './Style';
 import { Mail } from '../Mail';
-type CurremtMail = Pick<Mail, 'mailId'>;
+
 interface LetterPropsType {
-  mail: Mail;
-  setCurrentMail: React.Dispatch<React.SetStateAction<CurremtMail>>;
-  currentMail: CurremtMail;
+  mail: Mail; //편지 객체
+  setCurrentMail: React.Dispatch<React.SetStateAction<number>>;
+  currentMail: number; //pk
 }
 
 const LetterItem = ({
@@ -23,7 +23,7 @@ const LetterItem = ({
   const [isOpen, setIsOpen] = useState(false);
   const memberId = useSelector(memberIdSelector);
   let date = 0;
-  const FormatDate = (day: Date) => {
+  const FormatDate = (day: string) => {
     const formatter = new Intl.RelativeTimeFormat('ko', { numeric: 'auto' });
     const sendDay = new Date(day);
     const today = new Date();
@@ -35,7 +35,7 @@ const LetterItem = ({
   FormatDate(createdAt);
 
   let detailDate = 0;
-  const FormatDetailDate = (day: Date) => {
+  const FormatDetailDate = (day: string) => {
     const formatter = new Intl.DateTimeFormat('ko');
     const sendDay = new Date(day);
     detailDate = Number(formatter.format(sendDay));
