@@ -12,7 +12,7 @@ import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import * as Style from './Style';
 
-const MonthlyLookback = ({ setHidenCard }) => {
+const MonthlyLookback = ({ setHiddenCard }) => {
   const dispatch = useDispatch();
   const [topColors, setTopColors] = useState();
   const currentMonth = dayjs(new Date()).format('MM');
@@ -43,7 +43,7 @@ const MonthlyLookback = ({ setHidenCard }) => {
 
   const handleCloseModal = () => {
     dispatch(closeModal());
-    setHidenCard(false);
+    setHiddenCard(false);
   };
 
   useEffect(() => {

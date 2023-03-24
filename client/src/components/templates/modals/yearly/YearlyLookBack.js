@@ -32,7 +32,7 @@ const dum = [
   '#1B4793',
 ];
 
-const LookBack = ({ lookbackRefresh, setHidenCard }) => {
+const LookBack = ({ lookbackRefresh, setHiddenCard }) => {
   const paletteCode = useSelector(paletteCodeSelector);
   const memberId = useSelector(memberIdSelector);
   const displayName = useSelector(displayNameSelector);
@@ -164,7 +164,7 @@ const LookBack = ({ lookbackRefresh, setHidenCard }) => {
   };
 
   return (
-    <LookBackModal setHidenCard={setHidenCard}>
+    <LookBackModal setHiddenCard={setHiddenCard}>
       <Wrapper>
         {data.length === 0 ? (
           <article>
@@ -222,10 +222,10 @@ const LookBack = ({ lookbackRefresh, setHidenCard }) => {
                       selectedData === undefined
                         ? '#eeeeee'
                         : palette[
-                            Number(
-                              selectedData.moodPaletteDetails.moodCode[3]
-                            ) - 1
-                          ]
+                        Number(
+                          selectedData.moodPaletteDetails.moodCode[3]
+                        ) - 1
+                        ]
                     }
                   />
                   <Info>

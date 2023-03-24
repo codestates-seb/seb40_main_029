@@ -1,11 +1,12 @@
 import { useSelector } from 'react-redux';
-import { selectModal } from '../../../../redux/modalSlice';
-import FriendModal from '../friend/Friend';
-import LetterModal from '../letter/Letter';
-import TodoModal from '../todo/TodoList';
-import ThemeModal from '../theme/ThemeStore';
-import MonthlyLookback from '../monthly/MonthlyLookback';
-import YearlyLookBack from '../yearly/YearlyLookBack';
+import { selectModal } from '../../../redux/modalSlice';
+import FriendModal from './friend/Friend';
+import LetterModal from './letter/Letter';
+import TodoModal from './todo/TodoList';
+import ThemeModal from './theme/ThemeStore';
+import MonthlyLookback from './monthly/MonthlyLookback';
+import YearlyLookBack from './yearly/YearlyLookBack';
+import { GlobalModalType } from '../../../types/ModalTypes';
 
 const MODAL_TYPES = {
   LetterModal: 'LetterModal',
@@ -17,11 +18,11 @@ const MODAL_TYPES = {
 };
 
 function GlobalModal({
-  setHidenCard,
+  setHiddenCard,
   lookbackRefresh,
   lookbackRefresher,
   pointRefresher,
-}) {
+}: GlobalModalType) {
   const MODAL_COMPONENTS = [
     {
       type: MODAL_TYPES.LetterModal,
@@ -46,13 +47,13 @@ function GlobalModal({
     },
     {
       type: MODAL_TYPES.MonthlyModal,
-      component: <MonthlyLookback setHidenCard={setHidenCard} />,
+      component: <MonthlyLookback setHiddenCard={setHiddenCard} />,
     },
     {
       type: MODAL_TYPES.LookbackModal,
       component: (
         <YearlyLookBack
-          setHidenCard={setHidenCard}
+          setHiddenCard={setHiddenCard}
           lookbackRefresh={lookbackRefresh}
         />
       ),
