@@ -1,6 +1,6 @@
 import Overlay from '../../../atoms/overlay/Overlay';
 import ContentBox from '../../../atoms/contentBox/ContentBox';
-import { ReactComponent as Logo } from '../../../../assets/logo.svg';
+import Logo from '../../../../assets/logo.svg';
 import * as Style from './Style';
 
 const Mobile = () => {
