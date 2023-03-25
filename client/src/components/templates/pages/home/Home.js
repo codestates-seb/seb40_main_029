@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { ContentLayout } from '../../../atoms/layout/Layouts';
-import Header from '../../../module/header/headerOrganism/Header';
+import Header from '../../../module/header/Header';
 import MoodSelector from '../../../module/mood/MoodSelector';
-import GlobalModal from '../../modals/handleModal/GlobalModal';
+import GlobalModal from '../../modals/GlobalModal';
 import Mobile from '../mobileAlert/MobileAlert';
 import { GetPoint } from '../../../../api/GetPointApi';
 import { memberIdSelector } from '../../../../redux/hooks';
@@ -17,7 +17,7 @@ const Home = () => {
   const [userPoint, setUserPoint] = useState(1);
   const memberId = useSelector(memberIdSelector);
   const { modalType } = useSelector(selectModal);
-  const [hidenCard, setHidenCard] = useState(false);
+  const [hiddenCard, setHiddenCard] = useState(false);
   const accessToken = getCookie('accessToken');
 
   const [lookbackRefresh, setLookbackRefresh] = useState(-1);
@@ -32,9 +32,9 @@ const Home = () => {
 
   useEffect(() => {
     if (modalType === 'LookbackModal' || modalType === 'MonthlyModal') {
-      setHidenCard(true);
+      setHiddenCard(true);
     } else {
-      setHidenCard(false);
+      setHiddenCard(false);
     }
   }, [modalType]);
 
@@ -66,14 +66,14 @@ const Home = () => {
   }, []);
   return (
     <Style.Browser>
-      <Header userPoint={userPoint} />
+      <Header point={userPoint} />
       {mobile ? (
         <ContentLayout>
           <Mobile />
         </ContentLayout>
       ) : (
         <ContentLayout>
-          {hidenCard ? null : (
+          {hiddenCard ? null : (
             <div>
               <MoodSelector
                 lookbackRefresher={lookbackRefresher}
@@ -82,7 +82,7 @@ const Home = () => {
             </div>
           )}
           <GlobalModal
-            setHidenCard={setHidenCard}
+            setHiddenCard={setHiddenCard}
             lookbackRefresh={lookbackRefresh}
             lookbackRefresher={lookbackRefresher}
             pointRefresher={pointRefresher}
