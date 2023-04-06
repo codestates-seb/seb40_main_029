@@ -163,6 +163,12 @@ const LookBack = ({ lookbackRefresh, setHiddenCard }) => {
     }
   };
 
+  const colorPick = () => {
+    return selectedData === undefined
+      ? '#eeeeee'
+      : palette[Number(selectedData.moodPaletteDetails.moodCode[3]) - 1];
+  };
+
   return (
     <LookBackModal setHiddenCard={setHiddenCard}>
       <Wrapper>
@@ -216,18 +222,7 @@ const LookBack = ({ lookbackRefresh, setHiddenCard }) => {
               <MoodCard>
                 <Title>하루 돌아보기</Title>
                 <CardContainer viewDetails={viewDetails}>
-                  <Mood
-                    viewDetails={viewDetails}
-                    color={
-                      selectedData === undefined
-                        ? '#eeeeee'
-                        : palette[
-                        Number(
-                          selectedData.moodPaletteDetails.moodCode[3]
-                        ) - 1
-                        ]
-                    }
-                  />
+                  <Mood viewDetails={viewDetails} color={colorPick} />
                   <Info>
                     <Type>
                       {selectedData === undefined
