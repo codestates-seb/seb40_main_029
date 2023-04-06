@@ -102,21 +102,11 @@ const BookmarkCreate = ({
           <Style.InputWraper>
             <label htmlFor="name">
               <span>이름</span>
-              <Input
-                name="name"
-                value={bookNameBind}
-                border="shadow"
-                color="#f6f6f6"
-              />
+              <Input name="name" value={bookNameBind} color="#f6f6f6" />
             </label>
             <label htmlFor="url">
               <span>URL</span>
-              <Input
-                name="url"
-                value={bookUrlBind}
-                border="shadow"
-                color="#f6f6f6"
-              />
+              <Input name="url" value={bookUrlBind} color="#f6f6f6" />
             </label>
             {validation || !bookUrlBind.value.length ? null : (
               <Style.Validation>유효한 URL이 아니예요!</Style.Validation>
