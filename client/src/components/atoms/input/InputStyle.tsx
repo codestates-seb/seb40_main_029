@@ -1,34 +1,12 @@
-import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
+import styled from 'styled-components';
 
-export const SIZES = {
-  long: css`
-    --input-height: 200px;
-  `,
-};
-
-export const BORDER = {
-  shadow: css`
-    --input-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25), -2px -2px 5px #faf8ff;
-  `,
-  transparent: css`
-    --input-shadow: none;
-  `,
-};
-
-interface InputStyleProps {
-  sizeStyle: FlattenSimpleInterpolation;
-  borderStyle: FlattenSimpleInterpolation;
-}
-
-export const InputItem = styled.input<InputStyleProps>`
-  ${props => props.sizeStyle};
-  ${props => props.borderStyle};
-  height: var(--input-height);
+export const InputItem = styled.input`
   border: none;
   padding: 4px 8px;
   border-radius: 10px;
   margin-bottom: 16px;
-  box-shadow: var(--input-shadow);
+  box-shadow: none;
+  /* box-shadow: 2px 2px 5px rgba(22, 27, 29, 0.25), -2px -2px 5px #faf8ff; */
   margin: 8px 0;
   background-color: ${props => (props.color ? props.color : 'white')};
 `;

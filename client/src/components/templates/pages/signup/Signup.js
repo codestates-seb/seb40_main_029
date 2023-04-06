@@ -67,11 +67,7 @@ export default function Signup() {
     <Style.Container>
       <Style.InputContainer>
         <Style.InputHeader>닉네임을 입력해주세요</Style.InputHeader>
-        <Input
-          value={displayNameBind}
-          border="shadow"
-          oninput={handleInputLength(10)}
-        />
+        <Input value={displayNameBind} oninput={handleInputLength(10)} />
         <Style.Button
           size="long"
           fontSize="little"
