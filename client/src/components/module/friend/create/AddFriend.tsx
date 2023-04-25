@@ -75,7 +75,6 @@ const AddFriend = ({ setIsOpen, friends, setfriendRefresh }: AddFriendType) => {
             <Style.InputBox>
               <Input
                 id="nickname"
-                border="shadow"
                 color="#f6f6f6"
                 placeholder="친구를 팔로잉해보세요!"
                 value={bindKeyword}
