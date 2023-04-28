@@ -25,7 +25,7 @@ function GlobalModal({ setHiddenCard }: GlobalModalType) {
     },
     {
       type: MODAL_TYPES.TodoModal,
-      component: <TodoModal />,
+      component: <TodoModal lookbackRefresher={undefined} />,
     },
     {
       type: MODAL_TYPES.FriendModal,
@@ -41,7 +41,12 @@ function GlobalModal({ setHiddenCard }: GlobalModalType) {
     },
     {
       type: MODAL_TYPES.LookbackModal,
-      component: <YearlyLookBack setHiddenCard={setHiddenCard} />,
+      component: (
+        <YearlyLookBack
+          setHiddenCard={setHiddenCard}
+          lookbackRefresh={undefined}
+        />
+      ),
     },
   ];
   const { modalType, isOpen } = useSelector(selectModal);
