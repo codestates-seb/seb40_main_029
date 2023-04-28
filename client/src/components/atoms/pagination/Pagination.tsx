@@ -13,7 +13,7 @@ interface PaginationType {
   setPage: React.Dispatch<React.SetStateAction<number>>; //페이지 개수 세팅
 }
 const Pagination = ({ total, limit, page, setPage }: PaginationType) => {
-  const numPages = Math.ceil(total / limit);
+  const numPages = total > 0 && limit > 0 ? Math.ceil(total / limit) : 1;
   return (
     <>
       {numPages > 1 ? (
