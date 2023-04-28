@@ -16,31 +16,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import * as Style from './HeaderStyle';
 import { UserType } from '../../../types/UserType';
+import { useQuery } from '@tanstack/react-query';
 
 type UserPoint = Pick<UserType, 'point'>;
 
 function Header({ point }: UserPoint) {
-  const [palette, setPalette] = useState([]);
   const userMood = useSelector(moodSelector);
   const userPalette = useSelector(paletteCodeSelector);
   const displayName = useSelector(displayNameSelector);
   const accessToken = getCookie('accessToken');
 
-  useEffect(() => {
-    const fetchData = async () => {
+  const palette = useQuery({
+    queryKey: ['palette', userPalette],
+    queryFn: async () => {
       const data = await getSpecificPalette(userPalette);
-      setPalette(data);
-    };
-    fetchData();
-  }, []);
-
-  const userMoodColor = palette.find(color => {
+      return data;
+    },
+  });
+  const userMoodColor = palette?.data?.find(color => {
     if (userMood) {
       return userMood.mood === color.mood;
     } else {
       return 'inherit';
     }
   });
+
   const [isOpen, setIsOpen] = useState(false);
   const onClick = () => {
     setIsOpen(!isOpen);
