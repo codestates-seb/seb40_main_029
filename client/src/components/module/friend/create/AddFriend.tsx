@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { addFriend, getAllMembers } from '../../../../api/FriendDataApi';
 import useInput from '../../../../utils/useInput';
 import { displayNameSelector } from '../../../../redux/hooks';
@@ -15,31 +15,32 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Style from './Style';
 import { Friend } from '../FriendType';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 interface AddFriendType {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   friends: Friend[];
 }
 
-const AddFriend = ({ setIsOpen, friends, setfriendRefresh }: AddFriendType) => {
-  const [userList, setUserList] = useState([]);
+const AddFriend = ({ setIsOpen, friends }: AddFriendType) => {
   const [keyword, bindKeyword] = useInput('');
   const [respondentDisplayName, setRespondentDisplayName] = useState('');
   const requesterDisplayName = useSelector(displayNameSelector);
 
-  useEffect(() => {
-    const fetchData = async () => {
+  const userList = useQuery({
+    queryKey: ['user'],
+    queryFn: async () => {
       const data = await getAllMembers();
-      setUserList(data);
-    };
-    fetchData();
-  }, []);
+      return data;
+    },
+  });
+
   const CloseModal = () => {
     setIsOpen(false);
   };
 
-  const filteredMember = userList?.filter(member => {
-    const friendsNameArr = friends.map(friend => {
+  const filteredMember = userList?.data?.filter(member => {
+    const friendsNameArr = friends?.map(friend => {
       return friend.respondentDisplayName;
     });
     return (
@@ -50,9 +51,18 @@ const AddFriend = ({ setIsOpen, friends, setfriendRefresh }: AddFriendType) => {
     );
   });
 
+  interface AddFriendArg {
+    requesterDisplayName: string;
+    respondentDisplayName: string;
+  }
+  const mutation = useMutation({
+    mutationFn: (args: AddFriendArg) => {
+      const { requesterDisplayName, respondentDisplayName } = args;
+      return addFriend({ requesterDisplayName, respondentDisplayName });
+    },
+  });
   const handleAddFriend = () => {
-    addFriend({ requesterDisplayName, respondentDisplayName });
-    setfriendRefresh(refresh => refresh * -1);
+    mutation.mutate({ requesterDisplayName, respondentDisplayName });
     toast('친구를 추가했어요!');
   };
 
@@ -75,7 +85,6 @@ const AddFriend = ({ setIsOpen, friends, setfriendRefresh }: AddFriendType) => {
             <Style.InputBox>
               <Input
                 id="nickname"
-                border="shadow"
                 color="#f6f6f6"
                 placeholder="친구를 팔로잉해보세요!"
                 value={bindKeyword}

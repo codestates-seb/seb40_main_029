@@ -17,25 +17,15 @@ const MODAL_TYPES = {
   LookbackModal: 'LookbackModal',
 };
 
-function GlobalModal({
-  setHiddenCard,
-  lookbackRefresh,
-  lookbackRefresher,
-  pointRefresher,
-}: GlobalModalType) {
+function GlobalModal({ setHiddenCard }: GlobalModalType) {
   const MODAL_COMPONENTS = [
     {
       type: MODAL_TYPES.LetterModal,
-      component: <LetterModal pointRefresher={pointRefresher} />,
+      component: <LetterModal />,
     },
     {
       type: MODAL_TYPES.TodoModal,
-      component: (
-        <TodoModal
-          lookbackRefresher={lookbackRefresher}
-          pointRefresher={pointRefresher}
-        />
-      ),
+      component: <TodoModal lookbackRefresher={undefined} />,
     },
     {
       type: MODAL_TYPES.FriendModal,
@@ -43,7 +33,7 @@ function GlobalModal({
     },
     {
       type: MODAL_TYPES.ThemeModal,
-      component: <ThemeModal pointRefresher={pointRefresher} />,
+      component: <ThemeModal />,
     },
     {
       type: MODAL_TYPES.MonthlyModal,
@@ -54,7 +44,7 @@ function GlobalModal({
       component: (
         <YearlyLookBack
           setHiddenCard={setHiddenCard}
-          lookbackRefresh={lookbackRefresh}
+          lookbackRefresh={undefined}
         />
       ),
     },

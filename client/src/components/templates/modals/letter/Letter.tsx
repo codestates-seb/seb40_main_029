@@ -3,7 +3,7 @@ import Letters from '../../../module/letter/Letters';
 import LetterCreate from '../../../module/letter/create/LetterCreate';
 import Overlay from '../../../atoms/overlay/Overlay';
 
-const Letter = ({ pointRefresher }) => {
+const Letter = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -11,7 +11,7 @@ const Letter = ({ pointRefresher }) => {
       <Letters setIsOpen={setIsOpen} isOpen={isOpen} />
       {isOpen ? (
         <>
-          <LetterCreate setIsOpen={setIsOpen} pointRefresher={pointRefresher} />
+          <LetterCreate setIsOpen={setIsOpen} />
           <Overlay />
         </>
       ) : null}

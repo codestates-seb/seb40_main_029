@@ -6,29 +6,19 @@ import Header from '../../../module/header/Header';
 import MoodSelector from '../../../module/mood/MoodSelector';
 import GlobalModal from '../../modals/GlobalModal';
 import Mobile from '../mobileAlert/MobileAlert';
-import { GetPoint } from '../../../../api/GetPointApi';
+import { getPoint } from '../../../../api/GetPointApi';
 import { memberIdSelector } from '../../../../redux/hooks';
 import { selectModal } from '../../../../redux/modalSlice';
 import { getCookie } from '../../../../utils/cookie';
 import * as Style from './Style';
+import { useQuery } from '@tanstack/react-query';
 
 const Home = () => {
   const [mobile, setMobile] = useState();
-  const [userPoint, setUserPoint] = useState(1);
   const memberId = useSelector(memberIdSelector);
   const { modalType } = useSelector(selectModal);
   const [hiddenCard, setHiddenCard] = useState(false);
   const accessToken = getCookie('accessToken');
-
-  const [lookbackRefresh, setLookbackRefresh] = useState(-1);
-  const lookbackRefresher = () => {
-    setLookbackRefresh(lookbackRefresh * -1);
-  };
-
-  const [pointRefresh, setPointRefresh] = useState(-1);
-  const pointRefresher = () => {
-    setPointRefresh(pointRefresh * -1);
-  };
 
   useEffect(() => {
     if (modalType === 'LookbackModal' || modalType === 'MonthlyModal') {
@@ -38,11 +28,13 @@ const Home = () => {
     }
   }, [modalType]);
 
-  useEffect(() => {
-    (async () => {
-      setUserPoint(await GetPoint(memberId));
-    })();
-  }, [pointRefresh]);
+  const point = useQuery({
+    queryKey: ['point', memberId],
+    queryFn: async () => {
+      const data = await getPoint(memberId);
+      return data;
+    },
+  });
 
   const handleResize = () => {
     let width = window.innerWidth;
@@ -66,7 +58,7 @@ const Home = () => {
   }, []);
   return (
     <Style.Browser>
-      <Header point={userPoint} />
+      <Header point={point?.data} />
       {mobile ? (
         <ContentLayout>
           <Mobile />
@@ -75,18 +67,10 @@ const Home = () => {
         <ContentLayout>
           {hiddenCard ? null : (
             <div>
-              <MoodSelector
-                lookbackRefresher={lookbackRefresher}
-                pointRefresher={pointRefresher}
-              />
+              <MoodSelector />
             </div>
           )}
-          <GlobalModal
-            setHiddenCard={setHiddenCard}
-            lookbackRefresh={lookbackRefresh}
-            lookbackRefresher={lookbackRefresher}
-            pointRefresher={pointRefresher}
-          />
+          <GlobalModal setHiddenCard={setHiddenCard} />
         </ContentLayout>
       )}
     </Style.Browser>

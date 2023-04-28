@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const GetPoint = async memberId => {
+export const getPoint = async memberId => {
   const getURL = process.env.REACT_APP_BASIC_URL;
   const path = `/members/${memberId}`;
   return await axios.get(getURL + path).then(res => {

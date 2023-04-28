@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { memberIdSelector } from '../../../../redux/hooks';
 import { deleteMail, readMail } from '../../../../api/MailDataApi';
@@ -6,21 +5,20 @@ import ContentBox from '../../../atoms/contentBox/ContentBox';
 import { RightBottomLayout } from '../../../atoms/layout/Layouts';
 import * as Style from './Style';
 import { Mail } from '../Mail';
+import { useMutation } from '@tanstack/react-query';
 
 interface LetterPropsType {
-  mail: Mail; //편지 객체
+  letter: Mail; //편지 객체
   setCurrentMail: React.Dispatch<React.SetStateAction<number>>;
   currentMail: number; //pk
 }
 
 const LetterItem = ({
-  mail,
-  setMailRefresh,
+  letter,
   setCurrentMail,
   currentMail,
 }: LetterPropsType) => {
-  const { mailId, senderDisplayName, createdAt, body, verifyMail } = mail;
-  const [isOpen, setIsOpen] = useState(false);
+  const { mailId, senderDisplayName, createdAt, body, verifyMail } = letter;
   const memberId = useSelector(memberIdSelector);
   let date = 0;
   const FormatDate = (day: string) => {
@@ -42,23 +40,34 @@ const LetterItem = ({
   };
   FormatDetailDate(createdAt);
 
+  interface LetterArg {
+    memberId: number;
+    mailId: number;
+  }
+  const updateMutation = useMutation({
+    mutationFn: async ({ memberId, mailId }: LetterArg) => {
+      const data = await readMail(memberId, mailId);
+      return data;
+    },
+  });
   const handleOpenLetter = () => {
-    // setIsOpen(!isOpen);
     if (currentMail !== mailId) {
       setCurrentMail(mailId);
-      readMail(memberId, mailId);
-      setMailRefresh(refresh => refresh * -1);
+      updateMutation.mutate({ memberId, mailId });
     } else if (currentMail === mailId) {
       setCurrentMail(0);
     }
   };
+
+  const deleteMutation = useMutation({
+    mutationFn: ({ memberId, mailId }: LetterArg) => {
+      return deleteMail(memberId, mailId);
+    },
+  });
   const handleMailDelete = () => {
-    const fetchData = async () => {
-      await deleteMail(memberId, mailId);
-      setMailRefresh(refresh => refresh * -1);
-    };
-    fetchData();
+    deleteMutation.mutate({ memberId, mailId });
   };
+
   return (
     <>
       <ContentBox onClick={handleOpenLetter}>

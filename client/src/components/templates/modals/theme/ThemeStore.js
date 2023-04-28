@@ -21,7 +21,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import * as Style from './Style';
 
-export const ThemeStore = ({ pointRefresher }) => {
+export const ThemeStore = () => {
   const dispatch = useDispatch();
   const memberId = useSelector(memberIdSelector);
   const paletteCodeSelec = useSelector(paletteCodeSelector);
@@ -39,7 +39,6 @@ export const ThemeStore = ({ pointRefresher }) => {
     (async () => {
       const result = await BuyPalette(paletteCode, memberId);
       if (result) {
-        pointRefresher();
         toast('팔레트 구매가 완료되었습니다');
         dispatch(setMyPalette(paletteCode));
         setRefresher(refresher * -1);

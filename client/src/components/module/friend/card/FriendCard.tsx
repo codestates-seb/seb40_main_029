@@ -1,28 +1,21 @@
-import { useEffect, useState } from 'react';
-import {
-  deleteFriend,
-  getSpecificPalette,
-} from '../../../../api/FriendDataApi';
+import { deleteFriend } from '../../../../api/FriendDataApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import MiniCard from '../../../atoms/minicard/MiniCard';
-import { useSelector } from 'react-redux';
-import { paletteCodeSelector } from '../../../../redux/hooks';
 import * as Style from './Style';
 import { FriendCardType } from '../FriendType';
+import { useMutation } from '@tanstack/react-query';
 
-const FriendCard = ({
-  friend,
-  setfriendRefresh,
-  friendsColor,
-}: FriendCardType) => {
+const FriendCard = ({ friend, friendsColor }: FriendCardType) => {
+  const mutation = useMutation({
+    mutationFn: (friendId: number) => {
+      return deleteFriend(friendId);
+    },
+  });
+
   const handleDeleteFriend = () => {
     const friendId = friend.respondentId;
-    const fetchData = async () => {
-      await deleteFriend(friendId);
-      setfriendRefresh(refresh => refresh * -1);
-    };
-    fetchData();
+    mutation.mutate(friendId);
   };
 
   return (

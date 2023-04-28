@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { memberIdSelector } from '../../../redux/hooks';
 import { getCookie } from '../../../utils/cookie';
@@ -14,10 +14,10 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Style from './Style';
 import { ModalType } from '../../../types/ModalTypes';
+import { useQuery } from '@tanstack/react-query';
+import { Mail } from './Mail';
 
 const Letters = ({ setIsOpen, isOpen }: ModalType) => {
-  const [mails, setMails] = useState([]);
-  const [mailRefresh, setMailRefresh] = useState(1);
   const limit = 4;
   const [page, setPage] = useState(1);
   const [currentMail, setCurrentMail] = useState(0);
@@ -36,31 +36,33 @@ const Letters = ({ setIsOpen, isOpen }: ModalType) => {
     }
   };
   const memberId = useSelector(memberIdSelector);
-  useEffect(() => {
-    const fetchData = async () => {
+  const letters = useQuery({
+    queryKey: ['letter', memberId],
+    queryFn: async () => {
       const data = await getAllMails(memberId);
-      setMails(data.slice().reverse());
-    };
-    fetchData();
-  }, [mailRefresh]);
+      return data;
+    },
+  });
 
   return (
     <>
       {popup && <Overlay />}
       <MailModal>
         <Style.ContentWrap>
-          {mails ? (
-            mails.slice(offset, offset + limit).map((mail, i) => {
-              return (
-                <LetterItem
-                  key={i}
-                  mail={mail}
-                  setMailRefresh={setMailRefresh}
-                  setCurrentMail={setCurrentMail}
-                  currentMail={currentMail}
-                />
-              );
-            })
+          {letters ? (
+            letters?.data
+              ?.reverse()
+              .slice(offset, offset + limit)
+              .map((letter: Mail, i: number) => {
+                return (
+                  <LetterItem
+                    key={i}
+                    letter={letter}
+                    setCurrentMail={setCurrentMail}
+                    currentMail={currentMail}
+                  />
+                );
+              })
           ) : (
             <ContentBox>받은 편지가 없습니다.</ContentBox>
           )}
@@ -72,7 +74,7 @@ const Letters = ({ setIsOpen, isOpen }: ModalType) => {
         </Style.ContentWrap>
         <footer>
           <Pagination
-            total={mails.length}
+            total={letters?.data?.length}
             limit={limit}
             page={page}
             setPage={setPage}
