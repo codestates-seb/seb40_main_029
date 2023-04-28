@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { CenterLayout, RightBottomLayout } from '../../../atoms/layout/Layouts';
 import ContentBox from '../../../atoms/contentBox/ContentBox';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getFriends } from '../../../../api/FriendDataApi';
 import { sendMail } from '../../../../api/MailDataApi';
 import { memberIdSelector, displayNameSelector } from '../../../../redux/hooks';
@@ -13,20 +13,23 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Style from './Style';
 import { ModalType } from '../../../../types/ModalTypes';
+import { useQuery } from '@tanstack/react-query';
+import { Friend } from '../../friend/FriendType';
 
 type LetterCreateType = Pick<ModalType, 'setIsOpen'>;
-const LetterCreate = ({ setIsOpen, pointRefresher }: LetterCreateType) => {
-  const [friends, setFriends] = useState([]);
+const LetterCreate = ({ setIsOpen }: LetterCreateType) => {
   const [friend, setFriend] = useState('');
   const [letterBody, setLetterBody] = useState('');
+
   const memberId = useSelector(memberIdSelector);
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getFriends(memberId);
-      setFriends(data);
-    };
-    fetchData();
-  }, []);
+  const friends = useQuery({
+    queryKey: ['friend', memberId],
+    queryFn: async memberId => {
+      const data = getFriends(memberId);
+      return data;
+    },
+  });
+
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFriend(e.target.value);
   };
@@ -49,7 +52,6 @@ const LetterCreate = ({ setIsOpen, pointRefresher }: LetterCreateType) => {
       });
       setLetterBody('');
       toast(`${friend}에게 편지를 보냈습니다.(-60포인트)`);
-      pointRefresher();
       setIsOpen(false);
     } else if (friend === '') {
       toast('편지를 보낼 친구를 선택하세요');
@@ -81,7 +83,7 @@ const LetterCreate = ({ setIsOpen, pointRefresher }: LetterCreateType) => {
                 <Style.Selector name="friend" onChange={handleSelect}>
                   <Style.Option value="">친구목록</Style.Option>
                   {friends ? (
-                    friends.map(friend => {
+                    friends?.data?.map((friend: Friend) => {
                       return (
                         <Style.Option
                           key={friend.respondentId}
