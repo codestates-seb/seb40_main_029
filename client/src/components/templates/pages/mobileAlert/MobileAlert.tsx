@@ -9,9 +9,7 @@ const Mobile = () => {
       <Overlay />
       <Style.PopUp>
         <ContentBox>
-          <Style.LogoBox>
-            <Logo />
-          </Style.LogoBox>
+          <Style.LogoBox>{/* <Logo /> */}</Style.LogoBox>
           <h3>
             550px 이하 브라우저에서는
             <br /> 서비스를 이용할 수 없어요.
