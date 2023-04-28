@@ -12,7 +12,7 @@ const selected = 'selected/';
 const today = 'today/';
 const update = 'update/';
 
-const TodoList = ({ lookbackRefresher, pointRefresher }) => {
+const TodoList = ({ lookbackRefresher }) => {
   const memberId = `${useSelector(memberIdSelector)}/`;
 
   const [todoList, setTodoList] = useState([]);
@@ -57,7 +57,6 @@ const TodoList = ({ lookbackRefresher, pointRefresher }) => {
       });
       setTodoList(newTodoList);
       lookbackRefresher();
-      pointRefresher();
     });
   };
 
