@@ -24,7 +24,7 @@ const LetterCreate = ({ setIsOpen }: LetterCreateType) => {
   const memberId = useSelector(memberIdSelector);
   const friends = useQuery({
     queryKey: ['friend', memberId],
-    queryFn: async memberId => {
+    queryFn: async () => {
       const data = getFriends(memberId);
       return data;
     },

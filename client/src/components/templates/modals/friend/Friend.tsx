@@ -38,7 +38,7 @@ const Friends = () => {
   const id = useSelector(memberIdSelector);
   const friends = useQuery({
     queryKey: ['friend', id],
-    queryFn: async id => {
+    queryFn: async () => {
       const data = await getFriends(id);
       return data;
     },
@@ -72,7 +72,7 @@ const Friends = () => {
   const paletteCode = getPaletteCode ? getPaletteCode : 'P001';
   const palette = useQuery({
     queryKey: ['palette', paletteCode],
-    queryFn: async paletteCode => {
+    queryFn: async () => {
       const data = await getSpecificPalette(paletteCode);
       return data;
     },
