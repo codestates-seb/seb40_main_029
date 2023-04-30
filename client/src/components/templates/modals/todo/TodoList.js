@@ -41,7 +41,7 @@ const TodoList = ({ lookbackRefresher }) => {
       });
       setTodoList([...newTodoList, ...doneList]);
       todoReset();
-      lookbackRefresher();
+      // lookbackRefresher();
     });
   };
 
@@ -56,12 +56,13 @@ const TodoList = ({ lookbackRefresher }) => {
         selected: res.data.data.selected,
       });
       setTodoList(newTodoList);
-      lookbackRefresher();
+      // lookbackRefresher();
     });
   };
 
   const deleteTodo = todoId => {
-    axios.delete(URL + memberId + todoId).then(() => lookbackRefresher());
+    axios.delete(URL + memberId + todoId);
+    // axios.delete(URL + memberId + todoId).then(() => lookbackRefresher());
     setTodoList(todoList.filter(each => each.todoId !== todoId));
   };
 
@@ -75,7 +76,7 @@ const TodoList = ({ lookbackRefresher }) => {
         }
       }
       setTodoList([...safe, ...todoList]);
-      lookbackRefresher();
+      // lookbackRefresher();
     });
   };
 

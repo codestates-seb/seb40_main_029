@@ -47,9 +47,9 @@ const SelectorCard = ({
         // console.log(res.data);
         setFade(true);
         dispatch(setMood({ mood: moods[idx], reason }));
-        lookbackRefresher();
         pointRefresher();
         submitHandler();
+        // lookbackRefresher();
       });
   };
 
@@ -67,7 +67,7 @@ const SelectorCard = ({
       .then(_ => {
         setFade(true);
         dispatch(setMood({ mood: moods[idx], reason }));
-        lookbackRefresher();
+        // lookbackRefresher();
         pointRefresher();
       });
   };
