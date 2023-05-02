@@ -5,7 +5,7 @@ import ContentBox from '../../../atoms/contentBox/ContentBox';
 import { RightBottomLayout } from '../../../atoms/layout/Layouts';
 import * as Style from './Style';
 import { Mail } from '../Mail';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface LetterPropsType {
   letter: Mail; //편지 객체
@@ -44,10 +44,14 @@ const LetterItem = ({
     memberId: number;
     mailId: number;
   }
+  const queryClient = useQueryClient();
   const updateMutation = useMutation({
     mutationFn: async ({ memberId, mailId }: LetterArg) => {
       const data = await readMail(memberId, mailId);
       return data;
+    },
+    onSuccess: updatedLetter => {
+      queryClient.invalidateQueries(['letter'], updatedLetter);
     },
   });
   const handleOpenLetter = () => {
@@ -62,6 +66,9 @@ const LetterItem = ({
   const deleteMutation = useMutation({
     mutationFn: ({ memberId, mailId }: LetterArg) => {
       return deleteMail(memberId, mailId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['letter']);
     },
   });
   const handleMailDelete = () => {
