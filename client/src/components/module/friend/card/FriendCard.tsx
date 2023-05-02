@@ -4,12 +4,16 @@ import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import MiniCard from '../../../atoms/minicard/MiniCard';
 import * as Style from './Style';
 import { FriendCardType } from '../FriendType';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const FriendCard = ({ friend, friendsColor }: FriendCardType) => {
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (friendId: number) => {
       return deleteFriend(friendId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['friend']);
     },
   });
 

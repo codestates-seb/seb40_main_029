@@ -40,7 +40,7 @@ const Letters = ({ setIsOpen, isOpen }: ModalType) => {
     queryKey: ['letter', memberId],
     queryFn: async () => {
       const data = await getAllMails(memberId);
-      return data;
+      return data.reverse();
     },
   });
 
@@ -51,8 +51,7 @@ const Letters = ({ setIsOpen, isOpen }: ModalType) => {
         <Style.ContentWrap>
           {letters ? (
             letters?.data
-              ?.reverse()
-              .slice(offset, offset + limit)
+              ?.slice(offset, offset + limit)
               .map((letter: Mail, i: number) => {
                 return (
                   <LetterItem
