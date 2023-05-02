@@ -14,15 +14,17 @@ import {
   faUserGroup,
 } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { Tooltip } from '../types/ModalTypes';
 
 interface Modal {
   type: string;
   component: JSX.Element;
   label: string;
-  ModalIcon: typeof FontAwesomeIcon;
+  modalIcon: typeof FontAwesomeIcon;
   iconProp?: IconProp;
   isFull: boolean;
   withAuth: boolean;
+  tooltip?: Tooltip;
 }
 
 export const modalList: Modal[] = [
@@ -30,16 +32,20 @@ export const modalList: Modal[] = [
     type: 'LetterModal',
     component: <Letter />,
     label: '편지',
-    ModalIcon: FontAwesomeIcon,
+    modalIcon: FontAwesomeIcon,
     iconProp: faEnvelope,
     isFull: false,
     withAuth: false,
+    tooltip: {
+      info: '오른쪽 아래 + 버튼을 눌러서 친구에게 편지를 보낼 수 있어요.',
+      place: 'right',
+    },
   },
   {
     type: 'TodoModal',
     component: <TodoList lookbackRefresher={undefined} />,
     label: '오늘할일',
-    ModalIcon: FontAwesomeIcon,
+    modalIcon: FontAwesomeIcon,
     iconProp: faHighlighter,
     isFull: false,
     withAuth: false,
@@ -48,16 +54,20 @@ export const modalList: Modal[] = [
     type: 'FriendModal',
     component: <Friends />,
     label: '친구',
-    ModalIcon: FontAwesomeIcon,
+    modalIcon: FontAwesomeIcon,
     iconProp: faUserGroup,
     isFull: false,
     withAuth: false,
+    tooltip: {
+      info: '+ 버튼을 눌러서 친구의 무드카드를 얻어보세요.',
+      place: 'right',
+    },
   },
   {
     type: 'ThemeModal',
     component: <ThemeStore />,
     label: '색상테마',
-    ModalIcon: FontAwesomeIcon,
+    modalIcon: FontAwesomeIcon,
     iconProp: faStore,
     isFull: false,
     withAuth: false,
@@ -66,7 +76,7 @@ export const modalList: Modal[] = [
     type: 'MonthlyModal',
     component: <MonthlyLookback setHiddenCard={undefined} />,
     label: '한달기록',
-    ModalIcon: FontAwesomeIcon,
+    modalIcon: FontAwesomeIcon,
     iconProp: faCalendarDays,
     isFull: true,
     withAuth: true,
@@ -77,7 +87,7 @@ export const modalList: Modal[] = [
       <LookBack lookbackRefresh={undefined} setHiddenCard={undefined} />
     ),
     label: '일년기록',
-    ModalIcon: FontAwesomeIcon,
+    modalIcon: FontAwesomeIcon,
     iconProp: faFilm,
     isFull: true,
     withAuth: true,
