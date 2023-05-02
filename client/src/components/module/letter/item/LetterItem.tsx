@@ -5,7 +5,13 @@ import ContentBox from '../../../atoms/contentBox/ContentBox';
 import { RightBottomLayout } from '../../../atoms/layout/Layouts';
 import * as Style from './Style';
 import { Mail } from '../Mail';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/ko';
+
+dayjs.extend(relativeTime);
+dayjs.locale('ko');
 
 interface LetterPropsType {
   letter: Mail; //편지 객체
@@ -20,34 +26,26 @@ const LetterItem = ({
 }: LetterPropsType) => {
   const { mailId, senderDisplayName, createdAt, body, verifyMail } = letter;
   const memberId = useSelector(memberIdSelector);
-  let date = 0;
-  const FormatDate = (day: string) => {
-    const formatter = new Intl.RelativeTimeFormat('ko', { numeric: 'auto' });
-    const sendDay = new Date(day);
-    const today = new Date();
-    const base = Math.ceil(
-      (sendDay.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-    );
-    date = Number(formatter.format(base > -1 ? -1 : base, 'day'));
-  };
-  FormatDate(createdAt);
 
-  let detailDate = 0;
-  const FormatDetailDate = (day: string) => {
-    const formatter = new Intl.DateTimeFormat('ko');
-    const sendDay = new Date(day);
-    detailDate = Number(formatter.format(sendDay));
+  const getRelativeTime = (date: string) => {
+    return dayjs(date).fromNow();
   };
-  FormatDetailDate(createdAt);
+
+  let date = getRelativeTime(createdAt);
+  let detailDate = dayjs(createdAt).format('YYYY년 MM월 DD일');
 
   interface LetterArg {
     memberId: number;
     mailId: number;
   }
+  const queryClient = useQueryClient();
   const updateMutation = useMutation({
     mutationFn: async ({ memberId, mailId }: LetterArg) => {
       const data = await readMail(memberId, mailId);
       return data;
+    },
+    onSuccess: updatedLetter => {
+      queryClient.invalidateQueries(['letter'], updatedLetter);
     },
   });
   const handleOpenLetter = () => {
@@ -62,6 +60,9 @@ const LetterItem = ({
   const deleteMutation = useMutation({
     mutationFn: ({ memberId, mailId }: LetterArg) => {
       return deleteMail(memberId, mailId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['letter']);
     },
   });
   const handleMailDelete = () => {

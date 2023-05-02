@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Style from './Style';
 import { Friend } from '../FriendType';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface AddFriendType {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -55,10 +55,14 @@ const AddFriend = ({ setIsOpen, friends }: AddFriendType) => {
     requesterDisplayName: string;
     respondentDisplayName: string;
   }
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (args: AddFriendArg) => {
       const { requesterDisplayName, respondentDisplayName } = args;
       return addFriend({ requesterDisplayName, respondentDisplayName });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['friend']);
     },
   });
   const handleAddFriend = () => {
