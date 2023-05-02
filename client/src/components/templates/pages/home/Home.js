@@ -11,7 +11,7 @@ import { memberIdSelector } from '../../../../redux/hooks';
 import { selectModal } from '../../../../redux/modalSlice';
 import { getCookie } from '../../../../utils/cookie';
 import * as Style from './Style';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 const Home = () => {
   const [mobile, setMobile] = useState();
@@ -28,11 +28,15 @@ const Home = () => {
     }
   }, [modalType]);
 
+  const queryClient = useQueryClient();
   const point = useQuery({
     queryKey: ['point', memberId],
     queryFn: async () => {
       const data = await getPoint(memberId);
       return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['point']);
     },
   });
 
