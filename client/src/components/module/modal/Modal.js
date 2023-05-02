@@ -3,17 +3,12 @@ import {
   faXmark,
   faHighlighter,
   faStore,
-  faUserGroup,
   faFilm,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  faEnvelope,
-  faCircleQuestion,
-} from '@fortawesome/free-regular-svg-icons';
+import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
 import ReactTooltip from 'react-tooltip';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../redux/modalSlice';
-import TooltipButton from '../../atoms/button/tooltipButton/TooltipButton';
 import * as Style from './Style';
 
 const TodoModal = ({ children, lookBack }) => {
@@ -43,31 +38,6 @@ const TodoModal = ({ children, lookBack }) => {
   );
 };
 
-const MailModal = ({ children }) => {
-  const dispatch = useDispatch();
-  const handleCloseModal = () => {
-    dispatch(closeModal());
-  };
-  return (
-    <Style.Mail>
-      <Style.Header>
-        <Style.Title>
-          편지함
-          <FontAwesomeIcon icon={faEnvelope} />
-          <TooltipButton
-            info="오른쪽 아래 + 버튼을 눌러서 친구에게 편지를 보낼 수 있어요."
-            place="right"
-          />
-        </Style.Title>
-        <Style.Button onClick={handleCloseModal}>
-          <FontAwesomeIcon icon={faXmark} size="lg" />
-        </Style.Button>
-      </Style.Header>
-      <Style.Utility>{children}</Style.Utility>
-    </Style.Mail>
-  );
-};
-
 const StoreModal = ({ children }) => {
   const dispatch = useDispatch();
   const handleCloseModal = () => {
@@ -89,36 +59,10 @@ const StoreModal = ({ children }) => {
   );
 };
 
-const FriendModal = ({ children }) => {
+const LookBackModal = ({ children }) => {
   const dispatch = useDispatch();
   const handleCloseModal = () => {
     dispatch(closeModal());
-  };
-  return (
-    <Style.Mail>
-      <Style.Header>
-        <Style.Title>
-          친구
-          <FontAwesomeIcon icon={faUserGroup} />
-          <TooltipButton
-            info="+ 버튼을 눌러서 친구의 무드카드를 얻어보세요."
-            place="right"
-          />
-        </Style.Title>
-        <Style.Button onClick={handleCloseModal}>
-          <FontAwesomeIcon icon={faXmark} size="lg" />
-        </Style.Button>
-      </Style.Header>
-      <Style.Utility>{children}</Style.Utility>
-    </Style.Mail>
-  );
-};
-
-const LookBackModal = ({ children, setHiddenCard }) => {
-  const dispatch = useDispatch();
-  const handleCloseModal = () => {
-    dispatch(closeModal());
-    setHiddenCard(false);
   };
   return (
     <Style.Calendar>
@@ -140,4 +84,4 @@ const LookBackModal = ({ children, setHiddenCard }) => {
   );
 };
 
-export { TodoModal, MailModal, StoreModal, FriendModal, LookBackModal };
+export { TodoModal, StoreModal, LookBackModal };
