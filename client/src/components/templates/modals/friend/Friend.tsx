@@ -8,7 +8,7 @@ import { RightBottomLayout } from '../../../atoms/layout/Layouts';
 import Button from '../../../atoms/button/commonButton/Button';
 import Overlay from '../../../atoms/overlay/Overlay';
 import Pagination from '../../../atoms/pagination/Pagination';
-import { FriendModal } from '../../../module/modal/Modal';
+import BasicModal from '../../../atoms/modal/ModalItem';
 import AddFriend from '../../../module/friend/create/AddFriend';
 import FriendCard from '../../../module/friend/card/FriendCard';
 import { toast } from 'react-toastify';
@@ -16,7 +16,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import * as Style from './Style';
 import { useQuery } from '@tanstack/react-query';
 import { Friend } from '../../../module/friend/FriendType';
-import { PaletteCode } from '../../../../types/UserType';
 
 const Friends = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,7 +80,7 @@ const Friends = () => {
   return (
     <>
       {popup && <Overlay />}
-      <FriendModal>
+      <BasicModal modalType="FriendModal">
         <Style.CardLayout>
           {friends
             ? friends.data
@@ -115,7 +114,7 @@ const Friends = () => {
             setPage={setPage}
           />
         </footer>
-      </FriendModal>
+      </BasicModal>
       {isOpen ? (
         <>
           <AddFriend setIsOpen={setIsOpen} friends={friends.data} />

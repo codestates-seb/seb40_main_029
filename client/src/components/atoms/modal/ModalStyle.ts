@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Blueprint = styled.div`
+export const Basic = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,6 +11,8 @@ export const Blueprint = styled.div`
   transition: all 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
   animation: slideIn 0.5s;
   width: 100%;
+  height: 500px;
+  position: relative;
 
   @keyframes slideIn {
     0% {
@@ -22,25 +24,6 @@ export const Blueprint = styled.div`
       opacity: 1;
     }
   }
-`;
-
-export const Todo = styled(Blueprint)`
-  height: 500px;
-`;
-
-export const Basic = styled(Blueprint)`
-  height: 500px;
-  position: relative;
-`;
-
-export const Store = styled(Blueprint)`
-  width: 100%;
-  height: 500px;
-`;
-
-export const Calendar = styled(Blueprint)`
-  width: 100%;
-  height: 600px;
 `;
 
 export const Header = styled.div`
@@ -82,13 +65,7 @@ export const Info = styled(Button)`
   cursor: pointer;
 `;
 
-export const RealButton = styled.button`
-  background-color: transparent;
-  border: none;
-  margin-left: 4px;
-`;
-
-export const Utility = styled.div`
+export const Content = styled.div`
   height: 100%;
   width: 100%;
 `;
