@@ -24,7 +24,7 @@ const Home = () => {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(['point']);
+      queryClient.invalidateQueries(['point', memberId]);
     },
   });
 
