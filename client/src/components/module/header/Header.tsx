@@ -1,46 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import Username from '../../atoms/username/Username';
 import TooltipButton from '../../atoms/button/tooltipButton/TooltipButton';
 import Bookmark from './bookmark/Bookmark';
 import Nav from './gnb/Nav';
-import GoogleLogin from './login/GoogleLogin';
-import { getCookie } from '../../../utils/cookie';
-import { getSpecificPalette } from '../../../api/FriendDataApi';
-import { useSelector } from 'react-redux';
-import {
-  moodSelector,
-  paletteCodeSelector,
-  displayNameSelector,
-} from '../../../redux/hooks';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import * as Style from './HeaderStyle';
-import { UserType } from '../../../types/UserType';
-import { useQuery } from '@tanstack/react-query';
+import User from './user/User';
 
-type UserPoint = Pick<UserType, 'point'>;
-
-function Header({ point }: UserPoint) {
-  const userMood = useSelector(moodSelector);
-  const userPalette = useSelector(paletteCodeSelector);
-  const displayName = useSelector(displayNameSelector);
-  const accessToken = getCookie('accessToken');
-
-  const palette = useQuery({
-    queryKey: ['palette', userPalette],
-    queryFn: async () => {
-      const data = await getSpecificPalette(userPalette);
-      return data;
-    },
-  });
-  const userMoodColor = palette?.data?.find(color => {
-    if (userMood) {
-      return userMood.mood === color.mood;
-    } else {
-      return 'inherit';
-    }
-  });
-
+function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const onClick = () => {
     setIsOpen(!isOpen);
@@ -57,6 +22,7 @@ function Header({ point }: UserPoint) {
       document.removeEventListener('mousedown', clickOut);
     };
   }, [isOpen]);
+
   return (
     <>
       <Style.HeaderWrapper>
@@ -75,26 +41,7 @@ function Header({ point }: UserPoint) {
           </Style.BookmarkWrapper>
         </div>
         <Style.GnbLayout ref={ref}>
-          {accessToken ? (
-            <>
-              <Username onClick={onClick} color={userMoodColor?.colorCode}>
-                {displayName}
-              </Username>
-              <Style.Point>
-                <FontAwesomeIcon icon={faSackDollar} />
-                {point}
-              </Style.Point>
-            </>
-          ) : (
-            <>
-              <Style.Contain>
-                <Username onClick={onClick} />
-                <Style.LoginBtnContain>
-                  <GoogleLogin />
-                </Style.LoginBtnContain>
-              </Style.Contain>
-            </>
-          )}
+          <User onClick={onClick} />
           {isOpen ? <Nav /> : null}
         </Style.GnbLayout>
       </Style.HeaderWrapper>
