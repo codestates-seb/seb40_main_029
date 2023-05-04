@@ -9,7 +9,7 @@ import { RightBottomLayout } from '../../atoms/layout/Layouts';
 import Pagination from '../../atoms/pagination/Pagination';
 import Overlay from '../../atoms/overlay/Overlay';
 import LetterItem from './item/LetterItem';
-import { MailModal } from '../modal/Modal';
+import BasicModal from '../../atoms/modal/ModalItem';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Style from './Style';
@@ -40,19 +40,18 @@ const Letters = ({ setIsOpen, isOpen }: ModalType) => {
     queryKey: ['letter', memberId],
     queryFn: async () => {
       const data = await getAllMails(memberId);
-      return data;
+      return data.reverse();
     },
   });
 
   return (
     <>
       {popup && <Overlay />}
-      <MailModal>
+      <BasicModal modalType="LetterModal">
         <Style.ContentWrap>
           {letters ? (
             letters?.data
-              ?.reverse()
-              .slice(offset, offset + limit)
+              ?.slice(offset, offset + limit)
               .map((letter: Mail, i: number) => {
                 return (
                   <LetterItem
@@ -80,7 +79,7 @@ const Letters = ({ setIsOpen, isOpen }: ModalType) => {
             setPage={setPage}
           />
         </footer>
-      </MailModal>
+      </BasicModal>
     </>
   );
 };
