@@ -9,22 +9,18 @@ import { getPoint } from '../../../../api/GetPointApi';
 import { memberIdSelector } from '../../../../redux/hooks';
 import { getCookie } from '../../../../utils/cookie';
 import * as Style from './Style';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 const Home = () => {
   const [mobile, setMobile] = useState();
   const memberId = useSelector(memberIdSelector);
   const accessToken = getCookie('accessToken');
 
-  const queryClient = useQueryClient();
   const point = useQuery({
     queryKey: ['point', memberId],
     queryFn: async () => {
       const data = await getPoint(memberId);
       return data;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(['point', memberId]);
     },
   });
 
