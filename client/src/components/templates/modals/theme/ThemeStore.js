@@ -20,6 +20,7 @@ import {
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import * as Style from './Style';
+import useUpdatePoint from '../../../../utils/useUpdatePoint';
 
 export const ThemeStore = () => {
   const dispatch = useDispatch();
@@ -35,11 +36,13 @@ export const ThemeStore = () => {
   const accessToken = getCookie('accessToken');
   const lastIndex = 5;
 
+  const updatePoint = useUpdatePoint();
   const handleBuy = (paletteCode, memberId) => {
     (async () => {
       const result = await BuyPalette(paletteCode, memberId);
       if (result) {
         toast('팔레트 구매가 완료되었습니다');
+        updatePoint(memberId);
         dispatch(setMyPalette(paletteCode));
         setRefresher(refresher * -1);
       }
