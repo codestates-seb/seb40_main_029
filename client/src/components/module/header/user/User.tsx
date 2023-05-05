@@ -44,7 +44,7 @@ const User = ({ onClick }) => {
           <Username onClick={onClick} color={userMoodColor?.colorCode}>
             {displayName}
           </Username>
-          <PointDisplay />
+          {/* <PointDisplay /> */}
         </>
       ) : (
         <>
