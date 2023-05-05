@@ -15,7 +15,6 @@ import * as Style from './Style';
 import { ModalType } from '../../../../types/ModalTypes';
 import { useQuery } from '@tanstack/react-query';
 import { Friend } from '../../friend/FriendType';
-import useUpdatePoint from '../../../../utils/useUpdatePoint';
 
 type LetterCreateType = Pick<ModalType, 'setIsOpen'>;
 const LetterCreate = ({ setIsOpen }: LetterCreateType) => {
@@ -30,7 +29,6 @@ const LetterCreate = ({ setIsOpen }: LetterCreateType) => {
       return data;
     },
   });
-  const updatePoint = useUpdatePoint();
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFriend(e.target.value);
@@ -54,7 +52,6 @@ const LetterCreate = ({ setIsOpen }: LetterCreateType) => {
       });
       setLetterBody('');
       toast(`${friend}에게 편지를 보냈습니다.(-60포인트)`);
-      updatePoint(memberId);
       setIsOpen(false);
     } else if (friend === '') {
       toast('편지를 보낼 친구를 선택하세요');

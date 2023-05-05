@@ -5,24 +5,12 @@ import { ContentLayout } from '../../../atoms/layout/Layouts';
 import Header from '../../../module/header/Header';
 import GlobalModal from '../../modals/GlobalModal';
 import Mobile from '../mobileAlert/MobileAlert';
-import { getPoint } from '../../../../api/GetPointApi';
-import { memberIdSelector } from '../../../../redux/hooks';
 import { getCookie } from '../../../../utils/cookie';
 import * as Style from './Style';
-import { useQuery } from '@tanstack/react-query';
 
 const Home = () => {
   const [mobile, setMobile] = useState();
-  const memberId = useSelector(memberIdSelector);
   const accessToken = getCookie('accessToken');
-
-  const point = useQuery({
-    queryKey: ['point', memberId],
-    queryFn: async () => {
-      const data = await getPoint(memberId);
-      return data;
-    },
-  });
 
   const handleResize = () => {
     let width = window.innerWidth;
@@ -47,7 +35,7 @@ const Home = () => {
 
   return (
     <Style.Browser>
-      <Header point={point?.data} />
+      <Header />
       {mobile ? (
         <ContentLayout>
           <Mobile />
