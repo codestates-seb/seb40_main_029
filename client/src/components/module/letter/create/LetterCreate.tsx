@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Style from './Style';
 import { ModalType } from '../../../../types/ModalTypes';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Friend } from '../../friend/FriendType';
 
 type LetterCreateType = Pick<ModalType, 'setIsOpen'>;
@@ -22,12 +22,10 @@ const LetterCreate = ({ setIsOpen }: LetterCreateType) => {
   const [letterBody, setLetterBody] = useState('');
 
   const memberId = useSelector(memberIdSelector);
+  const queryClient = useQueryClient();
   const friends = useQuery({
     queryKey: ['friend', memberId],
-    queryFn: async () => {
-      const data = getFriends(memberId);
-      return data;
-    },
+    queryFn: getFriends,
   });
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -52,6 +50,8 @@ const LetterCreate = ({ setIsOpen }: LetterCreateType) => {
       });
       setLetterBody('');
       toast(`${friend}에게 편지를 보냈습니다.(-60포인트)`);
+      // 포인트(유저정보) 다시 받아오기
+      queryClient.invalidateQueries(['userInfo', memberId]);
       setIsOpen(false);
     } else if (friend === '') {
       toast('편지를 보낼 친구를 선택하세요');
