@@ -37,10 +37,7 @@ const Friends = () => {
   const id = useSelector(memberIdSelector);
   const friends = useQuery({
     queryKey: ['friend', id],
-    queryFn: async () => {
-      const data = await getFriends(id);
-      return data;
-    },
+    queryFn: getFriends,
   });
 
   const [page, setPage] = useState(1);
