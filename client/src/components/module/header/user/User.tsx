@@ -16,7 +16,10 @@ const User = ({ onClick }) => {
   // userInfo
   const memberId = useSelector(memberIdSelector);
   const { data, isLoading, isError } = useQuery(['userInfo', memberId], {
-    queryFn: getUserInfo,
+    queryFn: async () => {
+      const data = await getUserInfo(memberId);
+      return data;
+    },
   });
 
   if (isLoading) {
@@ -25,7 +28,7 @@ const User = ({ onClick }) => {
   if (isError) {
     return <div>유저의 정보를 받아오던 중 에러 발생</div>;
   }
-  const userInfo = data[0];
+  const userInfo = data;
 
   const userMoodColor = userPalette?.data?.find(color => {
     if (userMood) {
