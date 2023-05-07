@@ -28,11 +28,8 @@ const AddFriend = ({ setIsOpen, friends }: AddFriendType) => {
   const requesterDisplayName = useSelector(displayNameSelector);
 
   const userList = useQuery({
-    queryKey: ['user'],
-    queryFn: async () => {
-      const data = await getAllMembers();
-      return data;
-    },
+    queryKey: ['userList'],
+    queryFn: getAllMembers,
   });
 
   const CloseModal = () => {
