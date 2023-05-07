@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import TooltipButton from '../../atoms/button/tooltipButton/TooltipButton';
 import Bookmark from './bookmark/Bookmark';
-import Nav from './gnb/Nav';
 import * as Style from './HeaderStyle';
 import User from './user/User';
+import Gnb from './gnb/Gnb';
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +42,7 @@ function Header() {
         </div>
         <Style.GnbLayout ref={ref}>
           <User onClick={onClick} />
-          {isOpen ? <Nav /> : null}
+          {isOpen ? <Gnb /> : null}
         </Style.GnbLayout>
       </Style.HeaderWrapper>
     </>
