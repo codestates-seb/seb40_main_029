@@ -23,10 +23,10 @@ const User = ({ onClick }) => {
   });
 
   if (isLoading) {
-    return null;
+    return <div>loading</div>;
   }
   if (isError) {
-    return <div>유저의 정보를 받아오던 중 에러 발생</div>;
+    return <div>error</div>;
   }
   const userInfo = data;
 
