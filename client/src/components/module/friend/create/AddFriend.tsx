@@ -63,8 +63,12 @@ const AddFriend = ({ setIsOpen, friends }: AddFriendType) => {
     },
   });
   const handleAddFriend = () => {
-    mutation.mutate({ requesterDisplayName, respondentDisplayName });
-    toast('친구를 추가했어요!');
+    !requesterDisplayName
+      ? toast('먼저 로그인해주세요', {
+          className: 'toast-login',
+        })
+      : (mutation.mutate({ requesterDisplayName, respondentDisplayName }),
+        toast('친구를 추가했어요!'));
   };
 
   return (
