@@ -20,13 +20,6 @@ const User = ({ onClick }) => {
     },
   });
 
-  if (isLoading) {
-    return <div>loading</div>;
-  }
-  if (isError) {
-    return <div>error</div>;
-  }
-
   const userInfo = data;
   // todayMood
   const dayMood = useQuery({
@@ -35,8 +28,14 @@ const User = ({ onClick }) => {
       const data = await getDayMood(userInfo?.displayName);
       return data;
     },
+    enabled: !!userInfo,
   });
-
+  if (isLoading) {
+    return <div>loading</div>;
+  }
+  if (isError) {
+    return <div>error</div>;
+  }
   return (
     <>
       {accessToken ? (
