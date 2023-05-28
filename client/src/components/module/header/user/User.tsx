@@ -4,20 +4,27 @@ import * as Style from '../HeaderStyle';
 import { memberIdSelector } from '../../../../redux/hooks';
 import GoogleLogin from '../login/GoogleLogin';
 import Username from '../../../atoms/username/Username';
-import { moodSelector, paletteCodeSelector } from '../../../../redux/hooks';
 import PointDisplay from './PointDisplay';
 import { useQuery } from '@tanstack/react-query';
 import { getUserInfo } from '../../../../api/UserInfoAPI';
+import { getDayMood } from '../../../../api/MoodApi';
 
 const User = ({ onClick }) => {
   const accessToken = getCookie('accessToken');
-  const userMood = useSelector(moodSelector);
-  const userPalette = useSelector(paletteCodeSelector);
   // userInfo
   const memberId = useSelector(memberIdSelector);
   const { data, isLoading, isError } = useQuery(['userInfo', memberId], {
     queryFn: async () => {
       const data = await getUserInfo(memberId);
+      return data;
+    },
+  });
+  const userInfo = data;
+  // todayMood
+  const dayMood = useQuery({
+    queryKey: ['dayMood'],
+    queryFn: async () => {
+      const data = await getDayMood(userInfo?.displayName);
       return data;
     },
   });
@@ -28,21 +35,15 @@ const User = ({ onClick }) => {
   if (isError) {
     return <div>error</div>;
   }
-  const userInfo = data;
-
-  const userMoodColor = userPalette?.data?.find(color => {
-    if (userMood) {
-      return userMood.mood === color.mood;
-    } else {
-      return 'inherit';
-    }
-  });
 
   return (
     <>
       {accessToken ? (
         <>
-          <Username onClick={onClick} color={userMoodColor?.colorCode}>
+          <Username
+            onClick={onClick}
+            color={dayMood?.data?.moodPaletteDetails?.colorCode}
+          >
             {userInfo?.displayName}
           </Username>
           <PointDisplay point={userInfo?.point} />
