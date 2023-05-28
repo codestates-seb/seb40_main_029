@@ -8,18 +8,6 @@ export const getFriends = async memberId => {
   return res.data;
 };
 
-export const getAllPalette = async () => {
-  const res = await axios.get(serverUrl + '/palette');
-  // const res = await axios.get(mockUrl + '/palette');
-  return res.data;
-};
-
-export const getSpecificPalette = async paletteCode => {
-  const res = await axios.get(serverUrl + `/palette/${paletteCode}`);
-  // const res = await axios.get(mockUrl + `/palette?paletteCode=${paletteCode}`);
-  return res.data;
-};
-
 export const getAllMembers = async () => {
   const res = await axios.get(serverUrl + '/members');
   // const res = await axios.get(mockUrl + '/members');
