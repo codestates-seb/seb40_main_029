@@ -7,7 +7,6 @@ export const Basic = styled.div`
   flex-direction: column;
   background-color: white;
   border-radius: 20px;
-  margin-left: 16px;
   transition: all 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
   animation: slideIn 0.5s;
   width: 100%;
