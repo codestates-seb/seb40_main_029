@@ -13,17 +13,20 @@ const User = ({ onClick }) => {
   const accessToken = getCookie('accessToken');
   // userInfo
   const memberId = useSelector(memberIdSelector);
-  const { data, isLoading, isError } = useQuery(['userInfo', memberId], {
+  const {
+    data: userInfo,
+    isLoading,
+    isError,
+  } = useQuery(['userInfo', memberId], {
     queryFn: async () => {
       const data = await getUserInfo(memberId);
       return data;
     },
   });
 
-  const userInfo = data;
   // todayMood
   const dayMood = useQuery({
-    queryKey: ['dayMood'],
+    queryKey: ['dayMood', userInfo?.displayName],
     queryFn: async () => {
       const data = await getDayMood(userInfo?.displayName);
       return data;
