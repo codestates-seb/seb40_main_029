@@ -17,7 +17,7 @@ const IsFullModal: React.FC<FullPageProp> = ({ isFull, children }) => {
           />
         </div>
       )}
-      <div>{children}</div>
+      <div style={children ? { width: '100%' } : null}>{children}</div>
     </ContentLayout>
   );
 };
