@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { memberIdSelector } from '../../../../redux/hooks';
 import { paletteCodeSelector } from '../../../../redux/hooks';
-import { getFriends, getSpecificPalette } from '../../../../api/FriendDataApi';
+import { getFriends } from '../../../../api/FriendDataApi';
 import { RightBottomLayout } from '../../../atoms/layout/Layouts';
 import Button from '../../../atoms/button/commonButton/Button';
 import Overlay from '../../../atoms/overlay/Overlay';
@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import * as Style from './Style';
 import { useQuery } from '@tanstack/react-query';
 import { Friend } from '../../../module/friend/FriendType';
+import { getSpecificPalette } from '../../../../api/PaletteApi';
 
 const Friends = () => {
   const [isOpen, setIsOpen] = useState(false);
