@@ -1,5 +1,6 @@
 import { ContentLayout } from '../../atoms/layout/Layouts';
 import MoodSelector from '../../module/mood/MoodSelector';
+import { ModalContainer } from './IsFullModalStyle';
 
 interface FullPageProp {
   isFull: boolean;
@@ -17,7 +18,7 @@ const IsFullModal: React.FC<FullPageProp> = ({ isFull, children }) => {
           />
         </div>
       )}
-      <div style={children ? { width: '100%' } : null}>{children}</div>
+      {children ? <ModalContainer>{children}</ModalContainer> : null}
     </ContentLayout>
   );
 };
