@@ -40,10 +40,6 @@ const User = ({ onClick }) => {
   }
   return (
     <>
-      <Username
-        onClick={onClick}
-        color={dayMood?.data?.moodPaletteDetails?.colorCode}
-      ></Username>
       {accessToken ? (
         <>
           <Username
