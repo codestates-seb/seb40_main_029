@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 export const PopUp = styled.div`
   z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   button {
     margin-right: -10px;
   }
